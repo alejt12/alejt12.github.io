@@ -3,22 +3,101 @@
 <head>
     <title>Cosmiatría - Cuidado y Belleza</title>
     <style>
-        body {font-family: 'Segoe UI', sans-serif; margin: 0; padding: 0; background: linear-gradient(135deg, #fef7fa, #f0e4ee); color: #4a2c4a;}
-        header {background: linear-gradient(90deg, #9c6b8c, #b888a8); color: white; text-align: center; padding: 40px 20px;}
-        h1 {margin: 0; font-size: 38px;}
-        section {max-width: 800px; margin: 30px auto; padding: 20px 30px; background: white; border-radius: 16px; box-shadow: 0 4px 12px rgba(156,107,140,.15);}
-        h2 {color: #804f74; border-bottom: 2px solid #e4d4de; padding-bottom: 8px;}
-        .servicios ul {list-style: none; padding: 0;}
-        .servicios li {padding: 10px 0; border-bottom: 1px solid #f0e4ee;}
-        .contacto {text-align: center; background: #f9f2f7;}
-        footer {text-align: center; padding: 15px; color: #7a5c72; font-size: 14px;}
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fef7fa, #f0e4ee);
+            color: #4a2c4a;
+        }
+        header {
+            background: linear-gradient(90deg, #9c6b8c, #b888a8);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 38px;
+        }
+        section {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px 30px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(156, 107, 140, 0.15);
+        }
+        h2 {
+            color: #804f74;
+            border-bottom: 2px solid #e4d4de;
+            padding-bottom: 8px;
+        }
+        .servicios ul {
+            list-style: none;
+            padding: 0;
+        }
+        .boton {
+            display: inline-block;
+            background: linear-gradient(90deg, #9c6b8c, #b888a8);
+            color: white;
+            padding: 12px 25px;
+            margin: 8px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s, opacity 0.3s;
+        }
+        .boton:hover {
+            transform: scale(1.05);
+            opacity: 0.9;
+        }
+        .contacto {
+            text-align: center;
+            background: #f9f2f7;
+        }
+        footer {
+            text-align: center;
+            padding: 15px;
+            color: #7a5c72;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
-<header><h1>✨ Cosmiatría ✨</h1><p>Cuidado de la piel, belleza y bienestar</p></header>
-<section><h2>¿Qué es la Cosmiatría?</h2><p>Es la especialidad que combina conocimientos de medicina y estética para cuidar, proteger y embellecer tu piel 💜</p></section>
-<section class="servicios"><h2>Nuestros Servicios</h2><ul><li>🌿 Limpieza facial profunda</li><li>💆‍♀️ Hidratación y nutrición</li><li>✨ Exfoliación y renovación</li><li>🌸 Tratamientos para piel sensible</li><li>💎 Asesoría personalizada</li></ul></section>
-<section class="contacto"><h2>📍 Contacto</h2><p><strong>Ubicación:</strong> Toluca, México</p><p>💜 Tu piel lo merece 💜</p></section>
-<footer>© 2026 Cosmiatría</footer>
+
+<header>
+    <h1>✨ Cosmiatría ✨</h1>
+    <p>Cuidado de la piel, belleza y bienestar</p>
+    <a href="#servicios" class="boton">Ver Servicios</a>
+    <a href="#contacto" class="boton">Contacto</a>
+</header>
+
+<section>
+    <h2>¿Qué es la Cosmiatría?</h2>
+    <p>Es la especialidad que combina conocimientos de medicina y estética para cuidar, proteger y embellecer tu piel. Tratamientos personalizados para que luzcas y te sientas increíble 💜</p>
+</section>
+
+<section class="servicios" id="servicios">
+    <h2>Nuestros Servicios</h2>
+    <a href="#" class="boton">🌿 Limpieza Facial</a>
+    <a href="#" class="boton">💆‍♀️ Hidratación</a>
+    <a href="#" class="boton">✨ Exfoliación</a>
+    <a href="#" class="boton">🌸 Piel Sensible</a>
+    <a href="#" class="boton">💎 Asesoría</a>
+</section>
+
+<section class="contacto" id="contacto">
+    <h2>📍 Contacto</h2>
+    <p><strong>Ubicación:</strong> Toluca, México</p>
+    <p><strong>Agenda tu cita:</strong> escribe para reservar</p>
+    <a href="mailto:tu-correo@ejemplo.com" class="boton">📧 Escríbenos</a>
+    <p>💜 Tu piel lo merece 💜</p>
+</section>
+
+<footer>
+    © 2026 Cosmiatría — Todos los derechos reservados
+</footer>
+
 </body>
 </html>
