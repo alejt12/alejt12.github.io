@@ -172,16 +172,12 @@
             color: #7a6c7c;
             font-size: 15px;
         }
-
-        /* 💜 Sobre mí */
         .sobre-mi {
             background: linear-gradient(135deg, #fef7fa, #f3eaf8);
             padding: 25px;
             border-radius: 15px;
             border-left: 5px solid #b888a8;
         }
-
-        /* ⭐ Opiniones */
         .testimonio {
             background: #fef7fa;
             padding: 18px;
@@ -238,8 +234,6 @@
         .opinion-recibida.visible {
             display: block;
         }
-
-        /* 📆 Tabla de Horarios */
         .tabla-horarios {
             width: 100%;
             border-collapse: collapse;
@@ -258,8 +252,6 @@
             color: #dc2743;
             font-weight: bold;
         }
-
-        /* 📋 Productos */
         .productos {
             background: #fef7fa;
             padding: 20px;
@@ -267,8 +259,6 @@
             border-left: 4px solid #b888a8;
             text-align: center;
         }
-
-        /* 🛡️ Aviso de Privacidad */
         .aviso-privacidad {
             background: #f9f9f9;
             padding: 18px;
@@ -278,8 +268,6 @@
             color: #555;
             text-align: justify;
         }
-
-        /* 💬 WhatsApp flotante */
         .whatsapp-flotante {
             position: fixed;
             bottom: 25px;
@@ -299,8 +287,6 @@
         .whatsapp-flotante:hover {
             transform: scale(1.15);
         }
-
-        /* 🔒 INICIO DE SESIÓN Y REGISTRO */
         .caja-cuenta {
             background: #fffef0;
             padding: 25px;
@@ -330,15 +316,6 @@
         }
         .error { color: #dc3545; }
         .exito { color: #28a745; }
-        .enlace-cuenta {
-            background: none;
-            border: none;
-            color: #7b5b8c;
-            text-decoration: underline;
-            cursor: pointer;
-            font-size: 15px;
-            margin-top: 10px;
-        }
         .panel-admin {
             background: #fffef0;
             padding: 20px;
@@ -350,20 +327,30 @@
         .panel-admin.activo {
             display: block;
         }
-        .panel-admin input[type="file"] {
+        .panel-admin input[type="file"], .panel-admin input[type="text"] {
             margin: 10px 0;
             width: 100%;
+            padding: 10px;
+            font-size: 15px;
+            border: 2px solid #f0d8a0;
+            border-radius: 8px;
         }
         .salir {
             text-align: right;
             margin-bottom: 10px;
         }
         .oculto { display: none !important; }
+        .agenda-item {
+            background: #fffef0;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border-left: 3px solid #f0ad4e;
+        }
     </style>
 </head>
 <body>
 
-<!-- 💬 WhatsApp flotante -->
 <a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
@@ -396,25 +383,21 @@
         <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
         <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel. Ideal para todo tipo de piel.</p>
     </div>
-
     <div id="hidratacion" class="caja-informacion">
         <h3>💆‍♀️ Hidratación y Nutrición</h3>
         <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
         <p><strong>¿En qué consiste?</strong> Hidratantes profundos que devuelven la suavidad y elasticidad. Tu piel se sentirá renovada.</p>
     </div>
-
     <div id="exfoliacion" class="caja-informacion">
         <h3>✨ Exfoliación y Renovación</h3>
         <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. 🌟</p>
         <p><strong>¿En qué consiste?</strong> Retiramos las células viejas para que nazca piel nueva. Quita manchas y deja el brillo natural.</p>
     </div>
-
     <div id="piel" class="caja-informacion">
         <h3>🌸 Tratamiento para Piel Sensible</h3>
         <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
         <p><strong>¿En qué consiste?</strong> Tratamientos especiales sin químicos fuertes. Protegen y calman tu piel delicada.</p>
     </div>
-
     <div id="asesoria" class="caja-informacion">
         <h3>💎 Asesoría Personalizada</h3>
         <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
@@ -422,23 +405,63 @@
     </div>
 </section>
 
-<!-- 📆 HORARIOS -->
 <section>
     <h2>📆 Horarios de Atención</h2>
-    <table class="tabla-horarios">
+    
+    <!-- 🔐 SOLO ELLA PUEDE EDITAR -->
+    <div class="caja-cuenta" id="cajaCuentaHorario">
+        <h3>🔐 Administrar Horarios y Agenda</h3>
+        <input type="email" id="correoAdminHorario" placeholder="✉️ Correo: laya@gmail.com">
+        <input type="password" id="contraseñaAdminHorario" placeholder="🔑 Contraseña">
+        <div class="mensaje" id="mensajeCuentaHorario"></div>
+        <br>
+        <button class="boton boton-naranja" onclick="entrarAdministracionHorarios()">Entrar para Editar</button>
+    </div>
+
+    <!-- ✅ PANEL SOLO PARA ELLA -->
+    <div class="oculto" id="zonaEditarHorarios">
+        <div class="salir">
+            <button class="boton boton-rojo" onclick="cerrarSesionHorarios()">🚪 Cerrar Sesión</button>
+        </div>
+        <div class="panel-admin activo">
+            <h3 style="text-align:center; margin-top:0;">✏️ Modificar Horarios</h3>
+            <p style="text-align:center; font-size:14px;">Cambia los horarios y da clic en GUARDAR</p>
+            <input type="text" id="horarioLunes" placeholder="Lunes ej: 9:00 AM — 6:00 PM">
+            <input type="text" id="horarioMartes" placeholder="Martes">
+            <input type="text" id="horarioMiercoles" placeholder="Miércoles">
+            <input type="text" id="horarioJueves" placeholder="Jueves">
+            <input type="text" id="horarioViernes" placeholder="Viernes">
+            <input type="text" id="horarioSabado" placeholder="Sábado">
+            <br>
+            <button class="boton boton-verde" onclick="guardarHorarios()">✅ Guardar Cambios</button>
+            <div class="mensaje exito" id="mensajeGuardadoHorario"></div>
+            <hr style="border:1px solid #f0d8a0; margin:20px 0;">
+            <h3 style="text-align:center;">📅 Agregar Cita a la Agenda</h3>
+            <input type="text" id="fechaCita" placeholder="Fecha ej: 28 de Agosto">
+            <input type="text" id="nombreCliente" placeholder="Nombre de la cliente">
+            <input type="text" id="horaCita" placeholder="Hora ej: 10:00 AM">
+            <input type="text" id="tipoTratamiento" placeholder="Tratamiento">
+            <button class="boton boton-verde" onclick="agregarCita()">✅ Agregar a la Agenda</button>
+        </div>
+    </div>
+
+    <!-- 📆 LO QUE VEN TODOS -->
+    <table class="tabla-horarios" id="tablaHorarios">
         <tr><th>Día</th><th>Horario</th></tr>
-        <tr><td>📅 Lunes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>📅 Martes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>📅 Miércoles</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>📅 Jueves</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>📅 Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>📅 Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
+        <tr><td>📅 Lunes</td><td id="h-lunes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Martes</td><td id="h-martes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Miércoles</td><td id="h-miercoles">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Jueves</td><td id="h-jueves">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Viernes</td><td id="h-viernes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Sábado</td><td id="h-sabado">9:00 AM — 3:00 PM</td></tr>
         <tr><td>☀️ Domingo</td><td class="dia-descanso">Descanso</td></tr>
     </table>
+
+    <h3 style="text-align:center; margin-top:30px;">📅 Agenda de Citas</h3>
+    <div id="listaCitas"></div>
     <p style="text-align:center; margin-top:15px;">💜 <strong>Se requiere cita previa agendada</strong></p>
 </section>
 
-<!-- 📋 PRODUCTOS -->
 <section>
     <h2>🌿 Productos que utilizo</h2>
     <div class="productos">
@@ -450,10 +473,8 @@
     </div>
 </section>
 
-<!-- ⭐ OPINIONES -->
 <section>
     <h2>⭐ Opiniones de mis clientas</h2>
-
     <div class="testimonio">
         "¡Mi piel quedó hermosa y suave! Gracias Lic. Laiza por su paciencia y dedicación. 💜"
         <div class="testimonio-nombre">— María ⭐⭐⭐⭐⭐</div>
@@ -466,7 +487,6 @@
         "Ambiente muy agradable y tratamientos de calidad. ¡Regreso seguro! 💜"
         <div class="testimonio-nombre">— Karla ⭐⭐⭐⭐⭐</div>
     </div>
-
     <div class="caja-opinion">
         <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
         <div class="estrellas" id="estrellasCalificacion">
@@ -483,45 +503,32 @@
         </div>
         <div id="mensajeOpinion" class="opinion-recibida">
             <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜 Se envió correctamente.</p>
-            <p style="text-align:center; font-size:14px;">La Lic. Laiza la leerá pronto. ✨</p>
         </div>
     </div>
 </section>
 
-<!-- 📸 FOTOS CON ADMINISTRACIÓN -->
 <section>
     <h2>📸 Galería de Fotos</h2>
-
-    <!-- 🔒 INICIO DE SESIÓN / REGISTRO SOLO PARA ADMINISTRAR FOTOS -->
-    <div class="caja-cuenta" id="cajaCuenta">
-        <h3 id="tituloCuenta">🔐 Iniciar Sesión</h3>
-        <input type="email" id="correo" placeholder="✉️ Tu correo electrónico">
-        <input type="password" id="contraseña" placeholder="🔑 Tu contraseña">
-        <div class="mensaje" id="mensajeCuenta"></div>
+    <div class="caja-cuenta" id="cajaCuentaFotos">
+        <h3>🔐 Administrar Fotos</h3>
+        <input type="email" id="correoAdminFoto" placeholder="✉️ Correo: laya@gmail.com">
+        <input type="password" id="contraseñaAdminFoto" placeholder="🔑 Contraseña">
+        <div class="mensaje" id="mensajeCuentaFoto"></div>
         <br>
-        <button class="boton boton-naranja" id="botonAccion" onclick="iniciarSesion()">Entrar</button>
-        <br>
-        <button class="enlace-cuenta" id="cambiarModo" onclick="cambiarModoCuenta()">¿No tienes cuenta? Regístrate aquí</button>
+        <button class="boton boton-naranja" onclick="entrarAdministracionFotos()">Entrar para Subir</button>
     </div>
-
-    <!-- ✅ CUANDO YA ENTRÓ DE ADMIN -->
-    <div class="oculto" id="zonaAdmin">
+    <div class="oculto" id="zonaEditarFotos">
         <div class="salir">
-            <button class="boton boton-rojo" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+            <button class="boton boton-rojo" onclick="cerrarSesionFotos()">🚪 Cerrar Sesión</button>
         </div>
-        <div class="panel-admin" id="panelAdmin">
+        <div class="panel-admin activo">
             <h3 style="text-align:center; margin-top:0;">📷 Agregar Nueva Foto</h3>
-            <p style="text-align:center; font-size:14px;">Selecciona una foto desde tu celular o computadora:</p>
             <input type="file" id="entradaFoto" accept="image/*" onchange="agregarFoto(event)">
-            <p style="text-align:center; font-size:13px; color:#666;">💜 Las fotos se guardan automáticamente</p>
         </div>
     </div>
-
-    <!-- 📸 LAS FOTOS SE VEN AQUÍ PARA TODO EL MUNDO -->
     <div class="galeria" id="galeriaFotos"></div>
 </section>
 
-<!-- 📋 MÁS INFORMACIÓN -->
 <section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
@@ -529,19 +536,17 @@
         <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
         <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
         <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ubicación</a>
-        <a href="https://www.instagram.com/skin_carelaya/?__pwa=1" target="_blank" class="boton boton-instagram">📷 Instagram</a>
+        <a href="https://www.instagram.com/skin_carelaya/" target="_blank" class="boton boton-instagram">📷 Instagram</a>
     </div>
-
     <div id="agendar" class="caja-informacion">
         <h3>📅 Agendar tu Cita</h3>
         <p>💬 Escríbeme por WhatsApp o llámame para apartar tu cita.</p>
         <p>📞 <strong>Teléfono y WhatsApp:</strong> 729 633 6318</p>
-        <p>📍 Estoy en Toluca, Estado de México</p>
+        <p>📍 Toluca, Estado de México</p>
         <p>💜 ¡Te espero con mucho gusto!</p>
     </div>
 </section>
 
-<!-- 📍 CONTACTO -->
 <section class="contacto">
     <h2>📍 Contacto</h2>
     <h3>💜 Lic. Laiza González Robles</h3>
@@ -550,11 +555,10 @@
     <p>📷 Instagram: <a href="https://www.instagram.com/skin_carelaya/" target="_blank">@skin_carelaya</a></p>
 </section>
 
-<!-- 🛡️ AVISO DE PRIVACIDAD -->
 <section>
     <h2>🛡️ Aviso de Privacidad</h2>
     <div class="aviso-privacidad">
-        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos que compartas a través de esta página no se almacenan ni se comparten con terceros. Al enviar tu opinión o agendar una cita, tu información se maneja con confianza y respeto. 💜</p>
+        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos compartidos en esta página se manejan con confianza y respeto. 💜</p>
     </div>
 </section>
 
@@ -563,168 +567,156 @@
 </footer>
 
 <script>
-// ⭐ CALIFICACIÓN DE ESTRELLAS
-let calificacion = 0;
+// 🔑 DATOS FIJOS DE ELLA
+const CORREO_ADMIN = "laya@gmail.com";
+const CONTRASEÑA_ADMIN = "Laya2026";
 
+// ⭐ Calificar opinión
+let calificacion = 0;
 function calificar(cantidad) {
-    calificacion = 5 - cantidad + 1;
-    const estrellas = document.querySelectorAll('#estrellasCalificacion span');
-    estrellas.forEach((estrella, indice) => {
-        estrella.classList.toggle('estrella-seleccionada', (indice + 1) <= calificacion);
+    calificacion = cantidad;
+    document.querySelectorAll('#estrellasCalificacion span').forEach((e,i) => {
+       .classList.toggle('estrella-seleccionada', (i+1) <= cantidad);
     });
 }
-
 function enviarOpinion() {
-    const nombre = document.getElementById('nombreOpinion').value.trim();
-    const texto = document.getElementById('textoOpinion').value.trim();
-    
-    if (!nombre || !texto || calificacion === 0) {
-        alert('⚠️ Por favor completa tu nombre, opinión y calificación con estrellas.');
-        return;
-    }
-
-    const mensaje = `⭐ NUEVA OPINIÓN RECIBIDA ⭐
-
-Nombre: ${nombre}
-Calificación: ${"⭐".repeat(calificacion)}
-Opinión: ${texto}
-
-💜 Recibido desde Cosmiatría Laya`;
-
-    window.open(`https://wa.me/5217296336318?text=${encodeURIComponent(mensaje)}`, '_blank');
-    
+    const n = document.getElementById('nombreOp').value.trim();
+    const t = document.getElementById('textoOpinion').value.trim();
+    if (!n || !t || calificacion === 0) { alert('⚠️ Completa todos los datos'); return; }
+    const mensaje = `⭐ NUEVA OPINIÓN:\\nNombre: ${n}\\nCalificación:${'⭐'.repeat(calificacion)}\\nOpinión: ${t}`;
+    window.open(`https://wa.me/5217296336318?text=${encodeURIComponent(mensaje)}`,'_blank');
     document.getElementById('mensajeOpinion').classList.add('visible');
-    document.getElementById('nombreOpinion').value = '';
-    document.getElementById('textoOpinion').value = '';
-    calificacion = 0;
-    document.querySelectorAll('#estrellasCalificacion span').forEach(e => e.classList.remove('estrella-seleccionada'));
 }
-
-// 📂 MOSTRAR SECCIONES
 function mostrarSeccion(id) {
-    const secciones = document.querySelectorAll('.caja-informacion');
-    secciones.forEach(s => s.classList.remove('mostrar'));
+    document.querySelectorAll('.caja-informacion').forEach(s => s.classList.remove('mostrar'));
     document.getElementById(id).classList.add('mostrar');
 }
 
-// 🔐 SISTEMA DE CUENTA (Registro e Inicio de Sesión)
-let modoRegistro = false;
-let cuentaAdministrador = JSON.parse(localStorage.getItem('cuentaAdmin')) || null;
-
-function cambiarModoCuenta() {
-    modoRegistro = !modoRegistro;
-    document.getElementById('tituloCuenta').textContent = modoRegistro ? '📝 Registrarse como Administradora' : '🔐 Iniciar Sesión';
-    document.getElementById('botonAccion').textContent = modoRegistro ? 'Registrarse' : 'Entrar';
-    document.getElementById('cambiarModo').textContent = modoRegistro ? '¿Ya tienes cuenta? Entra aquí' : '¿No tienes cuenta? Regístrate aquí';
-    document.getElementById('mensajeCuenta').textContent = '';
-    document.getElementById('mensajeCuenta').className = 'mensaje';
-}
-
-function iniciarSesion() {
-    const correo = document.getElementById('correo').value.trim();
-    const contraseña = document.getElementById('contraseña').value;
-    const mensaje = document.getElementById('mensajeCuenta');
-
-    if (!correo || !contraseña) {
-        mensaje.textContent = '⚠️ Escribe tu correo y contraseña';
-        mensaje.className = 'mensaje error';
-        return;
-    }
-
-    if (modoRegistro) {
-        // REGISTRAR NUEVA CUENTA
-        cuentaAdministrador = { correo, contraseña };
-        localStorage.setItem('cuentaAdmin', JSON.stringify(cuentaAdministrador));
-        localStorage.setItem('sesionActiva', 'SI');
-        mensaje.textContent = '✅ ¡Registrada con éxito! Entrando...';
-        mensaje.className = 'mensaje exito';
-        setTimeout(entrarAdmin, 1200);
+// 📆 HORARIOS — SOLO ELLA EDITA
+function entrarAdministracionHorarios() {
+    const correo = document.getElementById('correoAdminHorario').value.trim();
+    const pass = document.getElementById('contraseñaAdminHorario').value;
+    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
+        document.getElementById('cajaCuentaHorario').classList.add('oculto');
+        document.getElementById('zonaEditarHorarios').classList.remove('oculto');
+        cargarHorariosEnCampos();
     } else {
-        // INICIAR SESIÓN
-        if (!cuentaAdministrador) {
-            mensaje.textContent = '❌ No hay cuenta registrada. Regístrate primero.';
-            mensaje.className = 'mensaje error';
-            return;
-        }
-        if (correo === cuentaAdministrador.correo && contraseña === cuentaAdministrador.contraseña) {
-            localStorage.setItem('sesionActiva', 'SI');
-            mensaje.textContent = '✅ ¡Bienvenida, Administradora!';
-            mensaje.className = 'mensaje exito';
-            setTimeout(entrarAdmin, 1000);
-        } else {
-            mensaje.textContent = '❌ Correo o contraseña incorrectos';
-            mensaje.className = 'mensaje error';
-        }
+        document.getElementById('mensajeCuentaHorario').textContent = '❌ Datos incorrectos';
+        document.getElementById('mensajeCuentaHorario').className = 'mensaje error';
     }
 }
-
-function entrarAdmin() {
-    document.getElementById('cajaCuenta').classList.add('oculto');
-    document.getElementById('zonaAdmin').classList.remove('oculto');
-    document.getElementById('panelAdmin').classList.add('activo');
-    cargarFotosGuardadas();
+function cerrarSesionHorarios() {
+    document.getElementById('cajaCuentaHorario').classList.remove('oculto');
+    document.getElementById('zonaEditarHorarios').classList.add('oculto');
+    document.getElementById('correoAdminHorario').value = '';
+    document.getElementById('contraseñaAdminHorario').value = '';
+}
+function guardarHorarios() {
+    const horarios = {
+        lunes: document.getElementById('horarioLunes').value || '9:00 AM — 6:00 PM',
+        martes: document.getElementById('horarioMartes').value || '9:00 AM — 6:00 PM',
+        miercoles: document.getElementById('horarioMiercoles').value || '9:00 AM — 6:00 PM',
+        jueves: document.getElementById('horarioJueves').value || '9:00 AM — 6:00 PM',
+        viernes: document.getElementById('horarioViernes').value || '9:00 AM — 6:00 PM',
+        sabado: document.getElementById('horarioSabado').value || '9:00 AM — 3:00 PM'
+    };
+    localStorage.setItem('horariosGuardados', JSON.stringify(horarios));
+    aplicarHorarios(horarios);
+    document.getElementById('mensajeGuardadoHorario').textContent = '✅ ¡Guardado correctamente!';
+}
+function cargarHorariosEnCampos() {
+    const h = JSON.parse(localStorage.getItem('horariosGuardados')) || {};
+    document.getElementById('horarioLunes').value = h.lunes || '9:00 AM — 6:00 PM';
+    document.getElementById('horarioMartes').value = h.martes || '9:00 AM — 6:00 PM';
+    document.getElementById('horarioMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
+    document.getElementById('horarioJueves').value = h.jueves || '9:00 AM — 6:00 PM';
+    document.getElementById('horarioViernes').value = h.viernes || '9:00 AM — 6:00 PM';
+    document.getElementById('horarioSabado').value = h.sabado || '9:00 AM — 3:00 PM';
+}
+function aplicarHorarios(h) {
+    document.getElementById('h-lunes').textContent = h.lunes;
+    document.getElementById('h-martes').textContent = h.martes;
+    document.getElementById('h-miercoles').textContent = h.miercoles;
+    document.getElementById('h-jueves').textContent = h.jueves;
+    document.getElementById('h-viernes').textContent = h.viernes;
+    document.getElementById('h-sabado').textContent = h.sabado;
 }
 
-function cerrarSesion() {
-    localStorage.removeItem('sesionActiva');
-    document.getElementById('cajaCuenta').classList.remove('oculto');
-    document.getElementById('zonaAdmin').classList.add('oculto');
-    document.getElementById('correo').value = '';
-    document.getElementById('contraseña').value = '';
-    document.getElementById('mensajeCuenta').textContent = '🔒 Sesión cerrada correctamente';
-    document.getElementById('mensajeCuenta').className = 'mensaje exito';
+// 📅 AGENDA DE CITAS
+let citas = JSON.parse(localStorage.getItem('agendaCitas')) || [];
+function agregarCita() {
+    const fecha = document.getElementById('fechaCita').value.trim();
+    const nombre = document.getElementById('nombreCliente').value.trim();
+    const hora = document.getElementById('horaCita').value.trim();
+    const tratamiento = document.getElementById('tipoTratamiento').value.trim();
+    if (!fecha || !nombre || !hora || !tratamiento) { alert('⚠️ Completa todos los datos'); return; }
+    citas.push({fecha, nombre, hora, tratamiento});
+    localStorage.setItem('agendaCitas', JSON.stringify(citas));
+    renderCitas();
+    document.getElementById('fechaCita').value='';
+    document.getElementById('nombreCliente').value='';
+    document.getElementById('horaCita').value='';
+    document.getElementById('tipoTratamiento').value='';
+}
+function renderCitas() {
+    const div = document.getElementById('listaCitas');
+    div.innerHTML = '';
+    citas.forEach((c,i)=>{
+        div.innerHTML += `<div class="agenda-item">📅 ${c.fecha} — ⏰ ${c.hora}<br>👤 ${c.nombre}<br>💆‍♀️ ${c.tratamiento} <button style="float:right;background:#dc3545;color:white;border:none;border-radius:5px;padding:3px 8px;cursor:pointer" onclick="borrarCita(${i})">×</button></div>`;
+    });
+}
+function borrarCita(i) {
+    if(confirm('¿Eliminar esta cita?')){ citas.splice(i,1); localStorage.setItem('agendaCitas', JSON.stringify(citas)); renderCitas(); }
 }
 
-// ✅ VERIFICAR SI YA TENÍA SESIÓN ABIERTA AL CARGAR LA PÁGINA
-window.onload = function() {
-    if (localStorage.getItem('sesionActiva') === 'SI') {
-        entrarAdmin();
+// 📸 FOTOS — SOLO ELLA
+function entrarAdministracionFotos() {
+    const correo = document.getElementById('correoAdminFoto').value.trim();
+    const pass = document.getElementById('contraseñaAdminFoto').value;
+    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
+        document.getElementById('cajaCuentaFotos').classList.add('oculto');
+        document.getElementById('zonaEditarFotos').classList.remove('oculto');
+    } else {
+        document.getElementById('mensajeCuentaFoto').textContent = '❌ Datos incorrectos';
+        document.getElementById('mensajeCuentaFoto').className = 'mensaje error';
     }
-    cargarFotosGuardadas();
-};
-
-// 📸 GESTIÓN DE FOTOS
+}
+function cerrarSesionFotos() {
+    document.getElementById('cajaCuentaFotos').classList.remove('oculto');
+    document.getElementById('zonaEditarFotos').classList.add('oculto');
+    document.getElementById('correoAdminFoto').value = '';
+    document.getElementById('contraseñaAdminFoto').value = '';
+}
 let listaFotos = JSON.parse(localStorage.getItem('fotosGaleria')) || [];
-
-function agregarFoto(evento) {
-    const archivo = evento.target.files[0];
-    if (!archivo) return;
-
+function agregarFoto(e) {
+    const archivo = e.target.files[0];
+    if(!archivo) return;
     const lector = new FileReader();
-    lector.onload = function(e) {
-        const urlFoto = e.target.result;
-        listaFotos.push(urlFoto);
+    lector.onload = function(evt){
+        listaFotos.push(evt.target.result);
         localStorage.setItem('fotosGaleria', JSON.stringify(listaFotos));
-        mostrarFoto(urlFoto, listaFotos.length - 1);
+        renderFotos();
     };
     lector.readAsDataURL(archivo);
 }
-
-function cargarFotosGuardadas() {
-    const galeria = document.getElementById('galeriaFotos');
-    galeria.innerHTML = '';
-    listaFotos.forEach((url, indice) => mostrarFoto(url, indice));
+function renderFotos() {
+    const div = document.getElementById('galeriaFotos');
+    div.innerHTML = '';
+    listaFotos.forEach((url,i)=>{
+        div.innerHTML += `<div class="foto-contenedor"><img src="${url}" class="foto"><button class="boton-borrar-foto" onclick="borrarFoto(${i})">×</button></div>`;
+    });
+}
+function borrarFoto(i){
+    if(confirm('¿Eliminar foto?')){ listaFotos.splice(i,1); localStorage.setItem('fotosGaleria', JSON.stringify(listaFotos)); renderFotos(); }
 }
 
-function mostrarFoto(url, indice) {
-    const galeria = document.getElementById('galeriaFotos');
-    const contenedor = document.createElement('div');
-    contenedor.className = 'foto-contenedor';
-    contenedor.innerHTML = `
-        <img src="${url}" class="foto" alt="Foto de Cosmiatría">
-        <button class="boton-borrar-foto" title="Eliminar foto" onclick="borrarFoto(${indice})">×</button>
-    `;
-    galeria.appendChild(contenedor);
-}
-
-function borrarFoto(indice) {
-    if (confirm('¿Segura que quieres borrar esta foto?')) {
-        listaFotos.splice(indice, 1);
-        localStorage.setItem('fotosGaleria', JSON.stringify(listaFotos));
-        cargarFotosGuardadas();
-    }
-}
+// ✅ AL CARGAR LA PÁGINA
+window.onload = function(){
+    const h = JSON.parse(localStorage.getItem('horariosGuardados'));
+    if(h) aplicarHorarios(h);
+    renderCitas();
+    renderFotos();
+};
 </script>
-
 </body>
 </html>
