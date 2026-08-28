@@ -51,6 +51,13 @@
             transform: scale(1.05);
             opacity: 0.9;
         }
+        .info-servicio {
+            background: #fef7fa;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 12px;
+            border-left: 4px solid #9c6b8c;
+        }
         .contacto {
             text-align: center;
             background: #f9f2f7;
@@ -64,7 +71,7 @@
         hr {
             border: none;
             border-top: 1px dashed #e4d4de;
-            margin: 20px 0;
+            margin: 25px 0;
         }
     </style>
 </head>
@@ -84,31 +91,45 @@
 
 <section class="servicios" id="servicios">
     <h2>Nuestros Servicios</h2>
+    <p>👇 Presiona cada botón para ver su información:</p>
 
-    <a href="#limpieza" class="boton">🌿 Limpieza Facial</a>
-    <a href="#hidratacion" class="boton">💆‍♀️ Hidratación</a>
-    <a href="#exfoliacion" class="boton">✨ Exfoliación</a>
-    <a href="#piel" class="boton">🌸 Piel Sensible</a>
-    <a href="#asesoria" class="boton">💎 Asesoría</a>
+    <a href="#info-limpieza" class="boton">🌿 Limpieza Facial</a>
+    <a href="#info-hidratacion" class="boton">💆‍♀️ Hidratación</a>
+    <a href="#info-exfoliacion" class="boton">✨ Exfoliación</a>
+    <a href="#info-piel" class="boton">🌸 Piel Sensible</a>
+    <a href="#info-asesoria" class="boton">💎 Asesoría</a>
 
-    <h3 id="limpieza">🌿 Limpieza Facial Profunda</h3>
-    <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel quedará limpia, suave y radiante. ✨</p>
     <hr>
 
-    <h3 id="hidratacion">💆‍♀️ Hidratación y Nutrición</h3>
-    <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
-    <hr>
+    <div id="info-limpieza" class="info-servicio">
+        <h3>🌿 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel quedará limpia, suave y radiante. ✨</p>
+        <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel. Ideal para todo tipo de piel.</p>
+    </div>
 
-    <h3 id="exfoliacion">✨ Exfoliación y Renovación</h3>
-    <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. 🌟</p>
-    <hr>
+    <div id="info-hidratacion" class="info-servicio">
+        <h3>💆‍♀️ Hidratación y Nutrición</h3>
+        <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
+        <p><strong>¿En qué consiste?</strong> Hidratantes profundos que devuelven la suavidad y elasticidad. Tu piel se sentirá renovada.</p>
+    </div>
 
-    <h3 id="piel">🌸 Tratamiento para Piel Sensible</h3>
-    <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
-    <hr>
+    <div id="info-exfoliacion" class="info-servicio">
+        <h3>✨ Exfoliación y Renovación</h3>
+        <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. 🌟</p>
+        <p><strong>¿En qué consiste?</strong> Retiramos las células viejas para que nazca piel nueva. Quita manchas y deja el brillo natural.</p>
+    </div>
 
-    <h3 id="asesoria">💎 Asesoría Personalizada</h3>
-    <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
+    <div id="info-piel" class="info-servicio">
+        <h3>🌸 Tratamiento para Piel Sensible</h3>
+        <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
+        <p><strong>¿En qué consiste?</strong> Tratamientos especiales sin químicos fuertes. Protegen y calman tu piel delicada.</p>
+    </div>
+
+    <div id="info-asesoria" class="info-servicio">
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
+        <p><strong>¿En qué consiste?</strong> Evaluamos tu piel y te damos una rutina personalizada para cuidarla en casa.</p>
+    </div>
 </section>
 
 <section class="contacto" id="contacto">
