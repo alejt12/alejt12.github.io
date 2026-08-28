@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmiatría Laya</title>
     <style>
         body {
@@ -69,6 +71,18 @@
         .boton-verde:hover {
             background: linear-gradient(90deg, #45a049, #3d8b40);
         }
+        .boton-naranja {
+            background: linear-gradient(90deg, #f0ad4e, #ec971f);
+        }
+        .boton-naranja:hover {
+            background: linear-gradient(90deg, #ec971f, #d68910);
+        }
+        .boton-rojo {
+            background: linear-gradient(90deg, #dc3545, #c82333);
+        }
+        .boton-rojo:hover {
+            background: linear-gradient(90deg, #c82333, #b51f2e);
+        }
         .boton-llamar {
             background: linear-gradient(90deg, #4CAF50, #45a049);
         }
@@ -96,12 +110,12 @@
             display: none;
             animation: aparecer 0.4s ease;
         }
+        .caja-informacion.mostrar {
+            display: block;
+        }
         @keyframes aparecer {
             from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-        .caja-informacion.mostrar {
-            display: block;
         }
         .galeria {
             display: flex;
@@ -116,13 +130,29 @@
             background: #e4d4de;
             border-radius: 12px;
             object-fit: cover;
+        }
+        .foto-contenedor {
+            position: relative;
+            display: inline-block;
+        }
+        .boton-borrar-foto {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 39, 67, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+        .foto-contenedor:hover .boton-borrar-foto {
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 14px;
-            color: #7b5b8c;
-            text-align: center;
-            padding: 10px;
         }
         .contacto {
             text-align: center;
@@ -143,7 +173,7 @@
             font-size: 15px;
         }
 
-        /* 💜 Sobre la Licenciada */
+        /* 💜 Sobre mí */
         .sobre-mi {
             background: linear-gradient(135deg, #fef7fa, #f3eaf8);
             padding: 25px;
@@ -151,7 +181,7 @@
             border-left: 5px solid #b888a8;
         }
 
-        /* ⭐ Testimonios y Opiniones */
+        /* ⭐ Opiniones */
         .testimonio {
             background: #fef7fa;
             padding: 18px;
@@ -249,7 +279,7 @@
             text-align: justify;
         }
 
-        /* 💬 Botón flotante de WhatsApp */
+        /* 💬 WhatsApp flotante */
         .whatsapp-flotante {
             position: fixed;
             bottom: 25px;
@@ -264,14 +294,51 @@
             font-size: 32px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             z-index: 999;
-            transition: transform 0.3s;
             text-decoration: none;
         }
         .whatsapp-flotante:hover {
             transform: scale(1.15);
         }
 
-        /* 🔒 PANEL DE ADMINISTRACIÓN DE FOTOS */
+        /* 🔒 INICIO DE SESIÓN Y REGISTRO */
+        .caja-cuenta {
+            background: #fffef0;
+            padding: 25px;
+            margin: 20px auto;
+            border-radius: 20px;
+            border-left: 5px solid #f0ad4e;
+            max-width: 400px;
+            text-align: center;
+        }
+        .caja-cuenta h3 {
+            margin-top: 0;
+            color: #7b5b8c;
+        }
+        .caja-cuenta input {
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .mensaje {
+            margin-top: 12px;
+            font-size: 15px;
+            font-weight: bold;
+        }
+        .error { color: #dc3545; }
+        .exito { color: #28a745; }
+        .enlace-cuenta {
+            background: none;
+            border: none;
+            color: #7b5b8c;
+            text-decoration: underline;
+            cursor: pointer;
+            font-size: 15px;
+            margin-top: 10px;
+        }
         .panel-admin {
             background: #fffef0;
             padding: 20px;
@@ -287,59 +354,20 @@
             margin: 10px 0;
             width: 100%;
         }
-        .boton-admin {
-            background: linear-gradient(90deg, #f0ad4e, #ec971f);
-            font-size: 15px;
-            padding: 10px 20px;
-            margin: 5px;
+        .salir {
+            text-align: right;
+            margin-bottom: 10px;
         }
-        .boton-admin:hover {
-            background: linear-gradient(90deg, #ec971f, #d68910);
-        }
-        .caja-contraseña {
-            text-align: center;
-            margin-top: 15px;
-        }
-        .caja-contraseña input {
-            padding: 10px;
-            font-size: 16px;
-            border: 2px solid #e4d4de;
-            border-radius: 10px;
-            width: 200px;
-            text-align: center;
-        }
-        .foto-galeria-contenedor {
-            position: relative;
-            display: inline-block;
-        }
-        .boton-borrar-foto {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(220, 39, 67, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            font-size: 16px;
-            cursor: pointer;
-            display: none;
-        }
-        .foto-galeria-contenedor:hover .boton-borrar-foto {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .oculto { display: none !important; }
     </style>
 </head>
 <body>
 
-<!-- 💬 Botón flotante de WhatsApp -->
+<!-- 💬 WhatsApp flotante -->
 <a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
-    <h1>✨ COSMIATRIA LAYA ✨</h1>
+    <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
 
@@ -355,18 +383,17 @@
 <section>
     <h2>Nuestros Servicios</h2>
     <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para ver su información</p>
-
     <div class="contenedor-botones">
-        <button class="boton" onclick="mostrarInfo('limpieza')">🌿 Limpieza Facial</button>
-        <button class="boton" onclick="mostrarInfo('hidratacion')">💆‍♀️ Hidratación</button>
-        <button class="boton" onclick="mostrarInfo('exfoliacion')">✨ Exfoliación</button>
-        <button class="boton" onclick="mostrarInfo('piel')">🌸 Piel Sensible</button>
-        <button class="boton" onclick="mostrarInfo('asesoria')">💎 Asesoría</button>
+        <button class="boton" onclick="mostrarSeccion('limpieza')">🌿 Limpieza Facial</button>
+        <button class="boton" onclick="mostrarSeccion('hidratacion')">💆‍♀️ Hidratación</button>
+        <button class="boton" onclick="mostrarSeccion('exfoliacion')">✨ Exfoliación</button>
+        <button class="boton" onclick="mostrarSeccion('piel')">🌸 Piel Sensible</button>
+        <button class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría</button>
     </div>
 
     <div id="limpieza" class="caja-informacion">
         <h3>🌿 Limpieza Facial Profunda</h3>
-        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel quedará limpia, suave y radiante. ✨</p>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
         <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel. Ideal para todo tipo de piel.</p>
     </div>
 
@@ -395,7 +422,7 @@
     </div>
 </section>
 
-<!-- 📆 HORARIOS EN TABLA -->
+<!-- 📆 HORARIOS -->
 <section>
     <h2>📆 Horarios de Atención</h2>
     <table class="tabla-horarios">
@@ -423,6 +450,7 @@
     </div>
 </section>
 
+<!-- ⭐ OPINIONES -->
 <section>
     <h2>⭐ Opiniones de mis clientas</h2>
 
@@ -439,10 +467,8 @@
         <div class="testimonio-nombre">— Karla ⭐⭐⭐⭐⭐</div>
     </div>
 
-    <!-- ✏️ CAJA PARA ESCRIBIR OPINIÓN CON ESTRELLAS -->
     <div class="caja-opinion">
         <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
-
         <div class="estrellas" id="estrellasCalificacion">
             <span onclick="calificar(1)">⭐</span>
             <span onclick="calificar(2)">⭐</span>
@@ -450,54 +476,255 @@
             <span onclick="calificar(4)">⭐</span>
             <span onclick="calificar(5)">⭐</span>
         </div>
-
         <input type="text" id="nombreOpinion" placeholder="Escribe tu nombre aquí..." required>
         <textarea id="textoOpinion" placeholder="Escribe aquí tu opinión y experiencia..." required></textarea>
         <div class="contenedor-botones">
             <button class="boton boton-enviar" onclick="enviarOpinion()">✅ Enviar Opinión</button>
         </div>
-
         <div id="mensajeOpinion" class="opinion-recibida">
             <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜 Se envió correctamente.</p>
-            <p style="text-align:center; font-size:14px;">La Lic. Laiza la recibirá y la publicará pronto. ✨</p>
+            <p style="text-align:center; font-size:14px;">La Lic. Laiza la leerá pronto. ✨</p>
         </div>
     </div>
 </section>
 
+<!-- 📸 FOTOS CON ADMINISTRACIÓN -->
 <section>
-    <h2>📸 Lic. Laiza González Robles con sus pacientes 💜</h2>
+    <h2>📸 Galería de Fotos</h2>
 
-    <!-- 🔒 CAJA DE CONTRASEÑA PARA ADMINISTRAR FOTOS -->
-    <div class="caja-contraseña">
-        <input type="password" id="contraseñaAdmin" placeholder="🔒 Administrar fotos">
-        <button class="boton boton-admin" onclick="verificarContraseña()">Entrar</button>
+    <!-- 🔒 INICIO DE SESIÓN / REGISTRO SOLO PARA ADMINISTRAR FOTOS -->
+    <div class="caja-cuenta" id="cajaCuenta">
+        <h3 id="tituloCuenta">🔐 Iniciar Sesión</h3>
+        <input type="email" id="correo" placeholder="✉️ Tu correo electrónico">
+        <input type="password" id="contraseña" placeholder="🔑 Tu contraseña">
+        <div class="mensaje" id="mensajeCuenta"></div>
+        <br>
+        <button class="boton boton-naranja" id="botonAccion" onclick="iniciarSesion()">Entrar</button>
+        <br>
+        <button class="enlace-cuenta" id="cambiarModo" onclick="cambiarModoCuenta()">¿No tienes cuenta? Regístrate aquí</button>
     </div>
 
-    <!-- 📸 GALERÍA DE FOTOS -->
-    <div class="galeria" id="galeriaFotos">
-        <!-- Las fotos aparecerán aquí automáticamente -->
+    <!-- ✅ CUANDO YA ENTRÓ DE ADMIN -->
+    <div class="oculto" id="zonaAdmin">
+        <div class="salir">
+            <button class="boton boton-rojo" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+        </div>
+        <div class="panel-admin" id="panelAdmin">
+            <h3 style="text-align:center; margin-top:0;">📷 Agregar Nueva Foto</h3>
+            <p style="text-align:center; font-size:14px;">Selecciona una foto desde tu celular o computadora:</p>
+            <input type="file" id="entradaFoto" accept="image/*" onchange="agregarFoto(event)">
+            <p style="text-align:center; font-size:13px; color:#666;">💜 Las fotos se guardan automáticamente</p>
+        </div>
     </div>
 
-    <!-- 🔧 PANEL OCULTO PARA AGREGAR FOTOS -->
-    <div class="panel-admin" id="panelAdmin">
-        <h3 style="text-align:center; margin-top:0;">📷 Agregar Nueva Foto</h3>
-        <p style="text-align:center; font-size:14px;">Selecciona una foto desde tu celular o computadora:</p>
-        <input type="file" id="entradaFoto" accept="image/*" onchange="agregarFoto(event)">
-        <p style="text-align:center; font-size:13px; color:#666;">💜 Las fotos se guardan automáticamente</p>
-    </div>
+    <!-- 📸 LAS FOTOS SE VEN AQUÍ PARA TODO EL MUNDO -->
+    <div class="galeria" id="galeriaFotos"></div>
 </section>
 
+<!-- 📋 MÁS INFORMACIÓN -->
 <section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
-        <button class="boton" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
+        <button class="boton" onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button>
         <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
         <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
-        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ver Mapa</a>
-        <button class="boton" onclick="mostrarInfo('fotos')">📸 Fotos</button>
+        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ubicación</a>
         <a href="https://www.instagram.com/skin_carelaya/?__pwa=1" target="_blank" class="boton boton-instagram">📷 Instagram</a>
     </div>
 
     <div id="agendar" class="caja-informacion">
         <h3>📅 Agendar tu Cita</h3>
-        <p>¡Es muy fácil
+        <p>💬 Escríbeme por WhatsApp o llámame para apartar tu cita.</p>
+        <p>📞 <strong>Teléfono y WhatsApp:</strong> 729 633 6318</p>
+        <p>📍 Estoy en Toluca, Estado de México</p>
+        <p>💜 ¡Te espero con mucho gusto!</p>
+    </div>
+</section>
+
+<!-- 📍 CONTACTO -->
+<section class="contacto">
+    <h2>📍 Contacto</h2>
+    <h3>💜 Lic. Laiza González Robles</h3>
+    <p>📞 Teléfono y WhatsApp: <a href="tel:+5217296336318">729 633 6318</a></p>
+    <p>📍 Toluca, Estado de México</p>
+    <p>📷 Instagram: <a href="https://www.instagram.com/skin_carelaya/" target="_blank">@skin_carelaya</a></p>
+</section>
+
+<!-- 🛡️ AVISO DE PRIVACIDAD -->
+<section>
+    <h2>🛡️ Aviso de Privacidad</h2>
+    <div class="aviso-privacidad">
+        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos que compartas a través de esta página no se almacenan ni se comparten con terceros. Al enviar tu opinión o agendar una cita, tu información se maneja con confianza y respeto. 💜</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 Cosmiatría Laya — Lic. Laiza González Robles. Todos los derechos reservados 💜
+</footer>
+
+<script>
+// ⭐ CALIFICACIÓN DE ESTRELLAS
+let calificacion = 0;
+
+function calificar(cantidad) {
+    calificacion = 5 - cantidad + 1;
+    const estrellas = document.querySelectorAll('#estrellasCalificacion span');
+    estrellas.forEach((estrella, indice) => {
+        estrella.classList.toggle('estrella-seleccionada', (indice + 1) <= calificacion);
+    });
+}
+
+function enviarOpinion() {
+    const nombre = document.getElementById('nombreOpinion').value.trim();
+    const texto = document.getElementById('textoOpinion').value.trim();
+    
+    if (!nombre || !texto || calificacion === 0) {
+        alert('⚠️ Por favor completa tu nombre, opinión y calificación con estrellas.');
+        return;
+    }
+
+    const mensaje = `⭐ NUEVA OPINIÓN RECIBIDA ⭐
+
+Nombre: ${nombre}
+Calificación: ${"⭐".repeat(calificacion)}
+Opinión: ${texto}
+
+💜 Recibido desde Cosmiatría Laya`;
+
+    window.open(`https://wa.me/5217296336318?text=${encodeURIComponent(mensaje)}`, '_blank');
+    
+    document.getElementById('mensajeOpinion').classList.add('visible');
+    document.getElementById('nombreOpinion').value = '';
+    document.getElementById('textoOpinion').value = '';
+    calificacion = 0;
+    document.querySelectorAll('#estrellasCalificacion span').forEach(e => e.classList.remove('estrella-seleccionada'));
+}
+
+// 📂 MOSTRAR SECCIONES
+function mostrarSeccion(id) {
+    const secciones = document.querySelectorAll('.caja-informacion');
+    secciones.forEach(s => s.classList.remove('mostrar'));
+    document.getElementById(id).classList.add('mostrar');
+}
+
+// 🔐 SISTEMA DE CUENTA (Registro e Inicio de Sesión)
+let modoRegistro = false;
+let cuentaAdministrador = JSON.parse(localStorage.getItem('cuentaAdmin')) || null;
+
+function cambiarModoCuenta() {
+    modoRegistro = !modoRegistro;
+    document.getElementById('tituloCuenta').textContent = modoRegistro ? '📝 Registrarse como Administradora' : '🔐 Iniciar Sesión';
+    document.getElementById('botonAccion').textContent = modoRegistro ? 'Registrarse' : 'Entrar';
+    document.getElementById('cambiarModo').textContent = modoRegistro ? '¿Ya tienes cuenta? Entra aquí' : '¿No tienes cuenta? Regístrate aquí';
+    document.getElementById('mensajeCuenta').textContent = '';
+    document.getElementById('mensajeCuenta').className = 'mensaje';
+}
+
+function iniciarSesion() {
+    const correo = document.getElementById('correo').value.trim();
+    const contraseña = document.getElementById('contraseña').value;
+    const mensaje = document.getElementById('mensajeCuenta');
+
+    if (!correo || !contraseña) {
+        mensaje.textContent = '⚠️ Escribe tu correo y contraseña';
+        mensaje.className = 'mensaje error';
+        return;
+    }
+
+    if (modoRegistro) {
+        // REGISTRAR NUEVA CUENTA
+        cuentaAdministrador = { correo, contraseña };
+        localStorage.setItem('cuentaAdmin', JSON.stringify(cuentaAdministrador));
+        localStorage.setItem('sesionActiva', 'SI');
+        mensaje.textContent = '✅ ¡Registrada con éxito! Entrando...';
+        mensaje.className = 'mensaje exito';
+        setTimeout(entrarAdmin, 1200);
+    } else {
+        // INICIAR SESIÓN
+        if (!cuentaAdministrador) {
+            mensaje.textContent = '❌ No hay cuenta registrada. Regístrate primero.';
+            mensaje.className = 'mensaje error';
+            return;
+        }
+        if (correo === cuentaAdministrador.correo && contraseña === cuentaAdministrador.contraseña) {
+            localStorage.setItem('sesionActiva', 'SI');
+            mensaje.textContent = '✅ ¡Bienvenida, Administradora!';
+            mensaje.className = 'mensaje exito';
+            setTimeout(entrarAdmin, 1000);
+        } else {
+            mensaje.textContent = '❌ Correo o contraseña incorrectos';
+            mensaje.className = 'mensaje error';
+        }
+    }
+}
+
+function entrarAdmin() {
+    document.getElementById('cajaCuenta').classList.add('oculto');
+    document.getElementById('zonaAdmin').classList.remove('oculto');
+    document.getElementById('panelAdmin').classList.add('activo');
+    cargarFotosGuardadas();
+}
+
+function cerrarSesion() {
+    localStorage.removeItem('sesionActiva');
+    document.getElementById('cajaCuenta').classList.remove('oculto');
+    document.getElementById('zonaAdmin').classList.add('oculto');
+    document.getElementById('correo').value = '';
+    document.getElementById('contraseña').value = '';
+    document.getElementById('mensajeCuenta').textContent = '🔒 Sesión cerrada correctamente';
+    document.getElementById('mensajeCuenta').className = 'mensaje exito';
+}
+
+// ✅ VERIFICAR SI YA TENÍA SESIÓN ABIERTA AL CARGAR LA PÁGINA
+window.onload = function() {
+    if (localStorage.getItem('sesionActiva') === 'SI') {
+        entrarAdmin();
+    }
+    cargarFotosGuardadas();
+};
+
+// 📸 GESTIÓN DE FOTOS
+let listaFotos = JSON.parse(localStorage.getItem('fotosGaleria')) || [];
+
+function agregarFoto(evento) {
+    const archivo = evento.target.files[0];
+    if (!archivo) return;
+
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const urlFoto = e.target.result;
+        listaFotos.push(urlFoto);
+        localStorage.setItem('fotosGaleria', JSON.stringify(listaFotos));
+        mostrarFoto(urlFoto, listaFotos.length - 1);
+    };
+    lector.readAsDataURL(archivo);
+}
+
+function cargarFotosGuardadas() {
+    const galeria = document.getElementById('galeriaFotos');
+    galeria.innerHTML = '';
+    listaFotos.forEach((url, indice) => mostrarFoto(url, indice));
+}
+
+function mostrarFoto(url, indice) {
+    const galeria = document.getElementById('galeriaFotos');
+    const contenedor = document.createElement('div');
+    contenedor.className = 'foto-contenedor';
+    contenedor.innerHTML = `
+        <img src="${url}" class="foto" alt="Foto de Cosmiatría">
+        <button class="boton-borrar-foto" title="Eliminar foto" onclick="borrarFoto(${indice})">×</button>
+    `;
+    galeria.appendChild(contenedor);
+}
+
+function borrarFoto(indice) {
+    if (confirm('¿Segura que quieres borrar esta foto?')) {
+        listaFotos.splice(indice, 1);
+        localStorage.setItem('fotosGaleria', JSON.stringify(listaFotos));
+        cargarFotosGuardadas();
+    }
+}
+</script>
+
+</body>
+</html>
