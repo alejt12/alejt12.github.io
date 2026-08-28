@@ -23,49 +23,50 @@
         section {
             max-width: 800px;
             margin: 30px auto;
-            padding: 20px 30px;
+            padding: 30px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(156, 107, 140, 0.15);
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(156, 107, 140, 0.12);
         }
         h2 {
-            color: #804f74;
+            color: #7b5b8c;
             border-bottom: 2px solid #e4d4de;
-            padding-bottom: 8px;
+            padding-bottom: 12px;
             text-align: center;
+            font-size: 26px;
         }
         .contenedor-botones {
             text-align: center;
-            margin: 20px 0;
+            margin: 25px 0;
         }
         .boton {
             display: inline-block;
-            background: linear-gradient(90deg, #9c6b8c, #b888a8);
+            background: #9c88b8;
             color: white !important;
-            padding: 12px 25px;
+            padding: 14px 28px;
             margin: 8px;
-            border-radius: 30px;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            font-size: 16px;
-            transition: transform 0.3s, opacity 0.3s;
+            font-size: 17px;
+            transition: transform 0.3s, background 0.3s;
         }
         .boton:hover {
             transform: scale(1.05);
-            opacity: 0.9;
+            background: #8c78a8;
         }
         .caja-informacion {
-            background: #fef7fa;
-            padding: 20px;
+            background: #f8f2fb;
+            padding: 22px;
             margin-top: 25px;
-            border-radius: 12px;
-            border-left: 4px solid #9c6b8c;
+            border-radius: 15px;
+            border-left: 5px solid #9c6b8c;
             display: none;
             animation: aparecer 0.4s ease;
         }
         @keyframes aparecer {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(12px); }
             to { opacity: 1; transform: translateY(0); }
         }
         .caja-informacion.mostrar {
@@ -85,9 +86,9 @@
         }
         footer {
             text-align: center;
-            padding: 15px;
-            color: #7a5c72;
-            font-size: 14px;
+            padding: 18px;
+            color: #7a6c7c;
+            font-size: 15px;
         }
     </style>
 </head>
@@ -100,7 +101,7 @@
 
 <section>
     <h2>Nuestros Servicios</h2>
-    <p style="text-align:center;">👇 Presiona cada botón para ver su información</p>
+    <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para ver su información</p>
 
     <div class="contenedor-botones">
         <button class="boton" onclick="mostrarInfo('limpieza')">🌿 Limpieza Facial</button>
@@ -144,12 +145,12 @@
 <section class="contacto">
     <h2>📍 Contacto</h2>
     <h3>💜 Lic. Laiza Robles González</h3>
-    <p><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
-    <p><strong>📍 Ubicación:</strong> <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">#10 Isabel La Católica, Santa María Nativitas, Estado de México</a></p>
-    <p>💜 Tu piel lo merece 💜</p>
+    <p style="font-size:18px;"><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
+    <p style="font-size:18px;"><strong>📍 Ubicación:</strong> <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">#10 Isabel La Católica, Santa María Nativitas, Estado de México</a></p>
+    <p style="font-size:18px;">💜 Tu piel lo merece 💜</p>
 </section>
 
-<footer>
+<footer style="text-align:center; padding:18px; color:#7a6c7c; font-size:15px;">
     © 2026 Cosmiatría — Lic. Laiza Robles González — Todos los derechos reservados
 </footer>
 
