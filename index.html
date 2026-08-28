@@ -86,7 +86,6 @@
             border-radius: 15px;
             border-left: 5px solid #9c6b8c;
             display: none;
-            animation: aparecer 0.4s ease;
         }
         .caja-informacion.mostrar { display: block; }
         @keyframes aparecer {
@@ -234,11 +233,12 @@
             width: 100%;
             height: 100%;
             background: rgba(0,0,0,0.5);
-            display: flex;
+            display: none;
             align-items: center;
             justify-content: center;
             z-index: 1000;
         }
+        .ventana-sesion.mostrar { display: flex; }
         .caja-sesion {
             background: white;
             padding: 30px;
@@ -247,6 +247,7 @@
             width: 90%;
             text-align: center;
             box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
         }
         .caja-sesion h3 { margin-top: 0; color: #7b5b8c; font-size: 22px; }
         .caja-sesion input {
@@ -257,6 +258,7 @@
             border: 2px solid #e4d4de;
             border-radius: 10px;
             text-align: center;
+            box-sizing: border-box;
         }
         .mensaje { margin-top: 12px; font-size: 15px; font-weight: bold; }
         .error { color: #dc3545; }
@@ -272,14 +274,16 @@
             color: #999;
         }
 
-        /* PANEL DE ADMINISTRACIÓN TODO JUNTO */
+        /* PANEL DE ADMINISTRACIÓN */
         .panel-admin {
             background: linear-gradient(135deg, #fffef0, #faf4e0);
             padding: 25px;
             margin: 25px 0;
             border-radius: 20px;
             border-left: 5px solid #f0ad4e;
+            display: none;
         }
+        .panel-admin.mostrar { display: block; }
         .panel-admin h3 { text-align: center; color: #b88600; margin-top: 0; }
         .panel-admin input[type="text"], .panel-admin input[type="file"] {
             width: 100%;
@@ -297,7 +301,6 @@
             border-radius: 10px;
             border-left: 3px solid #4CAF50;
         }
-        .oculto { display: none !important; }
         .separador { border: none; border-top: 2px dashed #f0d8a0; margin: 20px 0; }
     </style>
 </head>
@@ -307,22 +310,22 @@
 
 <header>
     <!-- 🔐 BOTÓN DE CANDADITO ARRIBA A LA DERECHA -->
-    <button class="boton-candado" id="botonCandado" title="Administradora 🔐" onclick="abrirVentanaSesion()">🔒</button>
+    <button type="button" class="boton-candado" id="botonCandado" title="Administradora 🔐">🔒</button>
     
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
 
-<!-- 🔐 VENTANA QUE APARECE AL TOCAR EL CANDADITO -->
-<div id="ventanaSesion" class="ventana-sesion oculto">
+<!-- 🔐 VENTANA DE INICIO DE SESIÓN -->
+<div id="ventanaSesion" class="ventana-sesion">
     <div class="caja-sesion">
-        <button class="cerrar-ventana" onclick="cerrarVentanaSesion()">×</button>
+        <button type="button" class="cerrar-ventana" id="btnCerrarVentana">×</button>
         <h3>🔐 Iniciar Sesión</h3>
         <input type="email" id="correoAdmin" placeholder="✉️ Correo">
         <input type="password" id="contraseñaAdmin" placeholder="🔑 Contraseña">
         <div class="mensaje" id="mensajeSesion"></div>
         <br>
-        <button class="boton boton-naranja" onclick="verificarSesion()">Entrar</button>
+        <button type="button" class="boton boton-naranja" id="btnEntrar">Entrar</button>
     </div>
 </div>
 
@@ -339,11 +342,11 @@
     <h2>Nuestros Servicios</h2>
     <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para ver su información</p>
     <div class="contenedor-botones">
-        <button class="boton" onclick="mostrarSeccion('limpieza')">🌿 Limpieza Facial</button>
-        <button class="boton" onclick="mostrarSeccion('hidratacion')">💆‍♀️ Hidratación</button>
-        <button class="boton" onclick="mostrarSeccion('exfoliacion')">✨ Exfoliación</button>
-        <button class="boton" onclick="mostrarSeccion('piel')">🌸 Piel Sensible</button>
-        <button class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('limpieza')">🌿 Limpieza Facial</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('hidratacion')">💆‍♀️ Hidratación</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('exfoliacion')">✨ Exfoliación</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('piel')">🌸 Piel Sensible</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría</button>
     </div>
 
     <div id="limpieza" class="caja-informacion">
@@ -372,10 +375,10 @@
 <section>
     <h2>📆 Horarios de Atención</h2>
 
-    <!-- ✅ PANEL DE ADMINISTRACIÓN — SOLO ELLA LO VE AL ENTRAR -->
-    <div id="panelAdministracion" class="panel-admin oculto">
+    <!-- ✅ PANEL DE ADMINISTRACIÓN -->
+    <div id="panelAdministracion" class="panel-admin">
         <div style="text-align:right; margin-bottom:10px;">
-            <button class="boton boton-rojo" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+            <button type="button" class="boton boton-rojo" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
         </div>
 
         <h3>✏️ MODIFICAR HORARIOS</h3>
@@ -386,7 +389,7 @@
         <input type="text" id="hViernes" placeholder="Viernes">
         <input type="text" id="hSabado" placeholder="Sábado">
         <div class="contenedor-botones" style="margin:8px 0;">
-            <button class="boton boton-verde" onclick="guardarHorarios()">✅ Guardar Horarios</button>
+            <button type="button" class="boton boton-verde" id="btnGuardarHorarios">✅ Guardar Horarios</button>
         </div>
         <div class="mensaje exito" id="msgHorarios"></div>
 
@@ -398,17 +401,17 @@
         <input type="text" id="cHora" placeholder="Hora ej: 10:00 AM">
         <input type="text" id="cTratamiento" placeholder="Tratamiento">
         <div class="contenedor-botones" style="margin:8px 0;">
-            <button class="boton boton-verde" onclick="agregarCita()">✅ Agregar Cita</button>
+            <button type="button" class="boton boton-verde" id="btnAgregarCita">✅ Agregar Cita</button>
         </div>
 
         <hr class="separador">
 
         <h3>📷 SUBIR FOTOS A LA GALERÍA</h3>
-        <input type="file" id="fotoNueva" accept="image/*" onchange="subirFoto(event)">
+        <input type="file" id="fotoNueva" accept="image/*">
     </div>
 
     <!-- 📆 LO QUE VEN TODOS LOS CLIENTES -->
-    <table class="tabla-horarios" id="tablaHorarios">
+    <table class="tabla-horarios">
         <tr><th>Día</th><th>Horario</th></tr>
         <tr><td>📅 Lunes</td><td id="dLunes">9:00 AM — 6:00 PM</td></tr>
         <tr><td>📅 Martes</td><td id="dMartes">9:00 AM — 6:00 PM</td></tr>
@@ -452,16 +455,16 @@
     <div class="caja-opinion">
         <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
         <div class="estrellas" id="estrellasCal">
-            <span onclick="calificar(1)">⭐</span>
-            <span onclick="calificar(2)">⭐</span>
-            <span onclick="calificar(3)">⭐</span>
-            <span onclick="calificar(4)">⭐</span>
-            <span onclick="calificar(5)">⭐</span>
+            <span data-estrella="1">⭐</span>
+            <span data-estrella="2">⭐</span>
+            <span data-estrella="3">⭐</span>
+            <span data-estrella="4">⭐</span>
+            <span data-estrella="5">⭐</span>
         </div>
-        <input type="text" id="opNombre" placeholder="Tu nombre..." required>
-        <textarea id="opTexto" placeholder="Tu opinión..." required></textarea>
+        <input type="text" id="opNombre" placeholder="Tu nombre...">
+        <textarea id="opTexto" placeholder="Tu opinión..."></textarea>
         <div class="contenedor-botones">
-            <button class="boton boton-enviar" onclick="enviarOpinion()">✅ Enviar Opinión</button>
+            <button type="button" class="boton boton-enviar" id="btnEnviarOpinion">✅ Enviar Opinión</button>
         </div>
         <div id="mensajeOp" class="opinion-recibida">
             <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜</p>
@@ -471,14 +474,13 @@
 
 <section>
     <h2>📸 Galería de Fotos</h2>
-    <!-- 📆 LAS FOTOS SE VEN BONITAS SIN RECUADRO FEO -->
     <div class="galeria" id="galeriaFotos"></div>
 </section>
 
 <section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
-        <button class="boton" onclick="mostrarSeccion('agendar")>📅 Agendar Cita</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button>
         <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
         <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
         <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ubicación</a>
@@ -512,76 +514,110 @@
 </footer>
 
 <script>
-// 🔐 DATOS DE ELLA — YA PUESTOS
+// 🔐 DATOS DE INICIO DE SESIÓN
 const CORREO_ADMIN = "laya@gmail.com";
 const CONTRASEÑA_ADMIN = "Laya2026";
 
-// 🔐 VENTANA DE INICIO DE SESIÓN
-function abrirVentanaSesion() {
-    document.getElementById('ventanaSesion').classList.remove('oculto');
-    document.getElementById('correoAdmin').value = '';
-    document.getElementById('contraseñaAdmin').value = '';
-    document.getElementById('mensajeSesion').textContent = '';
-}
-function cerrarVentanaSesion() {
-    document.getElementById('ventanaSesion').classList.add('oculto');
-}
-function verificarSesion() {
-    const correo = document.getElementById('correoAdmin').value.trim();
-    const pass = document.getElementById('contraseñaAdmin').value;
-    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
-        document.getElementById('mensajeSesion').textContent = '✅ ¡Bienvenida! Entrando...';
-        document.getElementById('mensajeSesion').className = 'mensaje exito';
-        setTimeout(entrarAlPanel, 1000);
-    } else {
-        document.getElementById('mensajeSesion').textContent = '❌ Correo o contraseña incorrectos';
-        document.getElementById('mensajeSesion').className = 'mensaje error';
-    }
-}
-function entrarAlPanel() {
-    cerrarVentanaSesion();
-    document.getElementById('panelAdministracion').classList.remove('oculto');
-    document.getElementById('botonCandado').textContent = '🔓';
+// ELEMENTOS
+const candado = document.getElementById('botonCandado');
+const ventana = document.getElementById('ventanaSesion');
+const btnCerrarVentana = document.getElementById('btnCerrarVentana');
+const correoInput = document.getElementById('correoAdmin');
+const passInput = document.getElementById('contraseñaAdmin');
+const mensajeSesion = document.getElementById('mensajeSesion');
+const btnEntrar = document.getElementById('btnEntrar');
+const panelAdmin = document.getElementById('panelAdministracion');
+const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-    // ✅ Flecha verde de bienvenida
+// 🟢 FLECHA DE BIENVENIDA
+function mostrarBienvenida() {
     const flecha = document.createElement('div');
-    flecha.innerHTML = `
-        <div style="
-            position: fixed;
-            top: 50%;
-            right: 30px;
-            transform: translateY(-50%);
-            background: #4CAF50;
-            color: white;
-            padding: 14px 24px;
-            border-radius: 50px;
-            font-size: 18px;
-            font-weight: bold;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 1001;
-            animation: aparecer 0.5s ease;
-        ">
-            ➡️ Bienvenida
-        </div>
+    flecha.style.cssText = `
+        position: fixed;
+        top: 50%;
+        right: 30px;
+        transform: translateY(-50%);
+        background: #4CAF50;
+        color: white;
+        padding: 14px 24px;
+        border-radius: 50px;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 1001;
+        transition: opacity 0.5s ease;
     `;
+    flecha.textContent = '➡️ Bienvenida';
     document.body.appendChild(flecha);
-
-    // ✅ Se quita sola a los 4 segundos
     setTimeout(() => {
-        flecha.style.transition = 'opacity 0.5s ease';
         flecha.style.opacity = '0';
         setTimeout(() => flecha.remove(), 500);
     }, 4000);
+}
 
-    cargarHorariosEnCampos();
-}
-function cerrarSesion() {
-    document.getElementById('panelAdministracion').classList.add('oculto');
-    document.getElementById('botonCandado').textContent = '🔒';
-}
+// ABRIR VENTANA AL TOCAR EL CANDADO
+candado.addEventListener('click', function() {
+    ventana.classList.add('mostrar');
+    correoInput.value = '';
+    passInput.value = '';
+    mensajeSesion.textContent = '';
+});
+
+// CERRAR VENTANA
+btnCerrarVentana.addEventListener('click', function() {
+    ventana.classList.remove('mostrar');
+});
+
+// INICIAR SESIÓN
+btnEntrar.addEventListener('click', function() {
+    const correo = correoInput.value.trim();
+    const pass = passInput.value;
+    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
+        mensajeSesion.textContent = '✅ ¡Bienvenida! Entrando...';
+        mensajeSesion.className = 'mensaje exito';
+        setTimeout(function() {
+            ventana.classList.remove('mostrar');
+            panelAdmin.classList.add('mostrar');
+            candado.textContent = '🔓';
+            mostrarBienvenida();
+            cargarHorariosEnCampos();
+        }, 1000);
+    } else {
+        mensajeSesion.textContent = '❌ Correo o contraseña incorrectos';
+        mensajeSesion.className = 'mensaje error';
+    }
+});
+
+// CERRAR SESIÓN
+btnCerrarSesion.addEventListener('click', function() {
+    panelAdmin.classList.remove('mostrar');
+    candado.textContent = '🔒';
+});
 
 // 📆 HORARIOS
-function guardarHorarios() {
+const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
+const msgHorarios = document.getElementById('msgHorarios');
+
+function cargarHorariosEnCampos() {
+    const h = JSON.parse(localStorage.getItem('horarios')) || {};
+    document.getElementById('hLunes').value = h.lunes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMartes').value = h.martes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
+    document.getElementById('hJueves').value = h.jueves || '9:00 AM — 6:00 PM';
+    document.getElementById('hViernes').value = h.viernes || '9:00 AM — 6:00 PM';
+    document.getElementById('hSabado').value = h.sabado || '9:00 AM — 3:00 PM';
+}
+
+function aplicarHorarios(h) {
+    document.getElementById('dLunes').textContent = h.lunes;
+    document.getElementById('dMartes').textContent = h.martes;
+    document.getElementById('dMiercoles').textContent = h.miercoles;
+    document.getElementById('dJueves').textContent = h.jueves;
+    document.getElementById('dViernes').textContent = h.viernes;
+    document.getElementById('dSabado').textContent = h.sabado;
+}
+
+btnGuardarHorarios.addEventListener('click', function() {
     const h = {
         lunes: document.getElementById('hLunes').value || '9:00 AM — 6:00 PM',
         martes: document.getElementById('hMartes').value || '9:00 AM — 6:00 PM',
@@ -592,34 +628,41 @@ function guardarHorarios() {
     };
     localStorage.setItem('horarios', JSON.stringify(h));
     aplicarHorarios(h);
-    document.getElementById('msgHorarios').textContent = '✅ ¡Guardado correctamente!';
-}
-function cargarHorariosEnCampos() {
-    const h = JSON.parse(localStorage.getItem('horarios')) || {};
-    document.getElementById('hLunes').value = h.lunes || '9:00 AM — 6:00 PM';
-    document.getElementById('hMartes').value = h.martes || '9:00 AM — 6:00 PM';
-    document.getElementById('hMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
-    document.getElementById('hJueves').value = h.jueves || '9:00 AM — 6:00 PM';
-    document.getElementById('hViernes').value = h.viernes || '9:00 AM — 6:00 PM';
-    document.getElementById('hSabado').value = h.sabado || '9:00 AM — 3:00 PM';
-}
-function aplicarHorarios(h) {
-    document.getElementById('dLunes').textContent = h.lunes;
-    document.getElementById('dMartes').textContent = h.martes;
-    document.getElementById('dMiercoles').textContent = h.miercoles;
-    document.getElementById('dJueves').textContent = h.jueves;
-    document.getElementById('dViernes').textContent = h.viernes;
-    document.getElementById('dSabado').textContent = h.sabado;
-}
+    msgHorarios.textContent = '✅ ¡Guardado correctamente!';
+});
 
 // 📅 AGENDA DE CITAS
+const btnAgregarCita = document.getElementById('btnAgregarCita');
+const listaCitas = document.getElementById('listaCitas');
 let citas = JSON.parse(localStorage.getItem('agenda')) || [];
-function agregarCita() {
+
+function dibujarCitas() {
+    listaCitas.innerHTML = '';
+    citas.forEach(function(c, i) {
+        const div = document.createElement('div');
+        div.className = 'agenda-item';
+        div.innerHTML = `📅 ${c.fecha} — ⏰ ${c.hora}<br>👤 ${c.nombre}<br>💆‍♀️ ${c.tratamiento} 
+            <button style="float:right;background:#dc3545;color:white;border:none;border-radius:5px;padding:2px 8px;cursor:pointer" data-indice="${i}">×</button>`;
+        listaCitas.appendChild(div);
+        div.querySelector('button').addEventListener('click', function() {
+            if(confirm('¿Eliminar esta cita?')) {
+                citas.splice(i, 1);
+                localStorage.setItem('agenda', JSON.stringify(citas));
+                dibujarCitas();
+            }
+        });
+    });
+}
+
+btnAgregarCita.addEventListener('click', function() {
     const fecha = document.getElementById('cFecha').value.trim();
-    const nombre(document.getElementById('cNombre').value.trim();
+    const nombre = document.getElementById('cNombre').value.trim();
     const hora = document.getElementById('cHora').value.trim();
     const tratamiento = document.getElementById('cTratamiento').value.trim();
-    if (!fecha || !nombre || !hora || !tratamiento) { alert('⚠️ Completa todos los datos'); return; }
+    if (!fecha || !nombre || !hora || !tratamiento) { 
+        alert('⚠️ Completa todos los datos'); 
+        return; 
+    }
     citas.push({fecha, nombre, hora, tratamiento});
     localStorage.setItem('agenda', JSON.stringify(citas));
     dibujarCitas();
@@ -627,72 +670,86 @@ function agregarCita() {
     document.getElementById('cNombre').value='';
     document.getElementById('cHora').value='';
     document.getElementById('cTratamiento').value='';
-}
-function dibujarCitas() {
-    const div = document.getElementById('listaCitas');
-    div.innerHTML = '';
-    citas.forEach((c,i)=>{
-        div.innerHTML += `<div class="agenda-item">📅 ${c.fecha} — ⏰ ${c.hora}<br>👤 ${c.nombre}<br>💆‍♀️ ${c.tratamiento} <button style="float:right;background:#dc3545;color:white;border:none;border-radius:5px;padding:2px 8px;cursor:pointer" onclick="eliminarCita(${i})">×</button></div>`;
-    });
-}
-function eliminarCita(i) {
-    if(confirm('¿Eliminar esta cita?')){ citas.splice(i,1); localStorage.setItem('agenda', JSON.stringify(citas)); dibujarCitas(); }
-}
+});
 
 // 📸 FOTOS
+const fotoNueva = document.getElementById('fotoNueva');
+const galeriaFotos = document.getElementById('galeriaFotos');
 let fotos = JSON.parse(localStorage.getItem('fotos')) || [];
-function subirFoto(e) {
+
+function dibujarFotos() {
+    galeriaFotos.innerHTML = '';
+    fotos.forEach(function(url, i) {
+        const div = document.createElement('div');
+        div.className = 'foto-contenedor';
+        div.innerHTML = `<img src="${url}" class="foto" alt="Foto">
+            <button class="boton-borrar-foto" data-indice="${i}">×</button>`;
+        galeriaFotos.appendChild(div);
+        div.querySelector('button').addEventListener('click', function() {
+            if(confirm('¿Eliminar esta foto?')) {
+                fotos.splice(i, 1);
+                localStorage.setItem('fotos', JSON.stringify(fotos));
+                dibujarFotos();
+            }
+        });
+    });
+}
+
+fotoNueva.addEventListener('change', function(e) {
     const archivo = e.target.files[0];
     if(!archivo) return;
     const lector = new FileReader();
-    lector.onload = function(evt){
+    lector.onload = function(evt) {
         fotos.push(evt.target.result);
         localStorage.setItem('fotos', JSON.stringify(fotos));
         dibujarFotos();
     };
     lector.readAsDataURL(archivo);
-}
-function dibujarFotos() {
-    const div = document.getElementById('galeriaFotos');
-    div.innerHTML = '';
-    fotos.forEach((url,i)=>{
-        div.innerHTML += `<div class="foto-contenedor"><img src="${url}" class="foto" alt="Foto"><button class="boton-borrar-foto" onclick="quitarFoto(${i})">×</button></div>`;
-    });
-}
-function quitarFoto(i){
-    if(confirm('¿Eliminar esta foto?')){ fotos.splice(i,1); localStorage.setItem('fotos', JSON.stringify(fotos)); dibujarFotos(); }
-}
+});
 
 // ⭐ OPINIONES
+const estrellasCal = document.getElementById('estrellasCal');
+const btnEnviarOpinion = document.getElementById('btnEnviarOpinion');
+const mensajeOp = document.getElementById('mensajeOp');
 let calif = 0;
-function calificar(cant) {
-    calif = cant;
-    document.querySelectorAll('#estrellasCal span').forEach((e,ind)=>{
-        e.classList.toggle('estrella-seleccionada', (ind+1) <= cant);
-    });
-}
-function enviarOpinion() {
+
+estrellasCal.addEventListener('click', function(e) {
+    if(e.target.tagName === 'SPAN') {
+        calif = parseInt(e.target.dataset.estrella);
+        document.querySelectorAll('#estrellasCal span').forEach(function(span, ind) {
+            if((ind + 1) <= calif) span.classList.add('estrella-seleccionada');
+            else span.classList.remove('estrella-seleccionada');
+        });
+    }
+});
+
+btnEnviarOpinion.addEventListener('click', function() {
     const nom = document.getElementById('opNombre').value.trim();
     const txt = document.getElementById('opTexto').value.trim();
-    if (!nom || !txt || calif===0) { alert('⚠️ Completa todo y pon las estrellas'); return; }
-    const msg = `⭐ NUEVA OPINIÓN:\nNombre: ${nom}\nCalificación:${'⭐'.repeat(calif)}\nOpinión: ${txt}`;
-    window.open(`https://wa.me/5217296336318?text=${encodeURIComponent(msg)}`,'_blank');
-    document.getElementById('mensajeOp').classList.add('visible');
-}
+    if (!nom || !txt || calif === 0) { 
+        alert('⚠️ Escribe tu nombre, tu opinión y pon las estrellas'); 
+        return; 
+    }
+    const msg = `⭐ NUEVA OPINIÓN:%0ANombre: ${nom}%0ACalificación:${'⭐'.repeat(calif)}%0AOpinión: ${txt}`;
+    window.open(`https://wa.me/5217296336318?text=${msg}`,'_blank');
+    mensajeOp.classList.add('visible');
+});
 
 // 📂 MOSTRAR SECCIONES
 function mostrarSeccion(id) {
-    document.querySelectorAll('.caja-informacion').forEach(s => s.classList.remove('mostrar'));
+    document.querySelectorAll('.caja-informacion').forEach(function(s) {
+        s.classList.remove('mostrar');
+    });
     document.getElementById(id).classList.add('mostrar');
 }
 
 // ✅ AL CARGAR TODO
-window.onload = function(){
+window.addEventListener('load', function() {
     const h = JSON.parse(localStorage.getItem('horarios'));
     if(h) aplicarHorarios(h);
     dibujarCitas();
     dibujarFotos();
-};
+});
 </script>
 
 </body>
