@@ -37,7 +37,7 @@
         }
         .contenedor-botones {
             text-align: center;
-            margin: 25px 0;
+            margin: 20px 0;
         }
         .boton {
             display: inline-block;
@@ -56,6 +56,9 @@
             transform: scale(1.05);
             background: #8c78a8;
         }
+        .boton-accion {
+            background: linear-gradient(90deg, #7b5b8c, #9c6b8c);
+        }
         .caja-informacion {
             background: #f8f2fb;
             padding: 22px;
@@ -71,6 +74,26 @@
         }
         .caja-informacion.mostrar {
             display: block;
+        }
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .foto {
+            width: 200px;
+            height: 200px;
+            background: #e4d4de;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: #7b5b8c;
+            text-align: center;
+            padding: 10px;
         }
         .contacto {
             text-align: center;
@@ -142,6 +165,42 @@
     </div>
 </section>
 
+<section>
+    <h2>📋 Más Información</h2>
+    <div class="contenedor-botones">
+        <button class="boton boton-accion" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
+        <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-accion">💬 WhatsApp</a>
+        <button class="boton boton-accion" onclick="mostrarInfo('horarios')">⏰ Horarios</button>
+        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton boton-accion">📍 Ver Mapa</a>
+        <button class="boton boton-accion" onclick="mostrarInfo('fotos')">📸 Fotos</button>
+    </div>
+
+    <div id="agendar" class="caja-informacion">
+        <h3>📅 Agendar tu Cita</h3>
+        <p>¡Es muy fácil! Contáctame por WhatsApp y reservamos tu fecha y hora disponibles. 💜</p>
+        <p><strong>📞 WhatsApp:</strong> <a href="https://wa.me/5217296336318" target="_blank">+52 1 729 633 6318</a></p>
+    </div>
+
+    <div id="horarios" class="caja-informacion">
+        <h3>⏰ Horarios de Atención</h3>
+        <p><strong>Lunes a Viernes:</strong> 9:00 AM — 6:00 PM</p>
+        <p><strong>Sábados:</strong> 9:00 AM — 3:00 PM</p>
+        <p><strong>Domingos:</strong> Descanso</p>
+        <p>💜 ¡Cita previa agendada!</p>
+    </div>
+
+    <div id="fotos" class="caja-informacion">
+        <h3>📸 Lic. Laiza Robles González con sus pacientes 💜</h3>
+        <div class="galeria">
+            <div class="foto">📸 Foto 1<br><small>(Agrega tu foto aquí)</small></div>
+            <div class="foto">📸 Foto 2<br><small>(Agrega tu foto aquí)</small></div>
+            <div class="foto">📸 Foto 3<br><small>(Agrega tu foto aquí)</small></div>
+            <div class="foto">📸 Foto 4<br><small>(Agrega tu foto aquí)</small></div>
+        </div>
+        <p style="text-align:center; margin-top:10px;"><em>Tu sonrisa y satisfacción son mi mayor recompensa 💜</em></p>
+    </div>
+</section>
+
 <section class="contacto">
     <h2>📍 Contacto</h2>
     <h3>💜 Lic. Laiza Robles González</h3>
@@ -150,7 +209,7 @@
     <p style="font-size:18px;">💜 Tu piel lo merece 💜</p>
 </section>
 
-<footer style="text-align:center; padding:18px; color:#7a6c7c; font-size:15px;">
+<footer>
     © 2026 Cosmiatría — Lic. Laiza Robles González — Todos los derechos reservados
 </footer>
 
