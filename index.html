@@ -123,14 +123,72 @@
             color: #7a6c7c;
             font-size: 15px;
         }
+
+        /* 💜 Sobre la Licenciada */
+        .sobre-mi {
+            background: linear-gradient(135deg, #fef7fa, #f3eaf8);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #b888a8;
+        }
+
+        /* ⭐ Testimonios */
+        .testimonio {
+            background: #fef7fa;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border-left: 4px solid #b888a8;
+            font-style: italic;
+        }
+        .testimonio-nombre {
+            text-align: right;
+            font-weight: bold;
+            color: #7b5b8c;
+            margin-top: 8px;
+        }
+
+        /* 💬 Botón flotante de WhatsApp */
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            transition: transform 0.3s;
+            text-decoration: none;
+        }
+        .whatsapp-flotante:hover {
+            transform: scale(1.15);
+        }
     </style>
 </head>
 <body>
+
+<!-- 💬 Botón flotante de WhatsApp -->
+<a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
     <h1>✨ COSMIATRIA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
+
+<section>
+    <h2>💜 Sobre mí</h2>
+    <div class="sobre-mi">
+        <h3 style="text-align:center; margin-top:0;">Lic. Laiza González Robles</h3>
+        <p style="text-align:center;">Licenciada en Cosmiatría, con vocación y amor por realzar tu belleza natural. 💜</p>
+        <p style="text-align:center;">Mi compromiso es cuidar tu piel con productos de calidad y tratamientos personalizados, para que luzcas radiante y confiada. Tu satisfacción es mi mayor recompensa. ✨</p>
+    </div>
+</section>
 
 <section>
     <h2>Nuestros Servicios</h2>
@@ -176,6 +234,22 @@
 </section>
 
 <section>
+    <h2>⭐ Lo que dicen mis clientas</h2>
+    <div class="testimonio">
+        "¡Mi piel quedó hermosa y suave! Gracias Lic. Laiza por su paciencia y dedicación. 💜"
+        <div class="testimonio-nombre">— María</div>
+    </div>
+    <div class="testimonio">
+        "Excelente atención, muy profesional y cálida. Mi piel nunca se había visto tan bien. ✨"
+        <div class="testimonio-nombre">— Claudia</div>
+    </div>
+    <div class="testimonio">
+        "Ambiente muy agradable y tratamientos de calidad. ¡Regreso seguro! 💜"
+        <div class="testimonio-nombre">— Karla</div>
+    </div>
+</section>
+
+<section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
         <button class="boton" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
@@ -201,7 +275,7 @@
     </div>
 
     <div id="fotos" class="caja-informacion">
-        <h3>📸 Lic. Laiza Robles González con sus pacientes 💜</h3>
+        <h3>📸 Lic. Laiza González Robles con sus pacientes 💜</h3>
         <div class="galeria">
             <div class="foto">📸 Foto 1<br><small>(Agrega tu foto aquí)</small></div>
             <div class="foto">📸 Foto 2<br><small>(Agrega tu foto aquí)</small></div>
@@ -214,7 +288,7 @@
 
 <section class="contacto">
     <h2>📍 Contacto</h2>
-    <h3>💜 Lic. Laiza Robles González</h3>
+    <h3>💜 Lic. Laiza González Robles</h3>
     <p style="font-size:18px;"><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
     <p style="font-size:18px;"><strong>📍 Ubicación:</strong> <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">#10 Isabel La Católica, Santa María Nativitas, Estado de México</a></p>
     <p style="font-size:18px;">💜 Tu piel lo merece 💜</p>
