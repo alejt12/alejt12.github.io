@@ -63,6 +63,12 @@
             transform: scale(1.05);
             background: #8c78a8;
         }
+        .boton-verde {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+        }
+        .boton-verde:hover {
+            background: linear-gradient(90deg, #45a049, #3d8b40);
+        }
         .boton-llamar {
             background: linear-gradient(90deg, #4CAF50, #45a049);
         }
@@ -105,10 +111,11 @@
             margin-top: 15px;
         }
         .foto {
-            width: 200px;
-            height: 200px;
+            width: 180px;
+            height: 180px;
             background: #e4d4de;
             border-radius: 12px;
+            object-fit: cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -263,6 +270,67 @@
         .whatsapp-flotante:hover {
             transform: scale(1.15);
         }
+
+        /* 🔒 PANEL DE ADMINISTRACIÓN DE FOTOS */
+        .panel-admin {
+            background: #fffef0;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #f0ad4e;
+            display: none;
+        }
+        .panel-admin.activo {
+            display: block;
+        }
+        .panel-admin input[type="file"] {
+            margin: 10px 0;
+            width: 100%;
+        }
+        .boton-admin {
+            background: linear-gradient(90deg, #f0ad4e, #ec971f);
+            font-size: 15px;
+            padding: 10px 20px;
+            margin: 5px;
+        }
+        .boton-admin:hover {
+            background: linear-gradient(90deg, #ec971f, #d68910);
+        }
+        .caja-contraseña {
+            text-align: center;
+            margin-top: 15px;
+        }
+        .caja-contraseña input {
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+        }
+        .foto-galeria-contenedor {
+            position: relative;
+            display: inline-block;
+        }
+        .boton-borrar-foto {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 39, 67, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+        .foto-galeria-contenedor:hover .boton-borrar-foto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 <body>
@@ -397,6 +465,29 @@
 </section>
 
 <section>
+    <h2>📸 Lic. Laiza González Robles con sus pacientes 💜</h2>
+
+    <!-- 🔒 CAJA DE CONTRASEÑA PARA ADMINISTRAR FOTOS -->
+    <div class="caja-contraseña">
+        <input type="password" id="contraseñaAdmin" placeholder="🔒 Administrar fotos">
+        <button class="boton boton-admin" onclick="verificarContraseña()">Entrar</button>
+    </div>
+
+    <!-- 📸 GALERÍA DE FOTOS -->
+    <div class="galeria" id="galeriaFotos">
+        <!-- Las fotos aparecerán aquí automáticamente -->
+    </div>
+
+    <!-- 🔧 PANEL OCULTO PARA AGREGAR FOTOS -->
+    <div class="panel-admin" id="panelAdmin">
+        <h3 style="text-align:center; margin-top:0;">📷 Agregar Nueva Foto</h3>
+        <p style="text-align:center; font-size:14px;">Selecciona una foto desde tu celular o computadora:</p>
+        <input type="file" id="entradaFoto" accept="image/*" onchange="agregarFoto(event)">
+        <p style="text-align:center; font-size:13px; color:#666;">💜 Las fotos se guardan automáticamente</p>
+    </div>
+</section>
+
+<section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
         <button class="boton" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
@@ -409,102 +500,4 @@
 
     <div id="agendar" class="caja-informacion">
         <h3>📅 Agendar tu Cita</h3>
-        <p>¡Es muy fácil! Contáctame por WhatsApp o llámame y reservamos tu fecha y hora disponibles. 💜</p>
-        <p><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
-    </div>
-
-    <div id="fotos" class="caja-informacion">
-        <h3>📸 Lic. Laiza González Robles con sus pacientes 💜</h3>
-        <div class="galeria">
-            <div class="foto">📸 Foto 1<br><small>(Agrega tu foto aquí)</small></div>
-            <div class="foto">📸 Foto 2<br><small>(Agrega tu foto aquí)</small></div>
-            <div class="foto">📸 Foto 3<br><small>(Agrega tu foto aquí)</small></div>
-            <div class="foto">📸 Foto 4<br><small>(Agrega tu foto aquí)</small></div>
-        </div>
-        <p style="text-align:center; margin-top:10px;"><em>Tu sonrisa y satisfacción son mi mayor recompensa 💜</em></p>
-    </div>
-</section>
-
-<section class="contacto">
-    <h2>📍 Contacto</h2>
-    <h3>💜 Lic. Laiza González Robles</h3>
-    <p style="font-size:18px;"><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
-    <p style="font-size:18px;"><strong>📍 Ubicación:</strong> <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">#10 Isabel La Católica, Santa María Nativitas, Estado de México</a></p>
-    <p style="font-size:18px;">💜 Tu piel lo merece 💜</p>
-</section>
-
-<!-- 🛡️ AVISO DE PRIVACIDAD -->
-<section>
-    <h2>🛡️ Aviso de Privacidad</h2>
-    <div class="aviso-privacidad">
-        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos que compartas a través de esta página no se almacenan ni se comparten con terceros. Al enviar tu opinión o agendar una cita, tu información se envía directamente a través de WhatsApp y queda bajo tu responsabilidad y la de la Lic. Laiza González Robles. 💜</p>
-    </div>
-</section>
-
-<footer>
-    © 2026 Cosmiatría Laya — Lic. Laiza González Robles — Todos los derechos reservados
-</footer>
-
-<script>
-let calificacionEstrellas = 0;
-
-function mostrarInfo(id) {
-    var todas = document.querySelectorAll('.caja-informacion');
-    for(var i = 0; i < todas.length; i++) {
-        todas[i].classList.remove('mostrar');
-    }
-    document.getElementById(id).classList.add('mostrar');
-}
-
-// ⭐ Calificación con estrellas
-function calificar(cantidad) {
-    calificacionEstrellas = cantidad;
-    const estrellas = document.querySelectorAll('#estrellasCalificacion span');
-    for(let i = 0; i < estrellas.length; i++) {
-        if(i < cantidad) {
-            estrellas[i].classList.add('estrella-seleccionada');
-        } else {
-            estrellas[i].classList.remove('estrella-seleccionada');
-        }
-    }
-}
-
-// ✏️ Enviar opinión
-function enviarOpinion() {
-    var nombre = document.getElementById('nombreOpinion').value.trim();
-    var opinion = document.getElementById('textoOpinion').value.trim();
-
-    if(nombre === "" || opinion === "") {
-        alert("⚠️ Por favor escribe tu nombre y tu opinión.");
-        return;
-    }
-    if(calificacionEstrellas === 0) {
-        alert("⭐ Por favor califica con estrellas.");
-        return;
-    }
-
-    // ✅ Envía todo por WhatsApp
-    var mensaje = "⭐ NUEVA OPINIÓN RECIBIDA ⭐\n\n" +
-                  "Nombre: " + nombre + "\n" +
-                  "Calificación: " + "⭐".repeat(calificacionEstrellas) + "\n" +
-                  "Opinión: " + opinion + "\n\n" +
-                  "💜 Recibido desde Cosmiatría Laya";
-
-    var enlaceWhatsApp = "https://wa.me/5217296336318?text=" + encodeURIComponent(mensaje);
-
-    document.getElementById('mensajeOpinion').classList.add('visible');
-    window.open(enlaceWhatsApp, '_blank');
-
-    // ✅ Limpia todo
-    setTimeout(function(){
-        document.getElementById('nombreOpinion').value = "";
-        document.getElementById('textoOpinion').value = "";
-        document.getElementById('mensajeOpinion').classList.remove('visible');
-        calificacionEstrellas = 0;
-        calificar(0);
-    }, 5000);
-}
-</script>
-
-</body>
-</html>
+        <p>¡Es muy fácil
