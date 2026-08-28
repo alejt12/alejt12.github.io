@@ -61,7 +61,7 @@
             margin-top: 25px;
             border-radius: 12px;
             border-left: 4px solid #9c6b8c;
-            display: none; /* ✅ Empieza OCULTA */
+            display: none;
             animation: aparecer 0.4s ease;
         }
         @keyframes aparecer {
@@ -69,11 +69,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .caja-informacion.mostrar {
-            display: block; /* ✅ Se MUESTRA al dar clic */
+            display: block;
         }
         .contacto {
             text-align: center;
             background: #f9f2f7;
+        }
+        .contacto a {
+            color: #9c6b8c;
+            font-weight: bold;
+            text-decoration: none;
+        }
+        .contacto a:hover {
+            text-decoration: underline;
         }
         footer {
             text-align: center;
@@ -102,7 +110,6 @@
         <button class="boton" onclick="mostrarInfo('asesoria')">💎 Asesoría</button>
     </div>
 
-    <!-- ✅ La información está OCULTA al principio -->
     <div id="limpieza" class="caja-informacion">
         <h3>🌿 Limpieza Facial Profunda</h3>
         <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel quedará limpia, suave y radiante. ✨</p>
@@ -136,24 +143,22 @@
 
 <section class="contacto">
     <h2>📍 Contacto</h2>
-    <p><strong>Ubicación:</strong> Toluca, México</p>
-    <p><strong>Agenda tu cita:</strong> escribe para reservar</p>
+    <h3>💜 Lic. Laiza Robles González</h3>
+    <p><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
+    <p><strong>📍 Ubicación:</strong> <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">#10 Isabel La Católica, Santa María Nativitas, Estado de México</a></p>
     <p>💜 Tu piel lo merece 💜</p>
 </section>
 
 <footer>
-    © 2026 Cosmiatría — Todos los derechos reservados
+    © 2026 Cosmiatría — Lic. Laiza Robles González — Todos los derechos reservados
 </footer>
 
-<!-- ✅ Código que hace funcionar los botones -->
 <script>
 function mostrarInfo(id) {
-    // Primero oculta TODAS las cajas
     var todas = document.querySelectorAll('.caja-informacion');
     for(var i = 0; i < todas.length; i++) {
         todas[i].classList.remove('mostrar');
     }
-    // Luego MUESTRA solo la que elegiste
     document.getElementById(id).classList.add('mostrar');
 }
 </script>
