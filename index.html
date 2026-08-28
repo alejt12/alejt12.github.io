@@ -1,3 +1,543 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cosmiatría Laya</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #fef7fa, #f0e4ee);
+            color: #4a2c4a;
+        }
+        header {
+            background: linear-gradient(90deg, #9c6b8c, #b888a8);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+        .boton-candado {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255,255,255,0.25);
+            border: none;
+            font-size: 26px;
+            padding: 8px 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .boton-candado:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
+        h1 { margin: 0; font-size: 42px; }
+        .frase { font-size: 20px; font-style: italic; margin-top: 10px; color: #f3e0ee; }
+        section {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(156, 107, 140, 0.12);
+        }
+        h2 {
+            color: #7b5b8c;
+            border-bottom: 2px solid #e4d4de;
+            padding-bottom: 12px;
+            text-align: center;
+            font-size: 26px;
+        }
+        .contenedor-botones { text-align: center; margin: 20px 0; }
+        .boton {
+            display: inline-block;
+            background: #9c88b8;
+            color: white !important;
+            padding: 14px 28px;
+            margin: 8px;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 17px;
+            transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
+        }
+        .boton:hover { transform: scale(1.05); background: #8c78a8; }
+        .boton-verde { background: linear-gradient(90deg, #4CAF50, #45a049); }
+        .boton-verde:hover { background: linear-gradient(90deg, #45a049, #3d8b40); }
+        .boton-naranja { background: linear-gradient(90deg, #f0ad4e, #ec971f); }
+        .boton-naranja:hover { background: linear-gradient(90deg, #ec971f, #d68910); }
+        .boton-rojo { background: linear-gradient(90deg, #dc3545, #c82333); }
+        .boton-rojo:hover { background: linear-gradient(90deg, #c82333, #b51f2e); }
+        .boton-llamar { background: linear-gradient(90deg, #4CAF50, #45a049); }
+        .boton-enviar { background: linear-gradient(90deg, #5cb85c, #4cae4c); padding: 12px 30px; font-size: 16px; }
+        .boton-enviar:hover { background: linear-gradient(90deg, #4cae4c, #419641); }
+        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .boton-instagram:hover { transform: scale(1.08); opacity: 0.92; }
+        .caja-informacion {
+            background: #f8f2fb;
+            padding: 22px;
+            margin-top: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #9c6b8c;
+            display: none;
+            animation: aparecer 0.4s ease;
+        }
+        .caja-informacion.mostrar { display: block; }
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .galeria {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .foto {
+            width: 180px;
+            height: 180px;
+            background: #e4d4de;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+        .foto-contenedor { position: relative; display: inline-block; }
+        .boton-borrar-foto {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(220, 39, 67, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            font-size: 16px;
+            cursor: pointer;
+            display: none;
+        }
+        .foto-contenedor:hover .boton-borrar-foto {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .contacto { text-align: center; background: #f9f2f7; }
+        .contacto a { color: #9c6b8c; font-weight: bold; text-decoration: none; }
+        .contacto a:hover { text-decoration: underline; }
+        footer { text-align: center; padding: 18px; color: #7a6c7c; font-size: 15px; }
+        .sobre-mi {
+            background: linear-gradient(135deg, #fef7fa, #f3eaf8);
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #b888a8;
+        }
+        .testimonio {
+            background: #fef7fa;
+            padding: 18px;
+            margin: 12px 0;
+            border-radius: 12px;
+            border-left: 4px solid #b888a8;
+            font-style: italic;
+        }
+        .testimonio-nombre {
+            text-align: right;
+            font-weight: bold;
+            color: #7b5b8c;
+            margin-top: 8px;
+        }
+        .caja-opinion {
+            background: #fef7fa;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #5cb85c;
+        }
+        .caja-opinion input, .caja-opinion textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .caja-opinion textarea { min-height: 80px; resize: vertical; }
+        .estrellas { text-align: center; font-size: 30px; margin: 10px 0; cursor: pointer; }
+        .estrella-seleccionada { color: #ffc107; }
+        .opinion-recibida {
+            background: #efffef;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #5cb85c;
+            display: none;
+        }
+        .opinion-recibida.visible { display: block; }
+        .tabla-horarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabla-horarios td, .tabla-horarios th {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e4d4de;
+        }
+        .tabla-horarios th { background: #f3eaf8; color: #7b5b8c; }
+        .dia-descanso { color: #dc2743; font-weight: bold; }
+        .productos {
+            background: #fef7fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #b888a8;
+            text-align: center;
+        }
+        .aviso-privacidad {
+            background: #f9f9f9;
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #555;
+            text-align: justify;
+        }
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            text-decoration: none;
+        }
+        .whatsapp-flotante:hover { transform: scale(1.15); }
+
+        /* 🔐 VENTANA DE INICIO DE SESIÓN */
+        .ventana-sesion {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .caja-sesion {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 380px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .caja-sesion h3 { margin-top: 0; color: #7b5b8c; font-size: 22px; }
+        .caja-sesion input {
+            width: 90%;
+            padding: 12px;
+            margin: 8px 0;
+            font-size: 16px;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .mensaje { margin-top: 12px; font-size: 15px; font-weight: bold; }
+        .error { color: #dc3545; }
+        .exito { color: #28a745; }
+        .cerrar-ventana {
+            background: none;
+            border: none;
+            font-size: 22px;
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            cursor: pointer;
+            color: #999;
+        }
+
+        /* PANEL DE ADMINISTRACIÓN TODO JUNTO */
+        .panel-admin {
+            background: linear-gradient(135deg, #fffef0, #faf4e0);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 20px;
+            border-left: 5px solid #f0ad4e;
+        }
+        .panel-admin h3 { text-align: center; color: #b88600; margin-top: 0; }
+        .panel-admin input[type="text"], .panel-admin input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin: 6px 0;
+            font-size: 15px;
+            border: 2px solid #f0d8a0;
+            border-radius: 8px;
+            box-sizing: border-box;
+        }
+        .agenda-item {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 10px;
+            border-left: 3px solid #4CAF50;
+        }
+        .oculto { display: none !important; }
+        .separador { border: none; border-top: 2px dashed #f0d8a0; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
+
+<header>
+    <!-- 🔐 BOTÓN DE CANDADITO ARRIBA A LA DERECHA -->
+    <button class="boton-candado" id="botonCandado" title="Administradora 🔐" onclick="abrirVentanaSesion()">🔒</button>
+    
+    <h1>✨ COSMIATRÍA LAYA ✨</h1>
+    <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
+</header>
+
+<!-- 🔐 VENTANA QUE APARECE AL TOCAR EL CANDADITO -->
+<div id="ventanaSesion" class="ventana-sesion oculto">
+    <div class="caja-sesion">
+        <button class="cerrar-ventana" onclick="cerrarVentanaSesion()">×</button>
+        <h3>🔐 Iniciar Sesión</h3>
+        <input type="email" id="correoAdmin" placeholder="✉️ Correo">
+        <input type="password" id="contraseñaAdmin" placeholder="🔑 Contraseña">
+        <div class="mensaje" id="mensajeSesion"></div>
+        <br>
+        <button class="boton boton-naranja" onclick="verificarSesion()">Entrar</button>
+    </div>
+</div>
+
+<section>
+    <h2>💜 Sobre mí</h2>
+    <div class="sobre-mi">
+        <h3 style="text-align:center; margin-top:0;">Lic. Laiza González Robles</h3>
+        <p style="text-align:center;">Licenciada en Cosmiatría, con vocación y amor por realzar tu belleza natural. 💜</p>
+        <p style="text-align:center;">Mi compromiso es cuidar tu piel con productos de calidad y tratamientos personalizados, para que luzcas radiante y confiada. Tu satisfacción es mi mayor recompensa. ✨</p>
+    </div>
+</section>
+
+<section>
+    <h2>Nuestros Servicios</h2>
+    <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para ver su información</p>
+    <div class="contenedor-botones">
+        <button class="boton" onclick="mostrarSeccion('limpieza')">🌿 Limpieza Facial</button>
+        <button class="boton" onclick="mostrarSeccion('hidratacion')">💆‍♀️ Hidratación</button>
+        <button class="boton" onclick="mostrarSeccion('exfoliacion')">✨ Exfoliación</button>
+        <button class="boton" onclick="mostrarSeccion('piel')">🌸 Piel Sensible</button>
+        <button class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría</button>
+    </div>
+
+    <div id="limpieza" class="caja-informacion">
+        <h3>🌿 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
+        <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel.</p>
+    </div>
+    <div id="hidratacion" class="caja-informacion">
+        <h3>💆‍♀️ Hidratación y Nutrición</h3>
+        <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
+    </div>
+    <div id="exfoliacion" class="caja-informacion">
+        <h3>✨ Exfoliación y Renovación</h3>
+        <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. 🌟</p>
+    </div>
+    <div id="piel" class="caja-informacion">
+        <h3>🌸 Tratamiento para Piel Sensible</h3>
+        <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
+    </div>
+    <div id="asesoria" class="caja-informacion">
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
+    </div>
+</section>
+
+<section>
+    <h2>📆 Horarios de Atención</h2>
+
+    <!-- ✅ PANEL DE ADMINISTRACIÓN — SOLO ELLA LO VE AL ENTRAR -->
+    <div id="panelAdministracion" class="panel-admin oculto">
+        <div style="text-align:right; margin-bottom:10px;">
+            <button class="boton boton-rojo" onclick="cerrarSesion()">🚪 Cerrar Sesión</button>
+        </div>
+
+        <h3>✏️ MODIFICAR HORARIOS</h3>
+        <input type="text" id="hLunes" placeholder="Lunes ej: 9:00 AM — 6:00 PM">
+        <input type="text" id="hMartes" placeholder="Martes">
+        <input type="text" id="hMiercoles" placeholder="Miércoles">
+        <input type="text" id="hJueves" placeholder="Jueves">
+        <input type="text" id="hViernes" placeholder="Viernes">
+        <input type="text" id="hSabado" placeholder="Sábado">
+        <div class="contenedor-botones" style="margin:8px 0;">
+            <button class="boton boton-verde" onclick="guardarHorarios()">✅ Guardar Horarios</button>
+        </div>
+        <div class="mensaje exito" id="msgHorarios"></div>
+
+        <hr class="separador">
+
+        <h3>📅 AGREGAR CITA A LA AGENDA</h3>
+        <input type="text" id="cFecha" placeholder="Fecha ej: 28 de Agosto">
+        <input type="text" id="cNombre" placeholder="Nombre de la cliente">
+        <input type="text" id="cHora" placeholder="Hora ej: 10:00 AM">
+        <input type="text" id="cTratamiento" placeholder="Tratamiento">
+        <div class="contenedor-botones" style="margin:8px 0;">
+            <button class="boton boton-verde" onclick="agregarCita()">✅ Agregar Cita</button>
+        </div>
+
+        <hr class="separador">
+
+        <h3>📷 SUBIR FOTOS A LA GALERÍA</h3>
+        <input type="file" id="fotoNueva" accept="image/*" onchange="subirFoto(event)">
+    </div>
+
+    <!-- 📆 LO QUE VEN TODOS LOS CLIENTES -->
+    <table class="tabla-horarios" id="tablaHorarios">
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr><td>📅 Lunes</td><td id="dLunes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Martes</td><td id="dMartes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Miércoles</td><td id="dMiercoles">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Jueves</td><td id="dJueves">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Viernes</td><td id="dViernes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Sábado</td><td id="dSabado">9:00 AM — 3:00 PM</td></tr>
+        <tr><td>☀️ Domingo</td><td class="dia-descanso">Descanso</td></tr>
+    </table>
+
+    <h3 style="text-align:center; margin-top:25px;">📅 Agenda de Citas</h3>
+    <div id="listaCitas"></div>
+    <p style="text-align:center; margin-top:15px;">💜 <strong>Se requiere cita previa agendada</strong></p>
+</section>
+
+<section>
+    <h2>🌿 Productos que utilizo</h2>
+    <div class="productos">
+        <p style="font-size:18px;">✅ Productos de alta calidad</p>
+        <p>✅ Libres de crueldad animal 🐾</p>
+        <p>✅ Dermatológicamente probados</p>
+        <p>✅ Adaptados a cada tipo de piel</p>
+        <p style="margin-top:10px; font-style:italic;">"Tu piel merece lo mejor, por eso selecciono cuidadosamente cada producto." 💜</p>
+    </div>
+</section>
+
+<section>
+    <h2>⭐ Opiniones de mis clientas</h2>
+    <div class="testimonio">
+        "¡Mi piel quedó hermosa y suave! Gracias Lic. Laiza por su paciencia y dedicación. 💜"
+        <div class="testimonio-nombre">— María ⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="testimonio">
+        "Excelente atención, muy profesional y cálida. Mi piel nunca se había visto tan bien. ✨"
+        <div class="testimonio-nombre">— Claudia ⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="testimonio">
+        "Ambiente muy agradable y tratamientos de calidad. ¡Regreso seguro! 💜"
+        <div class="testimonio-nombre">— Karla ⭐⭐⭐⭐⭐</div>
+    </div>
+    <div class="caja-opinion">
+        <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
+        <div class="estrellas" id="estrellasCal">
+            <span onclick="calificar(1)">⭐</span>
+            <span onclick="calificar(2)">⭐</span>
+            <span onclick="calificar(3)">⭐</span>
+            <span onclick="calificar(4)">⭐</span>
+            <span onclick="calificar(5)">⭐</span>
+        </div>
+        <input type="text" id="opNombre" placeholder="Tu nombre..." required>
+        <textarea id="opTexto" placeholder="Tu opinión..." required></textarea>
+        <div class="contenedor-botones">
+            <button class="boton boton-enviar" onclick="enviarOpinion()">✅ Enviar Opinión</button>
+        </div>
+        <div id="mensajeOp" class="opinion-recibida">
+            <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>📸 Galería de Fotos</h2>
+    <!-- 📆 LAS FOTOS SE VEN BONITAS SIN RECUADRO FEO -->
+    <div class="galeria" id="galeriaFotos"></div>
+</section>
+
+<section>
+    <h2>📋 Más Información</h2>
+    <div class="contenedor-botones">
+        <button class="boton" onclick="mostrarSeccion('agendar")>📅 Agendar Cita</button>
+        <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
+        <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
+        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ubicación</a>
+        <a href="https://www.instagram.com/skin_carelaya/" target="_blank" class="boton boton-instagram">📷 Instagram</a>
+    </div>
+    <div id="agendar" class="caja-informacion">
+        <h3>📅 Agendar tu Cita</h3>
+        <p>💬 Escríbeme por WhatsApp o llámame para apartar tu cita.</p>
+        <p>📞 <strong>Teléfono y WhatsApp:</strong> 729 633 6318</p>
+        <p>📍 Toluca, Estado de México</p>
+    </div>
+</section>
+
+<section class="contacto">
+    <h2>📍 Contacto</h2>
+    <h3>💜 Lic. Laiza González Robles</h3>
+    <p>📞 Teléfono y WhatsApp: <a href="tel:+5217296336318">729 633 6318</a></p>
+    <p>📍 Toluca, Estado de México</p>
+    <p>📷 Instagram: <a href="https://www.instagram.com/skin_carelaya/" target="_blank">@skin_carelaya</a></p>
+</section>
+
+<section>
+    <h2>🛡️ Aviso de Privacidad</h2>
+    <div class="aviso-privacidad">
+        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos compartidos en esta página se manejan con confianza y respeto. 💜</p>
+    </div>
+</section>
+
+<footer>
+    © 2026 Cosmiatría Laya — Lic. Laiza González Robles. Todos los derechos reservados 💜
+</footer>
+
+<script>
+// 🔐 DATOS DE ELLA — YA PUESTOS
+const CORREO_ADMIN = "laya@gmail.com";
+const CONTRASEÑA_ADMIN = "Laya2026";
+
+// 🔐 VENTANA DE INICIO DE SESIÓN
+function abrirVentanaSesion() {
+    document.getElementById('ventanaSesion').classList.remove('oculto');
+    document.getElementById('correoAdmin').value = '';
+    document.getElementById('contraseñaAdmin').value = '';
+    document.getElementById('mensajeSesion').textContent = '';
+}
+function cerrarVentanaSesion() {
+    document.getElementById('ventanaSesion').classList.add('oculto');
+}
+function verificarSesion() {
+    const correo = document.getElementById('correoAdmin').value.trim();
+    const pass = document.getElementById('contraseñaAdmin').value;
+    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
+        document.getElementById('mensajeSesion').textContent = '✅ ¡Bienvenida! Entrando...';
+        document.getElementById('mensajeSesion').className = 'mensaje exito';
+        setTimeout(entrarAlPanel, 1000);
+    } else {
+        document.getElementById('mensajeSesion').textContent = '❌ Correo o contraseña incorrectos';
+        document.getElementById('mensajeSesion').className = 'mensaje error';
+    }
+}
 function entrarAlPanel() {
     cerrarVentanaSesion();
     document.getElementById('panelAdministracion').classList.remove('oculto');
@@ -13,7 +553,7 @@ function entrarAlPanel() {
             transform: translateY(-50%);
             background: #4CAF50;
             color: white;
-            padding: 18px 22px;
+            padding: 14px 24px;
             border-radius: 50px;
             font-size: 18px;
             font-weight: bold;
@@ -26,7 +566,7 @@ function entrarAlPanel() {
     `;
     document.body.appendChild(flecha);
 
-    // Quita la flecha después de 4 segundos
+    // ✅ Se quita sola a los 4 segundos
     setTimeout(() => {
         flecha.style.transition = 'opacity 0.5s ease';
         flecha.style.opacity = '0';
@@ -35,3 +575,125 @@ function entrarAlPanel() {
 
     cargarHorariosEnCampos();
 }
+function cerrarSesion() {
+    document.getElementById('panelAdministracion').classList.add('oculto');
+    document.getElementById('botonCandado').textContent = '🔒';
+}
+
+// 📆 HORARIOS
+function guardarHorarios() {
+    const h = {
+        lunes: document.getElementById('hLunes').value || '9:00 AM — 6:00 PM',
+        martes: document.getElementById('hMartes').value || '9:00 AM — 6:00 PM',
+        miercoles: document.getElementById('hMiercoles').value || '9:00 AM — 6:00 PM',
+        jueves: document.getElementById('hJueves').value || '9:00 AM — 6:00 PM',
+        viernes: document.getElementById('hViernes').value || '9:00 AM — 6:00 PM',
+        sabado: document.getElementById('hSabado').value || '9:00 AM — 3:00 PM'
+    };
+    localStorage.setItem('horarios', JSON.stringify(h));
+    aplicarHorarios(h);
+    document.getElementById('msgHorarios').textContent = '✅ ¡Guardado correctamente!';
+}
+function cargarHorariosEnCampos() {
+    const h = JSON.parse(localStorage.getItem('horarios')) || {};
+    document.getElementById('hLunes').value = h.lunes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMartes').value = h.martes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
+    document.getElementById('hJueves').value = h.jueves || '9:00 AM — 6:00 PM';
+    document.getElementById('hViernes').value = h.viernes || '9:00 AM — 6:00 PM';
+    document.getElementById('hSabado').value = h.sabado || '9:00 AM — 3:00 PM';
+}
+function aplicarHorarios(h) {
+    document.getElementById('dLunes').textContent = h.lunes;
+    document.getElementById('dMartes').textContent = h.martes;
+    document.getElementById('dMiercoles').textContent = h.miercoles;
+    document.getElementById('dJueves').textContent = h.jueves;
+    document.getElementById('dViernes').textContent = h.viernes;
+    document.getElementById('dSabado').textContent = h.sabado;
+}
+
+// 📅 AGENDA DE CITAS
+let citas = JSON.parse(localStorage.getItem('agenda')) || [];
+function agregarCita() {
+    const fecha = document.getElementById('cFecha').value.trim();
+    const nombre(document.getElementById('cNombre').value.trim();
+    const hora = document.getElementById('cHora').value.trim();
+    const tratamiento = document.getElementById('cTratamiento').value.trim();
+    if (!fecha || !nombre || !hora || !tratamiento) { alert('⚠️ Completa todos los datos'); return; }
+    citas.push({fecha, nombre, hora, tratamiento});
+    localStorage.setItem('agenda', JSON.stringify(citas));
+    dibujarCitas();
+    document.getElementById('cFecha').value='';
+    document.getElementById('cNombre').value='';
+    document.getElementById('cHora').value='';
+    document.getElementById('cTratamiento').value='';
+}
+function dibujarCitas() {
+    const div = document.getElementById('listaCitas');
+    div.innerHTML = '';
+    citas.forEach((c,i)=>{
+        div.innerHTML += `<div class="agenda-item">📅 ${c.fecha} — ⏰ ${c.hora}<br>👤 ${c.nombre}<br>💆‍♀️ ${c.tratamiento} <button style="float:right;background:#dc3545;color:white;border:none;border-radius:5px;padding:2px 8px;cursor:pointer" onclick="eliminarCita(${i})">×</button></div>`;
+    });
+}
+function eliminarCita(i) {
+    if(confirm('¿Eliminar esta cita?')){ citas.splice(i,1); localStorage.setItem('agenda', JSON.stringify(citas)); dibujarCitas(); }
+}
+
+// 📸 FOTOS
+let fotos = JSON.parse(localStorage.getItem('fotos')) || [];
+function subirFoto(e) {
+    const archivo = e.target.files[0];
+    if(!archivo) return;
+    const lector = new FileReader();
+    lector.onload = function(evt){
+        fotos.push(evt.target.result);
+        localStorage.setItem('fotos', JSON.stringify(fotos));
+        dibujarFotos();
+    };
+    lector.readAsDataURL(archivo);
+}
+function dibujarFotos() {
+    const div = document.getElementById('galeriaFotos');
+    div.innerHTML = '';
+    fotos.forEach((url,i)=>{
+        div.innerHTML += `<div class="foto-contenedor"><img src="${url}" class="foto" alt="Foto"><button class="boton-borrar-foto" onclick="quitarFoto(${i})">×</button></div>`;
+    });
+}
+function quitarFoto(i){
+    if(confirm('¿Eliminar esta foto?')){ fotos.splice(i,1); localStorage.setItem('fotos', JSON.stringify(fotos)); dibujarFotos(); }
+}
+
+// ⭐ OPINIONES
+let calif = 0;
+function calificar(cant) {
+    calif = cant;
+    document.querySelectorAll('#estrellasCal span').forEach((e,ind)=>{
+        e.classList.toggle('estrella-seleccionada', (ind+1) <= cant);
+    });
+}
+function enviarOpinion() {
+    const nom = document.getElementById('opNombre').value.trim();
+    const txt = document.getElementById('opTexto').value.trim();
+    if (!nom || !txt || calif===0) { alert('⚠️ Completa todo y pon las estrellas'); return; }
+    const msg = `⭐ NUEVA OPINIÓN:\nNombre: ${nom}\nCalificación:${'⭐'.repeat(calif)}\nOpinión: ${txt}`;
+    window.open(`https://wa.me/5217296336318?text=${encodeURIComponent(msg)}`,'_blank');
+    document.getElementById('mensajeOp').classList.add('visible');
+}
+
+// 📂 MOSTRAR SECCIONES
+function mostrarSeccion(id) {
+    document.querySelectorAll('.caja-informacion').forEach(s => s.classList.remove('mostrar'));
+    document.getElementById(id).classList.add('mostrar');
+}
+
+// ✅ AL CARGAR TODO
+window.onload = function(){
+    const h = JSON.parse(localStorage.getItem('horarios'));
+    if(h) aplicarHorarios(h);
+    dibujarCitas();
+    dibujarFotos();
+};
+</script>
+
+</body>
+</html>
