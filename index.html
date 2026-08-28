@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Cosmiatría - LAYA</title>
+    <title>Cosmiatría Laya</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -18,7 +18,13 @@
         }
         h1 {
             margin: 0;
-            font-size: 38px;
+            font-size: 42px;
+        }
+        .frase {
+            font-size: 20px;
+            font-style: italic;
+            margin-top: 10px;
+            color: #f3e0ee;
         }
         section {
             max-width: 800px;
@@ -56,8 +62,12 @@
             transform: scale(1.05);
             background: #8c78a8;
         }
-        .boton-accion {
-            background: linear-gradient(90deg, #7b5b8c, #9c6b8c);
+        .boton-instagram {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+        .boton-instagram:hover {
+            transform: scale(1.08);
+            opacity: 0.92;
         }
         .caja-informacion {
             background: #f8f2fb;
@@ -118,8 +128,8 @@
 <body>
 
 <header>
-    <h1>✨ Cosmiatría ✨</h1>
-    <p>Cuidado de la piel, belleza y bienestar</p>
+    <h1>✨ COSMIATRIA LAYA ✨</h1>
+    <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
 
 <section>
@@ -168,11 +178,12 @@
 <section>
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
-        <button class="boton boton-accion" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
-        <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-accion">💬 WhatsApp</a>
-        <button class="boton boton-accion" onclick="mostrarInfo('horarios')">⏰ Horarios</button>
-        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton boton-accion">📍 Ver Mapa</a>
-        <button class="boton boton-accion" onclick="mostrarInfo('fotos')">📸 Fotos</button>
+        <button class="boton" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
+        <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
+        <button class="boton" onclick="mostrarInfo('horarios')">⏰ Horarios</button>
+        <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ver Mapa</a>
+        <button class="boton" onclick="mostrarInfo('fotos')">📸 Fotos</button>
+        <a href="https://www.instagram.com/skin_carelaya/?__pwa=1" target="_blank" class="boton boton-instagram">📷 Instagram</a>
     </div>
 
     <div id="agendar" class="caja-informacion">
@@ -210,7 +221,7 @@
 </section>
 
 <footer>
-    © 2026 Cosmiatría — Lic. Laiza González Robles — Todos los derechos reservados
+    © 2026 Cosmiatría Laya — Lic. Laiza Robles González — Todos los derechos reservados
 </footer>
 
 <script>
