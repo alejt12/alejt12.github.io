@@ -26,6 +26,13 @@
             margin-top: 10px;
             color: #f3e0ee;
         }
+        .imagen-header {
+            margin-top: 20px;
+            width: 180px;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
         section {
             max-width: 800px;
             margin: 30px auto;
@@ -57,10 +64,22 @@
             font-weight: bold;
             font-size: 17px;
             transition: transform 0.3s, background 0.3s;
+            text-decoration: none;
         }
         .boton:hover {
             transform: scale(1.05);
             background: #8c78a8;
+        }
+        .boton-llamar {
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+        }
+        .boton-enviar {
+            background: linear-gradient(90deg, #5cb85c, #4cae4c);
+            padding: 12px 30px;
+            font-size: 16px;
+        }
+        .boton-enviar:hover {
+            background: linear-gradient(90deg, #4cae4c, #419641);
         }
         .boton-instagram {
             background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
@@ -132,7 +151,7 @@
             border-left: 5px solid #b888a8;
         }
 
-        /* ⭐ Testimonios */
+        /* ⭐ Testimonios y Opiniones */
         .testimonio {
             background: #fef7fa;
             padding: 18px;
@@ -146,6 +165,107 @@
             font-weight: bold;
             color: #7b5b8c;
             margin-top: 8px;
+        }
+        .caja-opinion {
+            background: #fef7fa;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #5cb85c;
+        }
+        .caja-opinion input,
+        .caja-opinion textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
+            font-size: 15px;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .caja-opinion textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        .estrellas {
+            text-align: center;
+            font-size: 30px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .estrella-seleccionada {
+            color: #ffc107;
+        }
+        .opinion-recibida {
+            background: #efffef;
+            padding: 15px;
+            margin-top: 12px;
+            border-radius: 10px;
+            border-left: 4px solid #5cb85c;
+            display: none;
+        }
+        .opinion-recibida.visible {
+            display: block;
+        }
+
+        /* 💰 Paquetes y Precios */
+        .paquete {
+            background: linear-gradient(135deg, #fef7fa, #f3eaf8);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            border-left: 5px solid;
+        }
+        .paquete-basico { border-color: #4CAF50; }
+        .paquete-completo { border-color: #2196F3; }
+        .paquete-premium { border-color: #9c27b0; }
+        .precio {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: right;
+            color: #7b5b8c;
+            margin-top: 10px;
+        }
+
+        /* 📆 Tabla de Horarios */
+        .tabla-horarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        .tabla-horarios td, .tabla-horarios th {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid #e4d4de;
+        }
+        .tabla-horarios th {
+            background: #f3eaf8;
+            color: #7b5b8c;
+        }
+        .dia-descanso {
+            color: #dc2743;
+            font-weight: bold;
+        }
+
+        /* 📋 Productos */
+        .productos {
+            background: #fef7fa;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #b888a8;
+            text-align: center;
+        }
+
+        /* 🛡️ Aviso de Privacidad */
+        .aviso-privacidad {
+            background: #f9f9f9;
+            padding: 18px;
+            margin-top: 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            color: #555;
+            text-align: justify;
         }
 
         /* 💬 Botón flotante de WhatsApp */
@@ -179,6 +299,9 @@
 <header>
     <h1>✨ COSMIATRIA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
+
+    <!-- 🐾 Imagen agregada debajo del título -->
+    <img src="https://i.imgur.com/9ZfX7yY.png" alt="Snoopy" class="imagen-header">
 </header>
 
 <section>
@@ -233,19 +356,102 @@
     </div>
 </section>
 
+<!-- 💰 PAQUETES Y PRECIOS -->
 <section>
-    <h2>⭐ Lo que dicen mis clientas</h2>
+    <h2>💰 Paquetes y Promociones</h2>
+
+    <div class="paquete paquete-basico">
+        <h3 style="color:#4CAF50; margin-top:0;">🟢 Paquete Básico</h3>
+        <p>✅ Limpieza Facial Profunda</p>
+        <p>✅ Hidratación</p>
+        <div class="precio">$ 350 MXN</div>
+    </div>
+
+    <div class="paquete paquete-completo">
+        <h3 style="color:#2196F3; margin-top:0;">🔵 Paquete Completo</h3>
+        <p>✅ Limpieza Facial Profunda</p>
+        <p>✅ Exfoliación y Renovación</p>
+        <p>✅ Hidratación y Nutrición</p>
+        <div class="precio">$ 550 MXN</div>
+    </div>
+
+    <div class="paquete paquete-premium">
+        <h3 style="color:#9c27b0; margin-top:0;">🔴 Paquete Premium</h3>
+        <p>✅ Todo lo del Paquete Completo</p>
+        <p>✅ Rutina personalizada para llevar</p>
+        <p>✅ Producto de regalo para tu tipo de piel 💜</p>
+        <div class="precio">$ 800 MXN</div>
+    </div>
+
+    <p style="text-align:center; margin-top:15px; font-style:italic;">💜 Los precios pueden cambiar según tu tipo de piel. ¡Consúltame sin compromiso!</p>
+</section>
+
+<!-- 📆 HORARIOS EN TABLA -->
+<section>
+    <h2>📆 Horarios de Atención</h2>
+    <table class="tabla-horarios">
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr><td>📅 Lunes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Martes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Miércoles</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Jueves</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>📅 Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
+        <tr><td>☀️ Domingo</td><td class="dia-descanso">Descanso</td></tr>
+    </table>
+    <p style="text-align:center; margin-top:15px;">💜 <strong>Se requiere cita previa agendada</strong></p>
+</section>
+
+<!-- 📋 PRODUCTOS -->
+<section>
+    <h2>🌿 Productos que utilizo</h2>
+    <div class="productos">
+        <p style="font-size:18px;">✅ Productos de alta calidad</p>
+        <p>✅ Libres de crueldad animal 🐾</p>
+        <p>✅ Dermatológicamente probados</p>
+        <p>✅ Adaptados a cada tipo de piel</p>
+        <p style="margin-top:10px; font-style:italic;">"Tu piel merece lo mejor, por eso selecciono cuidadosamente cada producto." 💜</p>
+    </div>
+</section>
+
+<section>
+    <h2>⭐ Opiniones de mis clientas</h2>
+
     <div class="testimonio">
         "¡Mi piel quedó hermosa y suave! Gracias Lic. Laiza por su paciencia y dedicación. 💜"
-        <div class="testimonio-nombre">— María</div>
+        <div class="testimonio-nombre">— María ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="testimonio">
         "Excelente atención, muy profesional y cálida. Mi piel nunca se había visto tan bien. ✨"
-        <div class="testimonio-nombre">— Claudia</div>
+        <div class="testimonio-nombre">— Claudia ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="testimonio">
         "Ambiente muy agradable y tratamientos de calidad. ¡Regreso seguro! 💜"
-        <div class="testimonio-nombre">— Karla</div>
+        <div class="testimonio-nombre">— Karla ⭐⭐⭐⭐⭐</div>
+    </div>
+
+    <!-- ✏️ CAJA PARA ESCRIBIR OPINIÓN CON ESTRELLAS -->
+    <div class="caja-opinion">
+        <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
+
+        <div class="estrellas" id="estrellasCalificacion">
+            <span onclick="calificar(1)">⭐</span>
+            <span onclick="calificar(2)">⭐</span>
+            <span onclick="calificar(3)">⭐</span>
+            <span onclick="calificar(4)">⭐</span>
+            <span onclick="calificar(5)">⭐</span>
+        </div>
+
+        <input type="text" id="nombreOpinion" placeholder="Escribe tu nombre aquí..." required>
+        <textarea id="textoOpinion" placeholder="Escribe aquí tu opinión y experiencia..." required></textarea>
+        <div class="contenedor-botones">
+            <button class="boton boton-enviar" onclick="enviarOpinion()">✅ Enviar Opinión</button>
+        </div>
+
+        <div id="mensajeOpinion" class="opinion-recibida">
+            <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜 Se envió correctamente.</p>
+            <p style="text-align:center; font-size:14px;">La Lic. Laiza la recibirá y la publicará pronto. ✨</p>
+        </div>
     </div>
 </section>
 
@@ -253,8 +459,8 @@
     <h2>📋 Más Información</h2>
     <div class="contenedor-botones">
         <button class="boton" onclick="mostrarInfo('agendar')">📅 Agendar Cita</button>
+        <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
         <a href="https://wa.me/5217296336318" target="_blank" class="boton">💬 WhatsApp</a>
-        <button class="boton" onclick="mostrarInfo('horarios')">⏰ Horarios</button>
         <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank" class="boton">📍 Ver Mapa</a>
         <button class="boton" onclick="mostrarInfo('fotos')">📸 Fotos</button>
         <a href="https://www.instagram.com/skin_carelaya/?__pwa=1" target="_blank" class="boton boton-instagram">📷 Instagram</a>
@@ -262,16 +468,8 @@
 
     <div id="agendar" class="caja-informacion">
         <h3>📅 Agendar tu Cita</h3>
-        <p>¡Es muy fácil! Contáctame por WhatsApp y reservamos tu fecha y hora disponibles. 💜</p>
-        <p><strong>📞 WhatsApp:</strong> <a href="https://wa.me/5217296336318" target="_blank">+52 1 729 633 6318</a></p>
-    </div>
-
-    <div id="horarios" class="caja-informacion">
-        <h3>⏰ Horarios de Atención</h3>
-        <p><strong>Lunes a Viernes:</strong> 9:00 AM — 6:00 PM</p>
-        <p><strong>Sábados:</strong> 9:00 AM — 3:00 PM</p>
-        <p><strong>Domingos:</strong> Descanso</p>
-        <p>💜 ¡Cita previa agendada!</p>
+        <p>¡Es muy fácil! Contáctame por WhatsApp o llámame y reservamos tu fecha y hora disponibles. 💜</p>
+        <p><strong>📞 Teléfono / WhatsApp:</strong> <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
     </div>
 
     <div id="fotos" class="caja-informacion">
@@ -294,17 +492,76 @@
     <p style="font-size:18px;">💜 Tu piel lo merece 💜</p>
 </section>
 
+<!-- 🛡️ AVISO DE PRIVACIDAD -->
+<section>
+    <h2>🛡️ Aviso de Privacidad</h2>
+    <div class="aviso-privacidad">
+        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos que compartas a través de esta página no se almacenan ni se comparten con terceros. Al enviar tu opinión o agendar una cita, tu información se envía directamente a través de WhatsApp y queda bajo tu responsabilidad y la de la Lic. Laiza González Robles. 💜</p>
+    </div>
+</section>
+
 <footer>
     © 2026 Cosmiatría Laya — Lic. Laiza González Robles — Todos los derechos reservados
 </footer>
 
 <script>
+let calificacionEstrellas = 0;
+
 function mostrarInfo(id) {
     var todas = document.querySelectorAll('.caja-informacion');
     for(var i = 0; i < todas.length; i++) {
         todas[i].classList.remove('mostrar');
     }
     document.getElementById(id).classList.add('mostrar');
+}
+
+// ⭐ Calificación con estrellas
+function calificar(cantidad) {
+    calificacionEstrellas = cantidad;
+    const estrellas = document.querySelectorAll('#estrellasCalificacion span');
+    for(let i = 0; i < estrellas.length; i++) {
+        if(i < cantidad) {
+            estrellas[i].classList.add('estrella-seleccionada');
+        } else {
+            estrellas[i].classList.remove('estrella-seleccionada');
+        }
+    }
+}
+
+// ✏️ Enviar opinión
+function enviarOpinion() {
+    var nombre = document.getElementById('nombreOpinion').value.trim();
+    var opinion = document.getElementById('textoOpinion').value.trim();
+
+    if(nombre === "" || opinion === "") {
+        alert("⚠️ Por favor escribe tu nombre y tu opinión.");
+        return;
+    }
+    if(calificacionEstrellas === 0) {
+        alert("⭐ Por favor califica con estrellas.");
+        return;
+    }
+
+    // ✅ Envía todo por WhatsApp
+    var mensaje = "⭐ NUEVA OPINIÓN RECIBIDA ⭐\n\n" +
+                  "Nombre: " + nombre + "\n" +
+                  "Calificación: " + "⭐".repeat(calificacionEstrellas) + "\n" +
+                  "Opinión: " + opinion + "\n\n" +
+                  "💜 Recibido desde Cosmiatría Laya";
+
+    var enlaceWhatsApp = "https://wa.me/5217296336318?text=" + encodeURIComponent(mensaje);
+
+    document.getElementById('mensajeOpinion').classList.add('visible');
+    window.open(enlaceWhatsApp, '_blank');
+
+    // ✅ Limpia todo
+    setTimeout(function(){
+        document.getElementById('nombreOpinion').value = "";
+        document.getElementById('textoOpinion').value = "";
+        document.getElementById('mensajeOpinion').classList.remove('visible');
+        calificacionEstrellas = 0;
+        calificar(0);
+    }, 5000);
 }
 </script>
 
