@@ -3,9 +3,6 @@
 <head>
     <title>Cosmiatría - Cuidado y Belleza</title>
     <style>
-        html {
-            scroll-behavior: smooth; /* ✅ Baja suavemente */
-        }
         body {
             font-family: 'Segoe UI', sans-serif;
             margin: 0;
@@ -35,6 +32,11 @@
             color: #804f74;
             border-bottom: 2px solid #e4d4de;
             padding-bottom: 8px;
+            text-align: center;
+        }
+        .contenedor-botones {
+            text-align: center;
+            margin: 20px 0;
         }
         .boton {
             display: inline-block;
@@ -43,20 +45,31 @@
             padding: 12px 25px;
             margin: 8px;
             border-radius: 30px;
-            text-decoration: none;
+            border: none;
+            cursor: pointer;
             font-weight: bold;
+            font-size: 16px;
             transition: transform 0.3s, opacity 0.3s;
         }
         .boton:hover {
             transform: scale(1.05);
             opacity: 0.9;
         }
-        .info-servicio {
+        .caja-informacion {
             background: #fef7fa;
-            padding: 15px;
-            margin-top: 15px;
+            padding: 20px;
+            margin-top: 25px;
             border-radius: 12px;
             border-left: 4px solid #9c6b8c;
+            display: none; /* ✅ Empieza OCULTA */
+            animation: aparecer 0.4s ease;
+        }
+        @keyframes aparecer {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .caja-informacion.mostrar {
+            display: block; /* ✅ Se MUESTRA al dar clic */
         }
         .contacto {
             text-align: center;
@@ -68,11 +81,6 @@
             color: #7a5c72;
             font-size: 14px;
         }
-        hr {
-            border: none;
-            border-top: 1px dashed #e4d4de;
-            margin: 25px 0;
-        }
     </style>
 </head>
 <body>
@@ -80,69 +88,75 @@
 <header>
     <h1>✨ Cosmiatría ✨</h1>
     <p>Cuidado de la piel, belleza y bienestar</p>
-    <a href="#servicios" class="boton">Ver Servicios</a>
-    <a href="#contacto" class="boton">Contacto</a>
 </header>
 
 <section>
-    <h2>¿Qué es la Cosmiatría?</h2>
-    <p>Es la especialidad que combina conocimientos de medicina y estética para cuidar, proteger y embellecer tu piel. Tratamientos personalizados para que luzcas y te sientas increíble 💜</p>
-</section>
-
-<section class="servicios" id="servicios">
     <h2>Nuestros Servicios</h2>
-    <p>👇 Presiona cada botón para ver su información:</p>
+    <p style="text-align:center;">👇 Presiona cada botón para ver su información</p>
 
-    <a href="#info-limpieza" class="boton">🌿 Limpieza Facial</a>
-    <a href="#info-hidratacion" class="boton">💆‍♀️ Hidratación</a>
-    <a href="#info-exfoliacion" class="boton">✨ Exfoliación</a>
-    <a href="#info-piel" class="boton">🌸 Piel Sensible</a>
-    <a href="#info-asesoria" class="boton">💎 Asesoría</a>
+    <div class="contenedor-botones">
+        <button class="boton" onclick="mostrarInfo('limpieza')">🌿 Limpieza Facial</button>
+        <button class="boton" onclick="mostrarInfo('hidratacion')">💆‍♀️ Hidratación</button>
+        <button class="boton" onclick="mostrarInfo('exfoliacion')">✨ Exfoliación</button>
+        <button class="boton" onclick="mostrarInfo('piel')">🌸 Piel Sensible</button>
+        <button class="boton" onclick="mostrarInfo('asesoria')">💎 Asesoría</button>
+    </div>
 
-    <hr>
-
-    <div id="info-limpieza" class="info-servicio">
+    <!-- ✅ La información está OCULTA al principio -->
+    <div id="limpieza" class="caja-informacion">
         <h3>🌿 Limpieza Facial Profunda</h3>
         <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel quedará limpia, suave y radiante. ✨</p>
         <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel. Ideal para todo tipo de piel.</p>
     </div>
 
-    <div id="info-hidratacion" class="info-servicio">
+    <div id="hidratacion" class="caja-informacion">
         <h3>💆‍♀️ Hidratación y Nutrición</h3>
         <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
         <p><strong>¿En qué consiste?</strong> Hidratantes profundos que devuelven la suavidad y elasticidad. Tu piel se sentirá renovada.</p>
     </div>
 
-    <div id="info-exfoliacion" class="info-servicio">
+    <div id="exfoliacion" class="caja-informacion">
         <h3>✨ Exfoliación y Renovación</h3>
         <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. 🌟</p>
         <p><strong>¿En qué consiste?</strong> Retiramos las células viejas para que nazca piel nueva. Quita manchas y deja el brillo natural.</p>
     </div>
 
-    <div id="info-piel" class="info-servicio">
+    <div id="piel" class="caja-informacion">
         <h3>🌸 Tratamiento para Piel Sensible</h3>
         <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
         <p><strong>¿En qué consiste?</strong> Tratamientos especiales sin químicos fuertes. Protegen y calman tu piel delicada.</p>
     </div>
 
-    <div id="info-asesoria" class="info-servicio">
+    <div id="asesoria" class="caja-informacion">
         <h3>💎 Asesoría Personalizada</h3>
         <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
         <p><strong>¿En qué consiste?</strong> Evaluamos tu piel y te damos una rutina personalizada para cuidarla en casa.</p>
     </div>
 </section>
 
-<section class="contacto" id="contacto">
+<section class="contacto">
     <h2>📍 Contacto</h2>
     <p><strong>Ubicación:</strong> Toluca, México</p>
     <p><strong>Agenda tu cita:</strong> escribe para reservar</p>
-    <a href="mailto:tu-correo@ejemplo.com" class="boton">📧 Escríbenos</a>
     <p>💜 Tu piel lo merece 💜</p>
 </section>
 
 <footer>
     © 2026 Cosmiatría — Todos los derechos reservados
 </footer>
+
+<!-- ✅ Código que hace funcionar los botones -->
+<script>
+function mostrarInfo(id) {
+    // Primero oculta TODAS las cajas
+    var todas = document.querySelectorAll('.caja-informacion');
+    for(var i = 0; i < todas.length; i++) {
+        todas[i].classList.remove('mostrar');
+    }
+    // Luego MUESTRA solo la que elegiste
+    document.getElementById(id).classList.add('mostrar');
+}
+</script>
 
 </body>
 </html>
