@@ -569,14 +569,14 @@ btnEntrar.addEventListener('click', () => {
     const pass = passInput.value;
     
     if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
-        mensajeSesion.textContent = '✅ ¡Bienvenida Lic. Laiza!';
+        mensajeSesion.textContent = '✅ ¡Bienvenida!';
         mensajeSesion.className = 'mensaje exito';
         setTimeout(() => {
             ventana.classList.remove('mostrar');
             panelAdmin.classList.add('mostrar');
             areaFotos.style.display = 'block';
             candado.textContent = '🔓';
-            alert('✨ ¡Bienvenida! Ahora puedes subir fotos, modificar horarios y administrar tu página SIN ver código. 💜');
+            // QUITAMOS EL MENSAJE FEOL / ALERTA QUE SE VEÍA FEO
         }, 800);
     } else {
         mensajeSesion.textContent = '❌ Correo o contraseña incorrectos';
@@ -657,7 +657,6 @@ btnSubirFoto.addEventListener('click', () => {
         dibujarFotos();
         inputFoto.value = '';
         archivoSeleccionado = null;
-        alert('✅ ¡Foto agregada con éxito! Ya la ven todos tus clientes. 📸');
     };
     lector.readAsDataURL(archivoSeleccionado);
 });
