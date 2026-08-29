@@ -70,13 +70,15 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 15px;
+            text-decoration: none;
         }
-        .boton-verde { background: #4CAF50; }
-        .boton-rojo { background: #dc3545; }
-        .boton-naranja { background: #f0ad4e; }
+        .boton-verde { background: linear-gradient(90deg, #4CAF50, #45a049); }
+        .boton-verde:hover { background: linear-gradient(90deg, #45a049, #3d8b40); }
+        .boton-naranja { background: linear-gradient(90deg, #f0ad4e, #ec971f); }
+        .boton-rojo { background: linear-gradient(90deg, #dc3545, #c82333); }
         .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
-        /* GALERÍA PÚBLICA - LO QUE VEN TODOS */
+        /* GALERÍA PÚBLICA - LO QUE VEN TODOS LOS CLIENTES */
         .galeria {
             display: flex;
             flex-wrap: wrap;
@@ -89,6 +91,7 @@
             height: 150px;
             border-radius: 12px;
             object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
         }
         .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align: center; }
 
@@ -106,6 +109,8 @@
             padding: 10px;
             margin: 8px auto;
             display: block;
+            border: 2px solid #f0d8a0;
+            border-radius: 8px;
         }
         .foto-con-quitar {
             position: relative;
@@ -119,11 +124,13 @@
             background: red;
             color: white;
             border: none;
-            width: 25px;
-            height: 25px;
+            width: 26px;
+            height: 26px;
             border-radius: 50%;
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
 
         /* Ventana inicio sesión */
@@ -146,36 +153,42 @@
             border-radius: 15px;
             width: 320px;
             text-align: center;
+            position: relative;
         }
         .caja-sesion input {
             width: 90%;
             padding: 10px;
             margin: 8px 0;
             font-size: 16px;
+            border: 2px solid #e4d4de;
+            border-radius: 10px;
         }
         .cerrar-ventana {
-            float: right;
+            position: absolute;
+            top: 10px;
+            right: 15px;
             border: none;
             background: none;
-            font-size: 20px;
+            font-size: 22px;
             cursor: pointer;
         }
         .mensaje { font-weight: bold; margin-top: 10px; }
         .error { color: red; }
         .exito { color: green; }
 
+        /* Servicios */
         .caja-info {
             background: #f8f2fb;
             padding: 15px;
             margin-top: 10px;
             border-radius: 10px;
+            border-left: 4px solid #9c6b8c;
             display: none;
         }
         .caja-info.mostrar { display: block; }
         .tabla-horarios { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .tabla-horarios td, th { padding: 8px; text-align: center; border-bottom: 1px solid #ddd; }
-        .oculto-admin { display: none; }
-        .visible-admin { display: none; }
+        textarea { width: 100%; padding: 10px; height: 100px; border-radius: 8px; border: 1px solid #ddd; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -257,7 +270,7 @@
 
 <section>
     <h2>💬 Opiniones de Clientes</h2>
-    <textarea placeholder="Escribe aquí tu opinión..." style="width:100%;padding:10px;height:100px;border-radius:8px;border:1px solid #ddd;"></textarea>
+    <textarea placeholder="Escribe aquí tu opinión..."></textarea>
     <button class="boton boton-verde" style="margin-top:10px;">📤 Enviar Opinión</button>
 </section>
 
@@ -279,7 +292,7 @@ const CORREO_ADMIN = "laya@gmail.com";
 const CLAVE_ADMIN = "Laya2026";
 
 // === VARIABLES ===
-let fotos = JSON.parse(localStorage.getItem('fotosBase64') || '[]');
+let fotos = JSON.parse(localStorage.getItem('fotosGaleria') || '[]');
 let archivoSeleccionado = null;
 
 // === ELEMENTOS ===
@@ -345,10 +358,10 @@ entradaFoto.addEventListener('change', (e) => {
     archivoSeleccionado = e.target.files[0];
 });
 
-// === AGREGAR FOTO ===
+// === AGREGAR FOTO Y QUE SE VEA AL INSTANTE ===
 btnAgregarFoto.addEventListener('click', () => {
     if (!archivoSeleccionado) {
-        alert('⚠️ Primero selecciona una foto');
+        alert('⚠️ Primero selecciona una foto de tu celular');
         return;
     }
     const lector = new FileReader();
@@ -358,7 +371,7 @@ btnAgregarFoto.addEventListener('click', () => {
         dibujarGaleria();
         entradaFoto.value = '';
         archivoSeleccionado = null;
-        alert('✅ Foto agregada correctamente');
+        alert('✅ ¡Foto agregada! Ya la ven todos los clientes');
     };
     lector.readAsDataURL(archivoSeleccionado);
 });
@@ -372,12 +385,12 @@ function quitarFoto(indice) {
     }
 }
 
-// === GUARDAR EN EL NAVEGADOR ===
+// === GUARDAR LAS FOTOS ===
 function guardarFotos() {
-    localStorage.setItem('fotosBase64', JSON.stringify(fotos));
+    localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
 }
 
-// === DIBUJAR TODAS LAS FOTOS ===
+// === MOSTRAR LAS FOTOS EN PANTALLA ===
 function dibujarGaleria() {
     galeriaPublica.innerHTML = '';
     vistaAdmin.innerHTML = '';
@@ -387,7 +400,7 @@ function dibujarGaleria() {
         return;
     }
 
-    // Galería que ven los clientes
+    // Lo que ven LOS CLIENTES
     fotos.forEach((foto) => {
         const img = document.createElement('img');
         img.src = foto;
@@ -395,7 +408,7 @@ function dibujarGaleria() {
         galeriaPublica.appendChild(img);
     });
 
-    // Galería de Laiza con botón QUITAR
+    // Lo que ve LAIZA con botón QUITAR
     fotos.forEach((foto, indice) => {
         const div = document.createElement('div');
         div.className = 'foto-con-quitar';
