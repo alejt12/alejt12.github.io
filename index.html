@@ -5,10 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmiatría Laya | Belleza y Cuidado Facial</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-    <!-- FIREBASE = SERVIDOR GRATUITO EN LA NUBE -->
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
     
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -49,7 +45,7 @@
         }
         .btn-admin:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
         .btn-salir { background: rgba(220, 80, 100, 0.9); display: none; }
-        h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
+            h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
         .subtitulo { font-size: 18px; font-style: italic; opacity: 0.92; }
         .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
         section {
@@ -256,7 +252,7 @@
     </form>
 
     <div class="solo-admin">
-        <p class="aviso-recarga">🔄 Se actualiza SOLO — las citas llegan desde cualquier lugar</p>
+        <p class="aviso-recarga">🔄 Las citas llegan en tiempo real desde cualquier lugar</p>
         <h3><i class="fas fa-clipboard-list"></i> Citas Recibidas</h3>
         <div id="listaCitas" class="cargando">Cargando citas...</div>
     </div>
@@ -324,6 +320,10 @@
 
 <footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
 
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+
 <script>
 // ==================================================
 // 🔐 DATOS DE ACCESO
@@ -332,18 +332,19 @@ const ADMIN_CORREO = "laya@gmail.com";
 const ADMIN_CLAVE = "Laya2026";
 
 // ==================================================
-// ☁️ SERVIDOR EN LA NUBE — FIREBASE
+// ☁️ TUS CÓDIGOS DE CONEXIÓN (YA PUESTOS)
 // ==================================================
 const firebaseConfig = {
-  apiKey: "AIzaSyCq2f8xXzYbK5Z8R6a9X7w8Y9Z0X7a6b5c4d3e2f1a0",
+  apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
   authDomain: "cosmiatria-laya.firebaseapp.com",
   projectId: "cosmiatria-laya",
-  storageBucket: "cosmiatria-laya.appspot.com",
-  messagingSenderId: "123456789012",
-  appId: "1:123456789012:web:abc123def456ghi789jkl01"
+  storageBucket: "cosmiatria-laya.firebasestorage.app",
+  messagingSenderId: "129969103650",
+  appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b",
+  measurementId: "G-5YF9ML88B7"
 };
 
-// Iniciar servidor
+// Iniciar Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 const storage = firebase.storage();
