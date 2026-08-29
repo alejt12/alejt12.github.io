@@ -407,7 +407,7 @@
     <div id="precios" class="contenido-seccion">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <h3>💰 Precios y Servicios</h3>
-            <div class="caja-editar" id="btnEditarPrecios">
+            <div class="caja-editar" id="btnEditarPrecios" style="display:none;">
                 <button class="boton boton-verde" onclick="activarEdicion('precios-texto', 'precios')">✏️ Editar</button>
             </div>
         </div>
@@ -421,7 +421,7 @@
 💳 Aceptamos efectivo y transferencia
 ⏳ Los precios pueden cambiar
         </div>
-        <div class="caja-editar" id="btnGuardarPrecios">
+        <div class="caja-editar" id="btnGuardarPrecios" style="display:none;">
             <button class="boton boton-verde" onclick="guardarTexto('precios-texto', 'precios')">💾 Guardar</button>
             <button class="boton boton-naranja" onclick="cancelarEdicion('precios-texto', 'precios')">❌ Cancelar</button>
         </div>
@@ -431,7 +431,7 @@
     <div id="promos" class="contenido-seccion">
         <div style="display:flex; justify-content:space-between; align-items:center;">
             <h3>⭐ Promociones del Mes</h3>
-            <div class="caja-editar" id="btnEditarPromos">
+            <div class="caja-editar" id="btnEditarPromos" style="display:none;">
                 <button class="boton boton-verde" onclick="activarEdicion('promos-texto', 'promos')">✏️ Editar</button>
             </div>
         </div>
@@ -447,7 +447,7 @@ Ambas con 15% de descuento
 
 📅 Válido durante este mes
         </div>
-        <div class="caja-editar" id="btnGuardarPromos">
+        <div class="caja-editar" id="btnGuardarPromos" style="display:none;">
             <button class="boton boton-verde" onclick="guardarTexto('promos-texto', 'promos')">💾 Guardar</button>
             <button class="boton boton-naranja" onclick="cancelarEdicion('promos-texto', 'promos')">❌ Cancelar</button>
         </div>
@@ -481,7 +481,7 @@ Ambas con 15% de descuento
         <tr><td>Sábado</td><td id="horario-sabado">9:00 AM — 3:00 PM</td></tr>
         <tr><td>Domingo</td><td style="color:red;">Descanso</td></tr>
     </table>
-    <div class="caja-editar" id="cajaEditarHorarios">
+    <div class="caja-editar" id="cajaEditarHorarios" style="display:none;">
         <button class="boton boton-verde" id="btnEditarHorarios">✏️ Editar Horarios</button>
         <button class="boton boton-verde boton-oculto" id="btnGuardarHorarios">💾 Guardar Cambios</button>
     </div>
@@ -556,6 +556,11 @@ const contenidoCitas = document.getElementById('contenidoCitas');
 const btnGuardarCita = document.getElementById('btnGuardarCita');
 const btnEditarHorarios = document.getElementById('btnEditarHorarios');
 const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
+const cajaEditarHorarios = document.getElementById('cajaEditarHorarios');
+const btnEditarPrecios = document.getElementById('btnEditarPrecios');
+const btnGuardarPrecios = document.getElementById('btnGuardarPrecios');
+const btnEditarPromos = document.getElementById('btnEditarPromos');
+const btnGuardarPromos = document.getElementById('btnGuardarPromos');
 
 // INICIO
 aplicarHorariosGuardados();
@@ -574,9 +579,8 @@ function mostrarSeccion(id) {
     document.getElementById(id).classList.add('mostrar');
     
     if (sesionIniciada) {
-        let mayus = id.charAt(0).toUpperCase() + id.slice(1);
-        let boton = document.getElementById('btnEditar' + mayus);
-        if (boton) boton.classList.add('mostrar');
+        if (btnEditarPrecios) btnEditarPrecios.style.display = 'block';
+        if (btnEditarPromos) btnEditarPromos.style.display = 'block';
     }
 }
 
@@ -591,9 +595,14 @@ function activarEdicion(idTexto, idSeccion) {
     caja.contentEditable = "true";
     caja.classList.add('modo-edicion');
     caja.focus();
-    let mayus = idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1);
-    document.getElementById('btnEditar'+mayus).classList.remove('mostrar');
-    document.getElementById('btnGuardar'+mayus).classList.add('mostrar');
+    if (idSeccion === 'precios') {
+        btnEditarPrecios.style.display = 'none';
+        btnGuardarPrecios.style.display = 'block';
+    }
+    if (idSeccion === 'promos') {
+        btnEditarPromos.style.display = 'none';
+        btnGuardarPromos.style.display = 'block';
+    }
 }
 
 function guardarTexto(idTexto, idSeccion) {
@@ -602,9 +611,14 @@ function guardarTexto(idTexto, idSeccion) {
     caja.classList.remove('modo-edicion');
     textosGuardados[idSeccion] = caja.textContent;
     localStorage.setItem('textosSecciones', JSON.stringify(textosGuardados));
-    let mayus = idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1);
-    document.getElementById('btnGuardar'+mayus).classList.remove('mostrar');
-    document.getElementById('btnEditar'+mayus).classList.add('mostrar');
+    if (idSeccion === 'precios') {
+        btnGuardarPrecios.style.display = 'none';
+        btnEditarPrecios.style.display = 'block';
+    }
+    if (idSeccion === 'promos') {
+        btnGuardarPromos.style.display = 'none';
+        btnEditarPromos.style.display = 'block';
+    }
     alert('✅ Guardado correctamente');
 }
 
@@ -613,9 +627,14 @@ function cancelarEdicion(idTexto, idSeccion) {
     caja.textContent = textoOriginal[idTexto];
     caja.contentEditable = "false";
     caja.classList.remove('modo-edicion');
-    let mayus = idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1);
-    document.getElementById('btnGuardar'+mayus).classList.remove('mostrar');
-    document.getElementById('btnEditar'+mayus).classList.add('mostrar');
+    if (idSeccion === 'precios') {
+        btnGuardarPrecios.style.display = 'none';
+        btnEditarPrecios.style.display = 'block';
+    }
+    if (idSeccion === 'promos') {
+        btnGuardarPromos.style.display = 'none';
+        btnEditarPromos.style.display = 'block';
+    }
 }
 
 // ---------- AGENDAR CITA ----------
@@ -685,14 +704,14 @@ window.eliminarCita = function(id) {
     }
 };
 
-// ---------- GALERÍA DE FOTOS — CORREGIDO ----------
+// ---------- GALERÍA DE FOTOS ----------
 btnVerFotos.addEventListener('click', () => {
     galeriaVisible = !galeriaVisible;
     
     if (galeriaVisible) {
         galeriaPublica.classList.add('mostrar');
         btnVerFotos.textContent = '📷 Ocultar Fotos';
-        dibujarGaleria(); // CARGA LAS FOTOS AL MOSTRAR
+        dibujarGaleria();
     } else {
         galeriaPublica.classList.remove('mostrar');
         btnVerFotos.textContent = '📷 Ver Fotos';
@@ -709,21 +728,18 @@ function dibujarGaleria() {
         return;
     }
 
-    // Mostrar fotos a los clientes
     fotos.forEach(foto => {
         const img = document.createElement('img');
         img.src = foto;
         img.className = "foto-publica";
-        img.loading = "lazy";
         galeriaPublica.appendChild(img);
     });
 
-    // Mostrar fotos con botón eliminar SOLO a admin
     if (sesionIniciada && vistaAdmin) {
         fotos.forEach((foto, i) => {
             const div = document.createElement('div');
             div.className = "foto-con-quitar";
-            div.innerHTML = `<img src="${foto}" class="foto-publica"><button class="btn-quitar" title="Eliminar foto" onclick="quitarFoto(${i})">×</button>`;
+            div.innerHTML = `<img src="${foto}" class="foto-publica"><button class="btn-quitar" onclick="quitarFoto(${i})">×</button>`;
             vistaAdmin.appendChild(div);
         });
     }
@@ -759,7 +775,7 @@ btnAgregarFoto.addEventListener('click', () => {
     lector.readAsDataURL(window.archivoSeleccionado);
 });
 
-// ---------- INICIAR / CERRAR SESIÓN ----------
+// ---------- INICIAR SESIÓN ----------
 btnCandado.addEventListener('click', () => {
     ventanaSesion.classList.add('mostrar');
     correo.value = "";
@@ -778,13 +794,8 @@ btnEntrar.addEventListener('click', () => {
         sesionIniciada = true;
         setTimeout(() => {
             ventanaSesion.classList.remove('mostrar');
-            cajaSubir.classList.add('mostrar');
-            document.getElementById('cajaEditarHorarios').classList.add('mostrar');
-            document.getElementById('btnEditarAgendar').classList.add('mostrar');
-            document.getElementById('btnEditarPrecios').classList.add('mostrar');
-            document.getElementById('btnEditarPromos').classList.add('mostrar');
-            dibujarCitas();
-            if (galeriaVisible) dibujarGaleria();
+            cajaSubir.style.display = 'block';
+            cajaEditarHorarios.style.display = 'block';
             btnCerrarSesion.style.display = 'block';
             btnCandado.style.display = 'none';
         }, 800);
@@ -794,16 +805,19 @@ btnEntrar.addEventListener('click', () => {
     }
 });
 
+// ---------- ✅ CERRAR SESIÓN (FUNCIONANDO) ----------
 btnCerrarSesion.addEventListener('click', () => {
     sesionIniciada = false;
-    cajaSubir.classList.remove('mostrar');
-    document.getElementById('cajaEditarHorarios').classList.remove('mostrar');
-    document.getElementById('btnEditarAgendar').classList.remove('mostrar');
-    document.getElementById('btnEditarPrecios').classList.remove('mostrar');
-    document.getElementById('btnEditarPromos').classList.remove('mostrar');
+    cajaSubir.style.display = 'none';
+    cajaEditarHorarios.style.display = 'none';
     listaCitas.style.display = "none";
+    btnEditarPrecios.style.display = 'none';
+    btnEditarPromos.style.display = 'none';
+    btnGuardarPrecios.style.display = 'none';
+    btnGuardarPromos.style.display = 'none';
     btnCerrarSesion.style.display = 'none';
     btnCandado.style.display = 'block';
+    alert('✅ Sesión cerrada correctamente');
 });
 
 // ---------- OPINIONES ----------
