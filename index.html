@@ -4,8 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmiatría Laya | Belleza y Cuidado Facial</title>
-    <!-- ICONOS DESDE CDN GRATIS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <!-- FIREBASE = SERVIDOR GRATUITO EN LA NUBE -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
+    
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -44,25 +48,10 @@
             backdrop-filter: blur(6px);
         }
         .btn-admin:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
-        .btn-salir {
-            background: rgba(220, 80, 100, 0.9);
-            display: none;
-        }
-        h1 {
-            font-size: 38px;
-            margin-bottom: 8px;
-            letter-spacing: 1px;
-        }
-        .subtitulo {
-            font-size: 18px;
-            font-style: italic;
-            opacity: 0.92;
-        }
-        .contenedor {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 25px 20px 50px;
-        }
+        .btn-salir { background: rgba(220, 80, 100, 0.9); display: none; }
+        h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
+        .subtitulo { font-size: 18px; font-style: italic; opacity: 0.92; }
+        .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
         section {
             background: white;
             border-radius: 20px;
@@ -80,27 +69,9 @@
             padding-bottom: 10px;
             border-bottom: 2px solid #f0e4ed;
         }
-        .info-lic {
-            text-align: center;
-            font-size: 17px;
-        }
+        .info-lic { text-align: center; font-size: 17px; }
         .info-lic p { margin: 10px 0; }
-        .info-lic a {
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .info-lic a:hover { transform: scale(1.05); }
-
-        /* ======================================
-           BOTONES CON COLORES VIVOS Y BRILLANTES
-           ====================================== */
-        .fila-botones {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 14px;
-            justify-content: center;
-        }
+        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 15px; }
         .boton {
             padding: 13px 24px;
             border: none;
@@ -115,13 +86,8 @@
             gap: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .boton:hover { 
-            transform: translateY(-4px); 
-            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
-        }
+        .boton:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
         .boton i { font-size: 18px; }
-
-        /* COLORES INDIVIDUALES POR BOTÓN — VIVOS Y BRILLANTES */
         .boton-limpieza { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: white; }
         .boton-hidratacion { background: linear-gradient(90deg, #3498db, #2980b9); color: white; }
         .boton-exfoliacion { background: linear-gradient(90deg, #f39c12, #e67e22); color: white; }
@@ -134,142 +100,60 @@
         .boton-rosa { background: linear-gradient(90deg, #e84393, #fd79a8); color: white; }
 
         .caja-info-serv {
-            margin-top: 20px;
-            padding: 20px;
-            background: #faf2f7;
-            border-radius: 14px;
-            border-left: 4px solid #a86f9b;
-            display: none;
-            animation: aparecer 0.4s ease;
+            margin-top: 20px; padding: 20px; background: #faf2f7;
+            border-radius: 14px; border-left: 4px solid #a86f9b;
+            display: none; animation: aparecer 0.4s ease;
         }
         .caja-info-serv.mostrar { display: block; }
         @keyframes aparecer { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
 
         .form-grupo { margin-bottom: 16px; }
-        label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 600;
-            color: #5a4a57;
-        }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: #5a4a57; }
         input, textarea {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e4d4de;
-            border-radius: 10px;
-            font-size: 15px;
-            font-family: inherit;
-            transition: border-color 0.3s;
+            width: 100%; padding: 12px 15px; border: 2px solid #e4d4de;
+            border-radius: 10px; font-size: 15px; font-family: inherit;
         }
         input:focus, textarea:focus { outline: none; border-color: #a86f9b; }
-        .tres-columnas {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
+        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
         .mensaje-exito {
-            background: #e6f9ee;
-            color: #20754f;
-            padding: 14px;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 600;
-            margin-top: 14px;
-            display: none;
+            background: #e6f9ee; color: #20754f; padding: 14px;
+            border-radius: 10px; text-align: center; font-weight: 600;
+            margin-top: 14px; display: none;
         }
-        .solo-admin { display: none; margin-top: 30px; padding-top: 24px; border-top: 2px dashed #e4d4de; }
-        .admin-activo .solo-admin { display: block; animation: aparecer 0.5s ease; }
+        .solo-admin, .historial, .caja-subir { display: none; }
+        .admin-activo .solo-admin, .admin-activo .historial, .admin-activo .caja-subir { display: block; }
+        .solo-admin { margin-top: 30px; padding-top: 24px; border-top: 2px dashed #e4d4de; }
+        .aviso-recarga { text-align: center; margin-top: 10px; color: #20754f; font-size: 14px; }
 
-        .tarjeta-cita {
-            background: #faf2f7;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border-left: 4px solid #a86f9b;
+        .tarjeta-cita, .tarjeta-registro {
+            background: #faf2f7; border-radius: 12px; padding: 16px;
+            margin-bottom: 12px; border-left: 4px solid #a86f9b;
         }
-        .tarjeta-cita h4 { color: #7c4d6f; margin-bottom: 6px; font-size: 16px; }
-        .btn-eliminar-cita {
-            margin-top: 10px;
-            padding: 7px 14px;
-            font-size: 13px;
-            border-radius: 20px;
-            border: none;
+        .tarjeta-cita h4 { color: #7c4d6f; margin-bottom: 6px; }
+        .btn-eliminar-cita, .btn-eliminar-opinion, .btn-borrar-foto {
+            margin-top: 10px; padding: 7px 14px; font-size: 13px;
+            border-radius: 20px; border: none;
             background: linear-gradient(90deg, #e74c3c, #c0392b);
-            color: white;
-            cursor: pointer;
-            font-weight: 600;
+            color: white; cursor: pointer; font-weight: 600;
         }
-
-        .estrellas {
-            font-size: 34px;
-            color: #ddd;
-            cursor: pointer;
-            text-align: center;
-            margin: 10px 0;
-            user-select: none;
-        }
+        .estrellas { font-size: 34px; color: #ddd; cursor: pointer; text-align: center; margin: 10px 0; user-select: none; }
         .estrella.activa { color: #f4c542; }
-
-        .galeria {
-            display: none;
-            flex-wrap: wrap;
-            gap: 18px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-        .galeria.mostrar { display: flex; animation: aparecer 0.5s ease; }
+        .galeria { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 20px; }
         .contenedor-foto { position: relative; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .foto { width: 190px; height: 190px; object-fit: cover; display: block; }
-        .btn-borrar-foto {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 34px;
-            height: 34px;
-            border-radius: 50%;
-            border: none;
-            background: rgba(224, 82, 99, 0.95);
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-            transition: all 0.2s;
-        }
-        .btn-borrar-foto:hover { background: #c83c4d; transform: scale(1.15); }
-
-        .caja-subir { margin-top: 20px; padding: 18px; background: #faf7e8; border-radius: 12px; display: none; }
-        .admin-activo .caja-subir { display: block; }
-        .historial {
-            background: #f2f4fb;
-            border: 2px solid #c9cff2;
-            border-radius: 14px;
-            padding: 22px;
-            margin-top: 25px;
-            display: none;
-        }
-        .admin-activo .historial { display: block; animation: aparecer 0.5s ease; }
-        .tarjeta-registro {
-            background: white;
-            border-radius: 10px;
-            padding: 14px;
-            margin-bottom: 10px;
-            border-left: 4px solid #6b7fd7;
-        }
+        .caja-subir { margin-top: 20px; padding: 18px; background: #faf7e8; border-radius: 12px; }
+        .historial { background: #f2f4fb; border: 2px solid #c9cff2; border-radius: 14px; padding: 22px; margin-top: 25px; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; }
         th { background: #f8f2f7; color: #7c4d6f; }
-
         .modal-fondo {
             position: fixed; inset: 0; background: rgba(0,0,0,0.55);
-            display: none; align-items: center; justify-content: center;
-            z-index: 999;
+            display: none; align-items: center; justify-content: center; z-index: 999;
         }
         .modal-fondo.mostrar { display: flex; }
         .modal-caja {
             background: white; border-radius: 18px; padding: 30px; width: 340px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.25); position: relative;
-            animation: aparecer 0.35s ease;
         }
         .modal-caja h3 { text-align: center; color: #7c4d6f; margin-bottom: 20px; }
         .cerrar-modal {
@@ -278,18 +162,8 @@
             cursor: pointer; color: #888;
         }
         .sin-datos { text-align: center; color: #999; padding: 25px; font-style: italic; }
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: #887f86;
-            font-size: 14px;
-        }
-        .botones-redes {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 15px;
-        }
+        footer { text-align: center; padding: 20px; color: #887f86; font-size: 14px; }
+        .cargando { text-align: center; padding: 15px; color: #7c4d6f; font-weight: 500; }
     </style>
 </head>
 <body>
@@ -310,8 +184,6 @@
     <div class="info-lic">
         <p><strong>Especialista en cuidado facial y estética</strong></p>
         <p>📍 <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver ubicación en Google Maps</a></p>
-        
-        <!-- BOTONES CON ICONOS DE WHATSAPP E INSTAGRAM -->
         <div class="botones-redes">
             <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-whatsapp">
                 <i class="fab fa-whatsapp"></i> WhatsApp
@@ -357,38 +229,26 @@
     </div>
     <div id="piel" class="caja-info-serv">
         <h3>🌸 Cuidado para Piel Sensible</h3>
-        <p>Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado. Seguridad y bienestar garantizados.</p>
+        <p>Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
     </div>
     <div id="asesoria" class="caja-info-serv">
         <h3>💎 Asesoría Personalizada</h3>
-        <p>Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. Tu belleza merece cuidados profesionales. 💜</p>
+        <p>Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
     </div>
 </section>
 
 <section>
     <h2>📅 Agendar tu Cita</h2>
     <form id="formCita">
-        <div class="form-grupo">
-            <label>Tu Nombre Completo 👤</label>
-            <input type="text" id="nombre" required placeholder="Escribe tu nombre completo">
-        </div>
-        <div class="form-grupo">
-            <label>Teléfono o WhatsApp 📱</label>
-            <input type="tel" id="telefono" required placeholder="Ej: 729 123 4567">
-        </div>
+        <div class="form-grupo"><label>Tu Nombre Completo 👤</label><input type="text" id="nombre" required placeholder="Escribe tu nombre completo"></div>
+        <div class="form-grupo"><label>Teléfono o WhatsApp 📱</label><input type="tel" id="telefono" required placeholder="Ej: 729 123 4567"></div>
         <div class="form-grupo tres-columnas">
             <div><label>Día</label><input type="number" id="dia" min="1" max="31" required></div>
             <div><label>Mes</label><input type="number" id="mes" min="1" max="12" required></div>
             <div><label>Año</label><input type="number" id="anio" min="2026" required></div>
         </div>
-        <div class="form-grupo">
-            <label>Hora ⏰</label>
-            <input type="time" id="hora" required>
-        </div>
-        <div class="form-grupo">
-            <label>Servicio o comentario 💭</label>
-            <textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa o tienes alguna observación?"></textarea>
-        </div>
+        <div class="form-grupo"><label>Hora ⏰</label><input type="time" id="hora" required></div>
+        <div class="form-grupo"><label>Servicio o comentario 💭</label><textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea></div>
         <button type="button" class="boton boton-verde" id="btnGuardarCita">
             <i class="fas fa-calendar-check"></i> AGENDAR CITA AHORA
         </button>
@@ -396,21 +256,16 @@
     </form>
 
     <div class="solo-admin">
-        <h3 style="color:#7c4d6f; margin-bottom:15px;"><i class="fas fa-clipboard-list"></i> Lista de Citas Registradas</h3>
-        <div id="listaCitas"></div>
+        <p class="aviso-recarga">🔄 Se actualiza SOLO — las citas llegan desde cualquier lugar</p>
+        <h3><i class="fas fa-clipboard-list"></i> Citas Recibidas</h3>
+        <div id="listaCitas" class="cargando">Cargando citas...</div>
     </div>
 </section>
 
 <section>
     <h2>💬 Opiniones de Nuestros Clientes</h2>
-    <div class="form-grupo">
-        <label>Tu correo electrónico 📧</label>
-        <input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com">
-    </div>
-    <div class="form-grupo">
-        <label>Tu opinión sobre tu experiencia ✍️</label>
-        <textarea id="textoOp" rows="4" placeholder="Cuéntanos qué te pareció tu visita, tu opinión es muy importante para nosotros..."></textarea>
-    </div>
+    <div class="form-grupo"><label>Tu correo 📧</label><input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com"></div>
+    <div class="form-grupo"><label>Tu opinión ✍️</label><textarea id="textoOp" rows="4" placeholder="Cuéntanos tu experiencia..."></textarea></div>
     <div class="estrellas" id="cajaEstrellas">
         <span class="estrella" data-v="1">★</span>
         <span class="estrella" data-v="2">★</span>
@@ -418,33 +273,26 @@
         <span class="estrella" data-v="4">★</span>
         <span class="estrella" data-v="5">★</span>
     </div>
-    <p style="text-align:center; color:#777; margin-bottom:15px;">Toca una estrella para calificarnos ⭐</p>
+    <p style="text-align:center; color:#777;">Toca una estrella para calificarnos ⭐</p>
     <button type="button" class="boton boton-azul" id="btnEnviarOp">
-        <i class="fas fa-paper-plane"></i> Enviar mi Opinión
+        <i class="fas fa-paper-plane"></i> Enviar Opinión
     </button>
     <div class="mensaje-exito" id="mensajeOp"></div>
 
     <div class="historial">
-        <h3 style="color:#6b7fd7; margin-bottom:15px;"><i class="fas fa-lock"></i> Historial Completo — Solo Administradora</h3>
-        <p style="font-size:14px; color:#666; margin-bottom:12px;">Todas las citas y opiniones ordenadas de la más reciente a la más antigua.</p>
-        <div id="cajaHistorial"></div>
+        <h3><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
+        <div id="listaOpiniones" class="cargando">Cargando opiniones...</div>
     </div>
 </section>
 
 <section>
-    <h2>📷 Galería de Tratamientos</h2>
-    <div style="text-align:center; margin-bottom:15px;">
-        <button class="boton boton-rosa" id="btnVerGaleria">
-            <i class="fas fa-images"></i> Ver / Ocultar Fotos
-        </button>
-    </div>
-    <div class="galeria" id="galeria"></div>
-
+    <h2>📷 Galería de Fotos</h2>
+    <div id="galeria" class="galeria"></div>
     <div class="caja-subir">
-        <h4 style="color:#8a7900; margin-bottom:10px;"><i class="fas fa-cloud-upload-alt"></i> Agregar nueva foto a la galería</h4>
-        <input type="file" id="archivoFoto" accept="image/*" style="margin-bottom:10px;">
+        <h4><i class="fas fa-cloud-upload-alt"></i> Subir Foto Nueva</h4>
+        <input type="file" id="archivoFoto" accept="image/*" style="margin:10px 0;">
         <button class="boton boton-verde" id="btnSubirFoto">
-            <i class="fas fa-plus-circle"></i> Subir Foto
+            <i class="fas fa-plus-circle"></i> Subir a la Nube
         </button>
     </div>
 </section>
@@ -453,11 +301,7 @@
     <h2>🕒 Horarios de Atención</h2>
     <table>
         <tr><th>Día</th><th>Horario</th></tr>
-        <tr><td>Lunes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Martes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Miércoles</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Jueves</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Lunes a Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
         <tr><td>Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
         <tr><td>Domingo</td><td style="color:#e05263;"><strong>Descanso</strong></td></tr>
     </table>
@@ -465,19 +309,12 @@
 
 </div>
 
-<!-- MODAL DE INICIO DE SESIÓN -->
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
         <button class="cerrar-modal" id="cerrarModal">&times;</button>
         <h3>🔐 Acceso de Laiza</h3>
-        <div class="form-grupo">
-            <label>Correo electrónico</label>
-            <input type="email" id="correoAdmin" placeholder="correo@ejemplo.com">
-        </div>
-        <div class="form-grupo">
-            <label>Contraseña</label>
-            <input type="password" id="claveAdmin" placeholder="Escribe tu contraseña">
-        </div>
+        <div class="form-grupo"><label>Correo</label><input type="email" id="correoAdmin" placeholder="correo@gmail.com"></div>
+        <div class="form-grupo"><label>Contraseña</label><input type="password" id="claveAdmin" placeholder="Tu contraseña"></div>
         <div id="respuestaLogin" style="text-align:center; margin:10px 0;"></div>
         <button class="boton boton-limpieza" id="btnIngresar" style="width:100%;">
             <i class="fas fa-sign-in-alt"></i> Ingresar
@@ -485,46 +322,50 @@
     </div>
 </div>
 
-<footer>
-    © 2026 Cosmiatría Laya — Todos los derechos reservados 💜
-</footer>
+<footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
 
 <script>
 // ==================================================
-// DATOS DE ACCESO
+// 🔐 DATOS DE ACCESO
 // ==================================================
 const ADMIN_CORREO = "laya@gmail.com";
 const ADMIN_CLAVE = "Laya2026";
 
 // ==================================================
-// VARIABLES
+// ☁️ SERVIDOR EN LA NUBE — FIREBASE
 // ==================================================
-let citas = [];
-let opiniones = [];
-let fotos = [];
-let calificacion = 0;
+const firebaseConfig = {
+  apiKey: "AIzaSyCq2f8xXzYbK5Z8R6a9X7w8Y9Z0X7a6b5c4d3e2f1a0",
+  authDomain: "cosmiatria-laya.firebaseapp.com",
+  projectId: "cosmiatria-laya",
+  storageBucket: "cosmiatria-laya.appspot.com",
+  messagingSenderId: "123456789012",
+  appId: "1:123456789012:web:abc123def456ghi789jkl01"
+};
+
+// Iniciar servidor
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+// ==================================================
+// 📱 VARIABLES
+// ==================================================
 let adminActivo = false;
+let calificacion = 0;
+let citasSuscripcion = null;
+let opinionesSuscripcion = null;
 
 // ==================================================
-// CARGAR DATOS GUARDADOS
+// 🔄 MANTENER SESIÓN ABIERTA
 // ==================================================
-function cargarTodo() {
-    try {
-        citas = JSON.parse(localStorage.getItem('_citas') || '[]');
-        opiniones = JSON.parse(localStorage.getItem('_opiniones') || '[]');
-        fotos = JSON.parse(localStorage.getItem('_fotos') || '[]');
-    } catch {
-        citas = []; opiniones = []; fotos = [];
-    }
-}
-function guardarTodo() {
-    localStorage.setItem('_citas', JSON.stringify(citas));
-    localStorage.setItem('_opiniones', JSON.stringify(opiniones));
-    localStorage.setItem('_fotos', JSON.stringify(fotos));
-}
+window.onload = function() {
+    const sesion = localStorage.getItem('_adminSesion');
+    if (sesion === 'activa') entrarComoAdmin();
+};
 
 // ==================================================
-// MOSTRAR SERVICIOS
+// 🧹 MOSTRAR SERVICIOS
 // ==================================================
 function mostrarServicio(id) {
     document.querySelectorAll('.caja-info-serv').forEach(c => c.classList.remove('mostrar'));
@@ -532,239 +373,196 @@ function mostrarServicio(id) {
 }
 
 // ==================================================
-// DIBUJAR CITAS
-// ==================================================
-function pintarCitas() {
-    const caja = document.getElementById('listaCitas');
-    caja.innerHTML = "";
-    if (!citas.length) {
-        caja.innerHTML = "<p class='sin-datos'>📭 No hay citas registradas todavía</p>";
-        return;
-    }
-    citas.forEach((c, i) => {
-        const tarjeta = document.createElement('div');
-        tarjeta.className = "tarjeta-cita";
-        tarjeta.innerHTML = `
-            <h4>👤 ${c.nombre}</h4>
-            <p>📱 Teléfono: ${c.telefono}</p>
-            <p>📅 Fecha: ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
-            <p>💭 Comentario: ${c.comentario || "Sin comentarios"}</p>
-            <p style="font-size:13px; color:#888;">📝 Registrada: ${c.fecha}</p>
-            <button class="btn-eliminar-cita" onclick="borrarCita(${i})">🗑️ Eliminar Cita</button>
-        `;
-        caja.appendChild(tarjeta);
-    });
-}
-window.borrarCita = function(i) {
-    if (confirm('¿Eliminar esta cita?')) {
-        citas.splice(i,1); guardarTodo(); pintarCitas(); pintarHistorial();
-    }
-};
-
-// ==================================================
-// DIBUJAR HISTORIAL
-// ==================================================
-function pintarHistorial() {
-    const caja = document.getElementById('cajaHistorial');
-    caja.innerHTML = "";
-    let todo = [];
-    citas.forEach(c => todo.push({tipo:"📅 CITA", ...c}));
-    opiniones.forEach(o => todo.push({tipo:"💬 OPINIÓN", ...o}));
-    todo.sort((a,b) => new Date(b.fechaOriginal||0) - new Date(a.fechaOriginal||0));
-    if (!todo.length) {
-        caja.innerHTML = "<p class='sin-datos'>📭 Sin registros todavía</p>";
-        return;
-    }
-    todo.forEach(r => {
-        const tarjeta = document.createElement('div');
-        tarjeta.className = "tarjeta-registro";
-        if (r.tipo.includes("CITA")) {
-            tarjeta.innerHTML = `
-                <strong>${r.tipo}</strong><br>
-                👤 ${r.nombre} | 📱 ${r.telefono}<br>
-                📅 ${r.dia}/${r.mes}/${r.anio} — ⏰ ${r.hora}<br>
-                💭 ${r.comentario||"Sin comentarios"}<br>
-                📝 ${r.fecha}
-            `;
-        } else {
-            tarjeta.innerHTML = `
-                <strong>${r.tipo}</strong><br>
-                📧 ${r.correo}<br>
-                ⭐ ${'★'.repeat(r.calif)}${'☆'.repeat(5-r.calif)}<br>
-                💬 ${r.texto}<br>
-                📝 ${r.fecha}
-            `;
-        }
-        caja.appendChild(tarjeta);
-    });
-}
-
-// ==================================================
-// GALERÍA DE FOTOS
-// ==================================================
-function pintarGaleria() {
-    const caja = document.getElementById('galeria');
-    caja.innerHTML = "";
-    if (!fotos.length) {
-        caja.innerHTML = "<p class='sin-datos'>📷 Aún no hay fotos en la galería</p>";
-        return;
-    }
-    fotos.forEach((foto, i) => {
-        const div = document.createElement('div');
-        div.className = "contenedor-foto";
-        if (adminActivo) {
-            div.innerHTML = `
-                <img src="${foto}" class="foto">
-                <button class="btn-borrar-foto" onclick="eliminarFoto(${i})">×</button>
-            `;
-        } else {
-            div.innerHTML = `<img src="${foto}" class="foto">`;
-        }
-        caja.appendChild(div);
-    });
-}
-window.eliminarFoto = function(i) {
-    if (confirm('¿Eliminar esta foto?')) {
-        fotos.splice(i,1); guardarTodo(); pintarGaleria();
-    }
-};
-
-// ==================================================
-// ACTIVAR TODO AL ENTRAR COMO ADMIN
+// ✅ ENTRAR COMO ADMINISTRADORA
 // ==================================================
 function entrarComoAdmin() {
     adminActivo = true;
     document.getElementById('raiz').classList.add('admin-activo');
     document.getElementById('btnEntrarAdmin').style.display = 'none';
     document.getElementById('btnSalirAdmin').style.display = 'block';
-    pintarCitas(); pintarHistorial(); pintarGaleria();
+    localStorage.setItem('_adminSesion', 'activa');
+    escucharCitas();
+    escucharOpiniones();
+    cargarFotos();
 }
 function salirAdmin() {
     adminActivo = false;
+    localStorage.removeItem('_adminSesion');
     document.getElementById('raiz').classList.remove('admin-activo');
     document.getElementById('btnEntrarAdmin').style.display = 'block';
     document.getElementById('btnSalirAdmin').style.display = 'none';
-    alert('✅ Sesión cerrada. Tus datos siguen guardados.');
+    if(citasSuscripcion) citasSuscripcion();
+    if(opinionesSuscripcion) opinionesSuscripcion();
 }
 
 // ==================================================
-// INICIO DE SESIÓN
+// 📥 ESCUCHAR CITAS EN TIEMPO REAL
 // ==================================================
-document.getElementById('btnEntrarAdmin').addEventListener('click', () => {
-    document.getElementById('modalLogin').classList.add('mostrar');
-});
-document.getElementById('cerrarModal').addEventListener('click', () => {
-    document.getElementById('modalLogin').classList.remove('mostrar');
-});
-document.getElementById('btnIngresar').addEventListener('click', () => {
-    const cor = document.getElementById('correoAdmin').value.trim();
-    const pw = document.getElementById('claveAdmin').value;
-    const res = document.getElementById('respuestaLogin');
-    if (cor === ADMIN_CORREO && pw === ADMIN_CLAVE) {
-        res.innerHTML = `<span style="color:green; font-weight:bold;">✅ ¡Bienvenida Laiza!</span>`;
-        setTimeout(() => {
-            document.getElementById('modalLogin').classList.remove('mostrar');
-            entrarComoAdmin();
-        }, 1000);
-    } else {
-        res.innerHTML = `<span style="color:red; font-weight:bold;">❌ Datos incorrectos</span>`;
-    }
-});
-document.getElementById('btnSalirAdmin').addEventListener('click', salirAdmin);
+function escucharCitas() {
+    citasSuscripcion = db.collection('citas')
+        .orderBy('fecha', 'desc')
+        .onSnapshot(snapshot => {
+            const lista = document.getElementById('listaCitas');
+            lista.innerHTML = '';
+            if(snapshot.empty){ lista.innerHTML="<p class='sin-datos'>📭 Sin citas todavía</p>"; return; }
+            snapshot.forEach(doc => {
+                const c = doc.data();
+                lista.innerHTML += `
+                    <div class='tarjeta-cita'>
+                        <h4>👤 ${c.nombre}</h4>
+                        <p>📱 ${c.telefono}</p>
+                        <p>📅 ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
+                        <p>💭 ${c.comentario||'Sin comentario'}</p>
+                        <button class='btn-eliminar-cita' onclick="borrarCita('${doc.id}')">🗑️ Eliminar</button>
+                    </div>`;
+            });
+        });
+}
+window.borrarCita = function(id) {
+    if(confirm('¿Eliminar esta cita?')) db.collection('citas').doc(id).delete();
+};
 
 // ==================================================
-// ESTRELLAS
+// 📤 GUARDAR CITA EN LA NUBE
+// ==================================================
+document.getElementById('btnGuardarCita').addEventListener('click', async () => {
+    const datos = {
+        nombre: document.getElementById('nombre').value.trim(),
+        telefono: document.getElementById('telefono').value.trim(),
+        dia: document.getElementById('dia').value,
+        mes: document.getElementById('mes').value,
+        anio: document.getElementById('anio').value,
+        hora: document.getElementById('hora').value,
+        comentario: document.getElementById('comentario').value.trim(),
+        fecha: firebase.firestore.Timestamp.now()
+    };
+    if(!datos.nombre || !datos.telefono || !datos.dia) return alert('⚠️ Completa todos los campos');
+
+    await db.collection('citas').add(datos);
+    const msg = document.getElementById('mensajeCita');
+    msg.style.display = 'block';
+    msg.textContent = '✅ ¡CITA AGENDADA! Llegó a la nube ✅';
+    document.getElementById('formCita').reset();
+    setTimeout(()=>msg.style.display='none',5000);
+});
+
+// ==================================================
+// 📝 OPINIONES EN TIEMPO REAL
+// ==================================================
+function escucharOpiniones() {
+    opinionesSuscripcion = db.collection('opiniones')
+        .orderBy('fecha', 'desc')
+        .onSnapshot(snapshot => {
+            const lista = document.getElementById('listaOpiniones');
+            lista.innerHTML = '';
+            if(snapshot.empty){ lista.innerHTML="<p class='sin-datos'>📭 Sin opiniones todavía</p>"; return; }
+            snapshot.forEach(doc => {
+                const o = doc.data();
+                lista.innerHTML += `
+                    <div class='tarjeta-registro'>
+                        <strong>📧 ${o.correo}</strong><br>
+                        ⭐ ${'★'.repeat(o.calif)}${'☆'.repeat(5-o.calif)}<br>
+                        💬 ${o.texto}
+                        ${adminActivo ? `<br><button class='btn-eliminar-cita' onclick="borrarOpinion('${doc.id}')">🗑️ Eliminar</button>`:''}
+                    </div>`;
+            });
+        });
+}
+window.borrarOpinion = function(id) {
+    if(confirm('¿Eliminar opinión?')) db.collection('opiniones').doc(id).delete();
+};
+
+// ==================================================
+// ✉️ ENVIAR OPINIÓN A LA NUBE
+// ==================================================
+document.getElementById('btnEnviarOpinion').addEventListener('click', async () => {
+    const correo = document.getElementById('correoOp').value.trim();
+    const texto = document.getElementById('textoOp').value.trim();
+    if(!correo.includes('@')) return alert('⚠️ Escribe un correo válido');
+    if(!texto) return alert('⚠️ Escribe tu opinión');
+    if(!calificacion) return alert('⚠️ Toca las estrellas');
+
+    await db.collection('opiniones').add({
+        correo, texto, calif: calificacion,
+        fecha: firebase.firestore.Timestamp.now()
+    });
+    const msg = document.getElementById('mensajeOp');
+    msg.style.display = 'block';
+    msg.textContent = '✅ ¡OPINIÓN ENVIADA! Guardada en la nube ✅';
+    document.getElementById('correoOp').value='';
+    document.getElementById('textoOp').value='';
+    calificacion=0;
+    document.querySelectorAll('.estrella').forEach(e=>e.classList.remove('activa'));
+    setTimeout(()=>msg.style.display='none',5000);
+});
+
+// ==================================================
+// ⭐ ESTRELLAS
 // ==================================================
 document.querySelectorAll('#cajaEstrellas .estrella').forEach(e => {
     e.addEventListener('click', () => {
         calificacion = Number(e.dataset.v);
-        document.querySelectorAll('#cajaEstrellas .estrella').forEach(x => {
-            x.classList.toggle('activa', Number(x.dataset.v) <= calificacion);
-        });
+        document.querySelectorAll('#cajaEstrellas .estrella').forEach(x => 
+            x.classList.toggle('activa', Number(x.dataset.v) <= calificacion));
     });
 });
 
 // ==================================================
-// GUARDAR CITA
+// 📷 FOTOS EN LA NUBE
 // ==================================================
-document.getElementById('btnGuardarCita').addEventListener('click', () => {
-    const nombre = document.getElementById('nombre').value.trim();
-    const tel = document.getElementById('telefono').value.trim();
-    const d = document.getElementById('dia').value;
-    const m = document.getElementById('mes').value;
-    const a = document.getElementById('anio').value;
-    const h = document.getElementById('hora').value;
-    const txt = document.getElementById('comentario').value.trim();
-
-    if (!nombre || !tel || !d || !m || !a || !h) {
-        alert('⚠️ Completa todos los campos obligatorios');
-        return;
+async function cargarFotos() {
+    const galeria = document.getElementById('galeria');
+    galeria.innerHTML = '';
+    const fotosRef = await db.collection('fotos').orderBy('fecha','desc').get();
+    fotosRef.forEach(doc => {
+        const f = doc.data();
+        galeria.innerHTML += `
+            <div class='contenedor-foto'>
+                <img src='${f.url}' class='foto'>
+                ${adminActivo ? `<button class='btn-borrar-foto' onclick="borrarFoto('${doc.id}','${f.ruta}')">×</button>`:''}
+            </div>`;
+    });
+}
+window.borrarFoto = async function(id, ruta) {
+    if(confirm('¿Eliminar foto?')){
+        await storage.ref(ruta).delete();
+        await db.collection('fotos').doc(id).delete();
+        cargarFotos();
     }
-
-    const cita = {
-        nombre, telefono: tel, dia:d, mes:m, anio:a, hora:h, comentario:txt,
-        fecha: new Date().toLocaleString(), fechaOriginal: new Date()
-    };
-    citas.unshift(cita); guardarTodo();
-
-    const msg = document.getElementById('mensajeCita');
-    msg.style.display = "block";
-    msg.textContent = "✅ ¡CITA AGENDADA CON ÉXITO! Quedó registrada para siempre.";
-    document.getElementById('formCita').reset();
-    if (adminActivo) { pintarCitas(); pintarHistorial(); }
-    setTimeout(() => { msg.style.display = "none"; }, 6000);
+};
+document.getElementById('btnSubirFoto').addEventListener('click', async () => {
+    const archivo = document.getElementById('archivoFoto').files[0];
+    if(!archivo) return alert('Selecciona una foto');
+    const ruta = 'galeria/' + Date.now() + '_' + archivo.name;
+    const ref = storage.ref(ruta);
+    await ref.put(archivo);
+    const url = await ref.getDownloadURL();
+    await db.collection('fotos').add({url, ruta, fecha: firebase.firestore.Timestamp.now()});
+    alert('✅ ¡FOTO SUBIDA A LA NUBE! ✅');
+    document.getElementById('archivoFoto').value='';
+    cargarFotos();
 });
 
 // ==================================================
-// ENVIAR OPINIÓN
+// 🔐 INICIO DE SESIÓN
 // ==================================================
-document.getElementById('btnEnviarOp').addEventListener('click', () => {
-    const correo = document.getElementById('correoOp').value.trim();
-    const texto = document.getElementById('textoOp').value.trim();
-    if (!correo || !correo.includes('@')) return alert('⚠️ Escribe un correo válido');
-    if (!texto) return alert('⚠️ Escribe tu opinión');
-    if (!calificacion) return alert('⚠️ Toca las estrellas para calificar');
-
-    opiniones.unshift({
-        correo, texto, calif:calificacion,
-        fecha: new Date().toLocaleString(), fechaOriginal: new Date()
-    });
-    guardarTodo();
-
-    const msg = document.getElementById('mensajeOp');
-    msg.style.display = "block";
-    msg.textContent = "✅ ¡Gracias por tu opinión! Quedó registrada 💜";
-    document.getElementById('correoOp').value = "";
-    document.getElementById('textoOp').value = "";
-    calificacion = 0;
-    document.querySelectorAll('#cajaEstrellas .estrella').forEach(x => x.classList.remove('activa'));
-    if (adminActivo) pintarHistorial();
-    setTimeout(() => { msg.style.display = "none"; }, 6000);
-});
-
-// ==================================================
-// GALERÍA
-// ==================================================
-document.getElementById('btnVerGaleria').addEventListener('click', () => {
-    document.getElementById('galeria').classList.toggle('mostrar');
-    pintarGaleria();
-});
-document.getElementById('btnSubirFoto').addEventListener('click', () => {
-    const arch = document.getElementById('archivoFoto').files[0];
-    if (!arch) return alert('Selecciona una imagen');
-    const lec = new FileReader();
-    lec.onload = e => {
-        fotos.unshift(e.target.result); guardarTodo(); pintarGaleria();
-        alert('✅ Foto agregada a la galería');
-    };
-    lec.readAsDataURL(archivoFoto.files[0]);
-});
-
-// ==================================================
-// AL CARGAR LA PÁGINA
-// ==================================================
-window.onload = cargarTodo;
+document.getElementById('btnEntrarAdmin').onclick = ()=>document.getElementById('modalLogin').classList.add('mostrar');
+document.getElementById('cerrarModal').onclick = ()=>document.getElementById('modalLogin').classList.remove('mostrar');
+document.getElementById('btnSalirAdmin').onclick = salirAdmin;
+document.getElementById('btnIngresar').onclick = ()=>{
+    const cor = document.getElementById('correoAdmin').value.trim();
+    const pw = document.getElementById('claveAdmin').value;
+    const res = document.getElementById('respuestaLogin');
+    if(cor===ADMIN_CORREO && pw===ADMIN_CLAVE){
+        res.innerHTML="<span style='color:green'>✅ ¡Bienvenida!</span>";
+        setTimeout(()=>{
+            document.getElementById('modalLogin').classList.remove('mostrar');
+            entrarComoAdmin();
+        },1000);
+    }else{
+        res.innerHTML="<span style='color:red'>❌ Datos incorrectos</span>";
+    }
+};
 </script>
-
 </body>
 </html>
