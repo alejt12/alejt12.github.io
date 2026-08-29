@@ -38,14 +38,14 @@
             padding: 10px 16px;
             border-radius: 25px;
             font-size: 15px;
-            font-weight: 500;
+            font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             backdrop-filter: blur(6px);
         }
         .btn-admin:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
         .btn-salir { background: rgba(220, 80, 100, 0.9); display: none; }
-            h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
+        h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
         .subtitulo { font-size: 18px; font-style: italic; opacity: 0.92; }
         .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
         section {
@@ -67,7 +67,7 @@
         }
         .info-lic { text-align: center; font-size: 17px; }
         .info-lic p { margin: 10px 0; }
-        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 15px; }
+        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
         .boton {
             padding: 13px 24px;
             border: none;
@@ -93,7 +93,6 @@
         .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-size: 16px; padding: 14px 28px; }
         .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 17px; padding: 15px; }
         .boton-azul { background: linear-gradient(90deg, #3498db, #2980b9); color: white; width: 100%; justify-content: center; }
-        .boton-rosa { background: linear-gradient(90deg, #e84393, #fd79a8); color: white; }
 
         .caja-info-serv {
             margin-top: 20px; padding: 20px; background: #faf2f7;
@@ -116,8 +115,8 @@
             border-radius: 10px; text-align: center; font-weight: 600;
             margin-top: 14px; display: none;
         }
-        .solo-admin, .historial, .caja-subir { display: none; }
-        .admin-activo .solo-admin, .admin-activo .historial, .admin-activo .caja-subir { display: block; }
+        .solo-admin, .historial { display: none; }
+        .admin-activo .solo-admin, .admin-activo .historial { display: block; }
         .solo-admin { margin-top: 30px; padding-top: 24px; border-top: 2px dashed #e4d4de; }
         .aviso-recarga { text-align: center; margin-top: 10px; color: #20754f; font-size: 14px; }
 
@@ -126,18 +125,16 @@
             margin-bottom: 12px; border-left: 4px solid #a86f9b;
         }
         .tarjeta-cita h4 { color: #7c4d6f; margin-bottom: 6px; }
-        .btn-eliminar-cita, .btn-eliminar-opinion, .btn-borrar-foto {
+        .btn-eliminar-cita, .btn-eliminar-opinion {
             margin-top: 10px; padding: 7px 14px; font-size: 13px;
             border-radius: 20px; border: none;
             background: linear-gradient(90deg, #e74c3c, #c0392b);
             color: white; cursor: pointer; font-weight: 600;
         }
         .estrellas { font-size: 34px; color: #ddd; cursor: pointer; text-align: center; margin: 10px 0; user-select: none; }
+        .estrella { transition: color 0.2s ease; }
         .estrella.activa { color: #f4c542; }
         .galeria { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 20px; }
-        .contenedor-foto { position: relative; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .foto { width: 190px; height: 190px; object-fit: cover; display: block; }
-        .caja-subir { margin-top: 20px; padding: 18px; background: #faf7e8; border-radius: 12px; }
         .historial { background: #f2f4fb; border: 2px solid #c9cff2; border-radius: 14px; padding: 22px; margin-top: 25px; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; }
@@ -160,6 +157,7 @@
         .sin-datos { text-align: center; color: #999; padding: 25px; font-style: italic; }
         footer { text-align: center; padding: 20px; color: #887f86; font-size: 14px; }
         .cargando { text-align: center; padding: 15px; color: #7c4d6f; font-weight: 500; }
+        .fila-botones { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
     </style>
 </head>
 <body>
@@ -263,11 +261,11 @@
     <div class="form-grupo"><label>Tu correo 📧</label><input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com"></div>
     <div class="form-grupo"><label>Tu opinión ✍️</label><textarea id="textoOp" rows="4" placeholder="Cuéntanos tu experiencia..."></textarea></div>
     <div class="estrellas" id="cajaEstrellas">
-        <span class="estrella" data-v="1">★</span>
-        <span class="estrella" data-v="2">★</span>
-        <span class="estrella" data-v="3">★</span>
-        <span class="estrella" data-v="4">★</span>
-        <span class="estrella" data-v="5">★</span>
+        <span class="estrella" data-valor="1">★</span>
+        <span class="estrella" data-valor="2">★</span>
+        <span class="estrella" data-valor="3">★</span>
+        <span class="estrella" data-valor="4">★</span>
+        <span class="estrella" data-valor="5">★</span>
     </div>
     <p style="text-align:center; color:#777;">Toca una estrella para calificarnos ⭐</p>
     <button type="button" class="boton boton-azul" id="btnEnviarOp">
@@ -278,18 +276,6 @@
     <div class="historial">
         <h3><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
         <div id="listaOpiniones" class="cargando">Cargando opiniones...</div>
-    </div>
-</section>
-
-<section>
-    <h2>📷 Galería de Fotos</h2>
-    <div id="galeria" class="galeria"></div>
-    <div class="caja-subir">
-        <h4><i class="fas fa-cloud-upload-alt"></i> Subir Foto Nueva</h4>
-        <input type="file" id="archivoFoto" accept="image/*" style="margin:10px 0;">
-        <button class="boton boton-verde" id="btnSubirFoto">
-            <i class="fas fa-plus-circle"></i> Subir a la Nube
-        </button>
     </div>
 </section>
 
@@ -309,7 +295,7 @@
     <div class="modal-caja">
         <button class="cerrar-modal" id="cerrarModal">&times;</button>
         <h3>🔐 Acceso de Laiza</h3>
-        <div class="form-grupo"><label>Correo</label><input type="email" id="correoAdmin" placeholder="correo@gmail.com"></div>
+        <div class="form-grupo"><label>Correo</label><input type="email" id="correoAdmin" placeholder="laya@gmail.com"></div>
         <div class="form-grupo"><label>Contraseña</label><input type="password" id="claveAdmin" placeholder="Tu contraseña"></div>
         <div id="respuestaLogin" style="text-align:center; margin:10px 0;"></div>
         <button class="boton boton-limpieza" id="btnIngresar" style="width:100%;">
@@ -322,7 +308,6 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-storage-compat.js"></script>
 
 <script>
 // ==================================================
@@ -332,7 +317,7 @@ const ADMIN_CORREO = "laya@gmail.com";
 const ADMIN_CLAVE = "Laya2026";
 
 // ==================================================
-// ☁️ TUS CÓDIGOS DE CONEXIÓN (YA PUESTOS)
+// ☁️ TUS CÓDIGOS DE CONEXIÓN
 // ==================================================
 const firebaseConfig = {
   apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
@@ -347,7 +332,6 @@ const firebaseConfig = {
 // Iniciar Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
-const storage = firebase.storage();
 
 // ==================================================
 // 📱 VARIABLES
@@ -363,6 +347,9 @@ let opinionesSuscripcion = null;
 window.onload = function() {
     const sesion = localStorage.getItem('_adminSesion');
     if (sesion === 'activa') entrarComoAdmin();
+    
+    // ✅ INICIALIZAR ESTRELLAS AL CARGAR
+    configurarEstrellas();
 };
 
 // ==================================================
@@ -374,7 +361,33 @@ function mostrarServicio(id) {
 }
 
 // ==================================================
-// ✅ ENTRAR COMO ADMINISTRADORA
+// ⭐ SISTEMA DE ESTRELLAS ✅ CORREGIDO
+// ==================================================
+function configurarEstrellas() {
+    const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
+    
+    estrellas.forEach(estrella => {
+        estrella.addEventListener('click', function() {
+            calificacion = parseInt(this.dataset.valor);
+            actualizarEstrellas();
+        });
+    });
+}
+
+function actualizarEstrellas() {
+    const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
+    estrellas.forEach(estrella => {
+        const valor = parseInt(estrella.dataset.valor);
+        if (valor <= calificacion) {
+            estrella.classList.add('activa');
+        } else {
+            estrella.classList.remove('activa');
+        }
+    });
+}
+
+// ==================================================
+// ✅ ENTRAR COMO ADMINISTRADORA ✅ CORREGIDO
 // ==================================================
 function entrarComoAdmin() {
     adminActivo = true;
@@ -384,8 +397,8 @@ function entrarComoAdmin() {
     localStorage.setItem('_adminSesion', 'activa');
     escucharCitas();
     escucharOpiniones();
-    cargarFotos();
 }
+
 function salirAdmin() {
     adminActivo = false;
     localStorage.removeItem('_adminSesion');
@@ -405,7 +418,10 @@ function escucharCitas() {
         .onSnapshot(snapshot => {
             const lista = document.getElementById('listaCitas');
             lista.innerHTML = '';
-            if(snapshot.empty){ lista.innerHTML="<p class='sin-datos'>📭 Sin citas todavía</p>"; return; }
+            if(snapshot.empty){ 
+                lista.innerHTML = "<p class='sin-datos'>📭 Sin citas todavía</p>"; 
+                return; 
+            }
             snapshot.forEach(doc => {
                 const c = doc.data();
                 lista.innerHTML += `
@@ -413,7 +429,7 @@ function escucharCitas() {
                         <h4>👤 ${c.nombre}</h4>
                         <p>📱 ${c.telefono}</p>
                         <p>📅 ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
-                        <p>💭 ${c.comentario||'Sin comentario'}</p>
+                        <p>💭 ${c.comentario || 'Sin comentario'}</p>
                         <button class='btn-eliminar-cita' onclick="borrarCita('${doc.id}')">🗑️ Eliminar</button>
                     </div>`;
             });
@@ -437,14 +453,17 @@ document.getElementById('btnGuardarCita').addEventListener('click', async () => 
         comentario: document.getElementById('comentario').value.trim(),
         fecha: firebase.firestore.Timestamp.now()
     };
-    if(!datos.nombre || !datos.telefono || !datos.dia) return alert('⚠️ Completa todos los campos');
+    if(!datos.nombre || !datos.telefono || !datos.dia) {
+        alert('⚠️ Completa todos los campos');
+        return;
+    }
 
     await db.collection('citas').add(datos);
     const msg = document.getElementById('mensajeCita');
     msg.style.display = 'block';
-    msg.textContent = '✅ ¡CITA AGENDADA! Llegó a la nube ✅';
+    msg.textContent = '✅ ¡CITA AGENDADA! Guardada en la nube ✅';
     document.getElementById('formCita').reset();
-    setTimeout(()=>msg.style.display='none',5000);
+    setTimeout(() => msg.style.display = 'none', 5000);
 });
 
 // ==================================================
@@ -456,7 +475,10 @@ function escucharOpiniones() {
         .onSnapshot(snapshot => {
             const lista = document.getElementById('listaOpiniones');
             lista.innerHTML = '';
-            if(snapshot.empty){ lista.innerHTML="<p class='sin-datos'>📭 Sin opiniones todavía</p>"; return; }
+            if(snapshot.empty){ 
+                lista.innerHTML = "<p class='sin-datos'>📭 Sin opiniones todavía</p>"; 
+                return; 
+            }
             snapshot.forEach(doc => {
                 const o = doc.data();
                 lista.innerHTML += `
@@ -464,7 +486,7 @@ function escucharOpiniones() {
                         <strong>📧 ${o.correo}</strong><br>
                         ⭐ ${'★'.repeat(o.calif)}${'☆'.repeat(5-o.calif)}<br>
                         💬 ${o.texto}
-                        ${adminActivo ? `<br><button class='btn-eliminar-cita' onclick="borrarOpinion('${doc.id}')">🗑️ Eliminar</button>`:''}
+                        ${adminActivo ? `<br><button class='btn-eliminar-opinion' onclick="borrarOpinion('${doc.id}')">🗑️ Eliminar</button>` : ''}
                     </div>`;
             });
         });
@@ -476,92 +498,61 @@ window.borrarOpinion = function(id) {
 // ==================================================
 // ✉️ ENVIAR OPINIÓN A LA NUBE
 // ==================================================
-document.getElementById('btnEnviarOpinion').addEventListener('click', async () => {
+document.getElementById('btnEnviarOp').addEventListener('click', async () => {
     const correo = document.getElementById('correoOp').value.trim();
     const texto = document.getElementById('textoOp').value.trim();
+    
     if(!correo.includes('@')) return alert('⚠️ Escribe un correo válido');
     if(!texto) return alert('⚠️ Escribe tu opinión');
-    if(!calificacion) return alert('⚠️ Toca las estrellas');
+    if(calificacion === 0) return alert('⚠️ Toca las estrellas para calificar');
 
     await db.collection('opiniones').add({
-        correo, texto, calif: calificacion,
+        correo: correo,
+        texto: texto,
+        calif: calificacion,
         fecha: firebase.firestore.Timestamp.now()
     });
+    
     const msg = document.getElementById('mensajeOp');
     msg.style.display = 'block';
     msg.textContent = '✅ ¡OPINIÓN ENVIADA! Guardada en la nube ✅';
-    document.getElementById('correoOp').value='';
-    document.getElementById('textoOp').value='';
-    calificacion=0;
-    document.querySelectorAll('.estrella').forEach(e=>e.classList.remove('activa'));
-    setTimeout(()=>msg.style.display='none',5000);
+    document.getElementById('correoOp').value = '';
+    document.getElementById('textoOp').value = '';
+    calificacion = 0;
+    actualizarEstrellas();
+    setTimeout(() => msg.style.display = 'none', 5000);
 });
 
 // ==================================================
-// ⭐ ESTRELLAS
+// 🔐 INICIO DE SESIÓN ✅ CORREGIDO
 // ==================================================
-document.querySelectorAll('#cajaEstrellas .estrella').forEach(e => {
-    e.addEventListener('click', () => {
-        calificacion = Number(e.dataset.v);
-        document.querySelectorAll('#cajaEstrellas .estrella').forEach(x => 
-            x.classList.toggle('activa', Number(x.dataset.v) <= calificacion));
-    });
-});
-
-// ==================================================
-// 📷 FOTOS EN LA NUBE
-// ==================================================
-async function cargarFotos() {
-    const galeria = document.getElementById('galeria');
-    galeria.innerHTML = '';
-    const fotosRef = await db.collection('fotos').orderBy('fecha','desc').get();
-    fotosRef.forEach(doc => {
-        const f = doc.data();
-        galeria.innerHTML += `
-            <div class='contenedor-foto'>
-                <img src='${f.url}' class='foto'>
-                ${adminActivo ? `<button class='btn-borrar-foto' onclick="borrarFoto('${doc.id}','${f.ruta}')">×</button>`:''}
-            </div>`;
-    });
-}
-window.borrarFoto = async function(id, ruta) {
-    if(confirm('¿Eliminar foto?')){
-        await storage.ref(ruta).delete();
-        await db.collection('fotos').doc(id).delete();
-        cargarFotos();
-    }
+document.getElementById('btnEntrarAdmin').onclick = function() {
+    document.getElementById('modalLogin').classList.add('mostrar');
 };
-document.getElementById('btnSubirFoto').addEventListener('click', async () => {
-    const archivo = document.getElementById('archivoFoto').files[0];
-    if(!archivo) return alert('Selecciona una foto');
-    const ruta = 'galeria/' + Date.now() + '_' + archivo.name;
-    const ref = storage.ref(ruta);
-    await ref.put(archivo);
-    const url = await ref.getDownloadURL();
-    await db.collection('fotos').add({url, ruta, fecha: firebase.firestore.Timestamp.now()});
-    alert('✅ ¡FOTO SUBIDA A LA NUBE! ✅');
-    document.getElementById('archivoFoto').value='';
-    cargarFotos();
-});
 
-// ==================================================
-// 🔐 INICIO DE SESIÓN
-// ==================================================
-document.getElementById('btnEntrarAdmin').onclick = ()=>document.getElementById('modalLogin').classList.add('mostrar');
-document.getElementById('cerrarModal').onclick = ()=>document.getElementById('modalLogin').classList.remove('mostrar');
+document.getElementById('cerrarModal').onclick = function() {
+    document.getElementById('modalLogin').classList.remove('mostrar');
+    document.getElementById('respuestaLogin').innerHTML = '';
+};
+
 document.getElementById('btnSalirAdmin').onclick = salirAdmin;
-document.getElementById('btnIngresar').onclick = ()=>{
-    const cor = document.getElementById('correoAdmin').value.trim();
-    const pw = document.getElementById('claveAdmin').value;
-    const res = document.getElementById('respuestaLogin');
-    if(cor===ADMIN_CORREO && pw===ADMIN_CLAVE){
-        res.innerHTML="<span style='color:green'>✅ ¡Bienvenida!</span>";
-        setTimeout(()=>{
+
+document.getElementById('btnIngresar').onclick = function() {
+    const correo = document.getElementById('correoAdmin').value.trim();
+    const clave = document.getElementById('claveAdmin').value;
+    const respuesta = document.getElementById('respuestaLogin');
+    
+    if(correo === ADMIN_CORREO && clave === ADMIN_CLAVE) {
+        respuesta.innerHTML = "<span style='color:green; font-weight:bold;'>✅ ¡Bienvenida Laiza!</span>";
+        setTimeout(function() {
             document.getElementById('modalLogin').classList.remove('mostrar');
+            document.getElementById('correoAdmin').value = '';
+            document.getElementById('claveAdmin').value = '';
+            respuesta.innerHTML = '';
             entrarComoAdmin();
-        },1000);
-    }else{
-        res.innerHTML="<span style='color:red'>❌ Datos incorrectos</span>";
+        }, 1200);
+    } else {
+        respuesta.innerHTML = "<span style='color:red; font-weight:bold;'>❌ Correo o contraseña incorrectos</span>";
     }
 };
 </script>
