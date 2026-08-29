@@ -199,6 +199,7 @@
     <!-- ☁️ FIREBASE PARA GUARDAR EN LA NUBE -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
 
@@ -352,8 +353,8 @@
     <h2>🔐 Panel de Laiza</h2>
     
     <div class="pestañas">
-        <button class="pestaña activa" onclick="cambiarPestana('citas')">📋 Citas Recibidas</button>
-        <button class="pestaña" onclick="cambiarPestana('comentarios')">💬 Opiniones</button>
+        <button class="pestaña activa">📋 Citas Recibidas</button>
+        <button class="pestaña">💬 Opiniones</button>
     </div>
 
     <div id="pestanaCitas" class="caja-pestaña mostrar">
@@ -390,19 +391,23 @@
 <footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
 
 <script>
-// ==================================================
-// 🔐 DATOS DE ACCESO
-// ==================================================
-const CORREO_ADMIN = "laya@gmail.com";
-const CLAVE_ADMIN = "Laya2026";
+/*
+    IMPORTANTE DE SEGURIDAD
+    -----------------------
+    Este código usa Firebase Authentication. Para que solo Laiza sea realmente
+    administradora debes:
+    1) Activar Authentication > Email/Password en Firebase.
+    2) Crear la cuenta administradora en Firebase.
+    3) Cambiar ADMIN_EMAIL por el correo real de Laiza.
+    4) Configurar reglas de Firestore. NO guardes contraseñas en este archivo.
+*/
+
+const ADMIN_EMAIL = "laya@gmail.com"; // Cambia por el correo real autorizado
 let calificacionEstrellas = 0;
 let adminActivo = false;
 let citasSuscripcion = null;
 let opinionesSuscripcion = null;
 
-// ==================================================
-// ☁️ CONEXIÓN A LA BASE DE DATOS EN LA NUBE
-// ==================================================
 const firebaseConfig = {
   apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
   authDomain: "cosmiatria-laya.firebaseapp.com",
@@ -412,119 +417,121 @@ const firebaseConfig = {
   appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b"
 };
 
-const app = firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
+const auth = firebase.auth();
 
-// ==================================================
-// ✅ MOSTRAR SERVICIOS AL HACER CLIC EN BOTONES
-// ==================================================
-function mostrarServicio(idCaja) {
-    const todasLasCajas = document.querySelectorAll('.caja-info');
-    for (let i = 0; i < todasLasCajas.length; i++) {
-        todasLasCajas[i].classList.remove('mostrar');
-    }
-    document.getElementById(idCaja).classList.add('mostrar');
+function esAdmin(usuario) {
+    return !!usuario && usuario.email &&
+        usuario.email.trim().toLowerCase() === ADMIN_EMAIL.trim().toLowerCase();
 }
 
-// ==================================================
-// ⭐ SISTEMA DE ESTRELLAS
-// ==================================================
+function escaparHTML(valor) {
+    const div = document.createElement('div');
+    div.textContent = valor == null ? '' : String(valor);
+    return div.innerHTML;
+}
+
+function mostrarServicio(idCaja) {
+    document.querySelectorAll('.caja-info').forEach(caja => caja.classList.remove('mostrar'));
+    const caja = document.getElementById(idCaja);
+    if (caja) caja.classList.add('mostrar');
+}
+
 function configurarEstrellas() {
     const estrellas = document.querySelectorAll('#estrellas .estrella');
     estrellas.forEach(estrella => {
         estrella.addEventListener('mouseover', function() {
-            iluminarEstrellas(this.dataset.valor);
+            iluminarEstrellas(Number(this.dataset.valor));
         });
         estrella.addEventListener('click', function() {
-            calificacionEstrellas = this.dataset.valor;
-            iluminarEstrellas(this.dataset.valor);
+            calificacionEstrellas = Number(this.dataset.valor);
+            iluminarEstrellas(calificacionEstrellas);
         });
     });
+
     document.getElementById('estrellas').addEventListener('mouseleave', function() {
         iluminarEstrellas(calificacionEstrellas);
     });
 }
+
 function iluminarEstrellas(valor) {
-    const estrellas = document.querySelectorAll('#estrellas .estrella');
-    estrellas.forEach(estrella => {
-        estrella.classList.toggle('activa', estrella.dataset.valor <= valor);
+    document.querySelectorAll('#estrellas .estrella').forEach(estrella => {
+        estrella.classList.toggle('activa', Number(estrella.dataset.valor) <= Number(valor));
     });
 }
 
-// ==================================================
-// 📝 GUARDAR CITA EN LA NUBE
-// ==================================================
-document.getElementById('btnGuardarCita').addEventListener('click', async function(){
+document.getElementById('btnGuardarCita').addEventListener('click', async function() {
     const nombre = document.getElementById('nombre').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
-    const dia = document.getElementById('dia').value;
-    const mes = document.getElementById('mes').value;
-    const anio = document.getElementById('anio').value;
+    const dia = Number(document.getElementById('dia').value);
+    const mes = Number(document.getElementById('mes').value);
+    const anio = Number(document.getElementById('anio').value);
     const hora = document.getElementById('hora').value;
     const comentario = document.getElementById('comentario').value.trim();
-    
+
     if (!nombre || !telefono || !dia || !mes || !anio || !hora) {
-        alert('❌ Completa todos los campos');
+        alert('❌ Completa todos los campos obligatorios');
         return;
     }
-    
-    await db.collection('citas').add({
-        nombre: nombre,
-        telefono: telefono,
-        dia: dia,
-        mes: mes,
-        anio: anio,
-        hora: hora,
-        comentario: comentario,
-        fecha: firebase.firestore.Timestamp.now()
-    });
-    
-    document.getElementById('nombre').value = '';
-    document.getElementById('telefono').value = '';
-    document.getElementById('dia').value = '';
-    document.getElementById('mes').value = '';
-    document.getElementById('anio').value = '';
-    document.getElementById('hora').value = '';
-    document.getElementById('comentario').value = '';
-    
-    const msg = document.getElementById('mensajeCita');
-    msg.style.display = 'block';
-    setTimeout(() => msg.style.display = 'none', 4000);
+
+    const fechaCita = new Date(anio, mes - 1, dia);
+    if (fechaCita.getFullYear() !== anio || fechaCita.getMonth() !== mes - 1 || fechaCita.getDate() !== dia) {
+        alert('❌ La fecha no es válida');
+        return;
+    }
+
+    try {
+        await db.collection('citas').add({
+            nombre, telefono, dia, mes, anio, hora, comentario,
+            fecha: firebase.firestore.Timestamp.now()
+        });
+
+        ['nombre','telefono','dia','mes','anio','hora','comentario']
+            .forEach(id => document.getElementById(id).value = '');
+
+        const msg = document.getElementById('mensajeCita');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 4000);
+    } catch (error) {
+        console.error(error);
+        alert('❌ No se pudo guardar la cita. Intenta nuevamente.');
+    }
 });
 
-// ==================================================
-// 💬 GUARDAR OPINIÓN EN LA NUBE
-// ==================================================
-document.getElementById('btnEnviarComentario').addEventListener('click', async function(){
+document.getElementById('btnEnviarComentario').addEventListener('click', async function() {
     const nombre = document.getElementById('nombreCliente').value.trim();
     const comentario = document.getElementById('comentarioCliente').value.trim();
-    
+
     if (!nombre || !comentario || calificacionEstrellas === 0) {
-        alert('❌ Escribe tu nombre, califica con estrellas y tu comentario');
+        alert('❌ Escribe tu nombre, califica con estrellas y agrega tu comentario');
         return;
     }
-    
-    await db.collection('opiniones').add({
-        nombre: nombre,
-        estrellas: parseInt(calificacionEstrellas),
-        texto: comentario,
-        fecha: firebase.firestore.Timestamp.now()
-    });
-    
-    document.getElementById('nombreCliente').value = '';
-    document.getElementById('comentarioCliente').value = '';
-    calificacionEstrellas = 0;
-    iluminarEstrellas(0);
-    
-    const msg = document.getElementById('mensajeOpinion');
-    msg.style.display = 'block';
-    setTimeout(() => msg.style.display = 'none', 4000);
+
+    try {
+        await db.collection('opiniones').add({
+            nombre,
+            estrellas: Number(calificacionEstrellas),
+            texto: comentario,
+            fecha: firebase.firestore.Timestamp.now()
+        });
+
+        document.getElementById('nombreCliente').value = '';
+        document.getElementById('comentarioCliente').value = '';
+        calificacionEstrellas = 0;
+        iluminarEstrellas(0);
+
+        const msg = document.getElementById('mensajeOpinion');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 4000);
+    } catch (error) {
+        console.error(error);
+        alert('❌ No se pudo enviar la opinión. Intenta nuevamente.');
+    }
 });
 
-// ==================================================
-// 🔄 ESCUCHAR CITAS EN TIEMPO REAL
-// ==================================================
 function escucharCitas() {
+    detenerCitas();
     citasSuscripcion = db.collection('citas')
         .orderBy('fecha', 'desc')
         .onSnapshot(snapshot => {
@@ -533,142 +540,220 @@ function escucharCitas() {
                 lista.innerHTML = '<p class="sin-datos">📭 Sin citas todavía</p>';
                 return;
             }
+
             lista.innerHTML = '';
             snapshot.forEach(doc => {
                 const c = doc.data();
                 const fechaObj = c.fecha?.toDate ? c.fecha.toDate() : new Date();
-                const fechaTexto = fechaObj.toLocaleString('es-MX');
                 lista.innerHTML += `
                     <div class="tarjeta">
-                        <h4>👤 ${c.nombre}</h4>
-                        <p>📱 ${c.telefono}</p>
-                        <p>📅 ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
-                        <p>💬 ${c.comentario || 'Sin comentario'}</p>
-                        <p class="fecha">📆 Recibido: ${fechaTexto}</p>
-                        <button class="btn-eliminar" onclick="eliminarCita('${doc.id}')">🗑️ Eliminar</button>
+                        <h4>👤 ${escaparHTML(c.nombre)}</h4>
+                        <p>📱 ${escaparHTML(c.telefono)}</p>
+                        <p>📅 ${escaparHTML(c.dia)}/${escaparHTML(c.mes)}/${escaparHTML(c.anio)} — ⏰ ${escaparHTML(c.hora)}</p>
+                        <p>💬 ${escaparHTML(c.comentario || 'Sin comentario')}</p>
+                        <p class="fecha">📆 Recibido: ${fechaObj.toLocaleString('es-MX')}</p>
+                        <button class="btn-eliminar" data-cita="${doc.id}">🗑️ Eliminar</button>
                     </div>`;
             });
+
+            lista.querySelectorAll('[data-cita]').forEach(btn => {
+                btn.addEventListener('click', () => eliminarCita(btn.dataset.cita));
+            });
+        }, error => {
+            console.error(error);
+            document.getElementById('listaCitas').innerHTML =
+                '<p class="sin-datos">No fue posible cargar las citas.</p>';
         });
 }
 
-// ==================================================
-// 🔄 ESCUCHAR OPINIONES EN TIEMPO REAL
-// ==================================================
 function escucharOpiniones() {
+    detenerOpiniones();
     opinionesSuscripcion = db.collection('opiniones')
         .orderBy('fecha', 'desc')
         .limit(20)
         .onSnapshot(snapshot => {
             const cajaPublica = document.getElementById('opiniones');
             const cajaAdmin = document.getElementById('listaOpinionesAdmin');
-            
+
             if (snapshot.empty) {
                 cajaPublica.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
                 if (cajaAdmin) cajaAdmin.innerHTML = '<p class="sin-datos">Sin opiniones todavía</p>';
                 return;
             }
-            
+
             let htmlPublica = '';
             let htmlAdmin = '';
             snapshot.forEach(doc => {
                 const op = doc.data();
                 const fechaObj = op.fecha?.toDate ? op.fecha.toDate() : new Date();
-                const fechaTexto = fechaObj.toLocaleString('es-MX');
-                let estrellas = '';
-                for(let i=0; i<5; i++) estrellas += i < op.estrellas ? '★' : '☆';
-                
+                const estrellas = '★'.repeat(Number(op.estrellas || 0)) +
+                                  '☆'.repeat(5 - Number(op.estrellas || 0));
+
                 htmlPublica += `
                     <div class="tarjeta">
-                        <h4>${op.nombre} ⭐ ${estrellas}</h4>
-                        <p>${op.texto}</p>
-                        <p class="fecha">${fechaTexto}</p>
+                        <h4>${escaparHTML(op.nombre)} ⭐ ${estrellas}</h4>
+                        <p>${escaparHTML(op.texto)}</p>
+                        <p class="fecha">${fechaObj.toLocaleString('es-MX')}</p>
                     </div>`;
-                
-                htmlAdmin += `
-                    <div class="tarjeta">
-                        <h4>${op.nombre} ⭐ ${estrellas}</h4>
-                        <p>${op.texto}</p>
-                        <p class="fecha">${fechaTexto}</p>
-                        <button class="btn-eliminar" onclick="eliminarOpinion('${doc.id}')">🗑️ Eliminar</button>
-                    </div>`;
+
+                if (adminActivo) {
+                    htmlAdmin += `
+                        <div class="tarjeta">
+                            <h4>${escaparHTML(op.nombre)} ⭐ ${estrellas}</h4>
+                            <p>${escaparHTML(op.texto)}</p>
+                            <p class="fecha">${fechaObj.toLocaleString('es-MX')}</p>
+                            <button class="btn-eliminar" data-opinion="${doc.id}">🗑️ Eliminar</button>
+                        </div>`;
+                }
             });
-            
+
             cajaPublica.innerHTML = htmlPublica;
-            if (cajaAdmin) cajaAdmin.innerHTML = htmlAdmin;
+            if (cajaAdmin && adminActivo) {
+                cajaAdmin.innerHTML = htmlAdmin;
+                cajaAdmin.querySelectorAll('[data-opinion]').forEach(btn => {
+                    btn.addEventListener('click', () => eliminarOpinion(btn.dataset.opinion));
+                });
+            }
+        }, error => {
+            console.error(error);
+            document.getElementById('opiniones').innerHTML =
+                '<p class="sin-datos">No fue posible cargar las opiniones.</p>';
         });
 }
 
-// ==================================================
-// 🗑️ ELIMINAR
-// ==================================================
-window.eliminarCita = async function(id) {
-    if(confirm('¿Eliminar esta cita?')) await db.collection('citas').doc(id).delete();
-};
-window.eliminarOpinion = async function(id) {
-    if(confirm('¿Eliminar esta opinión?')) await db.collection('opiniones').doc(id).delete();
-};
-
-// ==================================================
-// 📄 CAMBIAR PESTAÑAS
-// ==================================================
-function cambiarPestana(nombre) {
-    document.querySelectorAll('.pestaña').forEach(p => p.classList.remove('activa'));
-    event.currentTarget.classList.add('activa');
-    document.querySelectorAll('.caja-pestaña').forEach(c => c.classList.remove('mostrar'));
-    
-    if(nombre === 'citas') document.getElementById('pestanaCitas').classList.add('mostrar');
-    else if(nombre === 'comentarios') document.getElementById('pestanaComentarios').classList.add('mostrar');
+function detenerCitas() {
+    if (typeof citasSuscripcion === 'function') {
+        citasSuscripcion();
+        citasSuscripcion = null;
+    }
 }
 
-// ==================================================
-// 🔐 INICIO Y CIERRE DE SESIÓN
-// ==================================================
-document.getElementById('btnLogin').addEventListener('click', function(){
-    document.getElementById('modalLogin').classList.add('mostrar');
+function detenerOpiniones() {
+    if (typeof opinionesSuscripcion === 'function') {
+        opinionesSuscripcion();
+        opinionesSuscripcion = null;
+    }
+}
+
+async function eliminarCita(id) {
+    if (!adminActivo) return;
+    if (confirm('¿Eliminar esta cita?')) {
+        try {
+            await db.collection('citas').doc(id).delete();
+        } catch (error) {
+            console.error(error);
+            alert('No se pudo eliminar la cita.');
+        }
+    }
+}
+
+async function eliminarOpinion(id) {
+    if (!adminActivo) return;
+    if (confirm('¿Eliminar esta opinión?')) {
+        try {
+            await db.collection('opiniones').doc(id).delete();
+        } catch (error) {
+            console.error(error);
+            alert('No se pudo eliminar la opinión.');
+        }
+    }
+}
+
+function cambiarPestana(nombre, boton) {
+    document.querySelectorAll('.pestaña').forEach(p => p.classList.remove('activa'));
+    if (boton) boton.classList.add('activa');
+
+    document.querySelectorAll('.caja-pestaña').forEach(c => c.classList.remove('mostrar'));
+    const destino = nombre === 'citas' ? 'pestanaCitas' : 'pestanaComentarios';
+    document.getElementById(destino).classList.add('mostrar');
+}
+
+document.querySelectorAll('.pestaña').forEach(boton => {
+    boton.addEventListener('click', function() {
+        const esCitas = this.textContent.includes('Citas');
+        cambiarPestana(esCitas ? 'citas' : 'comentarios', this);
+    });
 });
-document.getElementById('cerrarModal').addEventListener('click', function(){
+
+document.getElementById('btnLogin').addEventListener('click', function() {
+    document.getElementById('modalLogin').classList.add('mostrar');
+    document.getElementById('respuestaLogin').textContent = '';
+});
+
+document.getElementById('cerrarModal').addEventListener('click', function() {
     document.getElementById('modalLogin').classList.remove('mostrar');
 });
-document.getElementById('btnIngresar').addEventListener('click', function(){
+
+document.getElementById('modalLogin').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('mostrar');
+});
+
+document.getElementById('btnIngresar').addEventListener('click', async function() {
     const correo = document.getElementById('correoAdmin').value.trim();
-    const clave = document.getElementById('claveAdmin').value.trim();
-    if (correo === CORREO_ADMIN && clave === CLAVE_ADMIN) {
-        entrarAdmin();
+    const clave = document.getElementById('claveAdmin').value;
+    const respuesta = document.getElementById('respuestaLogin');
+
+    if (!correo || !clave) {
+        respuesta.textContent = '❌ Escribe tu correo y contraseña';
+        return;
+    }
+
+    respuesta.textContent = 'Ingresando...';
+
+    try {
+        const credencial = await auth.signInWithEmailAndPassword(correo, clave);
+
+        if (!esAdmin(credencial.user)) {
+            await auth.signOut();
+            respuesta.textContent = '❌ Esta cuenta no tiene permisos de administradora';
+            return;
+        }
+
+        document.getElementById('claveAdmin').value = '';
         document.getElementById('modalLogin').classList.remove('mostrar');
-    } else {
-        document.getElementById('respuestaLogin').textContent = '❌ Datos incorrectos';
+        respuesta.textContent = '';
+    } catch (error) {
+        console.error(error);
+        respuesta.textContent = '❌ Correo o contraseña incorrectos';
     }
 });
-document.getElementById('btnSalir').addEventListener('click', function(){
-    salirAdmin();
+
+document.getElementById('btnSalir').addEventListener('click', async function() {
+    try {
+        await auth.signOut();
+    } catch (error) {
+        console.error(error);
+        alert('No se pudo cerrar la sesión.');
+    }
 });
 
 function entrarAdmin() {
     adminActivo = true;
-    document.getElementById('raiz').classList.add('admin-activo');
-    localStorage.setItem('sesionAdmin', 'ok');
+    document.body.classList.add('admin-activo');
     escucharCitas();
     escucharOpiniones();
 }
+
 function salirAdmin() {
     adminActivo = false;
-    localStorage.removeItem('sesionAdmin');
-    document.getElementById('raiz').classList.remove('admin-activo');
-    if(citasSuscripcion) citasSuscripcion();
-    if(opinionesSuscripcion) opinionesSuscripcion();
+    document.body.classList.remove('admin-activo');
+    detenerCitas();
+    // Se vuelve a cargar solo la parte pública de opiniones.
+    escucharOpiniones();
 }
 
-// ==================================================
-// ✅ INICIAR TODO AL CARGAR
-// ==================================================
-window.onload = function(){
+auth.onAuthStateChanged(usuario => {
+    if (esAdmin(usuario)) {
+        entrarAdmin();
+    } else {
+        salirAdmin();
+    }
+});
+
+window.addEventListener('load', function() {
     configurarEstrellas();
     escucharOpiniones();
-    
-    if (localStorage.getItem('sesionAdmin') === 'ok') {
-        entrarAdmin();
-    }
-};
+});
 </script>
 
 </body>
