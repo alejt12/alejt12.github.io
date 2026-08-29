@@ -3,39 +3,647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cosmiatría Laya | En Mantenimiento</title>
+    <title>Cosmiatría Laya | Belleza y Cuidado Facial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --color-primario: #7c4d6f;
+            --color-secundario: #a86f9b;
+            --color-acento: #e84393;
+            --color-claro: #fdf6f9;
+            --texto: #4a3c47;
+            --borde: #e4d4de;
+            --exito: #27ae60;
+            --peligro: #e74c3c;
+            --sombra: 0 8px 30px rgba(124, 77, 111, 0.12);
         }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background: #ffffff;
-            font-family: 'Segoe UI', sans-serif;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
+            background: linear-gradient(135deg, #fdf6f9 0%, #f3e8ee 100%);
+            color: var(--texto);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+            color: white;
             text-align: center;
+            padding: 40px 20px 50px;
+            position: relative;
+            box-shadow: 0 4px 25px rgba(124, 77, 111, 0.3);
         }
-        .mensaje {
-            color: #7c4d6f;
-            font-size: 22px;
-            padding: 40px;
-            line-height: 1.6;
+        .barra-superior {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            display: flex;
+            gap: 10px;
         }
-        .mensaje h1 {
-            font-size: 28px;
-            margin-bottom: 15px;
-            color: #a86f9b;
+        .btn-admin {
+            background: rgba(255,255,255,0.22);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
+        .btn-admin:hover { background: rgba(255,255,255,0.35); }
+        
+        .btn-cerrar { display: none; }
+        body.admin-activo .btn-cerrar { display: inline-block; }
+        .btn-entrar { display: block; }
+        body.admin-activo .btn-entrar { display: none; }
+        
+        h1 { font-size: 36px; margin-bottom: 8px; }
+        .subtitulo { font-size: 18px; opacity: 0.95; }
+        .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
+        section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: var(--sombra);
+        }
+        h2 {
+            color: var(--color-primario);
+            font-size: 23px;
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--borde);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-lic { text-align: center; font-size: 16px; }
+        .info-lic p { margin: 10px 0; }
+        .info-lic a { color: var(--color-secundario); font-weight: 600; text-decoration: none; }
+        .botones-redes { display: flex; gap: 12px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
+        .boton {
+            padding: 12px 18px;
+            border: none;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+            margin: 4px;
+        }
+        .boton:hover { transform: translateY(-2px); }
+        .boton-limpieza { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: white; }
+        .boton-hidratacion { background: linear-gradient(90deg, #3498db, #2980b9); color: white; }
+        .boton-exfoliacion { background: linear-gradient(90deg, #f39c12, #e67e22); color: white; }
+        .boton-piel { background: linear-gradient(90deg, #e91e63, #c0392b); color: white; }
+        .boton-asesoria { background: linear-gradient(90deg, #1abc9c, #16a085); color: white; }
+        .boton-promociones { background: linear-gradient(90deg, #ff6b6b, #ee5a24); color: white; }
+        .boton-fotos { background: linear-gradient(90deg, #a55eea, #8854d0); color: white; }
+        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; }
+        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 16px; padding: 14px; }
+        .fila-botones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 15px; }
+        .caja-info {
+            margin-top: 20px; padding: 22px; 
+            background: linear-gradient(135deg, #fdf6f9, #f8eff5);
+            border-radius: 14px; border-left: 5px solid var(--color-secundario);
+            display: none; animation: aparecer 0.35s ease;
+        }
+        .caja-info.mostrar { display: block; }
+        @keyframes aparecer { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+        .caja-info h3 { color: var(--color-primario); margin-bottom: 12px; font-size: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--color-primario); font-size: 14px; }
+        input, textarea {
+            width: 100%; padding: 11px 14px; border: 2px solid var(--borde);
+            border-radius: 10px; font-size: 15px; font-family: inherit;
+            margin-bottom: 12px;
+        }
+        input:focus, textarea:focus { outline: none; border-color: var(--color-secundario); }
+        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .mensaje-exito {
+            background: #e6f9ee; color: #20754f; padding: 12px;
+            border-radius: 10px; text-align: center; font-weight: 600;
+            margin-top: 12px; display: none;
+        }
+        .solo-admin { display: none; margin-top: 20px; padding: 15px; background: #fffbf0; border-radius: 12px; border: 2px dashed #f4d03f; }
+        body.admin-activo .solo-admin { display: block; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #f0e4ed; }
+        th { background: linear-gradient(90deg, var(--color-primario), var(--color-secundario)); color: white; }
+        .modal-fondo {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
+            display: none; align-items: center; justify-content: center; z-index: 999;
+        }
+        .modal-fondo.mostrar { display: flex; }
+        .modal-caja {
+            background: white; border-radius: 20px; padding: 30px; width: 90%; max-width: 450px;
+            max-height: 90vh; overflow-y: auto;
+        }
+        .modal-caja h3 { text-align: center; color: var(--color-primario); margin-bottom: 15px; }
+        .cerrar-modal { float: right; border: none; background: none; font-size: 24px; cursor: pointer; color: #999; margin-top: -10px; }
+        footer { text-align: center; padding: 20px; color: #887f86; font-size: 13px; margin-top: 10px; }
+        .sin-datos { text-align: center; color: #999; padding: 15px; font-style: italic; }
+        .contenedor-estrellas {
+            font-size: 30px; color: #ddd; cursor: pointer; text-align: center; margin: 10px 0; user-select: none;
+        }
+        .contenedor-estrellas .estrella { transition: color 0.2s ease; }
+        .contenedor-estrellas .estrella.activa { color: #f4c542; text-shadow: 0 0 5px rgba(244,197,66,0.4); }
+        .tarjeta { 
+            background: linear-gradient(135deg, #fdf6f9, #f8eff5); 
+            padding: 14px; border-radius: 10px; margin-bottom: 10px; 
+            border-left: 4px solid var(--color-secundario);
+        }
+        .tarjeta h4 { color: var(--color-primario); margin-bottom: 6px; font-size: 15px; }
+        .tarjeta p { margin: 4px 0; font-size: 14px; }
+        .tarjeta .fecha { font-size: 12px; color: #999; margin-top: 6px; }
+        .btn-eliminar { 
+            background: linear-gradient(90deg, #e74c3c, #c0392b); 
+            color: white; border: none; border-radius: 50px; 
+            padding: 5px 12px; font-size: 12px; cursor: pointer; margin-top: 8px; 
+        }
+        .pestañas { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .pestaña { 
+            padding: 8px 16px; border: none; border-radius: 50px; 
+            background: #ddd; cursor: pointer; font-weight: 600; transition: all 0.2s;
+        }
+        .pestaña.activa { background: var(--color-primario); color: white; }
+        .caja-pestaña { display: none; }
+        .caja-pestaña.mostrar { display: block; }
+        .error-texto { color: #e74c3c; text-align: center; margin-top: 10px; font-weight: 600; }
     </style>
+    
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
-    <div class="mensaje">
-        <h1>🔧 Página en mantenimiento</h1>
-        <p>La página está siendo actualizada.<br>Por favor, vuelve más tarde.</p>
+<header>
+    <div class="barra-superior">
+        <button class="btn-admin btn-cerrar" id="btnSalir"><i class="fas fa-lock"></i> 🔒 Cerrar sesión</button>
+        <button class="btn-admin btn-entrar" id="btnLogin"><i class="fas fa-lock"></i> 🔐 Admin</button>
     </div>
+    <h1>✨ COSMIATRÍA LAYA ✨</h1>
+    <p class="subtitulo">El tiempo no vuelve, tu belleza sí 💖</p>
+</header>
+<div class="contenedor">
+<section>
+    <h2>💜 Lic. Laiza González Robles</h2>
+    <div class="info-lic">
+        <p><strong>Especialista en cuidado facial y estética</strong></p>
+        <p>📍 <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver ubicación en Google Maps</a></p>
+        <p>📞 +52 1 729 633 6318</p>
+        <div class="botones-redes">
+            <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>
+    </div>
+</section>
+<section>
+    <h2>💆‍♀️ Nuestros Servicios</h2>
+    <div class="fila-botones">
+        <button class="boton boton-limpieza" onclick="mostrarServicio('serv1')">Limpieza Facial</button>
+        <button class="boton boton-hidratacion" onclick="mostrarServicio('serv2')">Hidratación</button>
+        <button class="boton boton-exfoliacion" onclick="mostrarServicio('serv3')">Exfoliación</button>
+        <button class="boton boton-piel" onclick="mostrarServicio('serv4')">Piel Sensible</button>
+        <button class="boton boton-asesoria" onclick="mostrarServicio('serv5')">Asesoría</button>
+        <button class="boton boton-promociones" onclick="mostrarServicio('serv6')">Promociones</button>
+        <button class="boton boton-fotos" onclick="mostrarServicio('serv7')">Galería</button>
+    </div>
+    <div id="serv1" class="caja-info">
+        <h3>🧼 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+        <p><strong>Precio: </strong>$350 MXN</p>
+    </div>
+    <div id="serv2" class="caja-info">
+        <h3>💧 Hidratación y Nutrición</h3>
+        <p>Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural.</p>
+        <p><strong>Precio: </strong>$300 MXN</p>
+    </div>
+    <div id="serv3" class="caja-info">
+        <h3>✨ Exfoliación Renovadora</h3>
+        <p>Renovamos tu piel eliminando células muertas. Mejora la textura y el tono.</p>
+        <p><strong>Precio: </strong>$280 MXN</p>
+    </div>
+    <div id="serv4" class="caja-info">
+        <h3>🌸 Cuidado para Piel Sensible</h3>
+        <p>Productos suaves y delicados, sin químicos agresivos. Calma y protege tu piel.</p>
+        <p><strong>Precio: </strong>$320 MXN</p>
+    </div>
+    <div id="serv5" class="caja-info">
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te guiamos paso a paso. Evaluamos tu piel y recomendamos la rutina ideal.</p>
+        <p><strong>Precio: </strong>¡Gratis!</p>
+    </div>
+    <div id="serv6" class="caja-info">
+        <h3>🔥 Promociones Especiales</h3>
+        <p>✨ Paquete Completo: Limpieza + Hidratación con 15% de descuento</p>
+        <p>🌸 Primera Visita: 10% de descuento</p>
+        <p>👭 Tratamiento en Pareja: 20% de descuento</p>
+    </div>
+    <div id="serv7" class="caja-info">
+        <h3>📷 Galería de Fotos</h3>
+        <p class="sin-datos">Aquí aparecerán las fotos agregadas</p>
+    </div>
+</section>
+<section>
+    <h2>📅 Agendar tu Cita</h2>
+    <div>
+        <label>Tu Nombre Completo 👤</label>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre completo">
+        <label>Teléfono o WhatsApp 📱</label>
+        <input type="tel" id="telefono" placeholder="Ej: 729 123 4567">
+        <div class="tres-columnas">
+            <div><label>Día</label><input type="number" id="dia" min="1" max="31"></div>
+            <div><label>Mes</label><input type="number" id="mes" min="1" max="12"></div>
+            <div><label>Año</label><input type="number" id="anio" min="2026"></div>
+        </div>
+        <label>Hora ⏰</label>
+        <input type="time" id="hora">
+        <label>Servicio o comentario 💭</label>
+        <textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea>
+        <button class="boton boton-verde" id="btnGuardarCita">📝 AGENDAR CITA AHORA</button>
+        <div class="mensaje-exito" id="mensajeCita">✅ ¡Cita guardada! Laiza la recibirá enseguida</div>
+    </div>
+</section>
+<section>
+    <h2>⭐ Opiniones de Clientes</h2>
+    <label>Tu calificación:</label>
+    <div class="contenedor-estrellas" id="estrellas">
+        <span class="estrella" data-valor="1">★</span>
+        <span class="estrella" data-valor="2">★</span>
+        <span class="estrella" data-valor="3">★</span>
+        <span class="estrella" data-valor="4">★</span>
+        <span class="estrella" data-valor="5">★</span>
+    </div>
+    <label>Tu nombre:</label>
+    <input type="text" id="nombreCliente" placeholder="Escribe tu nombre">
+    <label>Tu comentario:</label>
+    <textarea id="comentarioCliente" rows="3" placeholder="¿Qué opinas de nuestro servicio?"></textarea>
+    <button class="boton boton-verde" id="btnEnviarComentario">💬 Enviar Opinión</button>
+    <div class="mensaje-exito" id="mensajeOpinion">✅ ¡Gracias por tu opinión!</div>
+    <div style="margin-top:15px;">
+        <h4>Comentarios:</h4>
+        <div id="opiniones"></div>
+    </div>
+</section>
+<section>
+    <h2>🕒 Horarios de Atención</h2>
+    <table>
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr><td>Lunes a Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
+        <tr><td>Domingo</td><td style="color:#e05263;"><strong>Descanso</strong></td></tr>
+    </table>
+</section>
+<section class="solo-admin">
+    <h2>🔐 Panel de Administración</h2>
+    <div class="pestañas">
+        <button class="pestaña activa">📋 Citas Recibidas</button>
+        <button class="pestaña">💬 Opiniones</button>
+    </div>
+    <div id="pestanaCitas" class="caja-pestaña mostrar">
+        <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Se actualizan solas</p>
+        <div id="listaCitas"><p class="sin-datos">Esperando citas...</p></div>
+    </div>
+    <div id="pestanaComentarios" class="caja-pestaña">
+        <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Todas las opiniones</p>
+        <div id="listaOpinionesAdmin"><p class="sin-datos">Esperando opiniones...</p></div>
+    </div>
+</section>
+</div>
+
+<div class="modal-fondo" id="modalLogin">
+    <div class="modal-caja">
+        <button class="cerrar-modal" id="cerrarModal">&times;</button>
+        <h3>🔐 Acceso de Administración</h3>
+        <label>Correo</label>
+        <input type="email" id="correoAdmin" placeholder="admin@cosmiatrialaya.com">
+        <label>Contraseña</label>
+        <input type="password" id="claveAdmin" placeholder="Tu contraseña">
+        <button class="boton boton-verde" id="btnIngresar" style="margin-top:10px;">Ingresar</button>
+        <p id="respuestaLogin" class="error-texto"></p>
+    </div>
+</div>
+
+<footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
+
+<script>
+const CORREO_ADMIN = "admin@cosmiatrialaya.com";
+let calificacionEstrellas = 0;
+let adminActivo = false;
+let citasSuscripcion = null;
+let opinionesSuscripcion = null;
+
+// ⚙️ TU CLAVE REAL DE TU PROYECTO
+const firebaseConfig = {
+  apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
+  authDomain: "cosmiatria-laya.firebaseapp.com",
+  projectId: "cosmiatria-laya",
+  storageBucket: "cosmiatria-laya.firebasestorage.app",
+  messagingSenderId: "129969103650",
+  appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b"
+};
+
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+const auth = firebase.auth();
+
+function esUsuarioAdmin(usuario) {
+    return !!usuario && usuario.email &&
+        usuario.email.trim().toLowerCase() === CORREO_ADMIN.trim().toLowerCase();
+}
+
+function escaparHTML(valor) {
+    const div = document.createElement('div');
+    div.textContent = valor == null ? '' : String(valor);
+    return div.innerHTML;
+}
+
+function mostrarServicio(idCaja) {
+    document.querySelectorAll('.caja-info').forEach(caja => caja.classList.remove('mostrar'));
+    const caja = document.getElementById(idCaja);
+    if (caja) caja.classList.add('mostrar');
+}
+
+function configurarEstrellas() {
+    const estrellas = document.querySelectorAll('#estrellas .estrella');
+    estrellas.forEach(estrella => {
+        estrella.addEventListener('mouseover', function() {
+            iluminarEstrellas(Number(this.dataset.valor));
+        });
+        estrella.addEventListener('click', function() {
+            calificacionEstrellas = Number(this.dataset.valor);
+            iluminarEstrellas(calificacionEstrellas);
+        });
+    });
+    document.getElementById('estrellas').addEventListener('mouseleave', function() {
+        iluminarEstrellas(calificacionEstrellas);
+    });
+}
+
+function iluminarEstrellas(valor) {
+    document.querySelectorAll('#estrellas .estrella').forEach(estrella => {
+        estrella.classList.toggle('activa', Number(estrella.dataset.valor) <= Number(valor));
+    });
+}
+
+document.getElementById('btnGuardarCita').addEventListener('click', async function() {
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const dia = Number(document.getElementById('dia').value);
+    const mes = Number(document.getElementById('mes').value);
+    const anio = Number(document.getElementById('anio').value);
+    const hora = document.getElementById('hora').value;
+    const comentario = document.getElementById('comentario').value.trim();
+    
+    if (!nombre || !telefono || !dia || !mes || !anio || !hora) {
+        alert('❌ Completa todos los campos obligatorios');
+        return;
+    }
+    
+    try {
+        await db.collection('citas').add({
+            nombre, telefono, dia, mes, anio, hora, comentario,
+            fecha: firebase.firestore.Timestamp.now()
+        });
+        ['nombre','telefono','dia','mes','anio','hora','comentario']
+            .forEach(id => document.getElementById(id).value = '');
+        const msg = document.getElementById('mensajeCita');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 4000);
+    } catch (error) {
+        console.error(error);
+        alert('❌ No se pudo guardar la cita.');
+    }
+});
+
+document.getElementById('btnEnviarComentario').addEventListener('click', async function() {
+    const nombre = document.getElementById('nombreCliente').value.trim();
+    const comentario = document.getElementById('comentarioCliente').value.trim();
+    
+    if (!nombre || !comentario || calificacionEstrellas === 0) {
+        alert('❌ Escribe tu nombre, califica y agrega tu comentario');
+        return;
+    }
+    
+    try {
+        await db.collection('opiniones').add({
+            nombre,
+            estrellas: Number(calificacionEstrellas),
+            texto: comentario,
+            fecha: firebase.firestore.Timestamp.now()
+        });
+        document.getElementById('nombreCliente').value = '';
+        document.getElementById('comentarioCliente').value = '';
+        calificacionEstrellas = 0;
+        iluminarEstrellas(0);
+        const msg = document.getElementById('mensajeOpinion');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 4000);
+    } catch (error) {
+        console.error(error);
+        alert('❌ No se pudo enviar la opinión.');
+    }
+});
+
+function escucharCitas() {
+    detenerCitas();
+    citasSuscripcion = db.collection('citas')
+        .orderBy('fecha', 'desc')
+        .onSnapshot(snapshot => {
+            const lista = document.getElementById('listaCitas');
+            if (snapshot.empty) {
+                lista.innerHTML = '<p class="sin-datos">📭 Sin citas todavía</p>';
+                return;
+            }
+            lista.innerHTML = '';
+            snapshot.forEach(doc => {
+                const c = doc.data();
+                const fechaObj = c.fecha?.toDate ? c.fecha.toDate() : new Date();
+                lista.innerHTML += `
+                    <div class="tarjeta">
+                        <h4>👤 ${escaparHTML(c.nombre)}</h4>
+                        <p>📱 ${escaparHTML(c.telefono)}</p>
+                        <p>📅 ${escaparHTML(c.dia)}/${escaparHTML(c.mes)}/${escaparHTML(c.anio)} — ⏰ ${escaparHTML(c.hora)}</p>
+                        <p>💬 ${escaparHTML(c.comentario || 'Sin comentario')}</p>
+                        <p class="fecha">📆 Recibido: ${fechaObj.toLocaleString('es-MX')}</p>
+                        <button class="btn-eliminar" data-cita="${doc.id}">🗑️ Eliminar</button>
+                    </div>`;
+            });
+            lista.querySelectorAll('[data-cita]').forEach(btn => {
+                btn.addEventListener('click', () => eliminarCita(btn.dataset.cita));
+            });
+        });
+}
+
+function escucharOpiniones() {
+    detenerOpiniones();
+    opinionesSuscripcion = db.collection('opiniones')
+        .orderBy('fecha', 'desc')
+        .limit(20)
+        .onSnapshot(snapshot => {
+            const cajaPublica = document.getElementById('opiniones');
+            const cajaAdmin = document.getElementById('listaOpinionesAdmin');
+            if (snapshot.empty) {
+                cajaPublica.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
+                if (cajaAdmin) cajaAdmin.innerHTML = '<p class="sin-datos">Sin opiniones todavía</p>';
+                return;
+            }
+            let htmlPublica = '';
+            let htmlAdmin = '';
+            snapshot.forEach(doc => {
+                const op = doc.data();
+                const fechaObj = op.fecha?.toDate ? op.fecha.toDate() : new Date();
+                const estrellas = '★'.repeat(Number(op.estrellas || 0)) +
+                                  '☆'.repeat(5 - Number(op.estrellas || 0));
+                htmlPublica += `
+                    <div class="tarjeta">
+                        <h4>${escaparHTML(op.nombre)} ⭐ ${estrellas}</h4>
+                        <p>${escaparHTML(op.texto)}</p>
+                        <p class="fecha">${fechaObj.toLocaleString('es-MX')}</p>
+                    </div>`;
+                if (adminActivo) {
+                    htmlAdmin += `
+                        <div class="tarjeta">
+                            <h4>${escaparHTML(op.nombre)} ⭐ ${estrellas}</h4>
+                            <p>${escaparHTML(op.texto)}</p>
+                            <p class="fecha">${fechaObj.toLocaleString('es-MX')}</p>
+                            <button class="btn-eliminar" data-opinion="${doc.id}">🗑️ Eliminar</button>
+                        </div>`;
+                }
+            });
+            cajaPublica.innerHTML = htmlPublica;
+            if (cajaAdmin && adminActivo) {
+                cajaAdmin.innerHTML = htmlAdmin;
+                cajaAdmin.querySelectorAll('[data-opinion]').forEach(btn => {
+                    btn.addEventListener('click', () => eliminarOpinion(btn.dataset.opinion));
+                });
+            }
+        });
+}
+
+function detenerCitas() {
+    if (typeof citasSuscripcion === 'function') { citasSuscripcion(); citasSuscripcion = null; }
+}
+function detenerOpiniones() {
+    if (typeof opinionesSuscripcion === 'function') { opinionesSuscripcion(); opinionesSuscripcion = null; }
+}
+
+async function eliminarCita(id) {
+    if (!adminActivo) return;
+    if (confirm('¿Eliminar esta cita?')) await db.collection('citas').doc(id).delete();
+}
+async function eliminarOpinion(id) {
+    if (!adminActivo) return;
+    if (confirm('¿Eliminar esta opinión?')) await db.collection('opiniones').doc(id).delete();
+}
+
+document.querySelectorAll('.pestaña').forEach(boton => {
+    boton.addEventListener('click', function() {
+        const esCitas = this.textContent.includes('Citas');
+        document.querySelectorAll('.pestaña').forEach(p => p.classList.remove('activa'));
+        this.classList.add('activa');
+        document.querySelectorAll('.caja-pestaña').forEach(c => c.classList.remove('mostrar'));
+        document.getElementById(esCitas ? 'pestanaCitas' : 'pestanaComentarios').classList.add('mostrar');
+    });
+});
+
+document.getElementById('btnLogin').addEventListener('click', function() {
+    document.getElementById('modalLogin').classList.add('mostrar');
+    document.getElementById('respuestaLogin').textContent = '';
+});
+document.getElementById('cerrarModal').addEventListener('click', function() {
+    document.getElementById('modalLogin').classList.remove('mostrar');
+});
+document.getElementById('modalLogin').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('mostrar');
+});
+
+document.getElementById('btnIngresar').addEventListener('click', async function() {
+    const correo = document.getElementById('correoAdmin').value.trim().toLowerCase();
+    const clave = document.getElementById('claveAdmin').value;
+    const respuesta = document.getElementById('respuestaLogin');
+    
+    if (!correo || !clave) {
+        respuesta.textContent = '❌ Escribe tu correo y contraseña';
+        return;
+    }
+    
+    if (correo !== CORREO_ADMIN.toLowerCase()) {
+        respuesta.textContent = '❌ Este correo no tiene permisos';
+        return;
+    }
+    
+    respuesta.textContent = '🔄 Ingresando...';
+    try {
+        const credencial = await auth.signInWithEmailAndPassword(correo, clave);
+        
+        if (!esUsuarioAdmin(credencial.user)) {
+            await auth.signOut();
+            respuesta.textContent = '❌ No tienes permisos de administradora';
+            return;
+        }
+        
+        document.getElementById('claveAdmin').value = '';
+        document.getElementById('modalLogin').classList.remove('mostrar');
+        respuesta.textContent = '';
+        
+    } catch (error) {
+        console.error('Error:', error);
+        switch(error.code) {
+            case 'auth/user-not-found':
+                respuesta.textContent = '❌ El correo NO existe en Firebase';
+                break;
+            case 'auth/wrong-password':
+                respuesta.textContent = '❌ Contraseña incorrecta';
+                break;
+            case 'auth/too-many-requests':
+                respuesta.textContent = '⚠️ Demasiados intentos. Espera unos minutos';
+                break;
+            default:
+                respuesta.textContent = '❌ ' + error.message;
+        }
+    }
+});
+
+document.getElementById('btnSalir').addEventListener('click', async function() {
+    try { await auth.signOut(); } catch (e) { alert('No se pudo cerrar sesión.'); }
+});
+
+function entrarPanelAdmin() {
+    adminActivo = true;
+    document.body.classList.add('admin-activo');
+    escucharCitas();
+    escucharOpiniones();
+}
+function salirPanelAdmin() {
+    adminActivo = false;
+    document.body.classList.remove('admin-activo');
+    detenerCitas();
+    escucharOpiniones();
+}
+
+auth.onAuthStateChanged(usuario => {
+    if (esUsuarioAdmin(usuario)) entrarPanelAdmin();
+    else salirPanelAdmin();
+});
+
+window.addEventListener('load', function() {
+    configurarEstrellas();
+    escucharOpiniones();
+});
+</script>
 </body>
 </html>
