@@ -89,7 +89,7 @@
         }
         .caja-informacion.mostrar { display: block; }
 
-        /* GALERÍA PÚBLICA CLARA Y VISIBLE */
+        /* GALERÍA PÚBLICA - TODOS LA VEN */
         .galeria {
             display: flex;
             flex-wrap: wrap;
@@ -107,21 +107,49 @@
         }
         .foto-publica:hover { transform: scale(1.03); }
 
-        /* Estilo galería solo en admin */
-        .foto-contenedor-admin {
+        /* ÁREA DE FOTOS PARA ADMIN - SIN CÓDIGO A LA VISTA */
+        .subir-foto-caja {
+            background: #fffef0;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #f0ad4e;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .vista-previa-foto {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .foto-miniatura {
             position: relative;
-            display: inline-block;
-            margin: 8px;
         }
-        .foto-admin {
-            width: 160px; height: 160px; border-radius: 10px; object-fit: cover;
+        .foto-miniatura img {
+            width: 130px;
+            height: 130px;
+            border-radius: 10px;
+            object-fit: cover;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
         }
-        .btn-eliminar-foto {
-            position: absolute; top: -6px; right: -6px;
-            background: #dc3545; color: white; border: none; font-weight: bold;
-            width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
+        .btn-borrar-foto {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
+        .btn-borrar-foto:hover { background: #b51f2e; transform: scale(1.1); }
+        .sin-fotos { color: #888; font-style: italic; padding: 20px; }
 
         .contacto { text-align: center; background: #f9f2f7; }
         .contacto a { color: #9c6b8c; font-weight: bold; text-decoration: none; }
@@ -166,16 +194,6 @@
         }
         .caja-opinion textarea { min-height: 80px; resize: vertical; }
         .estrellas { text-align: center; font-size: 30px; margin: 10px 0; cursor: pointer; }
-        .estrella-seleccionada { color: #ffc107; }
-        .opinion-recibida {
-            background: #efffef;
-            padding: 15px;
-            margin-top: 12px;
-            border-radius: 10px;
-            border-left: 4px solid #5cb85c;
-            display: none;
-        }
-        .opinion-recibida.visible { display: block; }
         .tabla-horarios {
             width: 100%;
             border-collapse: collapse;
@@ -271,7 +289,7 @@
             color: #999;
         }
 
-        /* Panel Admin */
+        /* Panel Admin - SOLO BOTONES Y CAJAS, SIN CÓDIGO */
         .panel-admin {
             background: linear-gradient(135deg, #fffef0, #faf4e0);
             padding: 25px;
@@ -306,18 +324,18 @@
 <a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
-    <button type="button" class="boton-candado" id="botonCandado" title="Administradora 🔐">🔒</button>
+    <button type="button" class="boton-candado" id="botonCandado" title="🔐 Entrar como administradora">🔒</button>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
 
-<!-- Ventana inicio sesión -->
+<!-- VENTANA DE INICIO DE SESIÓN -->
 <div id="ventanaSesion" class="ventana-sesion">
     <div class="caja-sesion">
         <button type="button" class="cerrar-ventana" id="btnCerrarVentana">×</button>
         <h3>🔐 Iniciar Sesión</h3>
-        <input type="email" id="correoAdmin" placeholder="✉️ Correo">
-        <input type="password" id="contraseñaAdmin" placeholder="🔑 Contraseña">
+        <input type="email" id="correoAdmin" placeholder="✉️ Tu correo">
+        <input type="password" id="contraseñaAdmin" placeholder="🔑 Tu contraseña">
         <div class="mensaje" id="mensajeSesion"></div>
         <br>
         <button type="button" class="boton boton-naranja" id="btnEntrar">Entrar</button>
@@ -367,8 +385,26 @@
 </section>
 
 <section>
+    <h2>📸 Galería de Fotos</h2>
+    <!-- LO QUE VEN TODOS LOS CLIENTES -->
+    <div class="galeria" id="galeriaPublica"></div>
+
+    <!-- LO QUE VE SOLO LAIZA AL ENTRAR - SUBIR Y BORRAR FOTOS -->
+    <div id="areaAdminFotos" class="panel-admin" style="background:#fffef0; border-left-color:#ffc107;">
+        <h3>📷 MIS FOTOS — Sube y elimina</h3>
+        <div class="subir-foto-caja">
+            <p style="margin:0; font-weight:bold;">👇 Selecciona una foto de tu celular/computadora</p>
+            <input type="file" id="seleccionarFoto" accept="image/*" style="margin:12px auto; display:block; font-size:15px;">
+            <button type="button" class="boton boton-verde" id="btnSubirFoto">✅ Agregar Foto</button>
+        </div>
+        <div class="vista-previa-foto" id="vistaPreviaAdmin"></div>
+    </div>
+</section>
+
+<section>
     <h2>📆 Horarios y Administración</h2>
 
+    <!-- PANEL COMPLETO DE LAIZA - SOLO ELLA LO VE -->
     <div id="panelAdministracion" class="panel-admin">
         <div style="text-align:right; margin-bottom:10px;">
             <button type="button" class="boton boton-rojo" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
@@ -407,11 +443,6 @@
             <button type="button" class="boton boton-verde" id="btnAgregarCita">✅ Agendar Cita</button>
         </div>
         <div id="listaCitas"></div>
-        <hr class="separador">
-
-        <h3>📷 SUBIR Y ADMINISTRAR FOTOS</h3>
-        <input type="file" id="fotoNueva" accept="image/*">
-        <div id="galeriaAdmin"></div>
     </div>
 
     <table class="tabla-horarios">
@@ -454,28 +485,13 @@
     </div>
     <div class="caja-opinion">
         <h3 style="text-align:center; margin-top:0; color:#5cb85c;">✍️ ¡Escribe tu opinión!</h3>
-        <div class="estrellas" id="estrellasCal">
-            <span data-estrella="1">⭐</span>
-            <span data-estrella="2">⭐</span>
-            <span data-estrella="3">⭐</span>
-            <span data-estrella="4">⭐</span>
-            <span data-estrella="5">⭐</span>
-        </div>
-        <input type="text" id="opNombre" placeholder="Tu nombre...">
-        <textarea id="opTexto" placeholder="Tu experiencia..."></textarea>
+        <div class="estrellas">⭐ ⭐ ⭐ ⭐ ⭐</div>
+        <input type="text" placeholder="Tu nombre...">
+        <textarea placeholder="Tu experiencia..."></textarea>
         <div class="contenedor-botones">
-            <button type="button" class="boton boton-enviar" id="btnEnviarOpinion">✅ Enviar Opinión</button>
-        </div>
-        <div id="mensajeOp" class="opinion-recibida">
-            <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu confianza! 💜</p>
+            <button class="boton boton-enviar">✅ Enviar Opinión</button>
         </div>
     </div>
-</section>
-
-<section>
-    <h2>📸 Galería de Fotos</h2>
-    <!-- FOTOS PERFECTAMENTE VISIBLES PARA TODOS -->
-    <div class="galeria" id="galeriaPublica"></div>
 </section>
 
 <section>
@@ -515,9 +531,11 @@
 </footer>
 
 <script>
+// ==================== DATOS DE ACCESO ====================
 const CORREO_ADMIN = "laya@gmail.com";
 const CONTRASEÑA_ADMIN = "Laya2026";
 
+// ==================== VARIABLES ====================
 const candado = document.getElementById('botonCandado');
 const ventana = document.getElementById('ventanaSesion');
 const btnCerrarVentana = document.getElementById('btnCerrarVentana');
@@ -526,230 +544,272 @@ const passInput = document.getElementById('contraseñaAdmin');
 const mensajeSesion = document.getElementById('mensajeSesion');
 const btnEntrar = document.getElementById('btnEntrar');
 const panelAdmin = document.getElementById('panelAdministracion');
+const areaFotos = document.getElementById('areaAdminFotos');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-const galeriaPub = document.getElementById('galeriaPublica');
-const galeriaPriv = document.getElementById('galeriaAdmin');
-const inputFoto = document.getElementById('fotoNueva');
+const galeriaPublica = document.getElementById('galeriaPublica');
+const vistaPreviaAdmin = document.getElementById('vistaPreviaAdmin');
+const inputFoto = document.getElementById('seleccionarFoto');
+const btnSubirFoto = document.getElementById('btnSubirFoto');
 
-let fotos = JSON.parse(localStorage.getItem('fotosCosmi')) || [];
+let fotos = JSON.parse(localStorage.getItem('fotosLaya') || '[]');
+let archivoSeleccionado = null;
 
-function mostrarBienvenida(){
-    const flecha = document.createElement('div');
-    flecha.style.cssText = `
-        position:fixed;top:50%;right:30px;transform:translateY(-50%);
-        background:#4CAF50;color:white;padding:14px 24px;border-radius:50px;
-        font-size:18px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:1001;
-    `;
-    flecha.textContent = '➡️ Bienvenida Administradora ✨';
-    document.body.appendChild(flecha);
-    setTimeout(()=>flecha.remove(),3500);
-}
-
-// Mostrar / ocultar ventana login
-candado.addEventListener('click', ()=>{
+// ==================== INICIAR SESIÓN ====================
+candado.addEventListener('click', () => {
     ventana.classList.add('mostrar');
     correoInput.value = '';
     passInput.value = '';
     mensajeSesion.textContent = '';
 });
-btnCerrarVentana.addEventListener('click', ()=> ventana.classList.remove('mostrar'));
 
-btnEntrar.addEventListener('click', ()=>{
-    const cor = correoInput.value.trim();
-    const pas = passInput.value;
-    if(cor === CORREO_ADMIN && pas === CONTRASEÑA_ADMIN){
-        mensajeSesion.textContent = '✅ ¡Bienvenida!';
+btnCerrarVentana.addEventListener('click', () => ventana.classList.remove('mostrar'));
+
+btnEntrar.addEventListener('click', () => {
+    const correo = correoInput.value.trim();
+    const pass = passInput.value;
+    
+    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
+        mensajeSesion.textContent = '✅ ¡Bienvenida Lic. Laiza!';
         mensajeSesion.className = 'mensaje exito';
-        setTimeout(()=>{
+        setTimeout(() => {
             ventana.classList.remove('mostrar');
             panelAdmin.classList.add('mostrar');
+            areaFotos.style.display = 'block';
             candado.textContent = '🔓';
-            mostrarBienvenida();
-        }, 700);
+            alert('✨ ¡Bienvenida! Ahora puedes subir fotos, modificar horarios y administrar tu página SIN ver código. 💜');
+        }, 800);
     } else {
-        mensajeSesion.textContent = '❌ Datos incorrectos';
+        mensajeSesion.textContent = '❌ Correo o contraseña incorrectos';
         mensajeSesion.className = 'mensaje error';
     }
 });
 
-btnCerrarSesion.addEventListener('click', ()=>{
+btnCerrarSesion.addEventListener('click', () => {
     panelAdmin.classList.remove('mostrar');
+    areaFotos.style.display = 'none';
     candado.textContent = '🔒';
 });
 
-// Renderizar fotos: dos versiones
-function pintarFotos(){
-    galeriaPub.innerHTML = '';
-    galeriaPriv.innerHTML = '';
-    fotos.forEach((url, i)=>{
-        // Pública
-        const imgP = document.createElement('img');
-        imgP.src = url;
-        imgP.className = 'foto-publica';
-        galeriaPub.appendChild(imgP);
+// ==================== GALERÍA DE FOTOS ====================
+function dibujarFotos() {
+    // Limpiar
+    galeriaPublica.innerHTML = '';
+    vistaPreviaAdmin.innerHTML = '';
 
-        // Privada/admin con botón borrar
-        const divA = document.createElement('div');
-        divA.className = 'foto-contenedor-admin';
-        divA.innerHTML = `
-            <img src="${url}" class="foto-admin">
-            <button class="btn-eliminar-foto" data-ind="${i}">×</button>
-        `;
-        galeriaPriv.appendChild(divA);
+    if (fotos.length === 0) {
+        galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
+        vistaPreviaAdmin.innerHTML = '<p class="sin-fotos">No hay fotos aún. ¡Agrega la primera arriba! ✨</p>';
+        return;
+    }
+
+    // Dibujar para CLIENTES
+    fotos.forEach((foto, indice) => {
+        const img = document.createElement('img');
+        img.src = foto;
+        img.className = 'foto-publica';
+        img.loading = 'lazy';
+        galeriaPublica.appendChild(img);
     });
-    // Acción borrar solo admin
-    document.querySelectorAll('.btn-eliminar-foto').forEach(btn=>{
-        btn.addEventListener('click', function(){
-            const ind = parseInt(this.dataset.ind);
-            if(confirm('¿Eliminar esta foto?')){
-                fotos.splice(ind,1);
+
+    // Dibujar para LAIZA (con botón de borrar)
+    fotos.forEach((foto, indice) => {
+        const caja = document.createElement('div');
+        caja.className = 'foto-miniatura';
+        caja.innerHTML = `
+            <img src="${foto}" alt="Foto">
+            <button class="btn-borrar-foto" data-id="${indice}">×</button>
+        `;
+        vistaPreviaAdmin.appendChild(caja);
+    });
+
+    // Botones borrar funcionando
+    document.querySelectorAll('.btn-borrar-foto').forEach(boton => {
+        boton.addEventListener('click', function () {
+            const id = parseInt(this.dataset.id);
+            if (confirm('¿Eliminar esta foto?')) {
+                fotos.splice(id, 1);
                 guardarFotos();
-                pintarFotos();
+                dibujarFotos();
             }
         });
     });
 }
 
-function guardarFotos(){
-    localStorage.setItem('fotosCosmi', JSON.stringify(fotos));
+function guardarFotos() {
+    localStorage.setItem('fotosLaya', JSON.stringify(fotos));
 }
 
-// Subir nueva foto
-inputFoto.addEventListener('change', e=>{
-    const archivo = e.target.files[0];
-    if(!archivo) return;
-    const lector = new FileReader();
-    lector.onload = evt=>{
-        fotos.push(evt.target.result);
-        guardarFotos();
-        pintarFotos();
-    };
-    lector.readAsDataURL(archivo);
+// Seleccionar foto
+inputFoto.addEventListener('change', e => {
+    archivoSeleccionado = e.target.files[0];
 });
 
-// Funciones horarios
+// Subir foto
+btnSubirFoto.addEventListener('click', () => {
+    if (!archivoSeleccionado) {
+        alert('⚠️ Primero selecciona una foto de tu dispositivo');
+        return;
+    }
+    const lector = new FileReader();
+    lector.onload = function (evento) {
+        fotos.push(evento.target.result);
+        guardarFotos();
+        dibujarFotos();
+        inputFoto.value = '';
+        archivoSeleccionado = null;
+        alert('✅ ¡Foto agregada con éxito! Ya la ven todos tus clientes. 📸');
+    };
+    lector.readAsDataURL(archivoSeleccionado);
+});
+
+// ==================== HORARIOS ====================
 const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
 const msgHorarios = document.getElementById('msgHorarios');
-function cargarHorarios(){
-    let h = JSON.parse(localStorage.getItem('horariosCosmi'))||{};
-    document.getElementById('hLunes').value = h.lunes||'9:00 AM — 6:00 PM';
-    document.getElementById('hMartes').value = h.martes||'9:00 AM — 6:00 PM';
-    document.getElementById('hMiercoles').value = h.miercoles||'9:00 AM — 6:00 PM';
-    document.getElementById('hJueves').value = h.jueves||'9:00 AM — 6:00 PM';
-    document.getElementById('hViernes').value = h.viernes||'9:00 AM — 6:00 PM';
-    document.getElementById('hSabado').value = h.sabado||'9:00 AM — 3:00 PM';
-    reflejarHorarios(h);
+
+function cargarHorarios() {
+    let h = JSON.parse(localStorage.getItem('horariosLaya') || '{}');
+    document.getElementById('hLunes').value = h.lunes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMartes').value = h.martes || '9:00 AM — 6:00 PM';
+    document.getElementById('hMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
+    document.getElementById('hJueves').value = h.jueves || '9:00 AM — 6:00 PM';
+    document.getElementById('hViernes').value = h.viernes || '9:00 AM — 6:00 PM';
+    document.getElementById('hSabado').value = h.sabado || '9:00 AM — 3:00 PM';
+    reflejarHorariosEnPagina(h);
 }
-function reflejarHorarios(h){
+
+function reflejarHorariosEnPagina(h) {
     document.getElementById('dLunes').textContent = h.lunes;
     document.getElementById('dMartes').textContent = h.martes;
     document.getElementById('dMiercoles').textContent = h.miercoles;
     document.getElementById('dJueves').textContent = h.jueves;
     document.getElementById('dViernes').textContent = h.viernes;
-    document.getElementById('dSabado').textContent = h.sabado||'9:00 AM — 3:00 PM';
+    document.getElementById('dSabado').textContent = h.sabado || '9:00 AM — 3:00 PM';
 }
-btnGuardarHorarios.addEventListener('click', ()=>{
-    const hor = {
-        lunes: document.getElementById('hLunes').value||'9:00 — 18:00',
-        martes: document.getElementById('hMartes').value||'9:00 — 18:00',
-        miercoles: document.getElementById('hMiercoles').value||'9:00 — 18:00',
-        jueves: document.getElementById('hJueves').value||'9:00 — 18:00',
-        viernes: document.getElementById('hViernes').value||'9:00 — 18:00',
-        sabado: document.getElementById('hSabado').value||'9:00 — 15:00'
+
+btnGuardarHorarios.addEventListener('click', () => {
+    const horarios = {
+        lunes: document.getElementById('hLunes').value || '9:00 — 18:00',
+        martes: document.getElementById('hMartes').value || '9:00 — 18:00',
+        miercoles: document.getElementById('hMiercoles').value || '9:00 — 18:00',
+        jueves: document.getElementById('hJueves').value || '9:00 — 18:00',
+        viernes: document.getElementById('hViernes').value || '9:00 — 18:00',
+        sabado: document.getElementById('hSabado').value || '9:00 — 15:00'
     };
-    localStorage.setItem('horariosCosmi', JSON.stringify(hor));
-    reflejarHorarios(hor);
+    localStorage.setItem('horariosLaya', JSON.stringify(horarios));
+    reflejarHorariosEnPagina(horarios);
     msgHorarios.textContent = '✅ Horarios guardados';
-    setTimeout(()=>msgHorarios.textContent='',2200);
+    setTimeout(() => msgHorarios.textContent = '', 2500);
 });
 
-// Cartera clientes
+// ==================== CARTERA DE CLIENTES ====================
 const btnAgregarCliente = document.getElementById('btnAgregarCliente');
 const listaClientes = document.getElementById('listaClientes');
-let clientes = JSON.parse(localStorage.getItem('clientesCosmi'))||[];
-function mostrarClientes(){
-    listaClientes.innerHTML='';
-    clientes.forEach((cli,i)=>{
-        const caja=document.createElement('div');
-        caja.className='cliente-item';
-        caja.innerHTML=`<strong>👤 ${cli.nombre}</strong><br>📞 ${cli.tel||''} | ✉️ ${cli.cor||''}
-        <br>📝 ${cli.notas||'(sin notas)'}
-        <div style="text-align:right;margin-top:6px;">
-            <button style="background:#dc3545;color:white;border:0;border-radius:6px;padding:4px 9px;cursor:pointer" data-eli="${i}">Eliminar</button>
-        </div>`;
-        listaClientes.appendChild(caja);
+let clientes = JSON.parse(localStorage.getItem('clientesLaya') || '[]');
+
+function pintarClientes() {
+    listaClientes.innerHTML = '';
+    clientes.forEach((cli, i) => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'cliente-item';
+        tarjeta.innerHTML = `
+            <strong>👤 ${cli.nombre}</strong><br>
+            📞 ${cli.telefono || 'No indicado'} | ✉️ ${cli.correo || 'No indicado'}
+            ${cli.notas ? `<br>📝 ${cli.notas}` : ''}
+            <div style="text-align:right; margin-top:8px;">
+                <button style="background:#dc3545; color:white; border:none; border-radius:6px; padding:5px 10px; cursor:pointer;" data-n="${i}">Eliminar</button>
+            </div>
+        `;
+        listaClientes.appendChild(tarjeta);
     });
-    listaClientes.querySelectorAll('button').forEach(bt=>bt.addEventListener('click',function(){
-        const idx=parseInt(this.dataset.eli);
-        if(confirm('¿Quitar cliente?')){
-            clientes.splice(idx,1);
-            localStorage.setItem('clientesCosmi',JSON.stringify(clientes));
-            mostrarClientes();
-        }
-    }));
+    listaClientes.querySelectorAll('button').forEach(b => {
+        b.addEventListener('click', function () {
+            const pos = parseInt(this.dataset.n);
+            if (confirm('¿Eliminar esta cliente?')) {
+                clientes.splice(pos, 1);
+                localStorage.setItem('clientesLaya', JSON.stringify(clientes));
+                pintarClientes();
+            }
+        });
+    });
 }
-btnAgregarCliente.addEventListener('click',()=>{
-    const nom=document.getElementById('cliNombre').value.trim();
-    if(!nom) return alert('Escribe el nombre');
+
+btnAgregarCliente.addEventListener('click', () => {
+    const nombre = document.getElementById('cliNombre').value.trim();
+    if (!nombre) return alert('⚠️ Escribe el nombre de la cliente');
     clientes.push({
-        nombre:nom,
-        tel:document.getElementById('cliTel').value.trim(),
-        cor:document.getElementById('cliCorreo').value.trim(),
-        notas:document.getElementById('cliNotas').value.trim()
+        nombre: nombre,
+        telefono: document.getElementById('cliTel').value.trim(),
+        correo: document.getElementById('cliCorreo').value.trim(),
+        notas: document.getElementById('cliNotas').value.trim()
     });
-    localStorage.setItem('clientesCosmi',JSON.stringify(clientes));
-    mostrarClientes();
-    document.querySelectorAll('#panelAdministracion input, #panelAdministracion textarea').forEach((inp,ix)=>{
-        if(ix<4) inp.value='';
-    });
+    localStorage.setItem('clientesLaya', JSON.stringify(clientes));
+    pintarClientes();
+    document.getElementById('cliNombre').value = '';
+    document.getElementById('cliTel').value = '';
+    document.getElementById('cliCorreo').value = '';
+    document.getElementById('cliNotas').value = '';
+    alert('✅ Cliente guardada');
 });
 
-// Agenda citas
-const btnAgregarCita=document.getElementById('btnAgregarCita');
-const listaCitas=document.getElementById('listaCitas');
-let citas=JSON.parse(localStorage.getItem('citasCosmi'))||[];
-function verCitas(){
-    listaCitas.innerHTML='';
-    citas.forEach((cta,i)=>{
-        const el=document.createElement('div');
-        el.className='agenda-item';
-        el.innerHTML=`📅 ${cta.fec} — ⏰ ${cta.hora}<br>👤 ${cta.pers}<br>💆 ${cta.serv}
-        <button style="float:right;background:#dc3545;color:white;border-radius:5px;border:0;padding:3px 8px;cursor:pointer" data-ic="${i}">×</button>`;
-        listaCitas.appendChild(el);
+// ==================== AGENDA DE CITAS ====================
+const btnAgregarCita = document.getElementById('btnAgregarCita');
+const listaCitas = document.getElementById('listaCitas');
+let citas = JSON.parse(localStorage.getItem('citasLaya') || '[]');
+
+function pintarCitas() {
+    listaCitas.innerHTML = '';
+    citas.forEach((cta, i) => {
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'agenda-item';
+        tarjeta.innerHTML = `
+            📅 <strong>${cta.fecha}</strong> — ⏰ ${cta.hora}<br>
+            👤 ${cta.nombre}<br>
+            💆 ${cta.servicio}
+            <button style="float:right; background:#dc3545; color:white; border:none; border-radius:6px; padding:3px 8px; cursor:pointer;" data-c="${i}">×</button>
+        `;
+        listaCitas.appendChild(tarjeta);
     });
-    listaCitas.querySelectorAll('button').forEach(b=>b.addEventListener('click',function(){
-        const pos=parseInt(this.dataset.ic);
-        if(confirm('¿Borrar esta cita?')){
-            citas.splice(pos,1);
-            localStorage.setItem('citasCosmi',JSON.stringify(citas));
-            verCitas();
-        }
-    }));
+    listaCitas.querySelectorAll('button').forEach(b => {
+        b.addEventListener('click', function () {
+            const pos = parseInt(this.dataset.c);
+            if (confirm('¿Cancelar esta cita?')) {
+                citas.splice(pos, 1);
+                localStorage.setItem('citasLaya', JSON.stringify(citas));
+                pintarCitas();
+            }
+        });
+    });
 }
-btnAgregarCita.addEventListener('click',()=>{
-    const fec=document.getElementById('cFecha').value.trim();
-    const per=document.getElementById('cNombre').value.trim();
-    const hor=document.getElementById('cHora').value.trim();
-    const ser=document.getElementById('cTratamiento').value.trim();
-    if(!fec||!per||!hor||!ser) return alert('Completa todos los campos');
-    citas.push({fec,per,hora:hor,serv:ser});
-    localStorage.setItem('citasCosmi',JSON.stringify(citas));
-    verCitas();
-    ['cFecha','cNombre','cHora','cTratamiento'].forEach(id=>document.getElementById(id).value='');
+
+btnAgregarCita.addEventListener('click', () => {
+    const fecha = document.getElementById('cFecha').value.trim();
+    const nombre = document.getElementById('cNombre').value.trim();
+    const hora = document.getElementById('cHora').value.trim();
+    const servicio = document.getElementById('cTratamiento').value.trim();
+    if (!fecha || !nombre || !hora || !servicio) return alert('⚠️ Completa todos los campos');
+    citas.push({ fecha, nombre, hora, servicio });
+    localStorage.setItem('citasLaya', JSON.stringify(citas));
+    pintarCitas();
+    document.getElementById('cFecha').value = '';
+    document.getElementById('cNombre').value = '';
+    document.getElementById('cHora').value = '';
+    document.getElementById('cTratamiento').value = '';
+    alert('✅ Cita agendada');
 });
 
-// Mostrar secciones
-function mostrarSeccion(id){
-    document.querySelectorAll('.caja-informacion').forEach(s=>s.classList.remove('mostrar'));
+// ==================== MOSTRAR SECCIONES ====================
+function mostrarSeccion(id) {
+    document.querySelectorAll('.caja-informacion').forEach(caja => caja.classList.remove('mostrar'));
     document.getElementById(id).classList.add('mostrar');
 }
 
-// Inicializar todo
-document.addEventListener('DOMContentLoaded',()=>{
+// ==================== AL CARGAR LA PÁGINA ====================
+document.addEventListener('DOMContentLoaded', () => {
+    dibujarFotos();
     cargarHorarios();
-    pintarFotos();
-    mostrarClientes();
-    verCitas();
+    pintarClientes();
+    pintarCitas();
+    areaFotos.style.display = 'none';
 });
 </script>
 </body>
