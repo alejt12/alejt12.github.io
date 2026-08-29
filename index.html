@@ -34,11 +34,6 @@
             padding: 7px 12px;
             border-radius: 50%;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-        .boton-candado:hover {
-            background: rgba(255,255,255,0.4);
-            transform: scale(1.1);
         }
         .boton-cerrar {
             background: rgba(220,53,69,0.9);
@@ -50,117 +45,84 @@
             font-size: 14px;
             cursor: pointer;
             display: none;
-            transition: all 0.3s;
         }
-        .boton-cerrar:hover { background: rgba(200,35,47,1); }
-        h1 { margin: 0; font-size: 36px; padding-top: 10px; }
-        .frase { font-size: 18px; font-style: italic; margin-top: 10px; color: #f3e0ee; }
+        h1 { margin: 0; font-size: 30px; margin-top: 10px; }
+        .frase { font-size: 16px; font-style: italic; margin-top: 8px; }
         section {
             max-width: 850px;
             margin: 20px auto;
-            padding: 25px;
+            padding: 20px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 6px 15px rgba(156, 107, 140, 0.12);
+            border-radius: 18px;
+            box-shadow: 0 5px 12px rgba(156,107,140,0.1);
         }
-        h2 {
-            color: #7b5b8c;
-            border-bottom: 2px solid #e4d4de;
-            padding-bottom: 12px;
+        h2 { text-align: center; color: #7b5b8c; font-size: 20px; margin-top: 0; }
+        .descripcion-lic {
             text-align: center;
-            font-size: 24px;
+            color: #6b4b6b;
+            font-style: italic;
+            margin-top: -10px;
+            margin-bottom: 20px;
         }
-        .contenedor-botones { text-align: center; margin: 20px 0; }
         .boton {
             display: inline-block;
             background: #9c88b8;
-            color: white !important;
-            padding: 12px 22px;
-            margin: 6px;
-            border-radius: 50px;
+            color: white;
+            padding: 10px 18px;
+            margin: 5px;
+            border-radius: 25px;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            font-size: 16px;
-            transition: transform 0.3s, background 0.3s;
+            font-size: 14px;
             text-decoration: none;
         }
-        .boton:hover { transform: scale(1.05); background: #8c78a8; }
         .boton-verde { background: linear-gradient(90deg, #4CAF50, #45a049); }
-        .boton-verde:hover { background: linear-gradient(90deg, #45a049, #3d8b40); }
         .boton-naranja { background: linear-gradient(90deg, #f0ad4e, #ec971f); }
-        .boton-rojo { background: linear-gradient(90deg, #dc3545, #c82333); }
+        .boton-oculto { display: none; }
         .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .caja-informacion {
-            background: #f8f2fb;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #9c6b8c;
-            display: none;
-        }
-        .caja-informacion.mostrar { display: block; }
 
-        /* GALERÍA - LO QUE VEN TODOS LOS CLIENTES */
         .galeria {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .foto-publica {
-            width: 160px;
-            height: 160px;
+            width: 140px;
+            height: 140px;
             border-radius: 12px;
             object-fit: cover;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-            transition: transform .3s;
         }
-        .foto-publica:hover { transform: scale(1.05); }
-        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align:center; font-size:16px; }
+        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align: center; }
 
-        /* SOLO LO VE LAIZA AL ENTRAR */
-        .caja-subir {
+        .caja-subir, .caja-editar {
             background: #fffef0;
-            padding: 18px;
-            border-radius: 15px;
-            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 12px;
             margin: 20px 0;
             display: none;
         }
-        .caja-subir.mostrar { display: block; }
-        .caja-subir input {
-            width: 80%;
+        .caja-subir.mostrar, .caja-editar.mostrar { display: block; }
+        .caja-subir input, .caja-editar input {
+            width: 90%;
             padding: 10px;
-            margin: 10px auto;
+            margin: 8px auto;
             display: block;
-            font-size: 15px;
             border: 2px solid #f0d8a0;
             border-radius: 8px;
-            text-align: center;
         }
-        .foto-lista {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            justify-content: center;
-            margin-top: 15px;
-        }
-        .foto-mini {
+        .foto-con-quitar {
             position: relative;
-        }
-        .foto-mini img {
-            width: 110px;
-            height: 110px;
-            border-radius: 10px;
-            object-fit: cover;
+            display: inline-block;
+            margin: 5px;
         }
         .btn-quitar {
             position: absolute;
-            top: -6px;
-            right: -6px;
-            background: #dc3545;
+            top: -5px;
+            right: -5px;
+            background: red;
             color: white;
             border: none;
             width: 26px;
@@ -171,43 +133,6 @@
             cursor: pointer;
         }
 
-        .contacto { text-align: center; background: #f9f2f7; }
-        footer { text-align: center; padding: 15px; color: #7a6c7c; font-size: 14px; }
-        .sobre-mi {
-            background: linear-gradient(135deg, #fef7fa, #f3eaf8);
-            padding: 20px;
-            border-radius: 15px;
-            border-left: 5px solid #b888a8;
-        }
-        .tabla-horarios {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        .tabla-horarios td, .tabla-horarios th {
-            padding: 10px;
-            text-align: center;
-            border-bottom: 1px solid #e4d4de;
-        }
-        .dia-descanso { color: #dc2743; font-weight: bold; }
-        .whatsapp-flotante {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 55px;
-            height: 55px;
-            background: #25D366;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            z-index: 999;
-            text-decoration: none;
-        }
-
-        /* Ventana inicio sesión */
         .ventana-sesion {
             position: fixed;
             top: 0;
@@ -224,30 +149,407 @@
         .caja-sesion {
             background: white;
             padding: 25px;
-            border-radius: 20px;
-            max-width: 340px;
-            width: 90%;
+            border-radius: 15px;
+            width: 300px;
             text-align: center;
+            position: relative;
         }
-        .caja-sesion h3 { margin-top: 0; color: #7b5b8c; }
         .caja-sesion input {
             width: 90%;
-            padding: 11px;
+            padding: 10px;
             margin: 8px 0;
             font-size: 16px;
             border: 2px solid #e4d4de;
             border-radius: 10px;
-            text-align: center;
         }
         .cerrar-ventana {
-            background: none;
-            border: none;
-            font-size: 22px;
             position: absolute;
             top: 10px;
             right: 15px;
+            border: none;
+            background: none;
+            font-size: 22px;
             cursor: pointer;
         }
-        .mensaje { margin-top: 10px; font-weight: bold; }
-        .error { color: #dc3545; }
-        .exito { color
+        .mensaje { font-weight: bold; margin-top: 10px; }
+        .error { color: red; }
+        .exito { color: green; }
+
+        .caja-info {
+            background: #f8f2fb;
+            padding: 15px;
+            margin-top: 10px;
+            border-radius: 10px;
+            border-left: 4px solid #9c6b8c;
+            display: none;
+        }
+        .caja-info.mostrar { display: block; }
+        .tabla-horarios { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .tabla-horarios td, .tabla-horarios th { padding: 8px; text-align: center; border-bottom: 1px solid #ddd; }
+        textarea { width: 100%; padding: 10px; height: 100px; border-radius: 8px; border: 1px solid #ddd; margin-top: 10px; box-sizing: border-box; }
+
+        /* Estrellas de calificación */
+        .estrellas { font-size: 28px; color: #ccc; cursor: pointer; text-align: center; margin: 10px 0; }
+        .estrella.activa { color: #ffc107; }
+        .comentarios { margin-top: 15px; }
+        .comentario { border-top: 1px dashed #ddd; padding: 10px; }
+        .calificacion { color: #ffc107; font-size: 18px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="barra-superior">
+        <button class="boton boton-cerrar" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
+        <button class="boton boton-naranja" id="btnCandado">🔒</button>
+    </div>
+    <h1>✨ COSMIATRÍA LAYA ✨</h1>
+    <p class="frase">El tiempo no vuelve, tu belleza sí 💖</p>
+</header>
+
+<section>
+    <h2>💜 Lic. Laiza González Robles</h2>
+    <p class="descripcion-lic">Licenciada en Cosmiatría con vocación y amor por realizar tu belleza natural</p>
+    <p style="text-align:center;">📍 Ubicación: <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver en Google Maps</a></p>
+    <p style="text-align:center;">📞 Teléfono: <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
+    <p style="text-align:center;"><a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">📷 Instagram</a></p>
+</section>
+
+<section>
+    <h2>Nuestros Servicios</h2>
+    <div style="text-align:center;">
+        <button class="boton boton-verde" onclick="mostrarInfo('limpieza')">🧼 Limpieza Facial</button>
+        <button class="boton boton-verde" onclick="mostrarInfo('hidratacion')">💧 Hidratación</button>
+        <button class="boton boton-verde" onclick="mostrarInfo('exfoliacion')">✨ Exfoliación</button>
+        <button class="boton boton-verde" onclick="mostrarInfo('piel')">🌸 Piel Sensible</button>
+        <button class="boton boton-verde" onclick="mostrarInfo('asesoria')">💎 Asesoría</button>
+    </div>
+
+    <div id="limpieza" class="caja-info">
+        <h3>🧼 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
+    </div>
+    <div id="hidratacion" class="caja-info">
+        <h3>💧 Hidratación y Nutrición</h3>
+        <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
+    </div>
+    <div id="exfoliacion" class="caja-info">
+        <h3>✨ Exfoliación Renovadora</h3>
+        <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. ✨</p>
+    </div>
+    <div id="piel" class="caja-info">
+        <h3>🌸 Cuidado para Piel Sensible</h3>
+        <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
+    </div>
+    <div id="asesoria" class="caja-info">
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días con los pasos correctos. 💜</p>
+    </div>
+</section>
+
+<section>
+    <h2>📷 Galería de Fotos</h2>
+    <div class="galeria" id="galeriaPublica"></div>
+
+    <div class="caja-subir" id="cajaSubir">
+        <h3>📷 Agregar Nueva Foto (Solo administradora)</h3>
+        <input type="file" id="entradaFoto" accept="image/*">
+        <button class="boton boton-verde" id="btnAgregarFoto">✅ Agregar Foto</button>
+        <div class="galeria" id="vistaAdmin"></div>
+    </div>
+</section>
+
+<section>
+    <h2>📅 Horarios de Atención</h2>
+    <table class="tabla-horarios" id="tablaHorarios">
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr id="fila-lunes"><td>Lunes</td><td contenteditable="false" id="horario-lunes">9:00 AM — 6:00 PM</td></tr>
+        <tr id="fila-martes"><td>Martes</td><td contenteditable="false" id="horario-martes">9:00 AM — 6:00 PM</td></tr>
+        <tr id="fila-miercoles"><td>Miércoles</td><td contenteditable="false" id="horario-miercoles">9:00 AM — 6:00 PM</td></tr>
+        <tr id="fila-jueves"><td>Jueves</td><td contenteditable="false" id="horario-jueves">9:00 AM — 6:00 PM</td></tr>
+        <tr id="fila-viernes"><td>Viernes</td><td contenteditable="false" id="horario-viernes">9:00 AM — 6:00 PM</td></tr>
+        <tr id="fila-sabado"><td>Sábado</td><td contenteditable="false" id="horario-sabado">9:00 AM — 3:00 PM</td></tr>
+        <tr><td>Domingo</td><td style="color:red;">Descanso</td></tr>
+    </table>
+    <div class="caja-editar" id="cajaEditarHorarios">
+        <button class="boton boton-verde" id="btnEditarHorarios">✏️ Editar Horarios</button>
+        <button class="boton boton-verde boton-oculto" id="btnGuardarHorarios">💾 Guardar Cambios</button>
+    </div>
+</section>
+
+<section>
+    <h2>📋 Agenda de Citas</h2>
+    <textarea id="agendaTexto" placeholder="Aquí aparecerán las citas agendadas..." style="height:150px;" readonly></textarea>
+    <div class="caja-editar" id="cajaEditarAgenda">
+        <button class="boton boton-verde" id="btnEditarAgenda">✏️ Editar Agenda</button>
+        <button class="boton boton-verde boton-oculto" id="btnGuardarAgenda">💾 Guardar Agenda</button>
+    </div>
+</section>
+
+<section>
+    <h2>💬 Opiniones de Nuestros Clientes</h2>
+    <div class="estrellas" id="estrellasCalif">
+        <span class="estrella" data-valor="1">★</span>
+        <span class="estrella" data-valor="2">★</span>
+        <span class="estrella" data-valor="3">★</span>
+        <span class="estrella" data-valor="4">★</span>
+        <span class="estrella" data-valor="5">★</span>
+    </div>
+    <p style="text-align:center; margin-top:-8px;">Selecciona las estrellas para calificar</p>
+    <textarea id="textoOpinion" placeholder="Escribe aquí tu opinión sobre tu experiencia..."></textarea>
+    <div style="text-align:center; margin-top:10px;">
+        <button class="boton boton-verde" id="btnEnviarOpinion">📤 Enviar Opinión</button>
+    </div>
+    <div class="comentarios" id="listaComentarios"></div>
+</section>
+
+<div class="ventana-sesion" id="ventanaSesion">
+    <div class="caja-sesion">
+        <button class="cerrar-ventana" id="btnCerrarVentana">×</button>
+        <h3>🔐 Iniciar Sesión</h3>
+        <input type="email" id="correo" placeholder="Correo">
+        <input type="password" id="clave" placeholder="Contraseña">
+        <div class="mensaje" id="mensaje"></div>
+        <button class="boton boton-verde" id="btnEntrar">✅ Entrar</button>
+    </div>
+</div>
+
+<script>
+const CORREO_ADMIN = "laya@gmail.com";
+const CLAVE_ADMIN = "Laya2026";
+
+let fotos = [];
+let opiniones = [];
+let calificacionActual = 0;
+let modoEdicionHorarios = false;
+let modoEdicionAgenda = false;
+
+try {
+    const guardadas = localStorage.getItem('fotosGaleria');
+    if (guardadas) fotos = JSON.parse(guardadas);
+} catch(e) { fotos = []; }
+
+try {
+    const guardadasOp = localStorage.getItem('opinionesGuardadas');
+    if (guardadasOp) opiniones = JSON.parse(guardadasOp);
+} catch(e) { opiniones = []; }
+
+const horariosGuardados = JSON.parse(localStorage.getItem('horariosGuardados') || '{}');
+const agendaGuardada = localStorage.getItem('agendaGuardada') || '';
+
+const btnCandado = document.getElementById('btnCandado');
+const ventanaSesion = document.getElementById('ventanaSesion');
+const btnCerrarVentana = document.getElementById('btnCerrarVentana');
+const correo = document.getElementById('correo');
+const clave = document.getElementById('clave');
+const mensaje = document.getElementById('mensaje');
+const btnEntrar = document.getElementById('btnEntrar');
+const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+const cajaSubir = document.getElementById('cajaSubir');
+const galeriaPublica = document.getElementById('galeriaPublica');
+const vistaAdmin = document.getElementById('vistaAdmin');
+const entradaFoto = document.getElementById('entradaFoto');
+const btnAgregarFoto = document.getElementById('btnAgregarFoto');
+const textoOpinion = document.getElementById('textoOpinion');
+const btnEnviarOpinion = document.getElementById('btnEnviarOpinion');
+const listaComentarios = document.getElementById('listaComentarios');
+const estrellas = document.querySelectorAll('.estrella');
+const agendaTexto = document.getElementById('agendaTexto');
+const btnEditarAgenda = document.getElementById('btnEditarAgenda');
+const btnGuardarAgenda = document.getElementById('btnGuardarAgenda');
+const btnEditarHorarios = document.getElementById('btnEditarHorarios');
+const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
+const cajaEditarHorarios = document.getElementById('cajaEditarHorarios');
+const cajaEditarAgenda = document.getElementById('cajaEditarAgenda');
+
+agendaTexto.value = agendaGuardada;
+aplicarHorariosGuardados();
+
+function mostrarInfo(id) {
+    document.querySelectorAll('.caja-info').forEach(c => c.classList.remove('mostrar'));
+    document.getElementById(id).classList.add('mostrar');
+}
+
+btnCandado.addEventListener('click', () => {
+    ventanaSesion.classList.add('mostrar');
+    correo.value = '';
+    clave.value = '';
+    mensaje.textContent = '';
+});
+
+btnCerrarVentana.addEventListener('click', () => {
+    ventanaSesion.classList.remove('mostrar');
+});
+
+btnEntrar.addEventListener('click', () => {
+    if (correo.value.trim() === CORREO_ADMIN && clave.value === CLAVE_ADMIN) {
+        mensaje.textContent = '✅ ¡Bienvenida, Licenciada!';
+        mensaje.className = 'mensaje exito';
+        setTimeout(() => {
+            ventanaSesion.classList.remove('mostrar');
+            cajaSubir.classList.add('mostrar');
+            cajaEditarHorarios.classList.add('mostrar');
+            cajaEditarAgenda.classList.add('mostrar');
+            btnCerrarSesion.style.display = 'block';
+            btnCandado.style.display = 'none';
+        }, 800);
+    } else {
+        mensaje.textContent = '❌ Correo o clave incorrectos';
+        mensaje.className = 'mensaje error';
+    }
+});
+
+btnCerrarSesion.addEventListener('click', () => {
+    cajaSubir.classList.remove('mostrar');
+    cajaEditarHorarios.classList.remove('mostrar');
+    cajaEditarAgenda.classList.remove('mostrar');
+    btnCerrarSesion.style.display = 'none';
+    btnCandado.style.display = 'block';
+});
+
+entradaFoto.addEventListener('change', (e) => {
+    archivoSeleccionado = e.target.files[0];
+});
+
+btnAgregarFoto.addEventListener('click', () => {
+    if (!archivoSeleccionado) {
+        alert('⚠️ Primero selecciona una foto');
+        return;
+    }
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        fotos.push(e.target.result);
+        localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
+        dibujarGaleria();
+        entradaFoto.value = '';
+        archivoSeleccionado = null;
+        alert('✅ ¡Foto agregada!');
+    };
+    lector.readAsDataURL(archivoSeleccionado);
+});
+
+window.quitarFoto = function(indice) {
+    if (confirm('¿Eliminar esta foto?')) {
+        fotos.splice(indice, 1);
+        localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
+        dibujarGaleria();
+    }
+};
+
+function dibujarGaleria() {
+    galeriaPublica.innerHTML = '';
+    vistaAdmin.innerHTML = '';
+
+    if (fotos.length === 0) {
+        galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
+        return;
+    }
+
+    fotos.forEach((foto) => {
+        const img = document.createElement('img');
+        img.src = foto;
+        img.className = 'foto-publica';
+        galeriaPublica.appendChild(img);
+    });
+
+    fotos.forEach((foto, indice) => {
+        const div = document.createElement('div');
+        div.className = 'foto-con-quitar';
+        div.innerHTML = `<img src="${foto}" class="foto-publica"><button class="btn-quitar" onclick="quitarFoto(${indice})">×</button>`;
+        vistaAdmin.appendChild(div);
+    });
+}
+
+estrellas.forEach(estrella => {
+    estrella.addEventListener('click', () => {
+        calificacionActual = parseInt(estrella.getAttribute('data-valor'));
+        estrellas.forEach(e => {
+            const valor = parseInt(e.getAttribute('data-valor'));
+            if (valor <= calificacionActual) e.classList.add('activa');
+            else e.classList.remove('activa');
+        });
+    });
+});
+
+btnEnviarOpinion.addEventListener('click', () => {
+    const texto = textoOpinion.value.trim();
+    if (!texto) { alert('⚠️ Escribe tu opinión antes de enviar'); return; }
+    if (calificacionActual === 0) { alert('⚠️ Selecciona estrellas para calificar'); return; }
+
+    opiniones.unshift({
+        texto: texto,
+        calificacion: calificacionActual,
+        fecha: new Date().toLocaleDateString()
+    });
+    localStorage.setItem('opinionesGuardadas', JSON.stringify(opiniones));
+    textoOpinion.value = '';
+    calificacionActual = 0;
+    estrellas.forEach(e => e.classList.remove('activa'));
+    dibujarOpiniones();
+    alert('✅ ¡Gracias por tu opinión!');
+});
+
+function dibujarOpiniones() {
+    listaComentarios.innerHTML = '';
+    opiniones.forEach(op => {
+        const div = document.createElement('div');
+        div.className = 'comentario';
+        let est = '';
+        for(let i=0; i<5; i++) est += i < op.calificacion ? '★' : '☆';
+        div.innerHTML = `<span class="calificacion">${est}</span> <small>(${op.fecha})</small><br><p>${op.texto}</p>`;
+        listaComentarios.appendChild(div);
+    });
+}
+
+btnEditarHorarios.addEventListener('click', () => {
+    modoEdicionHorarios = true;
+    ['lunes','martes','miercoles','jueves','viernes','sabado'].forEach(d => {
+        document.getElementById('horario-'+d).contentEditable = 'true';
+    });
+    btnEditarHorarios.classList.add('boton-oculto');
+    btnGuardarHorarios.classList.remove('boton-oculto');
+});
+
+btnGuardarHorarios.addEventListener('click', () => {
+    const nuevos = {};
+    ['lunes','martes','miercoles','jueves','viernes','sabado'].forEach(d => {
+        nuevos[d] = document.getElementById('horario-'+d).innerText.trim();
+        document.getElementById('horario-'+d).contentEditable = 'false';
+    });
+    localStorage.setItem('horariosGuardados', JSON.stringify(nuevos));
+    modoEdicionHorarios = false;
+    btnEditarHorarios.classList.remove('boton-oculto');
+    btnGuardarHorarios.classList.add('boton-oculto');
+    alert('✅ Horarios guardados');
+});
+
+function aplicarHorariosGuardados() {
+    if (Object.keys(horariosGuardados).length > 0) {
+        Object.keys(horariosGuardados).forEach(d => {
+            const el = document.getElementById('horario-'+d);
+            if (el) el.innerText = horariosGuardados[d];
+        });
+    }
+}
+
+btnEditarAgenda.addEventListener('click', () => {
+    modoEdicionAgenda = true;
+    agendaTexto.readOnly = false;
+    btnEditarAgenda.classList.add('boton-oculto');
+    btnGuardarAgenda.classList.remove('boton-oculto');
+});
+
+btnGuardarAgenda.addEventListener('click', () => {
+    localStorage.setItem('agendaGuardada', agendaTexto.value);
+    agendaTexto.readOnly = true;
+    modoEdicionAgenda = false;
+    btnEditarAgenda.classList.remove('boton-oculto');
+    btnGuardarAgenda.classList.add('boton-oculto');
+    alert('✅ Agenda guardada');
+});
+
+dibujarGaleria();
+dibujarOpiniones();
+</script>
+</body>
+</html>
