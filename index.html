@@ -7,25 +7,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     
     <style>
+        :root {
+            --color-primario: #7c4d6f;
+            --color-secundario: #a86f9b;
+            --color-acento: #e84393;
+            --color-claro: #fdf6f9;
+            --texto: #4a3c47;
+            --borde: #e4d4de;
+            --exito: #27ae60;
+            --peligro: #e74c3c;
+            --sombra: 0 8px 30px rgba(124, 77, 111, 0.12);
+            --sombra-suave: 0 4px 15px rgba(124, 77, 111, 0.08);
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', 'Helvetica Neue', sans-serif;
             background: linear-gradient(135deg, #fdf6f9 0%, #f3e8ee 100%);
-            color: #4a3c47;
-            line-height: 1.6;
+            color: var(--texto);
+            line-height: 1.7;
             min-height: 100vh;
         }
         header {
-            background: linear-gradient(90deg, #7c4d6f 0%, #a86f9b 100%);
+            background: linear-gradient(90deg, var(--color-primario) 0%, var(--color-secundario) 100%);
             color: white;
             text-align: center;
-            padding: 45px 20px 55px;
+            padding: 45px 20px 60px;
             position: relative;
-            box-shadow: 0 4px 20px rgba(124, 77, 111, 0.25);
+            box-shadow: 0 4px 25px rgba(124, 77, 111, 0.3);
         }
         .barra-superior {
             position: absolute;
-            top: 18px;
+            top: 20px;
             right: 25px;
             display: flex;
             gap: 12px;
@@ -35,56 +47,75 @@
             background: rgba(255,255,255,0.22);
             color: white;
             border: none;
-            padding: 10px 16px;
-            border-radius: 25px;
+            padding: 10px 18px;
+            border-radius: 50px;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
         }
-        .btn-admin:hover { background: rgba(255,255,255,0.35); transform: translateY(-2px); }
+        .btn-admin:hover { 
+            background: rgba(255,255,255,0.35); 
+            transform: translateY(-2px); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
         .btn-salir { 
             background: rgba(220, 80, 100, 0.9); 
-            display: none; /* 🔒 OCULTO POR DEFECTO */
+            display: none; 
         }
-        .admin-activo .btn-salir { display: inline-block; } /* ✅ SOLO SE MUESTRA CON SESIÓN */
-        .admin-activo .btn-entrar { display: none; } /* ✅ SE OCULTA "Acceso" cuando ya entró */
+        .btn-entrar { display: inline-block; }
+        .admin-activo .btn-salir { display: inline-block; }
+        .admin-activo .btn-entrar { display: none; }
         .btn-editar-header {
             background: rgba(255,255,255,0.18);
             font-size: 13px;
-            padding: 5px 10px;
-            margin-top: 8px;
+            padding: 6px 14px;
+            margin-top: 12px;
             display: none;
         }
         .admin-activo .btn-editar-header { display: inline-block; }
-        h1 { font-size: 38px; margin-bottom: 8px; letter-spacing: 1px; }
-        .subtitulo { font-size: 18px; font-style: italic; opacity: 0.92; transition: all 0.3s ease; }
-        .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
+        h1 { 
+            font-size: 40px; 
+            margin-bottom: 10px; 
+            letter-spacing: 1.2px; 
+            font-weight: 700;
+        }
+        .subtitulo { 
+            font-size: 19px; 
+            font-style: normal; 
+            opacity: 0.95; 
+            transition: all 0.3s ease; 
+            font-weight: 300;
+        }
+        .contenedor { max-width: 920px; margin: 0 auto; padding: 30px 20px 60px; }
         section {
             background: white;
-            border-radius: 20px;
-            padding: 32px;
-            margin-bottom: 28px;
-            box-shadow: 0 8px 25px rgba(124, 77, 111, 0.12);
-            transition: transform 0.3s ease;
+            border-radius: 24px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: var(--sombra);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        section:hover { transform: translateY(-3px); }
+        section:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(124, 77, 111, 0.15); }
         h2 {
-            color: #7c4d6f;
-            font-size: 24px;
+            color: var(--color-primario);
+            font-size: 25px;
             text-align: center;
-            margin-bottom: 24px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0e4ed;
+            margin-bottom: 28px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--borde);
+            font-weight: 600;
         }
         .info-lic { text-align: center; font-size: 17px; }
-        .info-lic p { margin: 10px 0; }
-        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+        .info-lic p { margin: 12px 0; }
+        .info-lic a { color: var(--color-secundario); font-weight: 600; text-decoration: none; }
+        .info-lic a:hover { text-decoration: underline; }
+        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
         .boton {
-            padding: 13px 24px;
+            padding: 14px 26px;
             border: none;
-            border-radius: 30px;
+            border-radius: 50px;
             font-size: 15px;
             font-weight: 600;
             cursor: pointer;
@@ -93,10 +124,9 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            flex-wrap: wrap;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
-        .boton:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
+        .boton:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,0.18); }
         .boton i { font-size: 18px; }
         .boton-limpieza { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: white; }
         .boton-hidratacion { background: linear-gradient(90deg, #3498db, #2980b9); color: white; }
@@ -105,98 +135,131 @@
         .boton-asesoria { background: linear-gradient(90deg, #1abc9c, #16a085); color: white; }
         .boton-promociones { background: linear-gradient(90deg, #ff6b6b, #ee5a24); color: white; }
         .boton-fotos { background: linear-gradient(90deg, #a55eea, #8854d0); color: white; }
-        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; font-size: 16px; padding: 14px 28px; }
-        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-size: 16px; padding: 14px 28px; }
-        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 17px; padding: 15px; }
+        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; font-size: 16px; padding: 15px 30px; }
+        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-size: 16px; padding: 15px 30px; }
+        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 17px; padding: 16px; }
         .boton-azul { background: linear-gradient(90deg, #3498db, #2980b9); color: white; width: 100%; justify-content: center; }
-        .boton-guardar { background: linear-gradient(90deg, #27ae60, #1e8449); color: white; padding: 8px 16px; font-size: 14px; border-radius: 20px; }
-        .boton-eliminar-foto { background: linear-gradient(90deg, #e74c3c, #c0392b); color: white; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 16px; cursor: pointer; position: absolute; top: 5px; right: 5px; display: none; }
-        .admin-activo .boton-eliminar-foto { display: flex; align-items: center; justify-content: center; }
-
+        .boton-guardar { background: linear-gradient(90deg, #27ae60, #1e8449); color: white; padding: 9px 20px; font-size: 14px; border-radius: 50px; }
+        .boton-eliminar-foto { 
+            background: linear-gradient(90deg, #e74c3c, #c0392b); 
+            color: white; border: none; border-radius: 50%; width: 34px; height: 34px; 
+            font-size: 18px; cursor: pointer; position: absolute; top: 6px; right: 6px; display: none;
+            align-items: center; justify-content: center; font-weight: bold;
+        }
+        .admin-activo .boton-eliminar-foto { display: flex; }
+        .boton-editar { 
+            background: linear-gradient(90deg, #f39c12, #e67e22); 
+            color: white; border: none; border-radius: 50px; padding: 6px 14px; 
+            font-size: 13px; cursor: pointer; margin-left: 10px;
+        }
         .caja-info-serv, .caja-promociones, .caja-fotos {
-            margin-top: 20px; padding: 20px; background: #faf2f7;
-            border-radius: 14px; border-left: 4px solid #a86f9b;
+            margin-top: 22px; padding: 24px; 
+            background: linear-gradient(135deg, #fdf6f9, #f8eff5);
+            border-radius: 16px; border-left: 5px solid var(--color-secundario);
             display: none; animation: aparecer 0.4s ease;
         }
         .caja-info-serv.mostrar, .caja-promociones.mostrar, .caja-fotos.mostrar { display: block; }
-        @keyframes aparecer { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
-
-        .form-grupo { margin-bottom: 16px; }
-        label { display: block; margin-bottom: 6px; font-weight: 600; color: #5a4a57; }
-        input, textarea {
-            width: 100%; padding: 12px 15px; border: 2px solid #e4d4de;
-            border-radius: 10px; font-size: 15px; font-family: inherit;
+        @keyframes aparecer { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+        .form-grupo { margin-bottom: 18px; }
+        label { display: block; margin-bottom: 7px; font-weight: 600; color: var(--color-primario); font-size: 15px; }
+        input, textarea, select {
+            width: 100%; padding: 13px 16px; border: 2px solid var(--borde);
+            border-radius: 12px; font-size: 15px; font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
         }
-        input:focus, textarea:focus { outline: none; border-color: #a86f9b; }
-        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        input:focus, textarea:focus { 
+            outline: none; border-color: var(--color-secundario); 
+            box-shadow: 0 0 0 4px rgba(168, 111, 155, 0.15);
+        }
+        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
         .mensaje-exito {
-            background: #e6f9ee; color: #20754f; padding: 14px;
-            border-radius: 10px; text-align: center; font-weight: 600;
-            margin-top: 14px; display: none;
+            background: #e6f9ee; color: #20754f; padding: 15px;
+            border-radius: 12px; text-align: center; font-weight: 600;
+            margin-top: 16px; display: none;
+            border-left: 4px solid #27ae60;
         }
         .solo-admin, .historial, .editar-seccion { display: none; }
         .admin-activo .solo-admin, .admin-activo .historial, .admin-activo .editar-seccion { display: block; }
-        .solo-admin { margin-top: 30px; padding-top: 24px; border-top: 2px dashed #e4d4de; }
-        .aviso-recarga { text-align: center; margin-top: 10px; color: #20754f; font-size: 14px; }
-
+        .solo-admin { margin-top: 32px; padding-top: 28px; border-top: 2px dashed var(--borde); }
+        .aviso-recarga { text-align: center; margin-top: 12px; color: var(--color-primario); font-size: 14px; font-style: italic; }
         .tarjeta-cita, .tarjeta-registro {
-            background: #faf2f7; border-radius: 12px; padding: 16px;
-            margin-bottom: 12px; border-left: 4px solid #a86f9b;
+            background: linear-gradient(135deg, #fdf6f9, #f8eff5); 
+            border-radius: 14px; padding: 18px;
+            margin-bottom: 14px; border-left: 5px solid var(--color-secundario);
+            box-shadow: var(--sombra-suave);
         }
-        .tarjeta-cita h4 { color: #7c4d6f; margin-bottom: 6px; }
+        .tarjeta-cita h4 { color: var(--color-primario); margin-bottom: 8px; font-size: 16px; }
         .btn-eliminar-cita, .btn-eliminar-opinion {
-            margin-top: 10px; padding: 7px 14px; font-size: 13px;
-            border-radius: 20px; border: none;
+            margin-top: 12px; padding: 8px 16px; font-size: 13px;
+            border-radius: 50px; border: none;
             background: linear-gradient(90deg, #e74c3c, #c0392b);
             color: white; cursor: pointer; font-weight: 600;
         }
-        .estrellas { font-size: 34px; color: #ddd; cursor: pointer; text-align: center; margin: 10px 0; user-select: none; }
-        .estrella { transition: color 0.2s ease; }
-        .estrella.activa { color: #f4c542; }
-        .galeria { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 15px; }
-        .foto-contenedor { position: relative; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        .foto-galeria { width: 160px; height: 160px; object-fit: cover; display: block; }
-        .caja-subir-foto { background: #eef9f4; padding: 15px; border-radius: 12px; margin-top: 15px; border: 2px dashed #27ae60; }
-        .historial { background: #f2f4fb; border: 2px solid #c9cff2; border-radius: 14px; padding: 22px; margin-top: 25px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #eee; }
-        th { background: #f8f2f7; color: #7c4d6f; }
+        .estrellas { font-size: 36px; color: #ddd; cursor: pointer; text-align: center; margin: 12px 0; user-select: none; letter-spacing: 4px; }
+        .estrella { transition: color 0.25s ease; }
+        .estrella.activa { color: #f4c542; text-shadow: 0 0 8px rgba(244, 197, 66, 0.4); }
+        .galeria { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 18px; }
+        .foto-contenedor { position: relative; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s ease; }
+        .foto-contenedor:hover { transform: scale(1.03); }
+        .foto-galeria { width: 170px; height: 170px; object-fit: cover; display: block; }
+        .caja-subir-foto { 
+            background: linear-gradient(135deg, #eef9f4, #e0f2e9); 
+            padding: 18px; border-radius: 14px; margin-top: 18px; 
+            border: 2px dashed var(--exito); 
+        }
+        .historial { 
+            background: linear-gradient(135deg, #f4f4fc, #ebebf7); 
+            border: 2px solid #d4d4f0; border-radius: 16px; padding: 25px; margin-top: 28px; 
+        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; border-radius: 14px; overflow: hidden; box-shadow: var(--sombra-suave); }
+        th, td { padding: 14px; text-align: center; border-bottom: 1px solid #f0e4ed; }
+        th { background: linear-gradient(90deg, var(--color-primario), var(--color-secundario)); color: white; font-weight: 600; }
+        tr:last-child td { border-bottom: none; }
+        tr:nth-child(even) { background: #fdf6f9; }
         .modal-fondo {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6);
             display: none; align-items: center; justify-content: center; z-index: 999;
+            backdrop-filter: blur(6px);
         }
         .modal-fondo.mostrar { display: flex; }
         .modal-caja {
-            background: white; border-radius: 18px; padding: 30px; width: 360px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.25); position: relative;
+            background: white; border-radius: 22px; padding: 35px; width: 400px; max-width: 92%;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3); position: relative;
+            animation: aparecer 0.35s ease;
         }
-        .modal-caja h3 { text-align: center; color: #7c4d6f; margin-bottom: 20px; }
+        .modal-caja h3 { text-align: center; color: var(--color-primario); margin-bottom: 24px; font-size: 22px; }
         .cerrar-modal {
-            position: absolute; top: 12px; right: 16px;
-            border: none; background: none; font-size: 24px;
-            cursor: pointer; color: #888;
+            position: absolute; top: 15px; right: 18px;
+            border: none; background: none; font-size: 26px;
+            cursor: pointer; color: #aaa; transition: color 0.2s ease;
         }
-        .sin-datos { text-align: center; color: #999; padding: 25px; font-style: italic; }
-        footer { text-align: center; padding: 20px; color: #887f86; font-size: 14px; }
-        .cargando { text-align: center; padding: 15px; color: #7c4d6f; font-weight: 500; }
-        .fila-botones { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 10px; }
-        .editar-seccion { background: #fef9e7; padding: 18px; border-radius: 12px; margin-top: 15px; border: 2px dashed #f4d03f; }
+        .cerrar-modal:hover { color: var(--peligro); }
+        .sin-datos { text-align: center; color: #999; padding: 30px; font-style: italic; }
+        footer { text-align: center; padding: 25px; color: #887f86; font-size: 14px; margin-top: 10px; }
+        .cargando { text-align: center; padding: 18px; color: var(--color-primario); font-weight: 500; }
+        .fila-botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 15px; }
+        .editar-seccion { 
+            background: linear-gradient(135deg, #fffbf0, #fff8e1); 
+            padding: 22px; border-radius: 14px; margin-top: 20px; 
+            border: 2px dashed #f4d03f; 
+        }
+        .editar-seccion h4 { color: #b8860b; margin-bottom: 14px; font-size: 16px; }
+        .grupo-edicion { border-bottom: 1px dashed #f0d890; padding-bottom: 16px; margin-bottom: 16px; }
+        .grupo-edicion:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
         .texto-editable { transition: all 0.3s ease; }
-        .texto-editable:hover { background: rgba(255,255,255,0.3); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
+        .texto-editable:hover { background: rgba(255,255,255,0.5); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="barra-superior">
-        <!-- ✅ SOLO SE VE CUANDO YA INICIÓ SESIÓN -->
         <button class="btn-admin btn-salir" id="btnSalirAdmin"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
-        <!-- ✅ SOLO SE VE CUANDO NO HA INICIADO SESIÓN -->
         <button class="btn-admin btn-entrar" id="btnEntrarAdmin"><i class="fas fa-lock"></i> Acceso Administradora</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="subtitulo texto-editable" id="esloganPrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
-    <button class="btn-admin btn-editar-header" id="btnEditarEslogan"><i class="fas fa-pen"></i> Cambiar frase</button>
+    <button class="btn-admin btn-editar-header" id="btnEditarEslogan"><i class="fas fa-pen"></i> Cambiar frase principal</button>
 </header>
 
 <div class="contenedor" id="raiz">
@@ -218,90 +281,162 @@
 </section>
 
 <section>
-    <h2>💆‍♀️ Nuestros Servicios</h2>
+    <h2>
+        <span id="tituloServicios">💆‍♀️ Nuestros Servicios</span>
+        <button class="boton-editar solo-admin" id="btnEditarServicios"><i class="fas fa-pen"></i> Editar</button>
+    </h2>
     <div class="fila-botones">
-        <button class="boton boton-limpieza" onclick="mostrarServicio('limpieza')">
-            <i class="fas fa-soap"></i> Limpieza Facial
+        <button class="boton boton-limpieza" id="btnTextoLimpieza" onclick="mostrarServicio('limpieza')">
+            <i class="fas fa-soap"></i> <span id="txtLimpieza">Limpieza Facial</span>
         </button>
-        <button class="boton boton-hidratacion" onclick="mostrarServicio('hidratacion')">
-            <i class="fas fa-tint"></i> Hidratación
+        <button class="boton boton-hidratacion" id="btnTextoHidratacion" onclick="mostrarServicio('hidratacion')">
+            <i class="fas fa-tint"></i> <span id="txtHidratacion">Hidratación</span>
         </button>
-        <button class="boton boton-exfoliacion" onclick="mostrarServicio('exfoliacion')">
-            <i class="fas fa-sparkles"></i> Exfoliación
+        <button class="boton boton-exfoliacion" id="btnTextoExfoliacion" onclick="mostrarServicio('exfoliacion')">
+            <i class="fas fa-sparkles"></i> <span id="txtExfoliacion">Exfoliación</span>
         </button>
-        <button class="boton boton-piel" onclick="mostrarServicio('piel')">
-            <i class="fas fa-heart"></i> Piel Sensible
+        <button class="boton boton-piel" id="btnTextoPiel" onclick="mostrarServicio('piel')">
+            <i class="fas fa-heart"></i> <span id="txtPiel">Piel Sensible</span>
         </button>
-        <button class="boton boton-asesoria" onclick="mostrarServicio('asesoria')">
-            <i class="fas fa-gem"></i> Asesoría
+        <button class="boton boton-asesoria" id="btnTextoAsesoria" onclick="mostrarServicio('asesoria')">
+            <i class="fas fa-gem"></i> <span id="txtAsesoria">Asesoría</span>
         </button>
-        <button class="boton boton-promociones" onclick="mostrarServicio('promociones')">
-            <i class="fas fa-tags"></i> Promociones
+        <button class="boton boton-promociones" id="btnTextoPromociones" onclick="mostrarServicio('promociones')">
+            <i class="fas fa-tags"></i> <span id="txtPromociones">Promociones</span>
         </button>
-        <button class="boton boton-fotos" onclick="mostrarServicio('fotos')">
-            <i class="fas fa-images"></i> Galería de Fotos
+        <button class="boton boton-fotos" id="btnTextoFotos" onclick="mostrarServicio('fotos')">
+            <i class="fas fa-images"></i> <span id="txtGaleria">Galería de Fotos</span>
         </button>
     </div>
 
     <div id="limpieza" class="caja-info-serv">
-        <h3>🧼 Limpieza Facial Profunda</h3>
-        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+        <h3 id="titLimpieza">🧼 Limpieza Facial Profunda</h3>
+        <p id="descLimpieza">Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
     </div>
     <div id="hidratacion" class="caja-info-serv">
-        <h3>💧 Hidratación y Nutrición</h3>
-        <p>Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural. Ideal para piel seca o deshidratada.</p>
+        <h3 id="titHidratacion">💧 Hidratación y Nutrición</h3>
+        <p id="descHidratacion">Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural. Ideal para piel seca o deshidratada.</p>
     </div>
     <div id="exfoliacion" class="caja-info-serv">
-        <h3>✨ Exfoliación Renovadora</h3>
-        <p>Renovamos tu piel eliminando células muertas. Mejora la textura y el tono. Tu piel se ve más joven, suave y luminosa desde la primera sesión.</p>
+        <h3 id="titExfoliacion">✨ Exfoliación Renovadora</h3>
+        <p id="descExfoliacion">Renovamos tu piel eliminando células muertas. Mejora la textura y el tono. Tu piel se ve más joven, suave y luminosa desde la primera sesión.</p>
     </div>
     <div id="piel" class="caja-info-serv">
-        <h3>🌸 Cuidado para Piel Sensible</h3>
-        <p>Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
+        <h3 id="titPiel">🌸 Cuidado para Piel Sensible</h3>
+        <p id="descPiel">Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
     </div>
     <div id="asesoria" class="caja-info-serv">
-        <h3>💎 Asesoría Personalizada</h3>
-        <p>Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
+        <h3 id="titAsesoria">💎 Asesoría Personalizada</h3>
+        <p id="descAsesoria">Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
     </div>
     <div id="promociones" class="caja-promociones">
-        <h3>🔥 Promociones Especiales</h3>
-        <p><strong>✨ Paquete Completo:</strong> Limpieza + Hidratación con 15% de descuento 💜</p>
-        <p><strong>🌸 Primera Visita:</strong> 10% de descuento en tu primer tratamiento</p>
-        <p><strong>👭 Tratamiento en Pareja:</strong> 20% de descuento al venir acompañada</p>
-        <p class="solo-admin" style="margin-top:10px; color:#7c4d6f;"><em>🔐 Puedes editar este texto cuando entres como administradora</em></p>
+        <h3 id="titPromociones">🔥 Promociones Especiales</h3>
+        <p id="promo1"><strong>✨ Paquete Completo:</strong> Limpieza + Hidratación con 15% de descuento 💜</p>
+        <p id="promo2"><strong>🌸 Primera Visita:</strong> 10% de descuento en tu primer tratamiento</p>
+        <p id="promo3"><strong>👭 Tratamiento en Pareja:</strong> 20% de descuento al venir acompañada</p>
     </div>
     <div id="fotos" class="caja-fotos">
-        <h3>📷 Galería de Fotos</h3>
+        <h3 id="titGaleria">📷 Galería de Fotos</h3>
         <div class="galeria" id="contenedorFotos">
             <p class="sin-datos">Cargando fotos...</p>
         </div>
         <div class="caja-subir-foto solo-admin">
             <h4><i class="fas fa-cloud-upload-alt"></i> Agregar Foto Nueva</h4>
-            <input type="file" id="entradaFoto" accept="image/*" style="margin:10px 0; width:100%;">
+            <input type="file" id="entradaFoto" accept="image/*" style="margin:12px 0; width:100%;">
             <button class="boton boton-verde" id="btnSubirFoto">
                 <i class="fas fa-plus-circle"></i> Subir Foto
             </button>
         </div>
     </div>
+
+    <div class="editar-seccion" id="panelEditarServicios" style="display:none;">
+        <h4>✏️ Editar Servicios y Botones</h4>
+        <div class="grupo-edicion">
+            <label>Título de sección</label>
+            <input type="text" id="editarTituloServicios" placeholder="Nuestros Servicios">
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 1 — Limpieza (texto)</label>
+            <input type="text" id="editarTxtLimpieza" placeholder="Limpieza Facial">
+            <label>Título y descripción</label>
+            <input type="text" id="editarTitLimpieza" placeholder="Limpieza Facial Profunda">
+            <textarea id="editarDescLimpieza" rows="2" placeholder="Descripción del servicio..."></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 2 — Hidratación</label>
+            <input type="text" id="editarTxtHidratacion" placeholder="Hidratación">
+            <input type="text" id="editarTitHidratacion" placeholder="Título">
+            <textarea id="editarDescHidratacion" rows="2"></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 3 — Exfoliación</label>
+            <input type="text" id="editarTxtExfoliacion" placeholder="Exfoliación">
+            <input type="text" id="editarTitExfoliacion" placeholder="Título">
+            <textarea id="editarDescExfoliacion" rows="2"></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 4 — Piel Sensible</label>
+            <input type="text" id="editarTxtPiel" placeholder="Piel Sensible">
+            <input type="text" id="editarTitPiel" placeholder="Título">
+            <textarea id="editarDescPiel" rows="2"></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 5 — Asesoría</label>
+            <input type="text" id="editarTxtAsesoria" placeholder="Asesoría">
+            <input type="text" id="editarTitAsesoria" placeholder="Título">
+            <textarea id="editarDescAsesoria" rows="2"></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 6 — Promociones</label>
+            <input type="text" id="editarTxtPromociones" placeholder="Promociones">
+            <input type="text" id="editarTitPromociones" placeholder="Título">
+            <textarea id="editarPromo1" rows="1" placeholder="Promoción 1"></textarea>
+            <textarea id="editarPromo2" rows="1" placeholder="Promoción 2"></textarea>
+            <textarea id="editarPromo3" rows="1" placeholder="Promoción 3"></textarea>
+        </div>
+        <div class="grupo-edicion">
+            <label>Botón 7 — Galería</label>
+            <input type="text" id="editarTxtGaleria" placeholder="Galería de Fotos">
+            <input type="text" id="editarTitGaleria" placeholder="Título de galería">
+        </div>
+        <button class="boton boton-guardar" id="btnGuardarServicios"><i class="fas fa-save"></i> Guardar Cambios</button>
+    </div>
 </section>
 
 <section>
-    <h2>📅 Agendar tu Cita</h2>
+    <h2>
+        <span id="tituloAgendar">📅 Agendar tu Cita</span>
+        <button class="boton-editar solo-admin" id="btnEditarAgendar"><i class="fas fa-pen"></i> Editar</button>
+    </h2>
     <form id="formCita">
-        <div class="form-grupo"><label>Tu Nombre Completo 👤</label><input type="text" id="nombre" required placeholder="Escribe tu nombre completo"></div>
-        <div class="form-grupo"><label>Teléfono o WhatsApp 📱</label><input type="tel" id="telefono" required placeholder="Ej: 729 123 4567"></div>
+        <div class="form-grupo"><label id="lblNombre">Tu Nombre Completo 👤</label><input type="text" id="nombre" required placeholder="Escribe tu nombre completo"></div>
+        <div class="form-grupo"><label id="lblTelefono">Teléfono o WhatsApp 📱</label><input type="tel" id="telefono" required placeholder="Ej: 729 123 4567"></div>
         <div class="form-grupo tres-columnas">
-            <div><label>Día</label><input type="number" id="dia" min="1" max="31" required></div>
-            <div><label>Mes</label><input type="number" id="mes" min="1" max="12" required></div>
-            <div><label>Año</label><input type="number" id="anio" min="2026" required></div>
+            <div><label id="lblDia">Día</label><input type="number" id="dia" min="1" max="31" required></div>
+            <div><label id="lblMes">Mes</label><input type="number" id="mes" min="1" max="12" required></div>
+            <div><label id="lblAnio">Año</label><input type="number" id="anio" min="2026" required></div>
         </div>
-        <div class="form-grupo"><label>Hora ⏰</label><input type="time" id="hora" required></div>
-        <div class="form-grupo"><label>Servicio o comentario 💭</label><textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea></div>
+        <div class="form-grupo"><label id="lblHora">Hora ⏰</label><input type="time" id="hora" required></div>
+        <div class="form-grupo"><label id="lblComentario">Servicio o comentario 💭</label><textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea></div>
         <button type="button" class="boton boton-verde" id="btnGuardarCita">
-            <i class="fas fa-calendar-check"></i> AGENDAR CITA AHORA
+            <i class="fas fa-calendar-check"></i> <span id="txtBtnCita">AGENDAR CITA AHORA</span>
         </button>
         <div class="mensaje-exito" id="mensajeCita"></div>
     </form>
+
+    <div class="editar-seccion" id="panelEditarAgendar" style="display:none;">
+        <h4>✏️ Editar Sección Agendar Cita</h4>
+        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloAgendar"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Nombre</label><input type="text" id="editarLblNombre"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Teléfono</label><input type="text" id="editarLblTelefono"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Día</label><input type="text" id="editarLblDia"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Mes</label><input type="text" id="editarLblMes"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Año</label><input type="text" id="editarLblAnio"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Hora</label><input type="text" id="editarLblHora"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Comentario</label><input type="text" id="editarLblComentario"></div>
+        <div class="grupo-edicion"><label>Texto del botón</label><input type="text" id="editarTxtBtnCita"></div>
+        <button class="boton boton-guardar" id="btnGuardarAgendar"><i class="fas fa-save"></i> Guardar Cambios</button>
+    </div>
 
     <div class="solo-admin">
         <p class="aviso-recarga">🔄 Las citas llegan en tiempo real desde cualquier lugar</p>
@@ -311,9 +446,12 @@
 </section>
 
 <section>
-    <h2>💬 Opiniones de Nuestros Clientes</h2>
-    <div class="form-grupo"><label>Tu correo 📧</label><input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com"></div>
-    <div class="form-grupo"><label>Tu opinión ✍️</label><textarea id="textoOp" rows="4" placeholder="Cuéntanos tu experiencia..."></textarea></div>
+    <h2>
+        <span id="tituloOpiniones">💬 Opiniones de Nuestros Clientes</span>
+        <button class="boton-editar solo-admin" id="btnEditarOpiniones"><i class="fas fa-pen"></i> Editar</button>
+    </h2>
+    <div class="form-grupo"><label id="lblCorreoOp">Tu correo 📧</label><input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com"></div>
+    <div class="form-grupo"><label id="lblTextoOp">Tu opinión ✍️</label><textarea id="textoOp" rows="4" placeholder="Cuéntanos tu experiencia..."></textarea></div>
     <div class="estrellas" id="cajaEstrellas">
         <span class="estrella" data-valor="1">★</span>
         <span class="estrella" data-valor="2">★</span>
@@ -321,35 +459,56 @@
         <span class="estrella" data-valor="4">★</span>
         <span class="estrella" data-valor="5">★</span>
     </div>
-    <p style="text-align:center; color:#777;">Toca una estrella para calificarnos ⭐</p>
+    <p style="text-align:center; color:#777;" id="textoAyudaEstrellas">Toca una estrella para calificarnos ⭐</p>
     <button type="button" class="boton boton-azul" id="btnEnviarOp">
-        <i class="fas fa-paper-plane"></i> Enviar Opinión
+        <i class="fas fa-paper-plane"></i> <span id="txtBtnOpinion">Enviar Opinión</span>
     </button>
     <div class="mensaje-exito" id="mensajeOp"></div>
 
+    <div class="editar-seccion" id="panelEditarOpiniones" style="display:none;">
+        <h4>✏️ Editar Sección Opiniones</h4>
+        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloOpiniones"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Correo</label><input type="text" id="editarLblCorreoOp"></div>
+        <div class="grupo-edicion"><label>Etiqueta — Opinión</label><input type="text" id="editarLblTextoOp"></div>
+        <div class="grupo-edicion"><label>Texto de ayuda estrellas</label><input type="text" id="editarAyudaEstrellas"></div>
+        <div class="grupo-edicion"><label>Texto del botón</label><input type="text" id="editarTxtBtnOpinion"></div>
+        <button class="boton boton-guardar" id="btnGuardarOpiniones"><i class="fas fa-save"></i> Guardar Cambios</button>
+    </div>
+
     <div class="historial">
-        <h3><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
+        <h3 id="tituloHistorialOp"><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
         <div id="listaOpiniones" class="cargando">Cargando opiniones...</div>
     </div>
 </section>
 
 <section>
-    <h2 id="tituloHorarios">🕒 Horarios de Atención</h2>
+    <h2>
+        <span id="tituloHorarios">🕒 Horarios de Atención</span>
+        <button class="boton-editar solo-admin" id="btnEditarHorarios"><i class="fas fa-pen"></i> Editar</button>
+    </h2>
     <table id="tablaHorarios">
-        <tr><th>Día</th><th>Horario</th></tr>
-        <tr id="filaLunes"><td>Lunes a Viernes</td><td id="horarioLunes">9:00 AM — 6:00 PM</td></tr>
-        <tr id="filaSabado"><td>Sábado</td><td id="horarioSabado">9:00 AM — 3:00 PM</td></tr>
-        <tr id="filaDomingo"><td>Domingo</td><td id="horarioDomingo" style="color:#e05263;"><strong>Descanso</strong></td></tr>
+        <tr><th id="etiquetaDia">Día</th><th id="etiquetaHora">Horario</th></tr>
+        <tr id="filaLunes"><td id="nombreLunes">Lunes a Viernes</td><td id="horarioLunes">9:00 AM — 6:00 PM</td></tr>
+        <tr id="filaSabado"><td id="nombreSabado">Sábado</td><td id="horarioSabado">9:00 AM — 3:00 PM</td></tr>
+        <tr id="filaDomingo"><td id="nombreDomingo">Domingo</td><td id="horarioDomingo" style="color:#e05263;"><strong>Descanso</strong></td></tr>
     </table>
 
-    <div class="editar-seccion">
-        <h4>✏️ Editar Horarios</h4>
-        <div class="form-grupo"><label>Lunes a Viernes</label><input type="text" id="editarLunes" placeholder="Ej: 9:00 AM — 6:00 PM"></div>
-        <div class="form-grupo"><label>Sábado</label><input type="text" id="editarSabado" placeholder="Ej: 9:00 AM — 3:00 PM"></div>
-        <div class="form-grupo"><label>Domingo</label><input type="text" id="editarDomingo" placeholder="Ej: Descanso o 10:00 AM — 2:00 PM"></div>
-        <button class="boton boton-guardar" id="btnGuardarHorarios">
-            <i class="fas fa-save"></i> Guardar Cambios
-        </button>
+    <div class="editar-seccion" id="panelEditarHorarios" style="display:none;">
+        <h4>✏️ Editar Horarios y Días</h4>
+        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloHorarios"></div>
+        <div class="grupo-edicion">
+            <label>Día 1 — Nombre</label><input type="text" id="editarNombreLunes" placeholder="Lunes a Viernes">
+            <label>Horario</label><input type="text" id="editarHorarioLunes" placeholder="9:00 AM — 6:00 PM">
+        </div>
+        <div class="grupo-edicion">
+            <label>Día 2 — Nombre</label><input type="text" id="editarNombreSabado" placeholder="Sábado">
+            <label>Horario</label><input type="text" id="editarHorarioSabado" placeholder="9:00 AM — 3:00 PM">
+        </div>
+        <div class="grupo-edicion">
+            <label>Día 3 — Nombre</label><input type="text" id="editarNombreDomingo" placeholder="Domingo">
+            <label>Horario</label><input type="text" id="editarHorarioDomingo" placeholder="Descanso">
+        </div>
+        <button class="boton boton-guardar" id="btnGuardarHorarios"><i class="fas fa-save"></i> Guardar Cambios</button>
     </div>
 </section>
 
@@ -361,8 +520,8 @@
         <h3>🔐 Acceso de Laiza</h3>
         <div class="form-grupo"><label>Correo</label><input type="email" id="correoAdmin" placeholder="laya@gmail.com"></div>
         <div class="form-grupo"><label>Contraseña</label><input type="password" id="claveAdmin" placeholder="Tu contraseña"></div>
-        <div id="respuestaLogin" style="text-align:center; margin:10px 0;"></div>
-        <button class="boton boton-limpieza" id="btnIngresar" style="width:100%;">
+        <div id="respuestaLogin" style="text-align:center; margin:12px 0;"></div>
+        <button class="boton boton-limpieza" id="btnIngresar" style="width:100%; margin-top:8px;">
             <i class="fas fa-sign-in-alt"></i> Ingresar
         </button>
     </div>
@@ -392,7 +551,7 @@ const ADMIN_CORREO = "laya@gmail.com";
 const ADMIN_CLAVE = "Laya2026";
 
 // ==================================================
-// ☁️ TUS CÓDIGOS DE CONEXIÓN
+// ☁️ CONEXIÓN A FIREBASE
 // ==================================================
 const firebaseConfig = {
   apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
@@ -403,8 +562,6 @@ const firebaseConfig = {
   appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b",
   measurementId: "G-5YF9ML88B7"
 };
-
-// Iniciar Firebase
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
@@ -427,10 +584,11 @@ window.onload = function() {
     configurarEstrellas();
     cargarConfiguracion();
     cargarFotosGaleria();
+    configurarBotonesEdicion();
 };
 
 // ==================================================
-// 🧹 MOSTRAR SERVICIOS / PROMOCIONES / FOTOS
+// 🧹 MOSTRAR SERVICIOS
 // ==================================================
 function mostrarServicio(id) {
     document.querySelectorAll('.caja-info-serv, .caja-promociones, .caja-fotos').forEach(c => c.classList.remove('mostrar'));
@@ -458,7 +616,7 @@ function actualizarEstrellas() {
 }
 
 // ==================================================
-// ✅ ENTRAR COMO ADMINISTRADORA
+// ✅ INICIO Y CIERRE DE SESIÓN
 // ==================================================
 function entrarComoAdmin() {
     adminActivo = true;
@@ -478,7 +636,7 @@ function salirAdmin() {
 }
 
 // ==================================================
-// 📥 ESCUCHAR CITAS EN TIEMPO REAL
+// 📥 CITAS EN TIEMPO REAL
 // ==================================================
 function escucharCitas() {
     citasSuscripcion = db.collection('citas')
@@ -504,9 +662,6 @@ window.borrarCita = function(id) {
     if(confirm('¿Eliminar esta cita?')) db.collection('citas').doc(id).delete();
 };
 
-// ==================================================
-// 📤 GUARDAR CITA EN LA NUBE
-// ==================================================
 document.getElementById('btnGuardarCita').addEventListener('click', async () => {
     const datos = {
         nombre: document.getElementById('nombre').value.trim(),
@@ -519,7 +674,6 @@ document.getElementById('btnGuardarCita').addEventListener('click', async () => 
         fecha: firebase.firestore.Timestamp.now()
     };
     if(!datos.nombre || !datos.telefono || !datos.dia) return alert('⚠️ Completa todos los campos');
-
     await db.collection('citas').add(datos);
     const msg = document.getElementById('mensajeCita');
     msg.style.display = 'block';
@@ -529,7 +683,7 @@ document.getElementById('btnGuardarCita').addEventListener('click', async () => 
 });
 
 // ==================================================
-// 📝 OPINIONES EN TIEMPO REAL
+// 💬 OPINIONES EN TIEMPO REAL
 // ==================================================
 function escucharOpiniones() {
     opinionesSuscripcion = db.collection('opiniones')
@@ -538,203 +692,3 @@ function escucharOpiniones() {
             const lista = document.getElementById('listaOpiniones');
             lista.innerHTML = '';
             if(snapshot.empty){ lista.innerHTML = "<p class='sin-datos'>📭 Sin opiniones todavía</p>"; return; }
-            snapshot.forEach(doc => {
-                const o = doc.data();
-                lista.innerHTML += `
-                    <div class='tarjeta-registro'>
-                        <strong>📧 ${o.correo}</strong><br>
-                        ⭐ ${'★'.repeat(o.calif)}${'☆'.repeat(5-o.calif)}<br>
-                        💬 ${o.texto}
-                        ${adminActivo ? `<br><button class='btn-eliminar-opinion' onclick="borrarOpinion('${doc.id}')">🗑️ Eliminar</button>`:''}
-                    </div>`;
-            });
-        });
-}
-window.borrarOpinion = function(id) {
-    if(confirm('¿Eliminar opinión?')) db.collection('opiniones').doc(id).delete();
-};
-
-// ==================================================
-// ✉️ ENVIAR OPINIÓN
-// ==================================================
-document.getElementById('btnEnviarOp').addEventListener('click', async () => {
-    const correo = document.getElementById('correoOp').value.trim();
-    const texto = document.getElementById('textoOp').value.trim();
-    if(!correo.includes('@')) return alert('⚠️ Escribe un correo válido');
-    if(!texto) return alert('⚠️ Escribe tu opinión');
-    if(calificacion === 0) return alert('⚠️ Toca las estrellas');
-
-    await db.collection('opiniones').add({
-        correo, texto, calif: calificacion,
-        fecha: firebase.firestore.Timestamp.now()
-    });
-    const msg = document.getElementById('mensajeOp');
-    msg.style.display = 'block';
-    msg.textContent = '✅ ¡OPINIÓN ENVIADA! ✅';
-    document.getElementById('correoOp').value='';
-    document.getElementById('textoOp').value='';
-    calificacion=0;
-    actualizarEstrellas();
-    setTimeout(()=>msg.style.display='none',5000);
-});
-
-// ==================================================
-// 🕒 EDITAR HORARIOS
-// ==================================================
-document.getElementById('btnGuardarHorarios').addEventListener('click', async () => {
-    const lunes = document.getElementById('editarLunes').value.trim();
-    const sabado = document.getElementById('editarSabado').value.trim();
-    const domingo = document.getElementById('editarDomingo').value.trim();
-
-    if(!lunes || !sabado || !domingo) return alert('⚠️ Completa todos los campos');
-
-    await db.collection('configuracion').doc('horarios').set({
-        lunesViernes: lunes,
-        sabado: sabado,
-        domingo: domingo,
-        actualizado: firebase.firestore.Timestamp.now()
-    });
-
-    document.getElementById('horarioLunes').textContent = lunes;
-    document.getElementById('horarioSabado').textContent = sabado;
-    document.getElementById('horarioDomingo').textContent = domingo;
-    document.getElementById('horarioDomingo').style.color = domingo.toLowerCase().includes('descanso') ? '#e05263' : 'inherit';
-
-    alert('✅ ¡HORARIOS ACTUALIZADOS! ✅');
-    document.getElementById('editarLunes').value='';
-    document.getElementById('editarSabado').value='';
-    document.getElementById('editarDomingo').value='';
-});
-
-// ==================================================
-// ✏️ CAMBIAR FRASE / ESLOGAN
-// ==================================================
-document.getElementById('btnEditarEslogan').addEventListener('click', () => {
-    const fraseActual = document.getElementById('esloganPrincipal').textContent;
-    document.getElementById('nuevoEslogan').value = fraseActual.replace('💖','').trim();
-    document.getElementById('modalEslogan').classList.add('mostrar');
-});
-document.getElementById('cerrarEslogan').addEventListener('click', () => {
-    document.getElementById('modalEslogan').classList.remove('mostrar');
-});
-document.getElementById('btnGuardarEslogan').addEventListener('click', async () => {
-    const nuevaFrase = document.getElementById('nuevoEslogan').value.trim();
-    if(!nuevaFrase) return alert('⚠️ Escribe una frase');
-
-    await db.collection('configuracion').doc('eslogan').set({
-        texto: nuevaFrase,
-        actualizado: firebase.firestore.Timestamp.now()
-    });
-
-    document.getElementById('esloganPrincipal').textContent = nuevaFrase + ' 💖';
-    document.getElementById('modalEslogan').classList.remove('mostrar');
-    alert('✅ ¡FRASE ACTUALIZADA! ✅');
-});
-
-// ==================================================
-// 📷 CARGAR Y AGREGAR FOTOS
-// ==================================================
-async function cargarFotosGaleria() {
-    const galeria = document.getElementById('contenedorFotos');
-    if(!adminActivo && fotosSuscripcion === null) {
-        const ref = await db.collection('fotos').orderBy('fecha','desc').get();
-        mostrarFotos(ref.docs);
-        return;
-    }
-
-    fotosSuscripcion = db.collection('fotos').orderBy('fecha','desc')
-        .onSnapshot(snapshot => {
-            mostrarFotos(snapshot.docs);
-        });
-}
-function mostrarFotos(fotos) {
-    const galeria = document.getElementById('contenedorFotos');
-    galeria.innerHTML = '';
-    if(fotos.length === 0){
-        galeria.innerHTML = "<p class='sin-datos'>📭 Sin fotos todavía. Entra como administradora para agregar.</p>";
-        return;
-    }
-    fotos.forEach(doc => {
-        const f = doc.data();
-        galeria.innerHTML += `
-            <div class='foto-contenedor'>
-                <img src='${f.url}' class='foto-galeria' alt='Foto'>
-                ${adminActivo ? `<button class='boton-eliminar-foto' onclick="quitarFoto('${doc.id}')">×</button>` : ''}
-            </div>`;
-    });
-}
-window.quitarFoto = async function(id) {
-    if(!confirm('¿Eliminar esta foto?')) return;
-    await db.collection('fotos').doc(id).delete();
-    alert('✅ Foto eliminada');
-};
-
-// Subir foto
-document.getElementById('btnSubirFoto').addEventListener('click', async () => {
-    const archivo = document.getElementById('entradaFoto').files[0];
-    if(!archivo) return alert('⚠️ Selecciona una foto');
-
-    const lector = new FileReader();
-    lector.onload = async function(e) {
-        const urlBase64 = e.target.result;
-        await db.collection('fotos').add({
-            url: urlBase64,
-            nombre: archivo.name,
-            fecha: firebase.firestore.Timestamp.now()
-        });
-        alert('✅ ¡FOTO AGREGADA A LA GALERÍA! ✅');
-        document.getElementById('entradaFoto').value = '';
-    };
-    lector.readAsDataURL(archivo);
-});
-
-// ==================================================
-// 📋 CARGAR CONFIGURACIÓN GUARDADA (horarios + frase)
-// ==================================================
-async function cargarConfiguracion() {
-    // Cargar frase
-    const docFrase = await db.collection('configuracion').doc('eslogan').get();
-    if(docFrase.exists) {
-        document.getElementById('esloganPrincipal').textContent = docFrase.data().texto + ' 💖';
-    }
-
-    // Cargar horarios
-    const docHorarios = await db.collection('configuracion').doc('horarios').get();
-    if(docHorarios.exists) {
-        const h = docHorarios.data();
-        document.getElementById('horarioLunes').textContent = h.lunesViernes;
-        document.getElementById('horarioSabado').textContent = h.sabado;
-        document.getElementById('horarioDomingo').textContent = h.domingo;
-        document.getElementById('horarioDomingo').style.color = h.domingo.toLowerCase().includes('descanso') ? '#e05263' : 'inherit';
-    }
-}
-
-// ==================================================
-// 🔐 INICIO DE SESIÓN
-// ==================================================
-document.getElementById('btnEntrarAdmin').onclick = ()=>document.getElementById('modalLogin').classList.add('mostrar');
-document.getElementById('cerrarModal').onclick = ()=>{
-    document.getElementById('modalLogin').classList.remove('mostrar');
-    document.getElementById('respuestaLogin').innerHTML='';
-};
-document.getElementById('btnSalirAdmin').onclick = salirAdmin;
-document.getElementById('btnIngresar').onclick = ()=>{
-    const cor = document.getElementById('correoAdmin').value.trim();
-    const pw = document.getElementById('claveAdmin').value;
-    const res = document.getElementById('respuestaLogin');
-    if(cor===ADMIN_CORREO && pw===ADMIN_CLAVE){
-        res.innerHTML="<span style='color:green; font-weight:bold;'>✅ ¡Bienvenida Laiza!</span>";
-        setTimeout(()=>{
-            document.getElementById('modalLogin').classList.remove('mostrar');
-            document.getElementById('correoAdmin').value='';
-            document.getElementById('claveAdmin').value='';
-            res.innerHTML='';
-            entrarComoAdmin();
-        },1200);
-    }else{
-        res.innerHTML="<span style='color:red; font-weight:bold;'>❌ Datos incorrectos</span>";
-    }
-};
-</script>
-</body>
-</html>
