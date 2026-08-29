@@ -127,14 +127,14 @@
         }
         .foto-publica:hover { transform: scale(1.03); }
 
-        /* ÁREA DE FOTOS PARA ADMIN */
+        /* ÁREA DE FOTOS PARA ADMIN - SOLO LAIZA LA VE AL ENTRAR */
         .subir-foto-caja {
             background: #fffef0;
             padding: 20px;
             border-radius: 15px;
             border-left: 4px solid #f0ad4e;
             text-align: center;
-            margin: 15px 0;
+            margin: 20px 0 0 0;
         }
         .vista-previa-foto {
             display: flex;
@@ -169,7 +169,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .btn-borrar-foto:hover { background: #b51f2e; transform: scale(1.1); }
-        .sin-fotos { color: #888; font-style: italic; padding: 20px; text-align:center; }
+        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align:center; font-size:17px; }
 
         .contacto { text-align: center; background: #f9f2f7; }
         .contacto a { color: #9c6b8c; font-weight: bold; text-decoration: none; }
@@ -410,17 +410,15 @@
 
 <section>
     <h2>📸 Galería de Fotos</h2>
-    <p style="text-align:center; color:#666; font-size:14px;">📷 Para subir fotos: entra con tu clave → sube las fotos a GitHub en la carpeta "imagenes" y escribe aquí el nombre del archivo</p>
     
-    <!-- LO QUE VEN TODOS LOS CLIENTES -->
+    <!-- LO QUE VEN TODOS LOS CLIENTES (LIMPIO, SIN TEXTO FEO) -->
     <div class="galeria" id="galeriaPublica"></div>
 
-    <!-- LO QUE VE SOLO LAIZA AL ENTRAR -->
-    <div id="areaAdminFotos" class="panel-admin" style="background:#fffef0; border-left-color:#ffc107;">
-        <h3>📷 AGREGAR FOTOS — Escribe el nombre del archivo</h3>
+    <!-- SOLO LAIZA VE ESTO AL ENTRAR CON SU CLAVE -->
+    <div id="areaAdminFotos" class="panel-admin" style="background:#fffef0; border-left-color:#ffc107; display:none;">
+        <h3>📷 Agregar Nueva Foto</h3>
         <div class="subir-foto-caja">
-            <p style="margin:0; font-weight:bold;">Ejemplo: si la foto se llama "tratamiento1.jpg" escríbelo abajo</p>
-            <input type="text" id="nombreFoto" placeholder="nombre.jpg o nombre.png" style="margin:10px auto; display:block; width:80%; text-align:center;">
+            <input type="text" id="nombreFoto" placeholder="Escribe el nombre.jpg de tu foto" style="margin:10px auto; display:block; width:80%; text-align:center;">
             <button type="button" class="boton boton-verde" id="btnAgregarFoto">✅ Agregar Foto</button>
         </div>
         <div class="vista-previa-foto" id="vistaPreviaAdmin"></div>
@@ -573,7 +571,7 @@ const vistaPreviaAdmin = document.getElementById('vistaPreviaAdmin');
 const btnAgregarFoto = document.getElementById('btnAgregarFoto');
 const inputNombreFoto = document.getElementById('nombreFoto');
 
-// GUARDAMOS SOLO EL NOMBRE DEL ARCHIVO (para que TODOS lo vean)
+// GUARDAMOS SOLO EL NOMBRE DEL ARCHIVO
 let fotos = JSON.parse(localStorage.getItem('fotosLayaNombres') || '[]');
 
 // ==================== INICIAR SESIÓN ====================
@@ -596,8 +594,8 @@ btnEntrar.addEventListener('click', () => {
         setTimeout(() => {
             ventana.classList.remove('mostrar');
             panelAdmin.classList.add('mostrar');
-            areaFotos.style.display = 'block';
-            btnCerrarSesion.style.display = 'block'; // APARECE el botón arriba
+            areaFotos.style.display = 'block'; // APARECE la caja para subir fotos
+            btnCerrarSesion.style.display = 'block';
             candado.textContent = '🔓';
         }, 800);
     } else {
@@ -609,23 +607,22 @@ btnEntrar.addEventListener('click', () => {
 // ==================== CERRAR SESIÓN ====================
 btnCerrarSesion.addEventListener('click', () => {
     panelAdmin.classList.remove('mostrar');
-    areaFotos.style.display = 'none';
-    btnCerrarSesion.style.display = 'none'; // SE OCULTA al cerrar
+    areaFotos.style.display = 'none'; // DESAPARECE la caja de subir fotos
+    btnCerrarSesion.style.display = 'none';
     candado.textContent = '🔒';
 });
 
-// ==================== GALERÍA DE FOTOS (PÚBLICA) ====================
+// ==================== GALERÍA DE FOTOS ====================
 function dibujarFotos() {
     galeriaPublica.innerHTML = '';
     vistaPreviaAdmin.innerHTML = '';
 
     if (fotos.length === 0) {
         galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
-        vistaPreviaAdmin.innerHTML = '<p class="sin-fotos">No hay fotos aún. Sube tus fotos a la carpeta "imagenes" de GitHub y agrégalas aquí ✨</p>';
         return;
     }
 
-    // FOTOS QUE VEN TODOS LOS CLIENTES
+    // ✅ FOTOS QUE VEN TODOS LOS CLIENTES
     fotos.forEach((nombreArchivo, indice) => {
         const img = document.createElement('img');
         img.src = 'imagenes/' + nombreArchivo;
@@ -635,7 +632,7 @@ function dibujarFotos() {
         galeriaPublica.appendChild(img);
     });
 
-    // FOTOS EN PANEL ADMIN (con botón de borrar)
+    // ✅ FOTOS EN PANEL DE LAIZA (con botón BORRAR)
     fotos.forEach((nombreArchivo, indice) => {
         const caja = document.createElement('div');
         caja.className = 'foto-miniatura';
@@ -650,7 +647,7 @@ function dibujarFotos() {
     document.querySelectorAll('.btn-borrar-foto').forEach(boton => {
         boton.addEventListener('click', function () {
             const id = parseInt(this.dataset.id);
-            if (confirm('¿Eliminar esta foto de la lista?')) {
+            if (confirm('¿Eliminar esta foto?')) {
                 fotos.splice(id, 1);
                 guardarFotos();
                 dibujarFotos();
@@ -663,7 +660,7 @@ function guardarFotos() {
     localStorage.setItem('fotosLayaNombres', JSON.stringify(fotos));
 }
 
-// AGREGAR FOTO ESCRIBIENDO EL NOMBRE
+// ✅ AGREGAR FOTO SOLO ESCRIBIENDO EL NOMBRE
 btnAgregarFoto.addEventListener('click', () => {
     const nombre = inputNombreFoto.value.trim();
     if (!nombre) return alert('⚠️ Escribe el nombre del archivo. Ejemplo: foto1.jpg');
@@ -671,7 +668,7 @@ btnAgregarFoto.addEventListener('click', () => {
     guardarFotos();
     dibujarFotos();
     inputNombreFoto.value = '';
-    alert('✅ Foto agregada. Ahora todos pueden verla. 📸');
+    alert('✅ Foto agregada. ¡Todos pueden verla! 📸');
 });
 
 // ==================== HORARIOS ====================
@@ -821,8 +818,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarHorarios();
     pintarClientes();
     pintarCitas();
-    areaFotos.style.display = 'none';
-    btnCerrarSesion.style.display = 'none'; // OCULTA el botón hasta que entre
+    areaFotos.style.display = 'none'; // OCULTA la caja de fotos a clientes
+    btnCerrarSesion.style.display = 'none';
 });
 </script>
 </body>
