@@ -17,7 +17,6 @@
             --exito: #27ae60;
             --peligro: #e74c3c;
             --sombra: 0 8px 30px rgba(124, 77, 111, 0.12);
-            --sombra-suave: 0 4px 15px rgba(124, 77, 111, 0.08);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -31,98 +30,73 @@
             background: linear-gradient(90deg, var(--color-primario) 0%, var(--color-secundario) 100%);
             color: white;
             text-align: center;
-            padding: 45px 20px 60px;
+            padding: 40px 20px 50px;
             position: relative;
             box-shadow: 0 4px 25px rgba(124, 77, 111, 0.3);
         }
         .barra-superior {
             position: absolute;
-            top: 20px;
-            right: 25px;
+            top: 15px;
+            right: 20px;
             display: flex;
-            gap: 12px;
-            align-items: center;
+            gap: 10px;
         }
         .btn-admin {
             background: rgba(255,255,255,0.22);
             color: white;
             border: none;
-            padding: 10px 18px;
+            padding: 8px 15px;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            backdrop-filter: blur(8px);
         }
-        .btn-admin:hover { 
-            background: rgba(255,255,255,0.35); 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        }
+        .btn-admin:hover { background: rgba(255,255,255,0.35); }
         .btn-salir { display: none; }
         .admin-activo .btn-salir { display: inline-block; }
         .admin-activo .btn-entrar { display: none; }
-        .btn-editar-header {
-            background: rgba(255,255,255,0.18);
-            font-size: 13px;
-            padding: 6px 14px;
-            margin-top: 12px;
-            display: none;
-        }
-        .admin-activo .btn-editar-header { display: inline-block; }
-        h1 { 
-            font-size: 40px; 
-            margin-bottom: 10px; 
-            letter-spacing: 1.2px; 
-            font-weight: 700;
-        }
-        .subtitulo { 
-            font-size: 19px; 
-            opacity: 0.95; 
-            transition: all 0.3s ease; 
-            font-weight: 300;
-        }
-        .contenedor { max-width: 920px; margin: 0 auto; padding: 30px 20px 60px; }
+        h1 { font-size: 36px; margin-bottom: 8px; }
+        .subtitulo { font-size: 18px; opacity: 0.95; }
+        .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
         section {
             background: white;
-            border-radius: 24px;
-            padding: 35px;
-            margin-bottom: 30px;
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 25px;
             box-shadow: var(--sombra);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        section:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(124, 77, 111, 0.15); }
         h2 {
             color: var(--color-primario);
-            font-size: 25px;
+            font-size: 23px;
             text-align: center;
-            margin-bottom: 28px;
-            padding-bottom: 12px;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
             border-bottom: 2px solid var(--borde);
-            font-weight: 600;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
         }
-        .info-lic { text-align: center; font-size: 17px; }
-        .info-lic p { margin: 12px 0; }
+        .info-lic { text-align: center; font-size: 16px; }
+        .info-lic p { margin: 10px 0; }
         .info-lic a { color: var(--color-secundario); font-weight: 600; text-decoration: none; }
-        .info-lic a:hover { text-decoration: underline; }
-        .botones-redes { display: flex; gap: 15px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .botones-redes { display: flex; gap: 12px; justify-content: center; margin-top: 18px; flex-wrap: wrap; }
         .boton {
-            padding: 14px 26px;
+            padding: 12px 18px;
             border: none;
             border-radius: 50px;
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            gap: 6px;
+            text-decoration: none;
+            margin: 4px;
         }
-        .boton:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(0,0,0,0.18); }
-        .boton i { font-size: 18px; }
+        .boton:hover { transform: translateY(-2px); }
         .boton-limpieza { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: white; }
         .boton-hidratacion { background: linear-gradient(90deg, #3498db, #2980b9); color: white; }
         .boton-exfoliacion { background: linear-gradient(90deg, #f39c12, #e67e22); color: white; }
@@ -130,129 +104,83 @@
         .boton-asesoria { background: linear-gradient(90deg, #1abc9c, #16a085); color: white; }
         .boton-promociones { background: linear-gradient(90deg, #ff6b6b, #ee5a24); color: white; }
         .boton-fotos { background: linear-gradient(90deg, #a55eea, #8854d0); color: white; }
-        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; font-size: 16px; padding: 15px 30px; }
-        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-size: 16px; padding: 15px 30px; }
-        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 17px; padding: 16px; }
-        .boton-azul { background: linear-gradient(90deg, #3498db, #2980b9); color: white; width: 100%; justify-content: center; }
-        .boton-guardar { background: linear-gradient(90deg, #27ae60, #1e8449); color: white; padding: 9px 20px; font-size: 14px; border-radius: 50px; }
-        .boton-eliminar-foto { 
-            background: linear-gradient(90deg, #e74c3c, #c0392b); 
-            color: white; border: none; border-radius: 50%; width: 34px; height: 34px; 
-            font-size: 18px; cursor: pointer; position: absolute; top: 6px; right: 6px; display: none;
-            align-items: center; justify-content: center; font-weight: bold;
-        }
-        .admin-activo .boton-eliminar-foto { display: flex; }
-        .boton-editar { 
-            background: linear-gradient(90deg, #f39c12, #e67e22); 
-            color: white; border: none; border-radius: 50px; padding: 6px 14px; 
-            font-size: 13px; cursor: pointer; margin-left: 10px;
-        }
-        .caja-info-serv, .caja-promociones, .caja-fotos {
-            margin-top: 22px; padding: 24px; 
+        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; }
+        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 16px; padding: 14px; }
+        .fila-botones { display: flex; flex-wrap: wrap; gap: 6px; justify-content: center; margin-bottom: 15px; }
+        .caja-info {
+            margin-top: 20px; padding: 22px; 
             background: linear-gradient(135deg, #fdf6f9, #f8eff5);
-            border-radius: 16px; border-left: 5px solid var(--color-secundario);
-            display: none; animation: aparecer 0.4s ease;
+            border-radius: 14px; border-left: 5px solid var(--color-secundario);
+            display: none; animation: aparecer 0.35s ease;
         }
-        .caja-info-serv.mostrar, .caja-promociones.mostrar, .caja-fotos.mostrar { display: block; }
-        @keyframes aparecer { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
-        .form-grupo { margin-bottom: 18px; }
-        label { display: block; margin-bottom: 7px; font-weight: 600; color: var(--color-primario); font-size: 15px; }
-        input, textarea, select {
-            width: 100%; padding: 13px 16px; border: 2px solid var(--borde);
-            border-radius: 12px; font-size: 15px; font-family: inherit;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        .caja-info.mostrar { display: block; }
+        @keyframes aparecer { from { opacity:0; transform: translateY(10px); } to { opacity:1; transform: translateY(0); } }
+        .caja-info h3 { color: var(--color-primario); margin-bottom: 12px; font-size: 18px; }
+        label { display: block; margin-bottom: 6px; font-weight: 600; color: var(--color-primario); font-size: 14px; }
+        input, textarea {
+            width: 100%; padding: 11px 14px; border: 2px solid var(--borde);
+            border-radius: 10px; font-size: 15px; font-family: inherit;
+            margin-bottom: 12px;
         }
-        input:focus, textarea:focus { 
-            outline: none; border-color: var(--color-secundario); 
-            box-shadow: 0 0 0 4px rgba(168, 111, 155, 0.15);
-        }
-        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        input:focus, textarea:focus { outline: none; border-color: var(--color-secundario); }
+        .tres-columnas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
         .mensaje-exito {
-            background: #e6f9ee; color: #20754f; padding: 15px;
-            border-radius: 12px; text-align: center; font-weight: 600;
-            margin-top: 16px; display: none;
-            border-left: 4px solid #27ae60;
+            background: #e6f9ee; color: #20754f; padding: 12px;
+            border-radius: 10px; text-align: center; font-weight: 600;
+            margin-top: 12px; display: none;
         }
-        .solo-admin, .historial, .editar-seccion { display: none; }
-        .admin-activo .solo-admin, .admin-activo .historial, .admin-activo .editar-seccion { display: block; }
-        .solo-admin { margin-top: 32px; padding-top: 28px; border-top: 2px dashed var(--borde); }
-        .aviso-recarga { text-align: center; margin-top: 12px; color: var(--color-primario); font-size: 14px; font-style: italic; }
-        .tarjeta-cita, .tarjeta-registro {
-            background: linear-gradient(135deg, #fdf6f9, #f8eff5); 
-            border-radius: 14px; padding: 18px;
-            margin-bottom: 14px; border-left: 5px solid var(--color-secundario);
-            box-shadow: var(--sombra-suave);
+        .solo-admin { display: none; margin-top: 20px; padding: 15px; background: #fffbf0; border-radius: 12px; border: 2px dashed #f4d03f; }
+        .admin-activo .solo-admin { display: block; }
+        .btn-editar { 
+            background: linear-gradient(90deg, #f39c12, #e67e22); 
+            color: white; border: none; border-radius: 50px; padding: 4px 10px; 
+            font-size: 12px; cursor: pointer;
         }
-        .tarjeta-cita h4 { color: var(--color-primario); margin-bottom: 8px; font-size: 16px; }
-        .btn-eliminar-cita, .btn-eliminar-opinion {
-            margin-top: 12px; padding: 8px 16px; font-size: 13px;
-            border-radius: 50px; border: none;
-            background: linear-gradient(90deg, #e74c3c, #c0392b);
-            color: white; cursor: pointer; font-weight: 600;
-        }
-        .estrellas { font-size: 36px; color: #ddd; cursor: pointer; text-align: center; margin: 12px 0; user-select: none; letter-spacing: 4px; }
-        .estrella { transition: color 0.25s ease; }
-        .estrella.activa { color: #f4c542; text-shadow: 0 0 8px rgba(244, 197, 66, 0.4); }
-        .galeria { display: flex; flex-wrap: wrap; gap: 18px; justify-content: center; margin-top: 18px; }
-        .foto-contenedor { position: relative; border-radius: 14px; overflow: hidden; box-shadow: 0 6px 18px rgba(0,0,0,0.12); transition: transform 0.3s ease; }
-        .foto-contenedor:hover { transform: scale(1.03); }
-        .foto-galeria { width: 170px; height: 170px; object-fit: cover; display: block; }
-        .caja-subir-foto { 
-            background: linear-gradient(135deg, #eef9f4, #e0f2e9); 
-            padding: 18px; border-radius: 14px; margin-top: 18px; 
-            border: 2px dashed var(--exito); 
-        }
-        .historial { 
-            background: linear-gradient(135deg, #f4f4fc, #ebebf7); 
-            border: 2px solid #d4d4f0; border-radius: 16px; padding: 25px; margin-top: 28px; 
-        }
-        table { width: 100%; border-collapse: separate; border-spacing: 0; margin-top: 12px; border-radius: 14px; overflow: hidden; box-shadow: var(--sombra-suave); }
-        th, td { padding: 14px; text-align: center; border-bottom: 1px solid #f0e4ed; }
-        th { background: linear-gradient(90deg, var(--color-primario), var(--color-secundario)); color: white; font-weight: 600; }
-        tr:last-child td { border-bottom: none; }
-        tr:nth-child(even) { background: #fdf6f9; }
+        .btn-guardar { background: linear-gradient(90deg, #27ae60, #1e8449); color: white; border: none; border-radius: 50px; padding: 7px 16px; font-size: 14px; cursor: pointer; margin-top: 5px; }
+        .espacio-edicion { margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.6); border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 12px; text-align: center; border-bottom: 1px solid #f0e4ed; }
+        th { background: linear-gradient(90deg, var(--color-primario), var(--color-secundario)); color: white; }
         .modal-fondo {
             position: fixed; inset: 0; background: rgba(0,0,0,0.6);
             display: none; align-items: center; justify-content: center; z-index: 999;
-            backdrop-filter: blur(6px);
         }
         .modal-fondo.mostrar { display: flex; }
         .modal-caja {
-            background: white; border-radius: 22px; padding: 35px; width: 400px; max-width: 92%;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.3); position: relative;
-            animation: aparecer 0.35s ease;
+            background: white; border-radius: 20px; padding: 30px; width: 90%; max-width: 450px;
+            max-height: 90vh; overflow-y: auto;
         }
-        .modal-caja h3 { text-align: center; color: var(--color-primario); margin-bottom: 24px; font-size: 22px; }
-        .cerrar-modal {
-            position: absolute; top: 15px; right: 18px;
-            border: none; background: none; font-size: 26px;
-            cursor: pointer; color: #aaa; transition: color 0.2s ease;
+        .modal-caja h3 { text-align: center; color: var(--color-primario); margin-bottom: 15px; }
+        .cerrar-modal { float: right; border: none; background: none; font-size: 24px; cursor: pointer; color: #999; margin-top: -10px; }
+        footer { text-align: center; padding: 20px; color: #887f86; font-size: 13px; margin-top: 10px; }
+        .sin-datos { text-align: center; color: #999; padding: 15px; font-style: italic; }
+        
+        /* ⭐ ESTRELLAS DE CALIFICACIÓN */
+        .contenedor-estrellas {
+            font-size: 30px;
+            color: #ddd;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px 0;
+            user-select: none;
         }
-        .cerrar-modal:hover { color: var(--peligro); }
-        .sin-datos { text-align: center; color: #999; padding: 30px; font-style: italic; }
-        footer { text-align: center; padding: 25px; color: #887f86; font-size: 14px; margin-top: 10px; }
-        .cargando { text-align: center; padding: 18px; color: var(--color-primario); font-weight: 500; }
-        .fila-botones { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-bottom: 15px; }
-        .editar-seccion { 
-            background: linear-gradient(135deg, #fffbf0, #fff8e1); 
-            padding: 22px; border-radius: 14px; margin-top: 20px; 
-            border: 2px dashed #f4d03f; 
-        }
-        .editar-seccion h4 { color: #b8860b; margin-bottom: 14px; font-size: 16px; }
-        .grupo-edicion { border-bottom: 1px dashed #f0d890; padding-bottom: 16px; margin-bottom: 16px; }
-        .grupo-edicion:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
+        .contenedor-estrellas .estrella { transition: color 0.2s ease; }
+        .contenedor-estrellas .estrella.activa { color: #f4c542; text-shadow: 0 0 5px rgba(244,197,66,0.4); }
+        .caja-comentarios { margin-top: 15px; }
+        .comentario { padding: 10px; background: #fdf6f9; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid var(--color-secundario); }
+        .comentario-estrellas { color: #f4c542; font-size: 14px; }
     </style>
 </head>
 <body>
 
 <header>
     <div class="barra-superior">
-        <button class="btn-admin btn-salir" id="btnSalirAdmin"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
-        <button class="btn-admin btn-entrar" id="btnEntrarAdmin"><i class="fas fa-lock"></i> Acceso Administradora</button>
+        <button class="btn-admin btn-salir" id="btnSalir"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        <button class="btn-admin btn-entrar" id="btnLogin"><i class="fas fa-lock"></i> Admin</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
-    <p class="subtitulo" id="esloganPrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
-    <button class="btn-admin btn-editar-header" id="btnEditarEslogan"><i class="fas fa-pen"></i> Cambiar frase principal</button>
+    <p class="subtitulo" id="frasePrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
 </header>
 
 <div class="contenedor" id="raiz">
@@ -262,6 +190,7 @@
     <div class="info-lic">
         <p><strong>Especialista en cuidado facial y estética</strong></p>
         <p>📍 <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver ubicación en Google Maps</a></p>
+        <p>📞 +52 1 729 633 6318</p>
         <div class="botones-redes">
             <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-whatsapp">
                 <i class="fab fa-whatsapp"></i> WhatsApp
@@ -275,243 +204,214 @@
 
 <section>
     <h2>
-        <span id="tituloServicios">💆‍♀️ Nuestros Servicios</span>
-        <button class="boton-editar solo-admin" id="btnEditarServicios"><i class="fas fa-pen"></i> Editar</button>
+        💆‍♀️ Nuestros Servicios
+        <button class="btn-editar solo-admin" id="btnEditarServicios">✏️ Editar</button>
     </h2>
     <div class="fila-botones">
-        <button class="boton boton-limpieza" id="btnLimpieza">
-            <i class="fas fa-soap"></i> <span id="txtLimpieza">Limpieza Facial</span>
-        </button>
-        <button class="boton boton-hidratacion" id="btnHidratacion">
-            <i class="fas fa-tint"></i> <span id="txtHidratacion">Hidratación</span>
-        </button>
-        <button class="boton boton-exfoliacion" id="btnExfoliacion">
-            <i class="fas fa-sparkles"></i> <span id="txtExfoliacion">Exfoliación</span>
-        </button>
-        <button class="boton boton-piel" id="btnPiel">
-            <i class="fas fa-heart"></i> <span id="txtPiel">Piel Sensible</span>
-        </button>
-        <button class="boton boton-asesoria" id="btnAsesoria">
-            <i class="fas fa-gem"></i> <span id="txtAsesoria">Asesoría</span>
-        </button>
-        <button class="boton boton-promociones" id="btnPromociones">
-            <i class="fas fa-tags"></i> <span id="txtPromociones">Promociones</span>
-        </button>
-        <button class="boton boton-fotos" id="btnGaleria">
-            <i class="fas fa-images"></i> <span id="txtGaleria">Galería de Fotos</span>
-        </button>
+        <button class="boton boton-limpieza" onclick="mostrarServicio('serv1')" id="txtBtn1">Limpieza Facial</button>
+        <button class="boton boton-hidratacion" onclick="mostrarServicio('serv2')" id="txtBtn2">Hidratación</button>
+        <button class="boton boton-exfoliacion" onclick="mostrarServicio('serv3')" id="txtBtn3">Exfoliación</button>
+        <button class="boton boton-piel" onclick="mostrarServicio('serv4')" id="txtBtn4">Piel Sensible</button>
+        <button class="boton boton-asesoria" onclick="mostrarServicio('serv5')" id="txtBtn5">Asesoría</button>
+        <button class="boton boton-promociones" onclick="mostrarServicio('serv6')" id="txtBtn6">Promociones</button>
+        <button class="boton boton-fotos" onclick="mostrarServicio('serv7')" id="txtBtn7">Galería</button>
     </div>
 
-    <div id="cajaLimpieza" class="caja-info-serv">
-        <h3>🧼 Limpieza Facial Profunda</h3>
-        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+    <div id="serv1" class="caja-info">
+        <h3 id="titServ1">🧼 Limpieza Facial Profunda</h3>
+        <p id="descServ1">Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+        <p><strong>Precio: </strong><span id="precio1">$350 MXN</span></p>
     </div>
-    <div id="cajaHidratacion" class="caja-info-serv">
-        <h3>💧 Hidratación y Nutrición</h3>
-        <p>Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural. Ideal para piel seca o deshidratada.</p>
+    <div id="serv2" class="caja-info">
+        <h3 id="titServ2">💧 Hidratación y Nutrición</h3>
+        <p id="descServ2">Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural.</p>
+        <p><strong>Precio: </strong><span id="precio2">$300 MXN</span></p>
     </div>
-    <div id="cajaExfoliacion" class="caja-info-serv">
-        <h3>✨ Exfoliación Renovadora</h3>
-        <p>Renovamos tu piel eliminando células muertas. Mejora la textura y el tono. Tu piel se ve más joven, suave y luminosa desde la primera sesión.</p>
+    <div id="serv3" class="caja-info">
+        <h3 id="titServ3">✨ Exfoliación Renovadora</h3>
+        <p id="descServ3">Renovamos tu piel eliminando células muertas. Mejora la textura y el tono.</p>
+        <p><strong>Precio: </strong><span id="precio3">$280 MXN</span></p>
     </div>
-    <div id="cajaPiel" class="caja-info-serv">
-        <h3>🌸 Cuidado para Piel Sensible</h3>
-        <p>Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
+    <div id="serv4" class="caja-info">
+        <h3 id="titServ4">🌸 Cuidado para Piel Sensible</h3>
+        <p id="descServ4">Productos suaves y delicados, sin químicos agresivos. Calma y protege tu piel.</p>
+        <p><strong>Precio: </strong><span id="precio4">$320 MXN</span></p>
     </div>
-    <div id="cajaAsesoria" class="caja-info-serv">
-        <h3>💎 Asesoría Personalizada</h3>
-        <p>Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
+    <div id="serv5" class="caja-info">
+        <h3 id="titServ5">💎 Asesoría Personalizada</h3>
+        <p id="descServ5">Te guiamos paso a paso. Evaluamos tu piel y recomendamos la rutina ideal.</p>
+        <p><strong>Precio: </strong><span id="precio5">¡Gratis!</span></p>
     </div>
-    <div id="cajaPromociones" class="caja-promociones">
-        <h3>🔥 Promociones Especiales</h3>
-        <p><strong>✨ Paquete Completo:</strong> Limpieza + Hidratación con 15% de descuento 💜</p>
-        <p><strong>🌸 Primera Visita:</strong> 10% de descuento en tu primer tratamiento</p>
-        <p><strong>👭 Tratamiento en Pareja:</strong> 20% de descuento al venir acompañada</p>
+    <div id="serv6" class="caja-info">
+        <h3 id="titServ6">🔥 Promociones Especiales</h3>
+        <div id="textoPromos">
+            <p>✨ Paquete Completo: Limpieza + Hidratación con 15% de descuento</p>
+            <p>🌸 Primera Visita: 10% de descuento</p>
+            <p>👭 Tratamiento en Pareja: 20% de descuento</p>
+        </div>
     </div>
-    <div id="cajaGaleria" class="caja-fotos">
+    <div id="serv7" class="caja-info">
         <h3>📷 Galería de Fotos</h3>
-        <div class="galeria" id="contenedorFotos">
-            <p class="sin-datos">Aquí aparecerán las fotos agregadas</p>
-        </div>
-        <div class="caja-subir-foto solo-admin">
-            <h4><i class="fas fa-cloud-upload-alt"></i> Agregar Foto Nueva</h4>
-            <input type="file" id="entradaFoto" accept="image/*" style="margin:12px 0; width:100%;">
-            <button class="boton boton-verde" id="btnSubirFoto">
-                <i class="fas fa-plus-circle"></i> Subir Foto
-            </button>
-        </div>
-    </div>
-
-    <div class="editar-seccion" id="panelEditarServicios">
-        <h4>✏️ Editar Servicios y Botones</h4>
-        <div class="grupo-edicion">
-            <label>Título de sección</label>
-            <input type="text" id="editarTituloServicios" placeholder="Nuestros Servicios">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 1 — Limpieza (texto)</label>
-            <input type="text" id="editarTxtLimpieza" placeholder="Limpieza Facial">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 2 — Hidratación</label>
-            <input type="text" id="editarTxtHidratacion" placeholder="Hidratación">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 3 — Exfoliación</label>
-            <input type="text" id="editarTxtExfoliacion" placeholder="Exfoliación">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 4 — Piel Sensible</label>
-            <input type="text" id="editarTxtPiel" placeholder="Piel Sensible">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 5 — Asesoría</label>
-            <input type="text" id="editarTxtAsesoria" placeholder="Asesoría">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 6 — Promociones</label>
-            <input type="text" id="editarTxtPromociones" placeholder="Promociones">
-        </div>
-        <div class="grupo-edicion">
-            <label>Botón 7 — Galería</label>
-            <input type="text" id="editarTxtGaleria" placeholder="Galería de Fotos">
-        </div>
-        <button class="boton boton-guardar" id="btnGuardarServicios"><i class="fas fa-save"></i> Guardar Cambios</button>
+        <p class="sin-datos">Aquí aparecerán las fotos agregadas</p>
     </div>
 </section>
 
 <section>
     <h2>
-        <span id="tituloAgendar">📅 Agendar tu Cita</span>
-        <button class="boton-editar solo-admin" id="btnEditarAgendar"><i class="fas fa-pen"></i> Editar</button>
+        📅 Agendar tu Cita
+        <button class="btn-editar solo-admin" id="btnEditarAgenda">✏️ Editar Horarios</button>
     </h2>
-    <form id="formCita">
-        <div class="form-grupo"><label id="lblNombre">Tu Nombre Completo 👤</label><input type="text" id="nombre" required placeholder="Escribe tu nombre completo"></div>
-        <div class="form-grupo"><label id="lblTelefono">Teléfono o WhatsApp 📱</label><input type="tel" id="telefono" required placeholder="Ej: 729 123 4567"></div>
-        <div class="form-grupo tres-columnas">
-            <div><label id="lblDia">Día</label><input type="number" id="dia" min="1" max="31" required></div>
-            <div><label id="lblMes">Mes</label><input type="number" id="mes" min="1" max="12" required></div>
-            <div><label id="lblAnio">Año</label><input type="number" id="anio" min="2026" required></div>
+    <div>
+        <label>Tu Nombre Completo 👤</label>
+        <input type="text" id="nombre" placeholder="Escribe tu nombre completo">
+        
+        <label>Teléfono o WhatsApp 📱</label>
+        <input type="tel" id="telefono" placeholder="Ej: 729 123 4567">
+        
+        <div class="tres-columnas">
+            <div><label>Día</label><input type="number" id="dia" min="1" max="31"></div>
+            <div><label>Mes</label><input type="number" id="mes" min="1" max="12"></div>
+            <div><label>Año</label><input type="number" id="anio" min="2026"></div>
         </div>
-        <div class="form-grupo"><label id="lblHora">Hora ⏰</label><input type="time" id="hora" required></div>
-        <div class="form-grupo"><label id="lblComentario">Servicio o comentario 💭</label><textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea></div>
-        <button type="button" class="boton boton-verde" id="btnGuardarCita">
-            <i class="fas fa-calendar-check"></i> <span id="txtBtnCita">AGENDAR CITA AHORA</span>
-        </button>
-        <div class="mensaje-exito" id="mensajeCita"></div>
-    </form>
-
-    <div class="editar-seccion" id="panelEditarAgendar">
-        <h4>✏️ Editar Sección Agendar Cita</h4>
-        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloAgendar"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Nombre</label><input type="text" id="editarLblNombre"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Teléfono</label><input type="text" id="editarLblTelefono"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Día</label><input type="text" id="editarLblDia"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Mes</label><input type="text" id="editarLblMes"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Año</label><input type="text" id="editarLblAnio"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Hora</label><input type="text" id="editarLblHora"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Comentario</label><input type="text" id="editarLblComentario"></div>
-        <div class="grupo-edicion"><label>Texto del botón</label><input type="text" id="editarTxtBtnCita"></div>
-        <button class="boton boton-guardar" id="btnGuardarAgendar"><i class="fas fa-save"></i> Guardar Cambios</button>
+        
+        <label>Hora ⏰</label>
+        <input type="time" id="hora">
+        
+        <label>Servicio o comentario 💭</label>
+        <textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea>
+        
+        <button class="boton boton-verde" id="btnGuardarCita">📝 AGENDAR CITA AHORA</button>
+        <div class="mensaje-exito" id="mensajeCita">✅ ¡Cita agendada con éxito!</div>
     </div>
-
-    <div class="solo-admin">
-        <p class="aviso-recarga">🔄 Las citas aparecen automáticamente aquí</p>
-        <h3><i class="fas fa-clipboard-list"></i> Citas Recibidas</h3>
-        <div id="listaCitas" class="sin-datos">📭 Sin citas todavía</div>
+    
+    <!-- AGENDA SOLO VISIBLE PARA ADMIN -->
+    <div class="solo-admin" id="cajaAgenda">
+        <h3>📋 Citas Agendadas</h3>
+        <div id="listaCitas" class="sin-datos">Sin citas aún</div>
     </div>
 </section>
 
 <section>
-    <h2>
-        <span id="tituloOpiniones">💬 Opiniones de Nuestros Clientes</span>
-        <button class="boton-editar solo-admin" id="btnEditarOpiniones"><i class="fas fa-pen"></i> Editar</button>
-    </h2>
-    <div class="form-grupo"><label id="lblCorreoOp">Tu correo 📧</label><input type="email" id="correoOp" placeholder="tu.correo@ejemplo.com"></div>
-    <div class="form-grupo"><label id="lblTextoOp">Tu opinión ✍️</label><textarea id="textoOp" rows="4" placeholder="Cuéntanos tu experiencia..."></textarea></div>
-    <div class="estrellas" id="cajaEstrellas">
+    <h2>🕒 Horarios de Atención</h2>
+    <table id="tablaHorarios">
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr><td id="dias1">Lunes a Viernes</td><td id="hora1">9:00 AM — 6:00 PM</td></tr>
+        <tr><td id="dias2">Sábado</td><td id="hora2">9:00 AM — 3:00 PM</td></tr>
+        <tr><td id="dias3">Domingo</td><td id="hora3" style="color:#e05263;"><strong>Descanso</strong></td></tr>
+    </table>
+</section>
+
+<section>
+    <h2>⭐ Opiniones de Clientes</h2>
+    
+    <!-- ⭐ SISTEMA DE ESTRELLAS -->
+    <label>Tu calificación:</label>
+    <div class="contenedor-estrellas" id="estrellas">
         <span class="estrella" data-valor="1">★</span>
         <span class="estrella" data-valor="2">★</span>
         <span class="estrella" data-valor="3">★</span>
         <span class="estrella" data-valor="4">★</span>
         <span class="estrella" data-valor="5">★</span>
     </div>
-    <p style="text-align:center; color:#777;" id="textoAyudaEstrellas">Toca una estrella para calificarnos ⭐</p>
-    <button type="button" class="boton boton-azul" id="btnEnviarOp">
-        <i class="fas fa-paper-plane"></i> <span id="txtBtnOpinion">Enviar Opinión</span>
-    </button>
-    <div class="mensaje-exito" id="mensajeOp"></div>
-
-    <div class="editar-seccion" id="panelEditarOpiniones">
-        <h4>✏️ Editar Sección Opiniones</h4>
-        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloOpiniones"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Correo</label><input type="text" id="editarLblCorreoOp"></div>
-        <div class="grupo-edicion"><label>Etiqueta — Opinión</label><input type="text" id="editarLblTextoOp"></div>
-        <div class="grupo-edicion"><label>Texto de ayuda estrellas</label><input type="text" id="editarAyudaEstrellas"></div>
-        <div class="grupo-edicion"><label>Texto del botón</label><input type="text" id="editarTxtBtnOpinion"></div>
-        <button class="boton boton-guardar" id="btnGuardarOpiniones"><i class="fas fa-save"></i> Guardar Cambios</button>
-    </div>
-
-    <div class="historial">
-        <h3 id="tituloHistorialOp"><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
-        <div id="listaOpiniones" class="sin-datos">📭 Sin opiniones todavía</div>
-    </div>
-</section>
-
-<section>
-    <h2>
-        <span id="tituloHorarios">🕒 Horarios de Atención</span>
-        <button class="boton-editar solo-admin" id="btnEditarHorarios"><i class="fas fa-pen"></i> Editar</button>
-    </h2>
-    <table id="tablaHorarios">
-        <tr><th id="etiquetaDia">Día</th><th id="etiquetaHora">Horario</th></tr>
-        <tr><td id="nombreLunes">Lunes a Viernes</td><td id="horarioLunes">9:00 AM — 6:00 PM</td></tr>
-        <tr><td id="nombreSabado">Sábado</td><td id="horarioSabado">9:00 AM — 3:00 PM</td></tr>
-        <tr><td id="nombreDomingo">Domingo</td><td id="horarioDomingo" style="color:#e05263;"><strong>Descanso</strong></td></tr>
-    </table>
-
-    <div class="editar-seccion" id="panelEditarHorarios">
-        <h4>✏️ Editar Horarios y Días</h4>
-        <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloHorarios"></div>
-        <div class="grupo-edicion">
-            <label>Día 1 — Nombre</label><input type="text" id="editarNombreLunes" placeholder="Lunes a Viernes">
-            <label>Horario</label><input type="text" id="editarHorarioLunes" placeholder="9:00 AM — 6:00 PM">
-        </div>
-        <div class="grupo-edicion">
-            <label>Día 2 — Nombre</label><input type="text" id="editarNombreSabado" placeholder="Sábado">
-            <label>Horario</label><input type="text" id="editarHorarioSabado" placeholder="9:00 AM — 3:00 PM">
-        </div>
-        <div class="grupo-edicion">
-            <label>Día 3 — Nombre</label><input type="text" id="editarNombreDomingo" placeholder="Domingo">
-            <label>Horario</label><input type="text" id="editarHorarioDomingo" placeholder="Descanso">
-        </div>
-        <button class="boton boton-guardar" id="btnGuardarHorarios"><i class="fas fa-save"></i> Guardar Cambios</button>
+    
+    <label>Tu nombre:</label>
+    <input type="text" id="nombreCliente" placeholder="Escribe tu nombre">
+    
+    <label>Tu comentario:</label>
+    <textarea id="comentarioCliente" rows="3" placeholder="¿Qué opinas de nuestro servicio?"></textarea>
+    
+    <button class="boton boton-verde" id="btnEnviarComentario">💬 Enviar Opinión</button>
+    <div class="mensaje-exito" id="mensajeOpinion">✅ ¡Gracias por tu opinión!</div>
+    
+    <div class="caja-comentarios" id="listaOpiniones">
+        <h4>Comentarios:</h4>
+        <div id="opiniones"></div>
     </div>
 </section>
 
 </div>
 
+<!-- MODAL DE LOGIN -->
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
         <button class="cerrar-modal" id="cerrarModal">&times;</button>
-        <h3>🔐 Acceso de Laiza</h3>
-        <div class="form-grupo"><label>Correo</label><input type="email" id="correoAdmin" placeholder="laya@gmail.com"></div>
-        <div class="form-grupo"><label>Contraseña</label><input type="password" id="claveAdmin" placeholder="Tu contraseña"></div>
-        <div id="respuestaLogin" style="text-align:center; margin:12px 0;"></div>
-        <button class="boton boton-limpieza" id="btnIngresar" style="width:100%; margin-top:8px;">
-            <i class="fas fa-sign-in-alt"></i> Ingresar
-        </button>
+        <h3>🔐 Acceso de Administradora</h3>
+        <label>Correo</label>
+        <input type="email" id="correoAdmin" placeholder="laya@gmail.com">
+        <label>Contraseña</label>
+        <input type="password" id="claveAdmin" placeholder="Tu contraseña">
+        <button class="boton boton-verde" id="btnIngresar" style="margin-top:10px;">Ingresar</button>
+        <p id="respuestaLogin" style="color:red; text-align:center; margin-top:10px;"></p>
     </div>
 </div>
 
-<div class="modal-fondo" id="modalEslogan">
+<!-- MODAL EDITAR SERVICIOS -->
+<div class="modal-fondo" id="modalEditarServicios">
     <div class="modal-caja">
-        <button class="cerrar-modal" id="cerrarEslogan">&times;</button>
-        <h3>✏️ Cambiar frase principal</h3>
-        <div class="form-grupo"><label>Nueva frase</label><input type="text" id="nuevoEslogan" placeholder="El tiempo no vuelve, tu belleza sí"></div>
-        <button class="boton boton-guardar" id="btnGuardarEslogan" style="width:100%; margin-top:10px;">
-            <i class="fas fa-save"></i> Guardar Frase
-        </button>
+        <button class="cerrar-modal" id="cerrarEdServ">&times;</button>
+        <h3>✏️ Editar Servicios y Precios</h3>
+        <div class="espacio-edicion">
+            <label>Texto Botón 1:</label>
+            <input type="text" id="edBtn1">
+            <label>Descripción:</label>
+            <textarea id="edDesc1"></textarea>
+            <label>Precio:</label>
+            <input type="text" id="edPrecio1">
+        </div>
+        <div class="espacio-edicion">
+            <label>Texto Botón 2:</label>
+            <input type="text" id="edBtn2">
+            <label>Descripción:</label>
+            <textarea id="edDesc2"></textarea>
+            <label>Precio:</label>
+            <input type="text" id="edPrecio2">
+        </div>
+        <div class="espacio-edicion">
+            <label>Texto Botón 3:</label>
+            <input type="text" id="edBtn3">
+            <label>Descripción:</label>
+            <textarea id="edDesc3"></textarea>
+            <label>Precio:</label>
+            <input type="text" id="edPrecio3">
+        </div>
+        <div class="espacio-edicion">
+            <label>Texto Botón 4:</label>
+            <input type="text" id="edBtn4">
+            <label>Descripción:</label>
+            <textarea id="edDesc4"></textarea>
+            <label>Precio:</label>
+            <input type="text" id="edPrecio4">
+        </div>
+        <div class="espacio-edicion">
+            <label>Texto Botón 5:</label>
+            <input type="text" id="edBtn5">
+            <label>Descripción:</label>
+            <textarea id="edDesc5"></textarea>
+            <label>Precio:</label>
+            <input type="text" id="edPrecio5">
+        </div>
+        <div class="espacio-edicion">
+            <label>Texto Botón 6 (Promociones):</label>
+            <input type="text" id="edBtn6">
+            <label>Promociones (escribe cada una en renglón separado):</label>
+            <textarea id="edPromos"></textarea>
+        </div>
+        <button class="boton boton-verde" id="btnGuardarServicios">💾 Guardar Cambios</button>
+    </div>
+</div>
+
+<!-- MODAL EDITAR HORARIOS -->
+<div class="modal-fondo" id="modalEditarHorarios">
+    <div class="modal-caja">
+        <button class="cerrar-modal" id="cerrarEdHor">&times;</button>
+        <h3>✏️ Editar Horarios</h3>
+        <label>Lunes a Viernes:</label>
+        <input type="text" id="edHorario1">
+        <label>Sábado:</label>
+        <input type="text" id="edHorario2">
+        <label>Domingo:</label>
+        <input type="text" id="edHorario3">
+        <button class="boton boton-verde" id="btnGuardarHorarios">💾 Guardar Horarios</button>
     </div>
 </div>
 
@@ -521,100 +421,321 @@
 // ==================================================
 // 🔐 DATOS DE ACCESO
 // ==================================================
-const ADMIN_CORREO = "laya@gmail.com";
-const ADMIN_CLAVE = "Laya2026";
+const CORREO_ADMIN = "laya@gmail.com";
+const CLAVE_ADMIN = "Laya2026";
+let calificacionEstrellas = 0;
 
 // ==================================================
-// 📱 VARIABLES
+// ✅ FUNCION: MOSTRAR SERVICIOS AL HACER CLIC
 // ==================================================
-let adminActivo = false;
-let calificacion = 0;
-let fotosGuardadas = [];
-
-// ==================================================
-// 🔄 AL CARGAR LA PÁGINA
-// ==================================================
-window.onload = function() {
-    const sesion = localStorage.getItem('_adminSesion');
-    if (sesion === 'activa') entrarComoAdmin();
-    
-    configurarBotonesServicios();
-    configurarEstrellas();
-    cargarDatosGuardados();
-};
-
-// ==================================================
-// ✅ FUNCION PRINCIPAL: BOTONES DE SERVICIOS
-// ==================================================
-function configurarBotonesServicios() {
-    // Botón Limpieza
-    document.getElementById('btnLimpieza').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaLimpieza').classList.add('mostrar');
-    });
-    // Botón Hidratación
-    document.getElementById('btnHidratacion').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaHidratacion').classList.add('mostrar');
-    });
-    // Botón Exfoliación
-    document.getElementById('btnExfoliacion').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaExfoliacion').classList.add('mostrar');
-    });
-    // Botón Piel Sensible
-    document.getElementById('btnPiel').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaPiel').classList.add('mostrar');
-    });
-    // Botón Asesoría
-    document.getElementById('btnAsesoria').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaAsesoria').classList.add('mostrar');
-    });
-    // Botón Promociones
-    document.getElementById('btnPromociones').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaPromociones').classList.add('mostrar');
-    });
-    // Botón Galería
-    document.getElementById('btnGaleria').addEventListener('click', function(){
-        ocultarTodasCajas();
-        document.getElementById('cajaGaleria').classList.add('mostrar');
-    });
-}
-
-// Oculta TODAS las cajas de información
-function ocultarTodasCajas() {
-    document.querySelectorAll('.caja-info-serv, .caja-promociones, .caja-fotos').forEach(function(caja){
-        caja.classList.remove('mostrar');
-    });
+function mostrarServicio(idCaja) {
+    // OCULTAR TODAS LAS CAJAS
+    const todasLasCajas = document.querySelectorAll('.caja-info');
+    for (let i = 0; i < todasLasCajas.length; i++) {
+        todasLasCajas[i].classList.remove('mostrar');
+    }
+    // MOSTRAR LA SELECCIONADA
+    document.getElementById(idCaja).classList.add('mostrar');
 }
 
 // ==================================================
-// ⭐ SISTEMA DE ESTRELLAS
+// ⭐ SISTEMA DE ESTRELLAS DE CALIFICACIÓN
 // ==================================================
 function configurarEstrellas() {
-    const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
+    const estrellas = document.querySelectorAll('#estrellas .estrella');
+    
     estrellas.forEach(estrella => {
+        estrella.addEventListener('mouseover', function() {
+            iluminarEstrellas(this.dataset.valor);
+        });
         estrella.addEventListener('click', function() {
-            calificacion = parseInt(this.dataset.valor);
-            actualizarEstrellas();
+            calificacionEstrellas = this.dataset.valor;
+            iluminarEstrellas(this.dataset.valor);
         });
     });
+    
+    document.getElementById('estrellas').addEventListener('mouseleave', function() {
+        iluminarEstrellas(calificacionEstrellas);
+    });
 }
-function actualizarEstrellas() {
-    const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
+function iluminarEstrellas(valor) {
+    const estrellas = document.querySelectorAll('#estrellas .estrella');
     estrellas.forEach(estrella => {
-        const valor = parseInt(estrella.dataset.valor);
-        estrella.classList.toggle('activa', valor <= calificacion);
+        if (estrella.dataset.valor <= valor) {
+            estrella.classList.add('activa');
+        } else {
+            estrella.classList.remove('activa');
+        }
     });
 }
 
 // ==================================================
-// 🔐 INICIO Y CIERRE DE SESIÓN
+// 💬 ENVIAR COMENTARIO / OPINIÓN
 // ==================================================
-document.getElementById('btnEntrarAdmin').addEventListener('click', function(){
+document.getElementById('btnEnviarComentario').addEventListener('click', function(){
+    const nombre = document.getElementById('nombreCliente').value.trim();
+    const comentario = document.getElementById('comentarioCliente').value.trim();
+    
+    if (!nombre || !comentario || calificacionEstrellas === 0) {
+        alert('❌ Escribe tu nombre, selecciona estrellas y tu comentario');
+        return;
+    }
+    
+    const opiniones = JSON.parse(localStorage.getItem('opiniones') || '[]');
+    opiniones.unshift({
+        nombre: nombre,
+        estrellas: calificacionEstrellas,
+        texto: comentario,
+        fecha: new Date().toLocaleString()
+    });
+    localStorage.setItem('opiniones', JSON.stringify(opiniones));
+    
+    document.getElementById('nombreCliente').value = '';
+    document.getElementById('comentarioCliente').value = '';
+    calificacionEstrellas = 0;
+    iluminarEstrellas(0);
+    
+    cargarOpiniones();
+    document.getElementById('mensajeOpinion').style.display = 'block';
+    setTimeout(() => document.getElementById('mensajeOpinion').style.display = 'none', 3000);
+});
+
+// CARGAR OPINIONES GUARDADAS
+function cargarOpiniones() {
+    const opiniones = JSON.parse(localStorage.getItem('opiniones') || '[]');
+    const caja = document.getElementById('opiniones');
+    
+    if (opiniones.length === 0) {
+        caja.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
+        return;
+    }
+    
+    caja.innerHTML = '';
+    opiniones.forEach(op => {
+        let estrellasHtml = '';
+        for(let i=0; i<5; i++) {
+            estrellasHtml += i < op.estrellas ? '★' : '☆';
+        }
+        caja.innerHTML += `
+            <div class="comentario">
+                <strong>${op.nombre}</strong>
+                <span class="comentario-estrellas">${estrellasHtml}</span>
+                <p>${op.texto}</p>
+                <small style="color:#999;">${op.fecha}</small>
+            </div>
+        `;
+    });
+}
+
+// ==================================================
+// 📝 AGENDAR CITA
+// ==================================================
+document.getElementById('btnGuardarCita').addEventListener('click', function(){
+    const nombre = document.getElementById('nombre').value.trim();
+    const telefono = document.getElementById('telefono').value.trim();
+    const dia = document.getElementById('dia').value;
+    const mes = document.getElementById('mes').value;
+    const anio = document.getElementById('anio').value;
+    const hora = document.getElementById('hora').value;
+    const comentario = document.getElementById('comentario').value.trim();
+    
+    if (!nombre || !telefono || !dia || !mes || !anio || !hora) {
+        alert('❌ Completa todos los campos');
+        return;
+    }
+    
+    const citas = JSON.parse(localStorage.getItem('citas') || '[]');
+    citas.unshift({ nombre, telefono, dia, mes, anio, hora, comentario });
+    localStorage.setItem('citas', JSON.stringify(citas));
+    
+    document.getElementById('nombre').value = '';
+    document.getElementById('telefono').value = '';
+    document.getElementById('dia').value = '';
+    document.getElementById('mes').value = '';
+    document.getElementById('anio').value = '';
+    document.getElementById('hora').value = '';
+    document.getElementById('comentario').value = '';
+    
+    cargarCitas();
+    document.getElementById('mensajeCita').style.display = 'block';
+    setTimeout(() => document.getElementById('mensajeCita').style.display = 'none', 3000);
+});
+
+// CARGAR CITAS EN ADMIN
+function cargarCitas() {
+    const citas = JSON.parse(localStorage.getItem('citas') || '[]');
+    const lista = document.getElementById('listaCitas');
+    
+    if (citas.length === 0) {
+        lista.innerHTML = '<p class="sin-datos">Sin citas agendadas</p>';
+        return;
+    }
+    
+    lista.innerHTML = '';
+    citas.forEach((c, i) => {
+        lista.innerHTML += `
+            <div style="padding:8px; background:white; border-radius:6px; margin-bottom:5px;">
+                <strong>${c.nombre}</strong> — ${c.telefono}<br>
+                📅 ${c.dia}/${c.mes}/${c.anio} ⏰ ${c.hora}<br>
+                💬 ${c.comentario || 'Sin comentario'}
+            </div>
+        `;
+    });
+}
+
+// ==================================================
+// ✏️ EDITAR SERVICIOS, PRECIOS Y PROMOCIONES
+// ==================================================
+document.getElementById('btnEditarServicios').addEventListener('click', function(){
+    document.getElementById('modalEditarServicios').classList.add('mostrar');
+    // CARGAR VALORES ACTUALES
+    document.getElementById('edBtn1').value = document.getElementById('txtBtn1').textContent;
+    document.getElementById('edDesc1').value = document.getElementById('descServ1').textContent;
+    document.getElementById('edPrecio1').value = document.getElementById('precio1').textContent;
+    
+    document.getElementById('edBtn2').value = document.getElementById('txtBtn2').textContent;
+    document.getElementById('edDesc2').value = document.getElementById('descServ2').textContent;
+    document.getElementById('edPrecio2').value = document.getElementById('precio2').textContent;
+    
+    document.getElementById('edBtn3').value = document.getElementById('txtBtn3').textContent;
+    document.getElementById('edDesc3').value = document.getElementById('descServ3').textContent;
+    document.getElementById('edPrecio3').value = document.getElementById('precio3').textContent;
+    
+    document.getElementById('edBtn4').value = document.getElementById('txtBtn4').textContent;
+    document.getElementById('edDesc4').value = document.getElementById('descServ4').textContent;
+    document.getElementById('edPrecio4').value = document.getElementById('precio4').textContent;
+    
+    document.getElementById('edBtn5').value = document.getElementById('txtBtn5').textContent;
+    document.getElementById('edDesc5').value = document.getElementById('descServ5').textContent;
+    document.getElementById('edPrecio5').value = document.getElementById('precio5').textContent;
+    
+    document.getElementById('edBtn6').value = document.getElementById('txtBtn6').textContent;
+    document.getElementById('edPromos').value = document.getElementById('textoPromos').innerText;
+});
+
+document.getElementById('cerrarEdServ').addEventListener('click', function(){
+    document.getElementById('modalEditarServicios').classList.remove('mostrar');
+});
+
+document.getElementById('btnGuardarServicios').addEventListener('click', function(){
+    // BOTÓN 1
+    document.getElementById('txtBtn1').textContent = document.getElementById('edBtn1').value;
+    document.getElementById('descServ1').textContent = document.getElementById('edDesc1').value;
+    document.getElementById('precio1').textContent = document.getElementById('edPrecio1').value;
+    
+    // BOTÓN 2
+    document.getElementById('txtBtn2').textContent = document.getElementById('edBtn2').value;
+    document.getElementById('descServ2').textContent = document.getElementById('edDesc2').value;
+    document.getElementById('precio2').textContent = document.getElementById('edPrecio2').value;
+    
+    // BOTÓN 3
+    document.getElementById('txtBtn3').textContent = document.getElementById('edBtn3').value;
+    document.getElementById('descServ3').textContent = document.getElementById('edDesc3').value;
+    document.getElementById('precio3').textContent = document.getElementById('edPrecio3').value;
+    
+    // BOTÓN 4
+    document.getElementById('txtBtn4').textContent = document.getElementById('edBtn4').value;
+    document.getElementById('descServ4').textContent = document.getElementById('edDesc4').value;
+    document.getElementById('precio4').textContent = document.getElementById('edPrecio4').value;
+    
+    // BOTÓN 5
+    document.getElementById('txtBtn5').textContent = document.getElementById('edBtn5').value;
+    document.getElementById('descServ5').textContent = document.getElementById('edDesc5').value;
+    document.getElementById('precio5').textContent = document.getElementById('edPrecio5').value;
+    
+    // BOTÓN 6 PROMOCIONES
+    document.getElementById('txtBtn6').textContent = document.getElementById('edBtn6').value;
+    document.getElementById('textoPromos').innerHTML = document.getElementById('edPromos').value.replace(/\n/g, '<br>');
+    
+    guardarTodoEnStorage();
+    document.getElementById('modalEditarServicios').classList.remove('mostrar');
+    alert('✅ Servicios y precios actualizados');
+});
+
+// ==================================================
+// ✏️ EDITAR HORARIOS
+// ==================================================
+document.getElementById('btnEditarAgenda').addEventListener('click', function(){
+    document.getElementById('modalEditarHorarios').classList.add('mostrar');
+    document.getElementById('edHorario1').value = document.getElementById('hora1').textContent;
+    document.getElementById('edHorario2').value = document.getElementById('hora2').textContent;
+    document.getElementById('edHorario3').value = document.getElementById('hora3').textContent;
+});
+
+document.getElementById('cerrarEdHor').addEventListener('click', function(){
+    document.getElementById('modalEditarHorarios').classList.remove('mostrar');
+});
+
+document.getElementById('btnGuardarHorarios').addEventListener('click', function(){
+    document.getElementById('hora1').textContent = document.getElementById('edHorario1').value;
+    document.getElementById('hora2').textContent = document.getElementById('edHorario2').value;
+    document.getElementById('hora3').textContent = document.getElementById('edHorario3').value;
+    guardarTodoEnStorage();
+    document.getElementById('modalEditarHorarios').classList.remove('mostrar');
+    alert('✅ Horarios actualizados');
+});
+
+// ==================================================
+// 💾 GUARDAR Y CARGAR TODO DESDE MEMORIA
+// ==================================================
+function guardarTodoEnStorage() {
+    const datos = {
+        btn1: document.getElementById('txtBtn1').textContent,
+        desc1: document.getElementById('descServ1').textContent,
+        prec1: document.getElementById('precio1').textContent,
+        btn2: document.getElementById('txtBtn2').textContent,
+        desc2: document.getElementById('descServ2').textContent,
+        prec2: document.getElementById('precio2').textContent,
+        btn3: document.getElementById('txtBtn3').textContent,
+        desc3: document.getElementById('descServ3').textContent,
+        prec3: document.getElementById('precio3').textContent,
+        btn4: document.getElementById('txtBtn4').textContent,
+        desc4: document.getElementById('descServ4').textContent,
+        prec4: document.getElementById('precio4').textContent,
+        btn5: document.getElementById('txtBtn5').textContent,
+        desc5: document.getElementById('descServ5').textContent,
+        prec5: document.getElementById('precio5').textContent,
+        btn6: document.getElementById('txtBtn6').textContent,
+        promos: document.getElementById('textoPromos').innerHTML,
+        hor1: document.getElementById('hora1').textContent,
+        hor2: document.getElementById('hora2').textContent,
+        hor3: document.getElementById('hora3').textContent
+    };
+    localStorage.setItem('datosPagina', JSON.stringify(datos));
+}
+
+function cargarDatosGuardados() {
+    const guardado = JSON.parse(localStorage.getItem('datosPagina') || 'null');
+    if (!guardado) return;
+    
+    if(guardado.btn1) {
+        document.getElementById('txtBtn1').textContent = guardado.btn1;
+        document.getElementById('descServ1').textContent = guardado.desc1;
+        document.getElementById('precio1').textContent = guardado.prec1;
+        document.getElementById('txtBtn2').textContent = guardado.btn2;
+        document.getElementById('descServ2').textContent = guardado.desc2;
+        document.getElementById('precio2').textContent = guardado.prec2;
+        document.getElementById('txtBtn3').textContent = guardado.btn3;
+        document.getElementById('descServ3').textContent = guardado.desc3;
+        document.getElementById('precio3').textContent = guardado.prec3;
+        document.getElementById('txtBtn4').textContent = guardado.btn4;
+        document.getElementById('descServ4').textContent = guardado.desc4;
+        document.getElementById('precio4').textContent = guardado.prec4;
+        document.getElementById('txtBtn5').textContent = guardado.btn5;
+        document.getElementById('descServ5').textContent = guardado.desc5;
+        document.getElementById('precio5').textContent = guardado.prec5;
+        document.getElementById('txtBtn6').textContent = guardado.btn6;
+        document.getElementById('textoPromos').innerHTML = guardado.promos;
+        document.getElementById('hora1').textContent = guardado.hor1;
+        document.getElementById('hora2').textContent = guardado.hor2;
+        document.getElementById('hora3').textContent = guardado.hor3;
+    }
+}
+
+// ==================================================
+// 🔐 LOGIN
+// ==================================================
+document.getElementById('btnLogin').addEventListener('click', function(){
     document.getElementById('modalLogin').classList.add('mostrar');
 });
 document.getElementById('cerrarModal').addEventListener('click', function(){
@@ -623,92 +744,34 @@ document.getElementById('cerrarModal').addEventListener('click', function(){
 document.getElementById('btnIngresar').addEventListener('click', function(){
     const correo = document.getElementById('correoAdmin').value.trim();
     const clave = document.getElementById('claveAdmin').value.trim();
-    if(correo === ADMIN_CORREO && clave === ADMIN_CLAVE){
-        entrarComoAdmin();
+    if (correo === CORREO_ADMIN && clave === CLAVE_ADMIN) {
+        document.getElementById('raiz').classList.add('admin-activo');
         document.getElementById('modalLogin').classList.remove('mostrar');
-        document.getElementById('respuestaLogin').innerHTML = '';
+        localStorage.setItem('sesionAdmin', 'ok');
+        cargarCitas();
     } else {
-        document.getElementById('respuestaLogin').innerHTML = '<span style="color:red;">❌ Correo o contraseña incorrectos</span>';
+        document.getElementById('respuestaLogin').textContent = '❌ Datos incorrectos';
     }
 });
-document.getElementById('btnSalirAdmin').addEventListener('click', salirAdmin);
-
-function entrarComoAdmin() {
-    adminActivo = true;
-    document.getElementById('raiz').classList.add('admin-activo');
-    localStorage.setItem('_adminSesion', 'activa');
-}
-function salirAdmin() {
-    adminActivo = false;
-    localStorage.removeItem('_adminSesion');
+document.getElementById('btnSalir').addEventListener('click', function(){
     document.getElementById('raiz').classList.remove('admin-activo');
-}
-
-// ==================================================
-// ✏️ EDITAR ESLOGAN / FRASE PRINCIPAL
-// ==================================================
-document.getElementById('btnEditarEslogan').addEventListener('click', function(){
-    document.getElementById('modalEslogan').classList.add('mostrar');
-    document.getElementById('nuevoEslogan').value = document.getElementById('esloganPrincipal').textContent;
-});
-document.getElementById('cerrarEslogan').addEventListener('click', function(){
-    document.getElementById('modalEslogan').classList.remove('mostrar');
-});
-document.getElementById('btnGuardarEslogan').addEventListener('click', function(){
-    const nuevoTexto = document.getElementById('nuevoEslogan').value.trim();
-    if(nuevoTexto){
-        document.getElementById('esloganPrincipal').textContent = nuevoTexto;
-        localStorage.setItem('eslogan', nuevoTexto);
-        document.getElementById('modalEslogan').classList.remove('mostrar');
-        alert('✅ Frase actualizada');
-    }
+    localStorage.removeItem('sesionAdmin');
 });
 
 // ==================================================
-// ✏️ EDITAR SERVICIOS
+// ✅ INICIAR TODO AL CARGAR LA PÁGINA
 // ==================================================
-document.getElementById('btnEditarServicios').addEventListener('click', function(){
-    const panel = document.getElementById('panelEditarServicios');
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    if(panel.style.display === 'block'){
-        document.getElementById('editarTituloServicios').value = document.getElementById('tituloServicios').textContent;
-        document.getElementById('editarTxtLimpieza').value = document.getElementById('txtLimpieza').textContent;
-        document.getElementById('editarTxtHidratacion').value = document.getElementById('txtHidratacion').textContent;
-        document.getElementById('editarTxtExfoliacion').value = document.getElementById('txtExfoliacion').textContent;
-        document.getElementById('editarTxtPiel').value = document.getElementById('txtPiel').textContent;
-        document.getElementById('editarTxtAsesoria').value = document.getElementById('txtAsesoria').textContent;
-        document.getElementById('editarTxtPromociones').value = document.getElementById('txtPromociones').textContent;
-        document.getElementById('editarTxtGaleria').value = document.getElementById('txtGaleria').textContent;
-    }
-});
-document.getElementById('btnGuardarServicios').addEventListener('click', function(){
-    document.getElementById('tituloServicios').textContent = document.getElementById('editarTituloServicios').value;
-    document.getElementById('txtLimpieza').textContent = document.getElementById('editarTxtLimpieza').value;
-    document.getElementById('txtHidratacion').textContent = document.getElementById('editarTxtHidratacion').value;
-    document.getElementById('txtExfoliacion').textContent = document.getElementById('editarTxtExfoliacion').value;
-    document.getElementById('txtPiel').textContent = document.getElementById('editarTxtPiel').value;
-    document.getElementById('txtAsesoria').textContent = document.getElementById('editarTxtAsesoria').value;
-    document.getElementById('txtPromociones').textContent = document.getElementById('editarTxtPromociones').value;
-    document.getElementById('txtGaleria').textContent = document.getElementById('editarTxtGaleria').value;
+window.onload = function(){
+    configurarEstrellas();
+    cargarDatosGuardados();
+    cargarOpiniones();
     
-    guardarTodoEnLocal();
-    document.getElementById('panelEditarServicios').style.display = 'none';
-    alert('✅ Cambios guardados');
-});
+    if (localStorage.getItem('sesionAdmin') === 'ok') {
+        document.getElementById('raiz').classList.add('admin-activo');
+        cargarCitas();
+    }
+};
+</script>
 
-// ==================================================
-// ✏️ EDITAR AGENDAR CITA
-// ==================================================
-document.getElementById('btnEditarAgendar').addEventListener('click', function(){
-    const panel = document.getElementById('panelEditarAgendar');
-    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
-    if(panel.style.display === 'block'){
-        document.getElementById('editarTituloAgendar').value = document.getElementById('tituloAgendar').textContent;
-        document.getElementById('editarLblNombre').value = document.getElementById('lblNombre').textContent;
-        document.getElementById('editarLblTelefono').value = document.getElementById('lblTelefono').textContent;
-        document.getElementById('editarLblDia').value = document.getElementById('lblDia').textContent;
-        document.getElementById('editarLblMes').value = document.getElementById('lblMes').textContent;
-        document.getElementById('editarLblAnio').value = document.getElementById('lblAnio').textContent;
-        document.getElementById('editarLblHora').value = document.getElementById('lblHora").textContent;
-        document.getElementById('editarLblComentario').value = document.getElementById('lblComentario').textContent;
-        document.getElementById('
+</body>
+</html>
