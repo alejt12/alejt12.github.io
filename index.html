@@ -12,14 +12,6 @@
             background: linear-gradient(135deg, #fef7fa, #f0e4ee);
             color: #4a2c4a;
         }
-        .aviso-mantenimiento {
-            background: #fff3cd;
-            color: #856404;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            border-bottom: 2px solid #ffeeba;
-        }
         header {
             background: linear-gradient(90deg, #9c6b8c, #b888a8);
             color: white;
@@ -47,7 +39,7 @@
             background: rgba(220,53,69,0.9);
             color: white;
             border: none;
-            padding: 7px 14px;
+            padding: 8px 16px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 14px;
@@ -87,29 +79,59 @@
         }
         .boton-verde { background: linear-gradient(90deg, #4CAF50, #45a049); }
         .boton-naranja { background: linear-gradient(90deg, #f0ad4e, #ec971f); }
+        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); }
         .boton-oculto { display: none; }
         .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .boton-ver-fotos { background: linear-gradient(90deg, #6A5ACD, #483D8B); }
+        .boton-azul { background: linear-gradient(90deg, #3498db, #2980b9); }
+        .boton-dorado { background: linear-gradient(90deg, #f1c40f, #f39c12); }
+        .boton-rojo { background: linear-gradient(90deg, #e74c3c, #c0392b); }
+
+        .contenido-seccion {
+            background: #fef9fc;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            display: none;
+        }
+        .contenido-seccion.mostrar { display: block; }
+        .texto-editable {
+            min-height: 60px;
+            padding: 10px;
+            border-radius: 8px;
+            background: white;
+            white-space: pre-wrap;
+        }
+        .modo-edicion {
+            border: 2px dashed #9c6b8c;
+            background: #fdf2f9;
+        }
 
         .galeria {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 15px;
+            display: none;
         }
+        .galeria.mostrar { display: flex; }
         .foto-publica {
-            width: 140px;
-            height: 140px;
+            width: 180px;
+            height: 180px;
             border-radius: 12px;
             object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
         }
-        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align: center; }
+        .foto-publica:hover { transform: scale(1.05); }
+        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align: center; width: 100%; }
 
         .caja-subir, .caja-editar {
             background: #fffef0;
             padding: 15px;
             border-radius: 12px;
-            margin: 20px 0;
+            margin: 15px 0;
             display: none;
         }
         .caja-subir.mostrar, .caja-editar.mostrar { display: block; }
@@ -128,17 +150,18 @@
         }
         .btn-quitar {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -8px;
+            right: -8px;
             background: red;
             color: white;
             border: none;
-            width: 26px;
-            height: 26px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: bold;
             cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
         }
 
         .ventana-sesion {
@@ -186,8 +209,8 @@
         .caja-info {
             background: #f8f2fb;
             padding: 15px;
-            margin-top: 10px;
             border-radius: 10px;
+            margin-top: 10px;
             border-left: 4px solid #9c6b8c;
             display: none;
         }
@@ -205,12 +228,10 @@
 </head>
 <body>
 
-    <div class="aviso-mantenimiento">⚠️ La página se encuentra en mantenimiento</div>
-
 <header>
     <div class="barra-superior">
-        <button class="boton boton-cerrar" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
-        <button class="boton boton-naranja" id="btnCandado">🔒</button>
+        <button class="boton-cerrar" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
+        <button class="boton-candado" id="btnCandado">🔒</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">El tiempo no vuelve, tu belleza sí 💖</p>
@@ -221,7 +242,10 @@
     <p class="descripcion-lic">Licenciada en Cosmiatría con vocación y amor por realizar tu belleza natural</p>
     <p style="text-align:center;">📍 Ubicación: <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver en Google Maps</a></p>
     <p style="text-align:center;">📞 Teléfono: <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
-    <p style="text-align:center;"><a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">📷 Instagram</a></p>
+    <p style="text-align:center;">
+        <a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">📷 Instagram</a>
+        <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-whatsapp">💬 WhatsApp</a>
+    </p>
 </section>
 
 <section>
@@ -236,7 +260,7 @@
 
     <div id="limpieza" class="caja-info">
         <h3>🧼 Limpieza Facial Profunda</h3>
-        <p>Eliminamos impurezas, puntos negros and células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
     </div>
     <div id="hidratacion" class="caja-info">
         <h3>💧 Hidratación y Nutrición</h3>
@@ -257,11 +281,96 @@
 </section>
 
 <section>
+    <h2>📋 Secciones</h2>
+    <div style="text-align:center;">
+        <button class="boton boton-azul" onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button>
+        <button class="boton boton-dorado" onclick="mostrarSeccion('precios')">💰 Precios y Servicios</button>
+        <button class="boton boton-rojo" onclick="mostrarSeccion('promos')">⭐ Promociones</button>
+    </div>
+
+    <!-- AGENDAR CITA -->
+    <div id="agendar" class="contenido-seccion">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>📅 Agendar Cita</h3>
+            <div class="caja-editar" id="btnEditarAgendar">
+                <button class="boton boton-verde" onclick="activarEdicion('agendar-texto', 'agendar')">✏️ Editar</button>
+            </div>
+        </div>
+        <div id="agendar-texto" class="texto-editable">
+Nombre: _________________________
+Fecha: ____/____/_______  Hora: ________
+
+📍 Ubicación: Dirección de la Lic. Laiza González Robles
+📞 WhatsApp: +52 1 729 633 6318
+
+¡Confirma tu cita por WhatsApp! ✅
+        </div>
+        <div class="caja-editar" id="btnGuardarAgendar">
+            <button class="boton boton-verde" onclick="guardarTexto('agendar-texto', 'agendar')">💾 Guardar</button>
+            <button class="boton boton-naranja" onclick="cancelarEdicion('agendar-texto', 'agendar')">❌ Cancelar</button>
+        </div>
+    </div>
+
+    <!-- PRECIOS Y SERVICIOS -->
+    <div id="precios" class="contenido-seccion">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>💰 Precios y Servicios</h3>
+            <div class="caja-editar" id="btnEditarPrecios">
+                <button class="boton boton-verde" onclick="activarEdicion('precios-texto', 'precios')">✏️ Editar</button>
+            </div>
+        </div>
+        <div id="precios-texto" class="texto-editable">
+🧼 Limpieza Facial Profunda — $350
+💧 Hidratación Profunda — $300
+✨ Exfoliación Renovadora — $250
+🌸 Tratamiento Piel Sensible — $380
+💎 Asesoría Personalizada — ¡Gratis!
+
+💳 Aceptamos efectivo y transferencia
+⏳ Los precios pueden cambiar
+        </div>
+        <div class="caja-editar" id="btnGuardarPrecios">
+            <button class="boton boton-verde" onclick="guardarTexto('precios-texto', 'precios')">💾 Guardar</button>
+            <button class="boton boton-naranja" onclick="cancelarEdicion('precios-texto', 'precios')">❌ Cancelar</button>
+        </div>
+    </div>
+
+    <!-- PROMOCIONES -->
+    <div id="promos" class="contenido-seccion">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3>⭐ Promociones del Mes</h3>
+            <div class="caja-editar" id="btnEditarPromos">
+                <button class="boton boton-verde" onclick="activarEdicion('promos-texto', 'promos')">✏️ Editar</button>
+            </div>
+        </div>
+        <div id="promos-texto" class="texto-editable">
+🎉 ¡BIENVENIDA! 10% de descuento en tu primera cita
+
+💆‍♀️ Paquete "Belleza Completa":
+Limpieza + Hidratación + Exfoliación = ¡Solo $750!
+(Ahorras $150)
+
+👩‍❤️‍👩 ¡Trae a una amiga!
+Ambas con 15% de descuento
+
+📅 Válido durante este mes
+        </div>
+        <div class="caja-editar" id="btnGuardarPromos">
+            <button class="boton boton-verde" onclick="guardarTexto('promos-texto', 'promos')">💾 Guardar</button>
+            <button class="boton boton-naranja" onclick="cancelarEdicion('promos-texto', 'promos')">❌ Cancelar</button>
+        </div>
+    </div>
+</section>
+
+<section>
     <h2>📷 Galería de Fotos</h2>
+    <div style="text-align:center; margin:10px 0;">
+        <button class="boton boton-ver-fotos" id="btnVerFotos">📷 Ver Fotos</button>
+    </div>
     <div class="galeria" id="galeriaPublica"></div>
 
     <div class="caja-subir" id="cajaSubir">
-        <h3>📷 Agregar Nueva Foto (Solo administradora)</h3>
+        <h3>📷 Agregar Nueva Foto</h3>
         <input type="file" id="entradaFoto" accept="image/*">
         <button class="boton boton-verde" id="btnAgregarFoto">✅ Agregar Foto</button>
         <div class="galeria" id="vistaAdmin"></div>
@@ -272,12 +381,12 @@
     <h2>📅 Horarios de Atención</h2>
     <table class="tabla-horarios" id="tablaHorarios">
         <tr><th>Día</th><th>Horario</th></tr>
-        <tr id="fila-lunes"><td>Lunes</td><td contenteditable="false" id="horario-lunes">9:00 AM — 6:00 PM</td></tr>
-        <tr id="fila-martes"><td>Martes</td><td contenteditable="false" id="horario-martes">9:00 AM — 6:00 PM</td></tr>
-        <tr id="fila-miercoles"><td>Miércoles</td><td contenteditable="false" id="horario-miercoles">9:00 AM — 6:00 PM</td></tr>
-        <tr id="fila-jueves"><td>Jueves</td><td contenteditable="false" id="horario-jueves">9:00 AM — 6:00 PM</td></tr>
-        <tr id="fila-viernes"><td>Viernes</td><td contenteditable="false" id="horario-viernes">9:00 AM — 6:00 PM</td></tr>
-        <tr id="fila-sabado"><td>Sábado</td><td contenteditable="false" id="horario-sabado">9:00 AM — 3:00 PM</td></tr>
+        <tr><td>Lunes</td><td id="horario-lunes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Martes</td><td id="horario-martes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Miércoles</td><td id="horario-miercoles">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Jueves</td><td id="horario-jueves">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Viernes</td><td id="horario-viernes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Sábado</td><td id="horario-sabado">9:00 AM — 3:00 PM</td></tr>
         <tr><td>Domingo</td><td style="color:red;">Descanso</td></tr>
     </table>
     <div class="caja-editar" id="cajaEditarHorarios">
@@ -332,7 +441,11 @@ let opiniones = [];
 let calificacionActual = 0;
 let modoEdicionHorarios = false;
 let modoEdicionAgenda = false;
+let galeriaVisible = false;
+let sesionIniciada = false;
+let textoOriginal = {};
 
+// Cargar datos guardados
 try {
     const guardadas = localStorage.getItem('fotosGaleria');
     if (guardadas) fotos = JSON.parse(guardadas);
@@ -345,6 +458,9 @@ try {
 
 const horariosGuardados = JSON.parse(localStorage.getItem('horariosGuardados') || '{}');
 const agendaGuardada = localStorage.getItem('agendaGuardada') || '';
+
+// Cargar textos guardados
+const textosGuardados = JSON.parse(localStorage.getItem('textosSecciones') || '{}');
 
 const btnCandado = document.getElementById('btnCandado');
 const ventanaSesion = document.getElementById('ventanaSesion');
@@ -359,10 +475,10 @@ const galeriaPublica = document.getElementById('galeriaPublica');
 const vistaAdmin = document.getElementById('vistaAdmin');
 const entradaFoto = document.getElementById('entradaFoto');
 const btnAgregarFoto = document.getElementById('btnAgregarFoto');
+const btnVerFotos = document.getElementById('btnVerFotos');
 const textoOpinion = document.getElementById('textoOpinion');
 const btnEnviarOpinion = document.getElementById('btnEnviarOpinion');
 const listaComentarios = document.getElementById('listaComentarios');
-const estrellas = document.querySelectorAll('.estrella');
 const agendaTexto = document.getElementById('agendaTexto');
 const btnEditarAgenda = document.getElementById('btnEditarAgenda');
 const btnGuardarAgenda = document.getElementById('btnGuardarAgenda');
@@ -373,11 +489,72 @@ const cajaEditarAgenda = document.getElementById('cajaEditarAgenda');
 
 agendaTexto.value = agendaGuardada;
 aplicarHorariosGuardados();
+aplicarTextosGuardados();
 
 function mostrarInfo(id) {
     document.querySelectorAll('.caja-info').forEach(c => c.classList.remove('mostrar'));
     document.getElementById(id).classList.add('mostrar');
 }
+
+function mostrarSeccion(id) {
+    document.querySelectorAll('.contenido-seccion').forEach(c => c.classList.remove('mostrar'));
+    document.getElementById(id).classList.add('mostrar');
+    
+    // Mostrar botones de editar si hay sesión
+    if (sesionIniciada) {
+        document.getElementById('btnEditar' + id.charAt(0).toUpperCase() + id.slice(1)).classList.add('mostrar');
+    }
+}
+
+function aplicarTextosGuardados() {
+    if (textosGuardados.agendar) document.getElementById('agendar-texto').textContent = textosGuardados.agendar;
+    if (textosGuardados.precios) document.getElementById('precios-texto').textContent = textosGuardados.precios;
+    if (textosGuardados.promos) document.getElementById('promos-texto').textContent = textosGuardados.promos;
+}
+
+function activarEdicion(idTexto, idSeccion) {
+    const caja = document.getElementById(idTexto);
+    textoOriginal[idTexto] = caja.textContent;
+    caja.contentEditable = "true";
+    caja.classList.add('modo-edicion');
+    caja.focus();
+    
+    // Cambiar botones
+    document.getElementById('btnEditar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.remove('mostrar');
+    document.getElementById('btnGuardar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.add('mostrar');
+}
+
+function guardarTexto(idTexto, idSeccion) {
+    const caja = document.getElementById(idTexto);
+    caja.contentEditable = "false";
+    caja.classList.remove('modo-edicion');
+    
+    textosGuardados[idSeccion] = caja.textContent;
+    localStorage.setItem('textosSecciones', JSON.stringify(textosGuardados));
+    
+    // Cambiar botones
+    document.getElementById('btnGuardar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.remove('mostrar');
+    document.getElementById('btnEditar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.add('mostrar');
+    
+    alert('✅ Guardado correctamente');
+}
+
+function cancelarEdicion(idTexto, idSeccion) {
+    const caja = document.getElementById(idTexto);
+    caja.textContent = textoOriginal[idTexto];
+    caja.contentEditable = "false";
+    caja.classList.remove('modo-edicion');
+    
+    document.getElementById('btnGuardar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.remove('mostrar');
+    document.getElementById('btnEditar' + idSeccion.charAt(0).toUpperCase() + idSeccion.slice(1)).classList.add('mostrar');
+}
+
+btnVerFotos.addEventListener('click', () => {
+    galeriaVisible = !galeriaVisible;
+    galeriaPublica.classList.toggle('mostrar');
+    btnVerFotos.textContent = galeriaVisible ? '📷 Ocultar Fotos' : '📷 Ver Fotos';
+    dibujarGaleria();
+});
 
 btnCandado.addEventListener('click', () => {
     ventanaSesion.classList.add('mostrar');
@@ -394,11 +571,17 @@ btnEntrar.addEventListener('click', () => {
     if (correo.value.trim() === CORREO_ADMIN && clave.value === CLAVE_ADMIN) {
         mensaje.textContent = '✅ ¡Bienvenida, Licenciada!';
         mensaje.className = 'mensaje exito';
+        sesionIniciada = true;
         setTimeout(() => {
             ventanaSesion.classList.remove('mostrar');
             cajaSubir.classList.add('mostrar');
             cajaEditarHorarios.classList.add('mostrar');
             cajaEditarAgenda.classList.add('mostrar');
+            // Mostrar botones de editar secciones
+            document.getElementById('btnEditarAgendar').classList.add('mostrar');
+            document.getElementById('btnEditarPrecios').classList.add('mostrar');
+            document.getElementById('btnEditarPromos').classList.add('mostrar');
+            
             btnCerrarSesion.style.display = 'block';
             btnCandado.style.display = 'none';
         }, 800);
@@ -409,9 +592,15 @@ btnEntrar.addEventListener('click', () => {
 });
 
 btnCerrarSesion.addEventListener('click', () => {
+    sesionIniciada = false;
     cajaSubir.classList.remove('mostrar');
     cajaEditarHorarios.classList.remove('mostrar');
     cajaEditarAgenda.classList.remove('mostrar');
+    // Ocultar botones de editar
+    document.getElementById('btnEditarAgendar').classList.remove('mostrar');
+    document.getElementById('btnEditarPrecios').classList.remove('mostrar');
+    document.getElementById('btnEditarPromos').classList.remove('mostrar');
+    
     btnCerrarSesion.style.display = 'none';
     btnCandado.style.display = 'block';
 });
@@ -446,6 +635,7 @@ window.quitarFoto = function(indice) {
 };
 
 function dibujarGaleria() {
+    if (!galeriaVisible) return;
     galeriaPublica.innerHTML = '';
     vistaAdmin.innerHTML = '';
 
@@ -556,9 +746,6 @@ btnGuardarAgenda.addEventListener('click', () => {
     btnGuardarAgenda.classList.add('boton-oculto');
     alert('✅ Agenda guardada');
 });
-
-dibujarGaleria();
-dibujarOpiniones();
 </script>
 </body>
 </html>
