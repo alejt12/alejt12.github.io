@@ -53,9 +53,13 @@
             transition: all 0.3s ease;
         }
         .btn-admin:hover { background: rgba(255,255,255,0.35); }
-        .btn-salir { display: none; }
-        .admin-activo .btn-salir { display: inline-block; }
+        
+        /* 🔐 EL CANDADO DE CERRAR SESIÓN SOLO APARECE CUANDO YA ENTRÓ */
+        .btn-cerrar { display: none; }
+        .admin-activo .btn-cerrar { display: inline-block; }
+        .btn-entrar { display: block; }
         .admin-activo .btn-entrar { display: none; }
+        
         h1 { font-size: 36px; margin-bottom: 8px; }
         .subtitulo { font-size: 18px; opacity: 0.95; }
         .contenedor { max-width: 900px; margin: 0 auto; padding: 25px 20px 50px; }
@@ -135,7 +139,7 @@
         .btn-editar { 
             background: linear-gradient(90deg, #f39c12, #e67e22); 
             color: white; border: none; border-radius: 50px; padding: 4px 10px; 
-            font-size: 12px; cursor: pointer;
+            font-size: 12px; cursor: pointer; margin-left: 8px;
         }
         .btn-guardar { background: linear-gradient(90deg, #27ae60, #1e8449); color: white; border: none; border-radius: 50px; padding: 7px 16px; font-size: 14px; cursor: pointer; margin-top: 5px; }
         .espacio-edicion { margin-top: 10px; padding: 10px; background: rgba(255,255,255,0.6); border-radius: 8px; }
@@ -167,17 +171,43 @@
         }
         .contenedor-estrellas .estrella { transition: color 0.2s ease; }
         .contenedor-estrellas .estrella.activa { color: #f4c542; text-shadow: 0 0 5px rgba(244,197,66,0.4); }
-        .caja-comentarios { margin-top: 15px; }
-        .comentario { padding: 10px; background: #fdf6f9; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid var(--color-secundario); }
-        .comentario-estrellas { color: #f4c542; font-size: 14px; }
+        
+        /* 📋 TARJETAS DE HISTORIAL */
+        .tarjeta { 
+            background: linear-gradient(135deg, #fdf6f9, #f8eff5); 
+            padding: 14px; border-radius: 10px; margin-bottom: 10px; 
+            border-left: 4px solid var(--color-secundario);
+        }
+        .tarjeta h4 { color: var(--color-primario); margin-bottom: 6px; font-size: 15px; }
+        .tarjeta p { margin: 4px 0; font-size: 14px; }
+        .tarjeta .fecha { font-size: 12px; color: #999; margin-top: 6px; }
+        .btn-eliminar { 
+            background: linear-gradient(90deg, #e74c3c, #c0392b); 
+            color: white; border: none; border-radius: 50px; 
+            padding: 5px 12px; font-size: 12px; cursor: pointer; margin-top: 8px; 
+        }
+        .pestañas { display: flex; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
+        .pestaña { 
+            padding: 8px 16px; border: none; border-radius: 50px; 
+            background: #ddd; cursor: pointer; font-weight: 600; transition: all 0.2s;
+        }
+        .pestaña.activa { background: var(--color-primario); color: white; }
+        .caja-pestaña { display: none; }
+        .caja-pestaña.mostrar { display: block; }
     </style>
+    
+    <!-- ☁️ FIREBASE PARA GUARDAR EN LA NUBE -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
 </head>
 <body>
 
 <header>
     <div class="barra-superior">
-        <button class="btn-admin btn-salir" id="btnSalir"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
-        <button class="btn-admin btn-entrar" id="btnLogin"><i class="fas fa-lock"></i> Admin</button>
+        <!-- 🔐 Cerrar sesión: SOLO VISIBLE cuando Laiza ya entró -->
+        <button class="btn-admin btn-cerrar" id="btnSalir"><i class="fas fa-lock"></i> Cerrar sesión</button>
+        <!-- Botón para entrar: VISIBLE para todos -->
+        <button class="btn-admin btn-entrar" id="btnLogin"><i class="fas fa-lock"></i> 🔐 Admin</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="subtitulo" id="frasePrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
@@ -208,47 +238,45 @@
         <button class="btn-editar solo-admin" id="btnEditarServicios">✏️ Editar</button>
     </h2>
     <div class="fila-botones">
-        <button class="boton boton-limpieza" onclick="mostrarServicio('serv1')" id="txtBtn1">Limpieza Facial</button>
-        <button class="boton boton-hidratacion" onclick="mostrarServicio('serv2')" id="txtBtn2">Hidratación</button>
-        <button class="boton boton-exfoliacion" onclick="mostrarServicio('serv3')" id="txtBtn3">Exfoliación</button>
-        <button class="boton boton-piel" onclick="mostrarServicio('serv4')" id="txtBtn4">Piel Sensible</button>
-        <button class="boton boton-asesoria" onclick="mostrarServicio('serv5')" id="txtBtn5">Asesoría</button>
-        <button class="boton boton-promociones" onclick="mostrarServicio('serv6')" id="txtBtn6">Promociones</button>
-        <button class="boton boton-fotos" onclick="mostrarServicio('serv7')" id="txtBtn7">Galería</button>
+        <button class="boton boton-limpieza" onclick="mostrarServicio('serv1')">Limpieza Facial</button>
+        <button class="boton boton-hidratacion" onclick="mostrarServicio('serv2')">Hidratación</button>
+        <button class="boton boton-exfoliacion" onclick="mostrarServicio('serv3')">Exfoliación</button>
+        <button class="boton boton-piel" onclick="mostrarServicio('serv4')">Piel Sensible</button>
+        <button class="boton boton-asesoria" onclick="mostrarServicio('serv5')">Asesoría</button>
+        <button class="boton boton-promociones" onclick="mostrarServicio('serv6')">Promociones</button>
+        <button class="boton boton-fotos" onclick="mostrarServicio('serv7')">Galería</button>
     </div>
 
     <div id="serv1" class="caja-info">
-        <h3 id="titServ1">🧼 Limpieza Facial Profunda</h3>
-        <p id="descServ1">Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
-        <p><strong>Precio: </strong><span id="precio1">$350 MXN</span></p>
+        <h3>🧼 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+        <p><strong>Precio: </strong>$350 MXN</p>
     </div>
     <div id="serv2" class="caja-info">
-        <h3 id="titServ2">💧 Hidratación y Nutrición</h3>
-        <p id="descServ2">Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural.</p>
-        <p><strong>Precio: </strong><span id="precio2">$300 MXN</span></p>
+        <h3>💧 Hidratación y Nutrición</h3>
+        <p>Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural.</p>
+        <p><strong>Precio: </strong>$300 MXN</p>
     </div>
     <div id="serv3" class="caja-info">
-        <h3 id="titServ3">✨ Exfoliación Renovadora</h3>
-        <p id="descServ3">Renovamos tu piel eliminando células muertas. Mejora la textura y el tono.</p>
-        <p><strong>Precio: </strong><span id="precio3">$280 MXN</span></p>
+        <h3>✨ Exfoliación Renovadora</h3>
+        <p>Renovamos tu piel eliminando células muertas. Mejora la textura y el tono.</p>
+        <p><strong>Precio: </strong>$280 MXN</p>
     </div>
     <div id="serv4" class="caja-info">
-        <h3 id="titServ4">🌸 Cuidado para Piel Sensible</h3>
-        <p id="descServ4">Productos suaves y delicados, sin químicos agresivos. Calma y protege tu piel.</p>
-        <p><strong>Precio: </strong><span id="precio4">$320 MXN</span></p>
+        <h3>🌸 Cuidado para Piel Sensible</h3>
+        <p>Productos suaves y delicados, sin químicos agresivos. Calma y protege tu piel.</p>
+        <p><strong>Precio: </strong>$320 MXN</p>
     </div>
     <div id="serv5" class="caja-info">
-        <h3 id="titServ5">💎 Asesoría Personalizada</h3>
-        <p id="descServ5">Te guiamos paso a paso. Evaluamos tu piel y recomendamos la rutina ideal.</p>
-        <p><strong>Precio: </strong><span id="precio5">¡Gratis!</span></p>
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te guiamos paso a paso. Evaluamos tu piel y recomendamos la rutina ideal.</p>
+        <p><strong>Precio: </strong>¡Gratis!</p>
     </div>
     <div id="serv6" class="caja-info">
-        <h3 id="titServ6">🔥 Promociones Especiales</h3>
-        <div id="textoPromos">
-            <p>✨ Paquete Completo: Limpieza + Hidratación con 15% de descuento</p>
-            <p>🌸 Primera Visita: 10% de descuento</p>
-            <p>👭 Tratamiento en Pareja: 20% de descuento</p>
-        </div>
+        <h3>🔥 Promociones Especiales</h3>
+        <p>✨ Paquete Completo: Limpieza + Hidratación con 15% de descuento</p>
+        <p>🌸 Primera Visita: 10% de descuento</p>
+        <p>👭 Tratamiento en Pareja: 20% de descuento</p>
     </div>
     <div id="serv7" class="caja-info">
         <h3>📷 Galería de Fotos</h3>
@@ -257,10 +285,7 @@
 </section>
 
 <section>
-    <h2>
-        📅 Agendar tu Cita
-        <button class="btn-editar solo-admin" id="btnEditarAgenda">✏️ Editar Horarios</button>
-    </h2>
+    <h2>📅 Agendar tu Cita</h2>
     <div>
         <label>Tu Nombre Completo 👤</label>
         <input type="text" id="nombre" placeholder="Escribe tu nombre completo">
@@ -281,30 +306,13 @@
         <textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa?"></textarea>
         
         <button class="boton boton-verde" id="btnGuardarCita">📝 AGENDAR CITA AHORA</button>
-        <div class="mensaje-exito" id="mensajeCita">✅ ¡Cita agendada con éxito!</div>
+        <div class="mensaje-exito" id="mensajeCita">✅ ¡Cita guardada! Laiza la recibirá enseguida</div>
     </div>
-    
-    <!-- AGENDA SOLO VISIBLE PARA ADMIN -->
-    <div class="solo-admin" id="cajaAgenda">
-        <h3>📋 Citas Agendadas</h3>
-        <div id="listaCitas" class="sin-datos">Sin citas aún</div>
-    </div>
-</section>
-
-<section>
-    <h2>🕒 Horarios de Atención</h2>
-    <table id="tablaHorarios">
-        <tr><th>Día</th><th>Horario</th></tr>
-        <tr><td id="dias1">Lunes a Viernes</td><td id="hora1">9:00 AM — 6:00 PM</td></tr>
-        <tr><td id="dias2">Sábado</td><td id="hora2">9:00 AM — 3:00 PM</td></tr>
-        <tr><td id="dias3">Domingo</td><td id="hora3" style="color:#e05263;"><strong>Descanso</strong></td></tr>
-    </table>
 </section>
 
 <section>
     <h2>⭐ Opiniones de Clientes</h2>
     
-    <!-- ⭐ SISTEMA DE ESTRELLAS -->
     <label>Tu calificación:</label>
     <div class="contenedor-estrellas" id="estrellas">
         <span class="estrella" data-valor="1">★</span>
@@ -323,95 +331,59 @@
     <button class="boton boton-verde" id="btnEnviarComentario">💬 Enviar Opinión</button>
     <div class="mensaje-exito" id="mensajeOpinion">✅ ¡Gracias por tu opinión!</div>
     
-    <div class="caja-comentarios" id="listaOpiniones">
+    <div style="margin-top:15px;">
         <h4>Comentarios:</h4>
         <div id="opiniones"></div>
     </div>
 </section>
 
+<section>
+    <h2>🕒 Horarios de Atención</h2>
+    <table id="tablaHorarios">
+        <tr><th>Día</th><th>Horario</th></tr>
+        <tr><td>Lunes a Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
+        <tr><td>Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
+        <tr><td>Domingo</td><td style="color:#e05263;"><strong>Descanso</strong></td></tr>
+    </table>
+</section>
+
+<!-- 🔐 PANEL DE LAIZA — SOLO VISIBLE AL INICIAR SESIÓN -->
+<section class="solo-admin">
+    <h2>🔐 Panel de Laiza</h2>
+    
+    <div class="pestañas">
+        <button class="pestaña activa" onclick="cambiarPestana('citas')">📋 Citas Recibidas</button>
+        <button class="pestaña" onclick="cambiarPestana('comentarios')">💬 Opiniones</button>
+    </div>
+
+    <div id="pestanaCitas" class="caja-pestaña mostrar">
+        <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Se actualizan solas desde cualquier celular</p>
+        <div id="listaCitas">
+            <p class="sin-datos">Esperando citas...</p>
+        </div>
+    </div>
+
+    <div id="pestanaComentarios" class="caja-pestaña">
+        <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Todas las opiniones aquí guardadas</p>
+        <div id="listaOpinionesAdmin">
+            <p class="sin-datos">Esperando opiniones...</p>
+        </div>
+    </div>
+</section>
+
 </div>
 
-<!-- MODAL DE LOGIN -->
+<!-- 🔐 MODAL DE INICIO DE SESIÓN -->
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
         <button class="cerrar-modal" id="cerrarModal">&times;</button>
-        <h3>🔐 Acceso de Administradora</h3>
+        <h3>🔐 Acceso de Laiza</h3>
         <label>Correo</label>
         <input type="email" id="correoAdmin" placeholder="laya@gmail.com">
         <label>Contraseña</label>
         <input type="password" id="claveAdmin" placeholder="Tu contraseña">
         <button class="boton boton-verde" id="btnIngresar" style="margin-top:10px;">Ingresar</button>
         <p id="respuestaLogin" style="color:red; text-align:center; margin-top:10px;"></p>
-    </div>
-</div>
-
-<!-- MODAL EDITAR SERVICIOS -->
-<div class="modal-fondo" id="modalEditarServicios">
-    <div class="modal-caja">
-        <button class="cerrar-modal" id="cerrarEdServ">&times;</button>
-        <h3>✏️ Editar Servicios y Precios</h3>
-        <div class="espacio-edicion">
-            <label>Texto Botón 1:</label>
-            <input type="text" id="edBtn1">
-            <label>Descripción:</label>
-            <textarea id="edDesc1"></textarea>
-            <label>Precio:</label>
-            <input type="text" id="edPrecio1">
-        </div>
-        <div class="espacio-edicion">
-            <label>Texto Botón 2:</label>
-            <input type="text" id="edBtn2">
-            <label>Descripción:</label>
-            <textarea id="edDesc2"></textarea>
-            <label>Precio:</label>
-            <input type="text" id="edPrecio2">
-        </div>
-        <div class="espacio-edicion">
-            <label>Texto Botón 3:</label>
-            <input type="text" id="edBtn3">
-            <label>Descripción:</label>
-            <textarea id="edDesc3"></textarea>
-            <label>Precio:</label>
-            <input type="text" id="edPrecio3">
-        </div>
-        <div class="espacio-edicion">
-            <label>Texto Botón 4:</label>
-            <input type="text" id="edBtn4">
-            <label>Descripción:</label>
-            <textarea id="edDesc4"></textarea>
-            <label>Precio:</label>
-            <input type="text" id="edPrecio4">
-        </div>
-        <div class="espacio-edicion">
-            <label>Texto Botón 5:</label>
-            <input type="text" id="edBtn5">
-            <label>Descripción:</label>
-            <textarea id="edDesc5"></textarea>
-            <label>Precio:</label>
-            <input type="text" id="edPrecio5">
-        </div>
-        <div class="espacio-edicion">
-            <label>Texto Botón 6 (Promociones):</label>
-            <input type="text" id="edBtn6">
-            <label>Promociones (escribe cada una en renglón separado):</label>
-            <textarea id="edPromos"></textarea>
-        </div>
-        <button class="boton boton-verde" id="btnGuardarServicios">💾 Guardar Cambios</button>
-    </div>
-</div>
-
-<!-- MODAL EDITAR HORARIOS -->
-<div class="modal-fondo" id="modalEditarHorarios">
-    <div class="modal-caja">
-        <button class="cerrar-modal" id="cerrarEdHor">&times;</button>
-        <h3>✏️ Editar Horarios</h3>
-        <label>Lunes a Viernes:</label>
-        <input type="text" id="edHorario1">
-        <label>Sábado:</label>
-        <input type="text" id="edHorario2">
-        <label>Domingo:</label>
-        <input type="text" id="edHorario3">
-        <button class="boton boton-verde" id="btnGuardarHorarios">💾 Guardar Horarios</button>
     </div>
 </div>
 
@@ -424,26 +396,41 @@
 const CORREO_ADMIN = "laya@gmail.com";
 const CLAVE_ADMIN = "Laya2026";
 let calificacionEstrellas = 0;
+let adminActivo = false;
+let citasSuscripcion = null;
+let opinionesSuscripcion = null;
 
 // ==================================================
-// ✅ FUNCION: MOSTRAR SERVICIOS AL HACER CLIC
+// ☁️ CONEXIÓN A LA BASE DE DATOS EN LA NUBE
+// ==================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
+  authDomain: "cosmiatria-laya.firebaseapp.com",
+  projectId: "cosmiatria-laya",
+  storageBucket: "cosmiatria-laya.firebasestorage.app",
+  messagingSenderId: "129969103650",
+  appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b"
+};
+
+const app = firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+// ==================================================
+// ✅ MOSTRAR SERVICIOS AL HACER CLIC EN BOTONES
 // ==================================================
 function mostrarServicio(idCaja) {
-    // OCULTAR TODAS LAS CAJAS
     const todasLasCajas = document.querySelectorAll('.caja-info');
     for (let i = 0; i < todasLasCajas.length; i++) {
         todasLasCajas[i].classList.remove('mostrar');
     }
-    // MOSTRAR LA SELECCIONADA
     document.getElementById(idCaja).classList.add('mostrar');
 }
 
 // ==================================================
-// ⭐ SISTEMA DE ESTRELLAS DE CALIFICACIÓN
+// ⭐ SISTEMA DE ESTRELLAS
 // ==================================================
 function configurarEstrellas() {
     const estrellas = document.querySelectorAll('#estrellas .estrella');
-    
     estrellas.forEach(estrella => {
         estrella.addEventListener('mouseover', function() {
             iluminarEstrellas(this.dataset.valor);
@@ -453,7 +440,6 @@ function configurarEstrellas() {
             iluminarEstrellas(this.dataset.valor);
         });
     });
-    
     document.getElementById('estrellas').addEventListener('mouseleave', function() {
         iluminarEstrellas(calificacionEstrellas);
     });
@@ -461,76 +447,14 @@ function configurarEstrellas() {
 function iluminarEstrellas(valor) {
     const estrellas = document.querySelectorAll('#estrellas .estrella');
     estrellas.forEach(estrella => {
-        if (estrella.dataset.valor <= valor) {
-            estrella.classList.add('activa');
-        } else {
-            estrella.classList.remove('activa');
-        }
+        estrella.classList.toggle('activa', estrella.dataset.valor <= valor);
     });
 }
 
 // ==================================================
-// 💬 ENVIAR COMENTARIO / OPINIÓN
+// 📝 GUARDAR CITA EN LA NUBE
 // ==================================================
-document.getElementById('btnEnviarComentario').addEventListener('click', function(){
-    const nombre = document.getElementById('nombreCliente').value.trim();
-    const comentario = document.getElementById('comentarioCliente').value.trim();
-    
-    if (!nombre || !comentario || calificacionEstrellas === 0) {
-        alert('❌ Escribe tu nombre, selecciona estrellas y tu comentario');
-        return;
-    }
-    
-    const opiniones = JSON.parse(localStorage.getItem('opiniones') || '[]');
-    opiniones.unshift({
-        nombre: nombre,
-        estrellas: calificacionEstrellas,
-        texto: comentario,
-        fecha: new Date().toLocaleString()
-    });
-    localStorage.setItem('opiniones', JSON.stringify(opiniones));
-    
-    document.getElementById('nombreCliente').value = '';
-    document.getElementById('comentarioCliente').value = '';
-    calificacionEstrellas = 0;
-    iluminarEstrellas(0);
-    
-    cargarOpiniones();
-    document.getElementById('mensajeOpinion').style.display = 'block';
-    setTimeout(() => document.getElementById('mensajeOpinion').style.display = 'none', 3000);
-});
-
-// CARGAR OPINIONES GUARDADAS
-function cargarOpiniones() {
-    const opiniones = JSON.parse(localStorage.getItem('opiniones') || '[]');
-    const caja = document.getElementById('opiniones');
-    
-    if (opiniones.length === 0) {
-        caja.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
-        return;
-    }
-    
-    caja.innerHTML = '';
-    opiniones.forEach(op => {
-        let estrellasHtml = '';
-        for(let i=0; i<5; i++) {
-            estrellasHtml += i < op.estrellas ? '★' : '☆';
-        }
-        caja.innerHTML += `
-            <div class="comentario">
-                <strong>${op.nombre}</strong>
-                <span class="comentario-estrellas">${estrellasHtml}</span>
-                <p>${op.texto}</p>
-                <small style="color:#999;">${op.fecha}</small>
-            </div>
-        `;
-    });
-}
-
-// ==================================================
-// 📝 AGENDAR CITA
-// ==================================================
-document.getElementById('btnGuardarCita').addEventListener('click', function(){
+document.getElementById('btnGuardarCita').addEventListener('click', async function(){
     const nombre = document.getElementById('nombre').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
     const dia = document.getElementById('dia').value;
@@ -544,9 +468,16 @@ document.getElementById('btnGuardarCita').addEventListener('click', function(){
         return;
     }
     
-    const citas = JSON.parse(localStorage.getItem('citas') || '[]');
-    citas.unshift({ nombre, telefono, dia, mes, anio, hora, comentario });
-    localStorage.setItem('citas', JSON.stringify(citas));
+    await db.collection('citas').add({
+        nombre: nombre,
+        telefono: telefono,
+        dia: dia,
+        mes: mes,
+        anio: anio,
+        hora: hora,
+        comentario: comentario,
+        fecha: firebase.firestore.Timestamp.now()
+    });
     
     document.getElementById('nombre').value = '';
     document.getElementById('telefono').value = '';
@@ -556,184 +487,141 @@ document.getElementById('btnGuardarCita').addEventListener('click', function(){
     document.getElementById('hora').value = '';
     document.getElementById('comentario').value = '';
     
-    cargarCitas();
-    document.getElementById('mensajeCita').style.display = 'block';
-    setTimeout(() => document.getElementById('mensajeCita').style.display = 'none', 3000);
+    const msg = document.getElementById('mensajeCita');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
 });
 
-// CARGAR CITAS EN ADMIN
-function cargarCitas() {
-    const citas = JSON.parse(localStorage.getItem('citas') || '[]');
-    const lista = document.getElementById('listaCitas');
+// ==================================================
+// 💬 GUARDAR OPINIÓN EN LA NUBE
+// ==================================================
+document.getElementById('btnEnviarComentario').addEventListener('click', async function(){
+    const nombre = document.getElementById('nombreCliente').value.trim();
+    const comentario = document.getElementById('comentarioCliente').value.trim();
     
-    if (citas.length === 0) {
-        lista.innerHTML = '<p class="sin-datos">Sin citas agendadas</p>';
+    if (!nombre || !comentario || calificacionEstrellas === 0) {
+        alert('❌ Escribe tu nombre, califica con estrellas y tu comentario');
         return;
     }
     
-    lista.innerHTML = '';
-    citas.forEach((c, i) => {
-        lista.innerHTML += `
-            <div style="padding:8px; background:white; border-radius:6px; margin-bottom:5px;">
-                <strong>${c.nombre}</strong> — ${c.telefono}<br>
-                📅 ${c.dia}/${c.mes}/${c.anio} ⏰ ${c.hora}<br>
-                💬 ${c.comentario || 'Sin comentario'}
-            </div>
-        `;
+    await db.collection('opiniones').add({
+        nombre: nombre,
+        estrellas: parseInt(calificacionEstrellas),
+        texto: comentario,
+        fecha: firebase.firestore.Timestamp.now()
     });
+    
+    document.getElementById('nombreCliente').value = '';
+    document.getElementById('comentarioCliente').value = '';
+    calificacionEstrellas = 0;
+    iluminarEstrellas(0);
+    
+    const msg = document.getElementById('mensajeOpinion');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 4000);
+});
+
+// ==================================================
+// 🔄 ESCUCHAR CITAS EN TIEMPO REAL
+// ==================================================
+function escucharCitas() {
+    citasSuscripcion = db.collection('citas')
+        .orderBy('fecha', 'desc')
+        .onSnapshot(snapshot => {
+            const lista = document.getElementById('listaCitas');
+            if (snapshot.empty) {
+                lista.innerHTML = '<p class="sin-datos">📭 Sin citas todavía</p>';
+                return;
+            }
+            lista.innerHTML = '';
+            snapshot.forEach(doc => {
+                const c = doc.data();
+                const fechaObj = c.fecha?.toDate ? c.fecha.toDate() : new Date();
+                const fechaTexto = fechaObj.toLocaleString('es-MX');
+                lista.innerHTML += `
+                    <div class="tarjeta">
+                        <h4>👤 ${c.nombre}</h4>
+                        <p>📱 ${c.telefono}</p>
+                        <p>📅 ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
+                        <p>💬 ${c.comentario || 'Sin comentario'}</p>
+                        <p class="fecha">📆 Recibido: ${fechaTexto}</p>
+                        <button class="btn-eliminar" onclick="eliminarCita('${doc.id}')">🗑️ Eliminar</button>
+                    </div>`;
+            });
+        });
 }
 
 // ==================================================
-// ✏️ EDITAR SERVICIOS, PRECIOS Y PROMOCIONES
+// 🔄 ESCUCHAR OPINIONES EN TIEMPO REAL
 // ==================================================
-document.getElementById('btnEditarServicios').addEventListener('click', function(){
-    document.getElementById('modalEditarServicios').classList.add('mostrar');
-    // CARGAR VALORES ACTUALES
-    document.getElementById('edBtn1').value = document.getElementById('txtBtn1').textContent;
-    document.getElementById('edDesc1').value = document.getElementById('descServ1').textContent;
-    document.getElementById('edPrecio1').value = document.getElementById('precio1').textContent;
-    
-    document.getElementById('edBtn2').value = document.getElementById('txtBtn2').textContent;
-    document.getElementById('edDesc2').value = document.getElementById('descServ2').textContent;
-    document.getElementById('edPrecio2').value = document.getElementById('precio2').textContent;
-    
-    document.getElementById('edBtn3').value = document.getElementById('txtBtn3').textContent;
-    document.getElementById('edDesc3').value = document.getElementById('descServ3').textContent;
-    document.getElementById('edPrecio3').value = document.getElementById('precio3').textContent;
-    
-    document.getElementById('edBtn4').value = document.getElementById('txtBtn4').textContent;
-    document.getElementById('edDesc4').value = document.getElementById('descServ4').textContent;
-    document.getElementById('edPrecio4').value = document.getElementById('precio4').textContent;
-    
-    document.getElementById('edBtn5').value = document.getElementById('txtBtn5').textContent;
-    document.getElementById('edDesc5').value = document.getElementById('descServ5').textContent;
-    document.getElementById('edPrecio5').value = document.getElementById('precio5').textContent;
-    
-    document.getElementById('edBtn6').value = document.getElementById('txtBtn6').textContent;
-    document.getElementById('edPromos').value = document.getElementById('textoPromos').innerText;
-});
-
-document.getElementById('cerrarEdServ').addEventListener('click', function(){
-    document.getElementById('modalEditarServicios').classList.remove('mostrar');
-});
-
-document.getElementById('btnGuardarServicios').addEventListener('click', function(){
-    // BOTÓN 1
-    document.getElementById('txtBtn1').textContent = document.getElementById('edBtn1').value;
-    document.getElementById('descServ1').textContent = document.getElementById('edDesc1').value;
-    document.getElementById('precio1').textContent = document.getElementById('edPrecio1').value;
-    
-    // BOTÓN 2
-    document.getElementById('txtBtn2').textContent = document.getElementById('edBtn2').value;
-    document.getElementById('descServ2').textContent = document.getElementById('edDesc2').value;
-    document.getElementById('precio2').textContent = document.getElementById('edPrecio2').value;
-    
-    // BOTÓN 3
-    document.getElementById('txtBtn3').textContent = document.getElementById('edBtn3').value;
-    document.getElementById('descServ3').textContent = document.getElementById('edDesc3').value;
-    document.getElementById('precio3').textContent = document.getElementById('edPrecio3').value;
-    
-    // BOTÓN 4
-    document.getElementById('txtBtn4').textContent = document.getElementById('edBtn4').value;
-    document.getElementById('descServ4').textContent = document.getElementById('edDesc4').value;
-    document.getElementById('precio4').textContent = document.getElementById('edPrecio4').value;
-    
-    // BOTÓN 5
-    document.getElementById('txtBtn5').textContent = document.getElementById('edBtn5').value;
-    document.getElementById('descServ5').textContent = document.getElementById('edDesc5').value;
-    document.getElementById('precio5').textContent = document.getElementById('edPrecio5').value;
-    
-    // BOTÓN 6 PROMOCIONES
-    document.getElementById('txtBtn6').textContent = document.getElementById('edBtn6').value;
-    document.getElementById('textoPromos').innerHTML = document.getElementById('edPromos').value.replace(/\n/g, '<br>');
-    
-    guardarTodoEnStorage();
-    document.getElementById('modalEditarServicios').classList.remove('mostrar');
-    alert('✅ Servicios y precios actualizados');
-});
-
-// ==================================================
-// ✏️ EDITAR HORARIOS
-// ==================================================
-document.getElementById('btnEditarAgenda').addEventListener('click', function(){
-    document.getElementById('modalEditarHorarios').classList.add('mostrar');
-    document.getElementById('edHorario1').value = document.getElementById('hora1').textContent;
-    document.getElementById('edHorario2').value = document.getElementById('hora2').textContent;
-    document.getElementById('edHorario3').value = document.getElementById('hora3').textContent;
-});
-
-document.getElementById('cerrarEdHor').addEventListener('click', function(){
-    document.getElementById('modalEditarHorarios').classList.remove('mostrar');
-});
-
-document.getElementById('btnGuardarHorarios').addEventListener('click', function(){
-    document.getElementById('hora1').textContent = document.getElementById('edHorario1').value;
-    document.getElementById('hora2').textContent = document.getElementById('edHorario2').value;
-    document.getElementById('hora3').textContent = document.getElementById('edHorario3').value;
-    guardarTodoEnStorage();
-    document.getElementById('modalEditarHorarios').classList.remove('mostrar');
-    alert('✅ Horarios actualizados');
-});
-
-// ==================================================
-// 💾 GUARDAR Y CARGAR TODO DESDE MEMORIA
-// ==================================================
-function guardarTodoEnStorage() {
-    const datos = {
-        btn1: document.getElementById('txtBtn1').textContent,
-        desc1: document.getElementById('descServ1').textContent,
-        prec1: document.getElementById('precio1').textContent,
-        btn2: document.getElementById('txtBtn2').textContent,
-        desc2: document.getElementById('descServ2').textContent,
-        prec2: document.getElementById('precio2').textContent,
-        btn3: document.getElementById('txtBtn3').textContent,
-        desc3: document.getElementById('descServ3').textContent,
-        prec3: document.getElementById('precio3').textContent,
-        btn4: document.getElementById('txtBtn4').textContent,
-        desc4: document.getElementById('descServ4').textContent,
-        prec4: document.getElementById('precio4').textContent,
-        btn5: document.getElementById('txtBtn5').textContent,
-        desc5: document.getElementById('descServ5').textContent,
-        prec5: document.getElementById('precio5').textContent,
-        btn6: document.getElementById('txtBtn6').textContent,
-        promos: document.getElementById('textoPromos').innerHTML,
-        hor1: document.getElementById('hora1').textContent,
-        hor2: document.getElementById('hora2').textContent,
-        hor3: document.getElementById('hora3').textContent
-    };
-    localStorage.setItem('datosPagina', JSON.stringify(datos));
-}
-
-function cargarDatosGuardados() {
-    const guardado = JSON.parse(localStorage.getItem('datosPagina') || 'null');
-    if (!guardado) return;
-    
-    if(guardado.btn1) {
-        document.getElementById('txtBtn1').textContent = guardado.btn1;
-        document.getElementById('descServ1').textContent = guardado.desc1;
-        document.getElementById('precio1').textContent = guardado.prec1;
-        document.getElementById('txtBtn2').textContent = guardado.btn2;
-        document.getElementById('descServ2').textContent = guardado.desc2;
-        document.getElementById('precio2').textContent = guardado.prec2;
-        document.getElementById('txtBtn3').textContent = guardado.btn3;
-        document.getElementById('descServ3').textContent = guardado.desc3;
-        document.getElementById('precio3').textContent = guardado.prec3;
-        document.getElementById('txtBtn4').textContent = guardado.btn4;
-        document.getElementById('descServ4').textContent = guardado.desc4;
-        document.getElementById('precio4').textContent = guardado.prec4;
-        document.getElementById('txtBtn5').textContent = guardado.btn5;
-        document.getElementById('descServ5').textContent = guardado.desc5;
-        document.getElementById('precio5').textContent = guardado.prec5;
-        document.getElementById('txtBtn6').textContent = guardado.btn6;
-        document.getElementById('textoPromos').innerHTML = guardado.promos;
-        document.getElementById('hora1').textContent = guardado.hor1;
-        document.getElementById('hora2').textContent = guardado.hor2;
-        document.getElementById('hora3').textContent = guardado.hor3;
-    }
+function escucharOpiniones() {
+    opinionesSuscripcion = db.collection('opiniones')
+        .orderBy('fecha', 'desc')
+        .limit(20)
+        .onSnapshot(snapshot => {
+            const cajaPublica = document.getElementById('opiniones');
+            const cajaAdmin = document.getElementById('listaOpinionesAdmin');
+            
+            if (snapshot.empty) {
+                cajaPublica.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
+                if (cajaAdmin) cajaAdmin.innerHTML = '<p class="sin-datos">Sin opiniones todavía</p>';
+                return;
+            }
+            
+            let htmlPublica = '';
+            let htmlAdmin = '';
+            snapshot.forEach(doc => {
+                const op = doc.data();
+                const fechaObj = op.fecha?.toDate ? op.fecha.toDate() : new Date();
+                const fechaTexto = fechaObj.toLocaleString('es-MX');
+                let estrellas = '';
+                for(let i=0; i<5; i++) estrellas += i < op.estrellas ? '★' : '☆';
+                
+                htmlPublica += `
+                    <div class="tarjeta">
+                        <h4>${op.nombre} ⭐ ${estrellas}</h4>
+                        <p>${op.texto}</p>
+                        <p class="fecha">${fechaTexto}</p>
+                    </div>`;
+                
+                htmlAdmin += `
+                    <div class="tarjeta">
+                        <h4>${op.nombre} ⭐ ${estrellas}</h4>
+                        <p>${op.texto}</p>
+                        <p class="fecha">${fechaTexto}</p>
+                        <button class="btn-eliminar" onclick="eliminarOpinion('${doc.id}')">🗑️ Eliminar</button>
+                    </div>`;
+            });
+            
+            cajaPublica.innerHTML = htmlPublica;
+            if (cajaAdmin) cajaAdmin.innerHTML = htmlAdmin;
+        });
 }
 
 // ==================================================
-// 🔐 LOGIN
+// 🗑️ ELIMINAR
+// ==================================================
+window.eliminarCita = async function(id) {
+    if(confirm('¿Eliminar esta cita?')) await db.collection('citas').doc(id).delete();
+};
+window.eliminarOpinion = async function(id) {
+    if(confirm('¿Eliminar esta opinión?')) await db.collection('opiniones').doc(id).delete();
+};
+
+// ==================================================
+// 📄 CAMBIAR PESTAÑAS
+// ==================================================
+function cambiarPestana(nombre) {
+    document.querySelectorAll('.pestaña').forEach(p => p.classList.remove('activa'));
+    event.currentTarget.classList.add('activa');
+    document.querySelectorAll('.caja-pestaña').forEach(c => c.classList.remove('mostrar'));
+    
+    if(nombre === 'citas') document.getElementById('pestanaCitas').classList.add('mostrar');
+    else if(nombre === 'comentarios') document.getElementById('pestanaComentarios').classList.add('mostrar');
+}
+
+// ==================================================
+// 🔐 INICIO Y CIERRE DE SESIÓN
 // ==================================================
 document.getElementById('btnLogin').addEventListener('click', function(){
     document.getElementById('modalLogin').classList.add('mostrar');
@@ -745,30 +633,40 @@ document.getElementById('btnIngresar').addEventListener('click', function(){
     const correo = document.getElementById('correoAdmin').value.trim();
     const clave = document.getElementById('claveAdmin').value.trim();
     if (correo === CORREO_ADMIN && clave === CLAVE_ADMIN) {
-        document.getElementById('raiz').classList.add('admin-activo');
+        entrarAdmin();
         document.getElementById('modalLogin').classList.remove('mostrar');
-        localStorage.setItem('sesionAdmin', 'ok');
-        cargarCitas();
     } else {
         document.getElementById('respuestaLogin').textContent = '❌ Datos incorrectos';
     }
 });
 document.getElementById('btnSalir').addEventListener('click', function(){
-    document.getElementById('raiz').classList.remove('admin-activo');
-    localStorage.removeItem('sesionAdmin');
+    salirAdmin();
 });
 
+function entrarAdmin() {
+    adminActivo = true;
+    document.getElementById('raiz').classList.add('admin-activo');
+    localStorage.setItem('sesionAdmin', 'ok');
+    escucharCitas();
+    escucharOpiniones();
+}
+function salirAdmin() {
+    adminActivo = false;
+    localStorage.removeItem('sesionAdmin');
+    document.getElementById('raiz').classList.remove('admin-activo');
+    if(citasSuscripcion) citasSuscripcion();
+    if(opinionesSuscripcion) opinionesSuscripcion();
+}
+
 // ==================================================
-// ✅ INICIAR TODO AL CARGAR LA PÁGINA
+// ✅ INICIAR TODO AL CARGAR
 // ==================================================
 window.onload = function(){
     configurarEstrellas();
-    cargarDatosGuardados();
-    cargarOpiniones();
+    escucharOpiniones();
     
     if (localStorage.getItem('sesionAdmin') === 'ok') {
-        document.getElementById('raiz').classList.add('admin-activo');
-        cargarCitas();
+        entrarAdmin();
     }
 };
 </script>
