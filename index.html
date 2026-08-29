@@ -38,7 +38,7 @@
         h1 { margin: 0; font-size: 42px; }
         .frase { font-size: 20px; font-style: italic; margin-top: 10px; color: #f3e0ee; }
         section {
-            max-width: 800px;
+            max-width: 850px;
             margin: 30px auto;
             padding: 30px;
             background: white;
@@ -88,44 +88,41 @@
             display: none;
         }
         .caja-informacion.mostrar { display: block; }
-        @keyframes aparecer {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+
+        /* GALERÍA PÚBLICA CLARA Y VISIBLE */
         .galeria {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 18px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 20px;
         }
-        .foto {
-            width: 180px;
-            height: 180px;
-            background: #e4d4de;
-            border-radius: 12px;
+        .foto-publica {
+            width: 200px;
+            height: 200px;
+            border-radius: 14px;
             object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: transform .3s;
         }
-        .foto-contenedor { position: relative; display: inline-block; }
-        .boton-borrar-foto {
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: rgba(220, 39, 67, 0.9);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 28px;
-            height: 28px;
-            font-size: 16px;
-            cursor: pointer;
-            display: none;
+        .foto-publica:hover { transform: scale(1.03); }
+
+        /* Estilo galería solo en admin */
+        .foto-contenedor-admin {
+            position: relative;
+            display: inline-block;
+            margin: 8px;
         }
-        .foto-contenedor:hover .boton-borrar-foto {
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .foto-admin {
+            width: 160px; height: 160px; border-radius: 10px; object-fit: cover;
         }
+        .btn-eliminar-foto {
+            position: absolute; top: -6px; right: -6px;
+            background: #dc3545; color: white; border: none; font-weight: bold;
+            width: 28px; height: 28px; border-radius: 50%; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+
         .contacto { text-align: center; background: #f9f2f7; }
         .contacto a { color: #9c6b8c; font-weight: bold; text-decoration: none; }
         .contacto a:hover { text-decoration: underline; }
@@ -225,7 +222,7 @@
         }
         .whatsapp-flotante:hover { transform: scale(1.15); }
 
-        /* 🔐 VENTANA DE INICIO DE SESIÓN */
+        /* Ventana inicio sesión */
         .ventana-sesion {
             position: fixed;
             top: 0;
@@ -274,7 +271,7 @@
             color: #999;
         }
 
-        /* PANEL DE ADMINISTRACIÓN */
+        /* Panel Admin */
         .panel-admin {
             background: linear-gradient(135deg, #fffef0, #faf4e0);
             padding: 25px;
@@ -285,7 +282,7 @@
         }
         .panel-admin.mostrar { display: block; }
         .panel-admin h3 { text-align: center; color: #b88600; margin-top: 0; }
-        .panel-admin input[type="text"], .panel-admin input[type="file"] {
+        .panel-admin input, .panel-admin textarea {
             width: 100%;
             padding: 10px;
             margin: 6px 0;
@@ -294,14 +291,14 @@
             border-radius: 8px;
             box-sizing: border-box;
         }
-        .agenda-item {
+        .separador { border: none; border-top: 2px dashed #f0d8a0; margin: 20px 0; }
+        .cliente-item, .agenda-item {
             background: white;
             padding: 12px;
             margin: 8px 0;
             border-radius: 10px;
-            border-left: 3px solid #4CAF50;
+            border-left: 3px solid #9c6b8c;
         }
-        .separador { border: none; border-top: 2px dashed #f0d8a0; margin: 20px 0; }
     </style>
 </head>
 <body>
@@ -309,14 +306,12 @@
 <a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
-    <!-- 🔐 BOTÓN DE CANDADITO ARRIBA A LA DERECHA -->
     <button type="button" class="boton-candado" id="botonCandado" title="Administradora 🔐">🔒</button>
-    
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
 
-<!-- 🔐 VENTANA DE INICIO DE SESIÓN -->
+<!-- Ventana inicio sesión -->
 <div id="ventanaSesion" class="ventana-sesion">
     <div class="caja-sesion">
         <button type="button" class="cerrar-ventana" id="btnCerrarVentana">×</button>
@@ -340,19 +335,18 @@
 
 <section>
     <h2>Nuestros Servicios</h2>
-    <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para ver su información</p>
+    <p style="text-align:center; font-size:17px;">👇 Presiona cada botón para conocer los detalles</p>
     <div class="contenedor-botones">
         <button type="button" class="boton" onclick="mostrarSeccion('limpieza')">🌿 Limpieza Facial</button>
         <button type="button" class="boton" onclick="mostrarSeccion('hidratacion')">💆‍♀️ Hidratación</button>
         <button type="button" class="boton" onclick="mostrarSeccion('exfoliacion')">✨ Exfoliación</button>
         <button type="button" class="boton" onclick="mostrarSeccion('piel')">🌸 Piel Sensible</button>
-        <button type="button" class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría</button>
+        <button type="button" class="boton" onclick="mostrarSeccion('asesoria')">💎 Asesoría General</button>
     </div>
 
     <div id="limpieza" class="caja-informacion">
         <h3>🌿 Limpieza Facial Profunda</h3>
         <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
-        <p><strong>¿En qué consiste?</strong> Usamos productos especiales para limpiar profundamente sin dañar tu piel.</p>
     </div>
     <div id="hidratacion" class="caja-informacion">
         <h3>💆‍♀️ Hidratación y Nutrición</h3>
@@ -368,49 +362,58 @@
     </div>
     <div id="asesoria" class="caja-informacion">
         <h3>💎 Asesoría Personalizada</h3>
-        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días. 💜</p>
+        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días con los pasos correctos. 💜</p>
     </div>
 </section>
 
 <section>
-    <h2>📆 Horarios de Atención</h2>
+    <h2>📆 Horarios y Administración</h2>
 
-    <!-- ✅ PANEL DE ADMINISTRACIÓN -->
     <div id="panelAdministracion" class="panel-admin">
         <div style="text-align:right; margin-bottom:10px;">
             <button type="button" class="boton boton-rojo" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
         </div>
 
-        <h3>✏️ MODIFICAR HORARIOS</h3>
+        <h3>✏️ MODIFICAR HORARIOS DE ATENCIÓN</h3>
         <input type="text" id="hLunes" placeholder="Lunes ej: 9:00 AM — 6:00 PM">
         <input type="text" id="hMartes" placeholder="Martes">
         <input type="text" id="hMiercoles" placeholder="Miércoles">
         <input type="text" id="hJueves" placeholder="Jueves">
         <input type="text" id="hViernes" placeholder="Viernes">
         <input type="text" id="hSabado" placeholder="Sábado">
-        <div class="contenedor-botones" style="margin:8px 0;">
+        <div class="contenedor-botones">
             <button type="button" class="boton boton-verde" id="btnGuardarHorarios">✅ Guardar Horarios</button>
         </div>
         <div class="mensaje exito" id="msgHorarios"></div>
-
         <hr class="separador">
 
-        <h3>📅 AGREGAR CITA A LA AGENDA</h3>
+        <h3>📂 CARTERA DE CLIENTES</h3>
+        <input type="text" id="cliNombre" placeholder="Nombre completo">
+        <input type="text" id="cliTel" placeholder="Teléfono">
+        <input type="email" id="cliCorreo" placeholder="Correo electrónico">
+        <textarea id="cliNotas" placeholder="Notas: tipo de piel, alergias, historial..."></textarea>
+        <div class="contenedor-botones">
+            <button type="button" class="boton boton-naranja" id="btnAgregarCliente">➕ Guardar Cliente</button>
+        </div>
+        <div id="listaClientes"></div>
+        <hr class="separador">
+
+        <h3>📅 AGENDA DE CITAS</h3>
         <input type="text" id="cFecha" placeholder="Fecha ej: 28 de Agosto">
         <input type="text" id="cNombre" placeholder="Nombre de la cliente">
         <input type="text" id="cHora" placeholder="Hora ej: 10:00 AM">
-        <input type="text" id="cTratamiento" placeholder="Tratamiento">
-        <div class="contenedor-botones" style="margin:8px 0;">
-            <button type="button" class="boton boton-verde" id="btnAgregarCita">✅ Agregar Cita</button>
+        <input type="text" id="cTratamiento" placeholder="Tratamiento o servicio">
+        <div class="contenedor-botones">
+            <button type="button" class="boton boton-verde" id="btnAgregarCita">✅ Agendar Cita</button>
         </div>
-
+        <div id="listaCitas"></div>
         <hr class="separador">
 
-        <h3>📷 SUBIR FOTOS A LA GALERÍA</h3>
+        <h3>📷 SUBIR Y ADMINISTRAR FOTOS</h3>
         <input type="file" id="fotoNueva" accept="image/*">
+        <div id="galeriaAdmin"></div>
     </div>
 
-    <!-- 📆 LO QUE VEN TODOS LOS CLIENTES -->
     <table class="tabla-horarios">
         <tr><th>Día</th><th>Horario</th></tr>
         <tr><td>📅 Lunes</td><td id="dLunes">9:00 AM — 6:00 PM</td></tr>
@@ -421,10 +424,7 @@
         <tr><td>📅 Sábado</td><td id="dSabado">9:00 AM — 3:00 PM</td></tr>
         <tr><td>☀️ Domingo</td><td class="dia-descanso">Descanso</td></tr>
     </table>
-
-    <h3 style="text-align:center; margin-top:25px;">📅 Agenda de Citas</h3>
-    <div id="listaCitas"></div>
-    <p style="text-align:center; margin-top:15px;">💜 <strong>Se requiere cita previa agendada</strong></p>
+    <p style="text-align:center; margin-top:15px;">💜 Se requiere cita previa agendada</p>
 </section>
 
 <section>
@@ -445,11 +445,11 @@
         <div class="testimonio-nombre">— María ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="testimonio">
-        "Excelente atención, muy profesional y cálida. Mi piel nunca se había visto tan bien. ✨"
+        "Excelente atención, muy profesional y cálida. Mi piel nunca se había visto tan bien."
         <div class="testimonio-nombre">— Claudia ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="testimonio">
-        "Ambiente muy agradable y tratamientos de calidad. ¡Regreso seguro! 💜"
+        "Ambiente muy agradable, me sentí muy bien atendida. ¡Regreso seguro! 💜"
         <div class="testimonio-nombre">— Karla ⭐⭐⭐⭐⭐</div>
     </div>
     <div class="caja-opinion">
@@ -462,23 +462,24 @@
             <span data-estrella="5">⭐</span>
         </div>
         <input type="text" id="opNombre" placeholder="Tu nombre...">
-        <textarea id="opTexto" placeholder="Tu opinión..."></textarea>
+        <textarea id="opTexto" placeholder="Tu experiencia..."></textarea>
         <div class="contenedor-botones">
             <button type="button" class="boton boton-enviar" id="btnEnviarOpinion">✅ Enviar Opinión</button>
         </div>
         <div id="mensajeOp" class="opinion-recibida">
-            <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu opinión! 💜</p>
+            <p style="text-align:center; font-weight:bold; color:#3d8b3d;">¡Gracias por tu confianza! 💜</p>
         </div>
     </div>
 </section>
 
 <section>
     <h2>📸 Galería de Fotos</h2>
-    <div class="galeria" id="galeriaFotos"></div>
+    <!-- FOTOS PERFECTAMENTE VISIBLES PARA TODOS -->
+    <div class="galeria" id="galeriaPublica"></div>
 </section>
 
 <section>
-    <h2>📋 Más Información</h2>
+    <h2>📋 Más Información y Contacto</h2>
     <div class="contenedor-botones">
         <button type="button" class="boton" onclick="mostrarSeccion('agendar')">📅 Agendar Cita</button>
         <a href="tel:+5217296336318" class="boton boton-llamar">📞 Llamar Ahora</a>
@@ -487,25 +488,25 @@
         <a href="https://www.instagram.com/skin_carelaya/" target="_blank" class="boton boton-instagram">📷 Instagram</a>
     </div>
     <div id="agendar" class="caja-informacion">
-        <h3>📅 Agendar tu Cita</h3>
-        <p>💬 Escríbeme por WhatsApp o llámame para apartar tu cita.</p>
-        <p>📞 <strong>Teléfono y WhatsApp:</strong> 729 633 6318</p>
-        <p>📍 Toluca, Estado de México</p>
+        <h3>📅 Cómo agendar tu visita</h3>
+        <p>💬 Escríbeme por WhatsApp o llámame para elegir el día y hora ideal para ti.</p>
+        <p>📞 Teléfono y WhatsApp: <strong>+52 1 729 633 6318</strong></p>
+        <p>📍 Ubicación: Toluca, Estado de México</p>
     </div>
 </section>
 
 <section class="contacto">
-    <h2>📍 Contacto</h2>
+    <h2>📍 Datos de Contacto</h2>
     <h3>💜 Lic. Laiza González Robles</h3>
-    <p>📞 Teléfono y WhatsApp: <a href="tel:+5217296336318">729 633 6318</a></p>
-    <p>📍 Toluca, Estado de México</p>
-    <p>📷 Instagram: <a href="https://www.instagram.com/skin_carelaya/" target="_blank">@skin_carelaya</a></p>
+    <p>📞 Teléfono y WhatsApp: <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
+    <p>📍 Ubicación: Toluca, Estado de México</p>
+    <p>📷 Sígueme en Instagram: <a href="https://www.instagram.com/skin_carelaya/" target="_blank">@skin_carelaya</a></p>
 </section>
 
 <section>
     <h2>🛡️ Aviso de Privacidad</h2>
     <div class="aviso-privacidad">
-        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un mejor servicio. Los datos compartidos en esta página se manejan con confianza y respeto. 💜</p>
+        <p>Tu información personal está protegida y se utiliza únicamente para brindarte un servicio excelente, ordenado y seguro. Los datos compartidos en esta página se manejan con confianza, respeto y total discreción. 💜</p>
     </div>
 </section>
 
@@ -514,11 +515,9 @@
 </footer>
 
 <script>
-// 🔐 DATOS DE INICIO DE SESIÓN
 const CORREO_ADMIN = "laya@gmail.com";
 const CONTRASEÑA_ADMIN = "Laya2026";
 
-// ELEMENTOS
 const candado = document.getElementById('botonCandado');
 const ventana = document.getElementById('ventanaSesion');
 const btnCerrarVentana = document.getElementById('btnCerrarVentana');
@@ -528,229 +527,230 @@ const mensajeSesion = document.getElementById('mensajeSesion');
 const btnEntrar = document.getElementById('btnEntrar');
 const panelAdmin = document.getElementById('panelAdministracion');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
+const galeriaPub = document.getElementById('galeriaPublica');
+const galeriaPriv = document.getElementById('galeriaAdmin');
+const inputFoto = document.getElementById('fotoNueva');
 
-// 🟢 FLECHA DE BIENVENIDA
-function mostrarBienvenida() {
+let fotos = JSON.parse(localStorage.getItem('fotosCosmi')) || [];
+
+function mostrarBienvenida(){
     const flecha = document.createElement('div');
     flecha.style.cssText = `
-        position: fixed;
-        top: 50%;
-        right: 30px;
-        transform: translateY(-50%);
-        background: #4CAF50;
-        color: white;
-        padding: 14px 24px;
-        border-radius: 50px;
-        font-size: 18px;
-        font-weight: bold;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-        z-index: 1001;
-        transition: opacity 0.5s ease;
+        position:fixed;top:50%;right:30px;transform:translateY(-50%);
+        background:#4CAF50;color:white;padding:14px 24px;border-radius:50px;
+        font-size:18px;font-weight:bold;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:1001;
     `;
-    flecha.textContent = '➡️ Bienvenida';
+    flecha.textContent = '➡️ Bienvenida Administradora ✨';
     document.body.appendChild(flecha);
-    setTimeout(() => {
-        flecha.style.opacity = '0';
-        setTimeout(() => flecha.remove(), 500);
-    }, 4000);
+    setTimeout(()=>flecha.remove(),3500);
 }
 
-// ABRIR VENTANA AL TOCAR EL CANDADO
-candado.addEventListener('click', function() {
+// Mostrar / ocultar ventana login
+candado.addEventListener('click', ()=>{
     ventana.classList.add('mostrar');
     correoInput.value = '';
     passInput.value = '';
     mensajeSesion.textContent = '';
 });
+btnCerrarVentana.addEventListener('click', ()=> ventana.classList.remove('mostrar'));
 
-// CERRAR VENTANA
-btnCerrarVentana.addEventListener('click', function() {
-    ventana.classList.remove('mostrar');
-});
-
-// INICIAR SESIÓN
-btnEntrar.addEventListener('click', function() {
-    const correo = correoInput.value.trim();
-    const pass = passInput.value;
-    if (correo === CORREO_ADMIN && pass === CONTRASEÑA_ADMIN) {
-        mensajeSesion.textContent = '✅ ¡Bienvenida! Entrando...';
+btnEntrar.addEventListener('click', ()=>{
+    const cor = correoInput.value.trim();
+    const pas = passInput.value;
+    if(cor === CORREO_ADMIN && pas === CONTRASEÑA_ADMIN){
+        mensajeSesion.textContent = '✅ ¡Bienvenida!';
         mensajeSesion.className = 'mensaje exito';
-        setTimeout(function() {
+        setTimeout(()=>{
             ventana.classList.remove('mostrar');
             panelAdmin.classList.add('mostrar');
             candado.textContent = '🔓';
             mostrarBienvenida();
-            cargarHorariosEnCampos();
-        }, 1000);
+        }, 700);
     } else {
-        mensajeSesion.textContent = '❌ Correo o contraseña incorrectos';
+        mensajeSesion.textContent = '❌ Datos incorrectos';
         mensajeSesion.className = 'mensaje error';
     }
 });
 
-// CERRAR SESIÓN
-btnCerrarSesion.addEventListener('click', function() {
+btnCerrarSesion.addEventListener('click', ()=>{
     panelAdmin.classList.remove('mostrar');
     candado.textContent = '🔒';
 });
 
-// 📆 HORARIOS
-const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
-const msgHorarios = document.getElementById('msgHorarios');
+// Renderizar fotos: dos versiones
+function pintarFotos(){
+    galeriaPub.innerHTML = '';
+    galeriaPriv.innerHTML = '';
+    fotos.forEach((url, i)=>{
+        // Pública
+        const imgP = document.createElement('img');
+        imgP.src = url;
+        imgP.className = 'foto-publica';
+        galeriaPub.appendChild(imgP);
 
-function cargarHorariosEnCampos() {
-    const h = JSON.parse(localStorage.getItem('horarios')) || {};
-    document.getElementById('hLunes').value = h.lunes || '9:00 AM — 6:00 PM';
-    document.getElementById('hMartes').value = h.martes || '9:00 AM — 6:00 PM';
-    document.getElementById('hMiercoles').value = h.miercoles || '9:00 AM — 6:00 PM';
-    document.getElementById('hJueves').value = h.jueves || '9:00 AM — 6:00 PM';
-    document.getElementById('hViernes').value = h.viernes || '9:00 AM — 6:00 PM';
-    document.getElementById('hSabado').value = h.sabado || '9:00 AM — 3:00 PM';
+        // Privada/admin con botón borrar
+        const divA = document.createElement('div');
+        divA.className = 'foto-contenedor-admin';
+        divA.innerHTML = `
+            <img src="${url}" class="foto-admin">
+            <button class="btn-eliminar-foto" data-ind="${i}">×</button>
+        `;
+        galeriaPriv.appendChild(divA);
+    });
+    // Acción borrar solo admin
+    document.querySelectorAll('.btn-eliminar-foto').forEach(btn=>{
+        btn.addEventListener('click', function(){
+            const ind = parseInt(this.dataset.ind);
+            if(confirm('¿Eliminar esta foto?')){
+                fotos.splice(ind,1);
+                guardarFotos();
+                pintarFotos();
+            }
+        });
+    });
 }
 
-function aplicarHorarios(h) {
+function guardarFotos(){
+    localStorage.setItem('fotosCosmi', JSON.stringify(fotos));
+}
+
+// Subir nueva foto
+inputFoto.addEventListener('change', e=>{
+    const archivo = e.target.files[0];
+    if(!archivo) return;
+    const lector = new FileReader();
+    lector.onload = evt=>{
+        fotos.push(evt.target.result);
+        guardarFotos();
+        pintarFotos();
+    };
+    lector.readAsDataURL(archivo);
+});
+
+// Funciones horarios
+const btnGuardarHorarios = document.getElementById('btnGuardarHorarios');
+const msgHorarios = document.getElementById('msgHorarios');
+function cargarHorarios(){
+    let h = JSON.parse(localStorage.getItem('horariosCosmi'))||{};
+    document.getElementById('hLunes').value = h.lunes||'9:00 AM — 6:00 PM';
+    document.getElementById('hMartes').value = h.martes||'9:00 AM — 6:00 PM';
+    document.getElementById('hMiercoles').value = h.miercoles||'9:00 AM — 6:00 PM';
+    document.getElementById('hJueves').value = h.jueves||'9:00 AM — 6:00 PM';
+    document.getElementById('hViernes').value = h.viernes||'9:00 AM — 6:00 PM';
+    document.getElementById('hSabado').value = h.sabado||'9:00 AM — 3:00 PM';
+    reflejarHorarios(h);
+}
+function reflejarHorarios(h){
     document.getElementById('dLunes').textContent = h.lunes;
     document.getElementById('dMartes').textContent = h.martes;
     document.getElementById('dMiercoles').textContent = h.miercoles;
     document.getElementById('dJueves').textContent = h.jueves;
     document.getElementById('dViernes').textContent = h.viernes;
-    document.getElementById('dSabado').textContent = h.sabado;
+    document.getElementById('dSabado').textContent = h.sabado||'9:00 AM — 3:00 PM';
 }
-
-btnGuardarHorarios.addEventListener('click', function() {
-    const h = {
-        lunes: document.getElementById('hLunes').value || '9:00 AM — 6:00 PM',
-        martes: document.getElementById('hMartes').value || '9:00 AM — 6:00 PM',
-        miercoles: document.getElementById('hMiercoles').value || '9:00 AM — 6:00 PM',
-        jueves: document.getElementById('hJueves').value || '9:00 AM — 6:00 PM',
-        viernes: document.getElementById('hViernes').value || '9:00 AM — 6:00 PM',
-        sabado: document.getElementById('hSabado').value || '9:00 AM — 3:00 PM'
+btnGuardarHorarios.addEventListener('click', ()=>{
+    const hor = {
+        lunes: document.getElementById('hLunes').value||'9:00 — 18:00',
+        martes: document.getElementById('hMartes').value||'9:00 — 18:00',
+        miercoles: document.getElementById('hMiercoles').value||'9:00 — 18:00',
+        jueves: document.getElementById('hJueves').value||'9:00 — 18:00',
+        viernes: document.getElementById('hViernes').value||'9:00 — 18:00',
+        sabado: document.getElementById('hSabado').value||'9:00 — 15:00'
     };
-    localStorage.setItem('horarios', JSON.stringify(h));
-    aplicarHorarios(h);
-    msgHorarios.textContent = '✅ ¡Guardado correctamente!';
+    localStorage.setItem('horariosCosmi', JSON.stringify(hor));
+    reflejarHorarios(hor);
+    msgHorarios.textContent = '✅ Horarios guardados';
+    setTimeout(()=>msgHorarios.textContent='',2200);
 });
 
-// 📅 AGENDA DE CITAS
-const btnAgregarCita = document.getElementById('btnAgregarCita');
-const listaCitas = document.getElementById('listaCitas');
-let citas = JSON.parse(localStorage.getItem('agenda')) || [];
-
-function dibujarCitas() {
-    listaCitas.innerHTML = '';
-    citas.forEach(function(c, i) {
-        const div = document.createElement('div');
-        div.className = 'agenda-item';
-        div.innerHTML = `📅 ${c.fecha} — ⏰ ${c.hora}<br>👤 ${c.nombre}<br>💆‍♀️ ${c.tratamiento} 
-            <button style="float:right;background:#dc3545;color:white;border:none;border-radius:5px;padding:2px 8px;cursor:pointer" data-indice="${i}">×</button>`;
-        listaCitas.appendChild(div);
-        div.querySelector('button').addEventListener('click', function() {
-            if(confirm('¿Eliminar esta cita?')) {
-                citas.splice(i, 1);
-                localStorage.setItem('agenda', JSON.stringify(citas));
-                dibujarCitas();
-            }
-        });
+// Cartera clientes
+const btnAgregarCliente = document.getElementById('btnAgregarCliente');
+const listaClientes = document.getElementById('listaClientes');
+let clientes = JSON.parse(localStorage.getItem('clientesCosmi'))||[];
+function mostrarClientes(){
+    listaClientes.innerHTML='';
+    clientes.forEach((cli,i)=>{
+        const caja=document.createElement('div');
+        caja.className='cliente-item';
+        caja.innerHTML=`<strong>👤 ${cli.nombre}</strong><br>📞 ${cli.tel||''} | ✉️ ${cli.cor||''}
+        <br>📝 ${cli.notas||'(sin notas)'}
+        <div style="text-align:right;margin-top:6px;">
+            <button style="background:#dc3545;color:white;border:0;border-radius:6px;padding:4px 9px;cursor:pointer" data-eli="${i}">Eliminar</button>
+        </div>`;
+        listaClientes.appendChild(caja);
     });
+    listaClientes.querySelectorAll('button').forEach(bt=>bt.addEventListener('click',function(){
+        const idx=parseInt(this.dataset.eli);
+        if(confirm('¿Quitar cliente?')){
+            clientes.splice(idx,1);
+            localStorage.setItem('clientesCosmi',JSON.stringify(clientes));
+            mostrarClientes();
+        }
+    }));
 }
-
-btnAgregarCita.addEventListener('click', function() {
-    const fecha = document.getElementById('cFecha').value.trim();
-    const nombre = document.getElementById('cNombre').value.trim();
-    const hora = document.getElementById('cHora').value.trim();
-    const tratamiento = document.getElementById('cTratamiento').value.trim();
-    if (!fecha || !nombre || !hora || !tratamiento) { 
-        alert('⚠️ Completa todos los datos'); 
-        return; 
-    }
-    citas.push({fecha, nombre, hora, tratamiento});
-    localStorage.setItem('agenda', JSON.stringify(citas));
-    dibujarCitas();
-    document.getElementById('cFecha').value='';
-    document.getElementById('cNombre').value='';
-    document.getElementById('cHora').value='';
-    document.getElementById('cTratamiento').value='';
+btnAgregarCliente.addEventListener('click',()=>{
+    const nom=document.getElementById('cliNombre').value.trim();
+    if(!nom) return alert('Escribe el nombre');
+    clientes.push({
+        nombre:nom,
+        tel:document.getElementById('cliTel').value.trim(),
+        cor:document.getElementById('cliCorreo').value.trim(),
+        notas:document.getElementById('cliNotas').value.trim()
+    });
+    localStorage.setItem('clientesCosmi',JSON.stringify(clientes));
+    mostrarClientes();
+    document.querySelectorAll('#panelAdministracion input, #panelAdministracion textarea').forEach((inp,ix)=>{
+        if(ix<4) inp.value='';
+    });
 });
 
-// 📸 FOTOS
-const fotoNueva = document.getElementById('fotoNueva');
-const galeriaFotos = document.getElementById('galeriaFotos');
-let fotos = JSON.parse(localStorage.getItem('fotos')) || [];
-
-function dibujarFotos() {
-    galeriaFotos.innerHTML = '';
-    fotos.forEach(function(url, i) {
-        const div = document.createElement('div');
-        div.className = 'foto-contenedor';
-        div.innerHTML = `<img src="${url}" class="foto" alt="Foto">
-            <button class="boton-borrar-foto" data-indice="${i}">×</button>`;
-        galeriaFotos.appendChild(div);
-        div.querySelector('button').addEventListener('click', function() {
-            if(confirm('¿Eliminar esta foto?')) {
-                fotos.splice(i, 1);
-                localStorage.setItem('fotos', JSON.stringify(fotos));
-                dibujarFotos();
-            }
-        });
+// Agenda citas
+const btnAgregarCita=document.getElementById('btnAgregarCita');
+const listaCitas=document.getElementById('listaCitas');
+let citas=JSON.parse(localStorage.getItem('citasCosmi'))||[];
+function verCitas(){
+    listaCitas.innerHTML='';
+    citas.forEach((cta,i)=>{
+        const el=document.createElement('div');
+        el.className='agenda-item';
+        el.innerHTML=`📅 ${cta.fec} — ⏰ ${cta.hora}<br>👤 ${cta.pers}<br>💆 ${cta.serv}
+        <button style="float:right;background:#dc3545;color:white;border-radius:5px;border:0;padding:3px 8px;cursor:pointer" data-ic="${i}">×</button>`;
+        listaCitas.appendChild(el);
     });
+    listaCitas.querySelectorAll('button').forEach(b=>b.addEventListener('click',function(){
+        const pos=parseInt(this.dataset.ic);
+        if(confirm('¿Borrar esta cita?')){
+            citas.splice(pos,1);
+            localStorage.setItem('citasCosmi',JSON.stringify(citas));
+            verCitas();
+        }
+    }));
 }
-
-fotoNueva.addEventListener('change', function(e) {
-    const archivo = e.target.files[0];
-    if(!archivo) return;
-    const lector = new FileReader();
-    lector.onload = function(evt) {
-        fotos.push(evt.target.result);
-        localStorage.setItem('fotos', JSON.stringify(fotos));
-        dibujarFotos();
-    };
-    lector.readAsDataURL(archivo);
+btnAgregarCita.addEventListener('click',()=>{
+    const fec=document.getElementById('cFecha').value.trim();
+    const per=document.getElementById('cNombre').value.trim();
+    const hor=document.getElementById('cHora').value.trim();
+    const ser=document.getElementById('cTratamiento').value.trim();
+    if(!fec||!per||!hor||!ser) return alert('Completa todos los campos');
+    citas.push({fec,per,hora:hor,serv:ser});
+    localStorage.setItem('citasCosmi',JSON.stringify(citas));
+    verCitas();
+    ['cFecha','cNombre','cHora','cTratamiento'].forEach(id=>document.getElementById(id).value='');
 });
 
-// ⭐ OPINIONES
-const estrellasCal = document.getElementById('estrellasCal');
-const btnEnviarOpinion = document.getElementById('btnEnviarOpinion');
-const mensajeOp = document.getElementById('mensajeOp');
-let calif = 0;
-
-estrellasCal.addEventListener('click', function(e) {
-    if(e.target.tagName === 'SPAN') {
-        calif = parseInt(e.target.dataset.estrella);
-        document.querySelectorAll('#estrellasCal span').forEach(function(span, ind) {
-            if((ind + 1) <= calif) span.classList.add('estrella-seleccionada');
-            else span.classList.remove('estrella-seleccionada');
-        });
-    }
-});
-
-btnEnviarOpinion.addEventListener('click', function() {
-    const nom = document.getElementById('opNombre').value.trim();
-    const txt = document.getElementById('opTexto').value.trim();
-    if (!nom || !txt || calif === 0) { 
-        alert('⚠️ Escribe tu nombre, tu opinión y pon las estrellas'); 
-        return; 
-    }
-    const msg = `⭐ NUEVA OPINIÓN:%0ANombre: ${nom}%0ACalificación:${'⭐'.repeat(calif)}%0AOpinión: ${txt}`;
-    window.open(`https://wa.me/5217296336318?text=${msg}`,'_blank');
-    mensajeOp.classList.add('visible');
-});
-
-// 📂 MOSTRAR SECCIONES
-function mostrarSeccion(id) {
-    document.querySelectorAll('.caja-informacion').forEach(function(s) {
-        s.classList.remove('mostrar');
-    });
+// Mostrar secciones
+function mostrarSeccion(id){
+    document.querySelectorAll('.caja-informacion').forEach(s=>s.classList.remove('mostrar'));
     document.getElementById(id).classList.add('mostrar');
 }
 
-// ✅ AL CARGAR TODO
-window.addEventListener('load', function() {
-    const h = JSON.parse(localStorage.getItem('horarios'));
-    if(h) aplicarHorarios(h);
-    dibujarCitas();
-    dibujarFotos();
+// Inicializar todo
+document.addEventListener('DOMContentLoaded',()=>{
+    cargarHorarios();
+    pintarFotos();
+    mostrarClientes();
+    verCitas();
 });
 </script>
-
 </body>
 </html>
