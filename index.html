@@ -55,10 +55,10 @@
         .btn-admin:hover { background: rgba(255,255,255,0.35); }
         
         /* 🔐 EL CANDADO DE CERRAR SESIÓN SOLO APARECE CUANDO YA ENTRÓ */
-        .btn-cerrar { display: none; }
-        .admin-activo .btn-cerrar { display: inline-block; }
-        .btn-entrar { display: block; }
-        .admin-activo .btn-entrar { display: none; }
+        .btn-cerrar { display: none; } /* INVISIBLE para clientes */
+        body.admin-activo .btn-cerrar { display: inline-block; } /* VISIBLE solo para Laiza */
+        .btn-entrar { display: block; } /* VISIBLE para todos */
+        body.admin-activo .btn-entrar { display: none; } /* OCULTO cuando ya entró */
         
         h1 { font-size: 36px; margin-bottom: 8px; }
         .subtitulo { font-size: 18px; opacity: 0.95; }
@@ -135,7 +135,7 @@
             margin-top: 12px; display: none;
         }
         .solo-admin { display: none; margin-top: 20px; padding: 15px; background: #fffbf0; border-radius: 12px; border: 2px dashed #f4d03f; }
-        .admin-activo .solo-admin { display: block; }
+        body.admin-activo .solo-admin { display: block; }
         .btn-editar { 
             background: linear-gradient(90deg, #f39c12, #e67e22); 
             color: white; border: none; border-radius: 50px; padding: 4px 10px; 
@@ -202,20 +202,17 @@
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
 </head>
 <body>
-
 <header>
     <div class="barra-superior">
-        <!-- 🔐 Cerrar sesión: SOLO VISIBLE cuando Laiza ya entró -->
-        <button class="btn-admin btn-cerrar" id="btnSalir"><i class="fas fa-lock"></i> Cerrar sesión</button>
+        <!-- 🔒 Cerrar sesión: SOLO VISIBLE cuando Laiza ya entró -->
+        <button class="btn-admin btn-cerrar" id="btnSalir"><i class="fas fa-lock"></i> 🔒 Cerrar sesión</button>
         <!-- Botón para entrar: VISIBLE para todos -->
         <button class="btn-admin btn-entrar" id="btnLogin"><i class="fas fa-lock"></i> 🔐 Admin</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="subtitulo" id="frasePrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
 </header>
-
 <div class="contenedor" id="raiz">
-
 <section>
     <h2>💜 Lic. Laiza González Robles</h2>
     <div class="info-lic">
@@ -232,7 +229,6 @@
         </div>
     </div>
 </section>
-
 <section>
     <h2>
         💆‍♀️ Nuestros Servicios
@@ -247,7 +243,6 @@
         <button class="boton boton-promociones" onclick="mostrarServicio('serv6')">Promociones</button>
         <button class="boton boton-fotos" onclick="mostrarServicio('serv7')">Galería</button>
     </div>
-
     <div id="serv1" class="caja-info">
         <h3>🧼 Limpieza Facial Profunda</h3>
         <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
@@ -284,7 +279,6 @@
         <p class="sin-datos">Aquí aparecerán las fotos agregadas</p>
     </div>
 </section>
-
 <section>
     <h2>📅 Agendar tu Cita</h2>
     <div>
@@ -310,7 +304,6 @@
         <div class="mensaje-exito" id="mensajeCita">✅ ¡Cita guardada! Laiza la recibirá enseguida</div>
     </div>
 </section>
-
 <section>
     <h2>⭐ Opiniones de Clientes</h2>
     
@@ -337,7 +330,6 @@
         <div id="opiniones"></div>
     </div>
 </section>
-
 <section>
     <h2>🕒 Horarios de Atención</h2>
     <table id="tablaHorarios">
@@ -347,7 +339,6 @@
         <tr><td>Domingo</td><td style="color:#e05263;"><strong>Descanso</strong></td></tr>
     </table>
 </section>
-
 <!-- 🔐 PANEL DE LAIZA — SOLO VISIBLE AL INICIAR SESIÓN -->
 <section class="solo-admin">
     <h2>🔐 Panel de Laiza</h2>
@@ -356,14 +347,12 @@
         <button class="pestaña activa">📋 Citas Recibidas</button>
         <button class="pestaña">💬 Opiniones</button>
     </div>
-
     <div id="pestanaCitas" class="caja-pestaña mostrar">
         <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Se actualizan solas desde cualquier celular</p>
         <div id="listaCitas">
             <p class="sin-datos">Esperando citas...</p>
         </div>
     </div>
-
     <div id="pestanaComentarios" class="caja-pestaña">
         <p style="color:var(--color-primario); font-size:14px; margin-bottom:10px;">🔄 Todas las opiniones aquí guardadas</p>
         <div id="listaOpinionesAdmin">
@@ -371,9 +360,7 @@
         </div>
     </div>
 </section>
-
 </div>
-
 <!-- 🔐 MODAL DE INICIO DE SESIÓN -->
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
@@ -387,22 +374,9 @@
         <p id="respuestaLogin" style="color:red; text-align:center; margin-top:10px;"></p>
     </div>
 </div>
-
 <footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
-
 <script>
-/*
-    IMPORTANTE DE SEGURIDAD
-    -----------------------
-    Este código usa Firebase Authentication. Para que solo Laiza sea realmente
-    administradora debes:
-    1) Activar Authentication > Email/Password en Firebase.
-    2) Crear la cuenta administradora en Firebase.
-    3) Cambiar ADMIN_EMAIL por el correo real de Laiza.
-    4) Configurar reglas de Firestore. NO guardes contraseñas en este archivo.
-*/
-
-const ADMIN_EMAIL = "laya@gmail.com"; // Cambia por el correo real autorizado
+const ADMIN_EMAIL = "laya@gmail.com";
 let calificacionEstrellas = 0;
 let adminActivo = false;
 let citasSuscripcion = null;
@@ -449,7 +423,6 @@ function configurarEstrellas() {
             iluminarEstrellas(calificacionEstrellas);
         });
     });
-
     document.getElementById('estrellas').addEventListener('mouseleave', function() {
         iluminarEstrellas(calificacionEstrellas);
     });
@@ -469,27 +442,19 @@ document.getElementById('btnGuardarCita').addEventListener('click', async functi
     const anio = Number(document.getElementById('anio').value);
     const hora = document.getElementById('hora').value;
     const comentario = document.getElementById('comentario').value.trim();
-
+    
     if (!nombre || !telefono || !dia || !mes || !anio || !hora) {
         alert('❌ Completa todos los campos obligatorios');
         return;
     }
-
-    const fechaCita = new Date(anio, mes - 1, dia);
-    if (fechaCita.getFullYear() !== anio || fechaCita.getMonth() !== mes - 1 || fechaCita.getDate() !== dia) {
-        alert('❌ La fecha no es válida');
-        return;
-    }
-
+    
     try {
         await db.collection('citas').add({
             nombre, telefono, dia, mes, anio, hora, comentario,
             fecha: firebase.firestore.Timestamp.now()
         });
-
         ['nombre','telefono','dia','mes','anio','hora','comentario']
             .forEach(id => document.getElementById(id).value = '');
-
         const msg = document.getElementById('mensajeCita');
         msg.style.display = 'block';
         setTimeout(() => msg.style.display = 'none', 4000);
@@ -502,12 +467,12 @@ document.getElementById('btnGuardarCita').addEventListener('click', async functi
 document.getElementById('btnEnviarComentario').addEventListener('click', async function() {
     const nombre = document.getElementById('nombreCliente').value.trim();
     const comentario = document.getElementById('comentarioCliente').value.trim();
-
+    
     if (!nombre || !comentario || calificacionEstrellas === 0) {
         alert('❌ Escribe tu nombre, califica con estrellas y agrega tu comentario');
         return;
     }
-
+    
     try {
         await db.collection('opiniones').add({
             nombre,
@@ -515,12 +480,10 @@ document.getElementById('btnEnviarComentario').addEventListener('click', async f
             texto: comentario,
             fecha: firebase.firestore.Timestamp.now()
         });
-
         document.getElementById('nombreCliente').value = '';
         document.getElementById('comentarioCliente').value = '';
         calificacionEstrellas = 0;
         iluminarEstrellas(0);
-
         const msg = document.getElementById('mensajeOpinion');
         msg.style.display = 'block';
         setTimeout(() => msg.style.display = 'none', 4000);
@@ -540,7 +503,6 @@ function escucharCitas() {
                 lista.innerHTML = '<p class="sin-datos">📭 Sin citas todavía</p>';
                 return;
             }
-
             lista.innerHTML = '';
             snapshot.forEach(doc => {
                 const c = doc.data();
@@ -555,7 +517,6 @@ function escucharCitas() {
                         <button class="btn-eliminar" data-cita="${doc.id}">🗑️ Eliminar</button>
                     </div>`;
             });
-
             lista.querySelectorAll('[data-cita]').forEach(btn => {
                 btn.addEventListener('click', () => eliminarCita(btn.dataset.cita));
             });
@@ -574,13 +535,11 @@ function escucharOpiniones() {
         .onSnapshot(snapshot => {
             const cajaPublica = document.getElementById('opiniones');
             const cajaAdmin = document.getElementById('listaOpinionesAdmin');
-
             if (snapshot.empty) {
                 cajaPublica.innerHTML = '<p class="sin-datos">Sé el primero en opinar</p>';
                 if (cajaAdmin) cajaAdmin.innerHTML = '<p class="sin-datos">Sin opiniones todavía</p>';
                 return;
             }
-
             let htmlPublica = '';
             let htmlAdmin = '';
             snapshot.forEach(doc => {
@@ -588,14 +547,12 @@ function escucharOpiniones() {
                 const fechaObj = op.fecha?.toDate ? op.fecha.toDate() : new Date();
                 const estrellas = '★'.repeat(Number(op.estrellas || 0)) +
                                   '☆'.repeat(5 - Number(op.estrellas || 0));
-
                 htmlPublica += `
                     <div class="tarjeta">
                         <h4>${escaparHTML(op.nombre)} ⭐ ${estrellas}</h4>
                         <p>${escaparHTML(op.texto)}</p>
                         <p class="fecha">${fechaObj.toLocaleString('es-MX')}</p>
                     </div>`;
-
                 if (adminActivo) {
                     htmlAdmin += `
                         <div class="tarjeta">
@@ -606,7 +563,6 @@ function escucharOpiniones() {
                         </div>`;
                 }
             });
-
             cajaPublica.innerHTML = htmlPublica;
             if (cajaAdmin && adminActivo) {
                 cajaAdmin.innerHTML = htmlAdmin;
@@ -662,7 +618,6 @@ async function eliminarOpinion(id) {
 function cambiarPestana(nombre, boton) {
     document.querySelectorAll('.pestaña').forEach(p => p.classList.remove('activa'));
     if (boton) boton.classList.add('activa');
-
     document.querySelectorAll('.caja-pestaña').forEach(c => c.classList.remove('mostrar'));
     const destino = nombre === 'citas' ? 'pestanaCitas' : 'pestanaComentarios';
     document.getElementById(destino).classList.add('mostrar');
@@ -692,23 +647,20 @@ document.getElementById('btnIngresar').addEventListener('click', async function(
     const correo = document.getElementById('correoAdmin').value.trim();
     const clave = document.getElementById('claveAdmin').value;
     const respuesta = document.getElementById('respuestaLogin');
-
+    
     if (!correo || !clave) {
         respuesta.textContent = '❌ Escribe tu correo y contraseña';
         return;
     }
-
+    
     respuesta.textContent = 'Ingresando...';
-
     try {
         const credencial = await auth.signInWithEmailAndPassword(correo, clave);
-
         if (!esAdmin(credencial.user)) {
             await auth.signOut();
             respuesta.textContent = '❌ Esta cuenta no tiene permisos de administradora';
             return;
         }
-
         document.getElementById('claveAdmin').value = '';
         document.getElementById('modalLogin').classList.remove('mostrar');
         respuesta.textContent = '';
@@ -738,7 +690,6 @@ function salirAdmin() {
     adminActivo = false;
     document.body.classList.remove('admin-activo');
     detenerCitas();
-    // Se vuelve a cargar solo la parte pública de opiniones.
     escucharOpiniones();
 }
 
@@ -755,6 +706,5 @@ window.addEventListener('load', function() {
     escucharOpiniones();
 });
 </script>
-
 </body>
 </html>
