@@ -19,14 +19,19 @@
             padding: 40px 20px;
             position: relative;
         }
-        .boton-candado {
+        .barra-superior {
             position: absolute;
-            top: 15px;
-            right: 20px;
+            top: 12px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .boton-candado {
             background: rgba(255,255,255,0.25);
             border: none;
-            font-size: 26px;
-            padding: 8px 14px;
+            font-size: 24px;
+            padding: 7px 12px;
             border-radius: 50%;
             cursor: pointer;
             transition: all 0.3s;
@@ -35,7 +40,22 @@
             background: rgba(255,255,255,0.4);
             transform: scale(1.1);
         }
-        h1 { margin: 0; font-size: 42px; }
+        .boton-cerrar {
+            background: rgba(220,53,69,0.9);
+            color: white;
+            border: none;
+            padding: 7px 14px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: none;
+            transition: all 0.3s;
+        }
+        .boton-cerrar:hover {
+            background: rgba(200,35,47,1);
+        }
+        h1 { margin: 0; font-size: 42px; padding-top: 10px; }
         .frase { font-size: 20px; font-style: italic; margin-top: 10px; color: #f3e0ee; }
         section {
             max-width: 850px;
@@ -107,7 +127,7 @@
         }
         .foto-publica:hover { transform: scale(1.03); }
 
-        /* ÁREA DE FOTOS PARA ADMIN - SIN CÓDIGO A LA VISTA */
+        /* ÁREA DE FOTOS PARA ADMIN */
         .subir-foto-caja {
             background: #fffef0;
             padding: 20px;
@@ -149,7 +169,7 @@
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .btn-borrar-foto:hover { background: #b51f2e; transform: scale(1.1); }
-        .sin-fotos { color: #888; font-style: italic; padding: 20px; }
+        .sin-fotos { color: #888; font-style: italic; padding: 20px; text-align:center; }
 
         .contacto { text-align: center; background: #f9f2f7; }
         .contacto a { color: #9c6b8c; font-weight: bold; text-decoration: none; }
@@ -289,7 +309,7 @@
             color: #999;
         }
 
-        /* Panel Admin - SOLO BOTONES Y CAJAS, SIN CÓDIGO */
+        /* Panel Admin */
         .panel-admin {
             background: linear-gradient(135deg, #fffef0, #faf4e0);
             padding: 25px;
@@ -324,7 +344,11 @@
 <a href="https://wa.me/5217296336318" target="_blank" class="whatsapp-flotante">💬</a>
 
 <header>
-    <button type="button" class="boton-candado" id="botonCandado" title="🔐 Entrar como administradora">🔒</button>
+    <!-- 🔒 CANDADO + CERRAR SESIÓN ARRIBA A LA DERECHA -->
+    <div class="barra-superior">
+        <button type="button" class="boton-cerrar" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
+        <button type="button" class="boton-candado" id="botonCandado" title="🔐 Entrar como administradora">🔒</button>
+    </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="frase">"El tiempo no vuelve, tu belleza sí"</p>
 </header>
@@ -386,16 +410,18 @@
 
 <section>
     <h2>📸 Galería de Fotos</h2>
+    <p style="text-align:center; color:#666; font-size:14px;">📷 Para subir fotos: entra con tu clave → sube las fotos a GitHub en la carpeta "imagenes" y escribe aquí el nombre del archivo</p>
+    
     <!-- LO QUE VEN TODOS LOS CLIENTES -->
     <div class="galeria" id="galeriaPublica"></div>
 
-    <!-- LO QUE VE SOLO LAIZA AL ENTRAR - SUBIR Y BORRAR FOTOS -->
+    <!-- LO QUE VE SOLO LAIZA AL ENTRAR -->
     <div id="areaAdminFotos" class="panel-admin" style="background:#fffef0; border-left-color:#ffc107;">
-        <h3>📷 MIS FOTOS — Sube y elimina</h3>
+        <h3>📷 AGREGAR FOTOS — Escribe el nombre del archivo</h3>
         <div class="subir-foto-caja">
-            <p style="margin:0; font-weight:bold;">👇 Selecciona una foto de tu celular/computadora</p>
-            <input type="file" id="seleccionarFoto" accept="image/*" style="margin:12px auto; display:block; font-size:15px;">
-            <button type="button" class="boton boton-verde" id="btnSubirFoto">✅ Agregar Foto</button>
+            <p style="margin:0; font-weight:bold;">Ejemplo: si la foto se llama "tratamiento1.jpg" escríbelo abajo</p>
+            <input type="text" id="nombreFoto" placeholder="nombre.jpg o nombre.png" style="margin:10px auto; display:block; width:80%; text-align:center;">
+            <button type="button" class="boton boton-verde" id="btnAgregarFoto">✅ Agregar Foto</button>
         </div>
         <div class="vista-previa-foto" id="vistaPreviaAdmin"></div>
     </div>
@@ -404,12 +430,8 @@
 <section>
     <h2>📆 Horarios y Administración</h2>
 
-    <!-- PANEL COMPLETO DE LAIZA - SOLO ELLA LO VE -->
+    <!-- PANEL COMPLETO DE LAIZA -->
     <div id="panelAdministracion" class="panel-admin">
-        <div style="text-align:right; margin-bottom:10px;">
-            <button type="button" class="boton boton-rojo" id="btnCerrarSesion">🚪 Cerrar Sesión</button>
-        </div>
-
         <h3>✏️ MODIFICAR HORARIOS DE ATENCIÓN</h3>
         <input type="text" id="hLunes" placeholder="Lunes ej: 9:00 AM — 6:00 PM">
         <input type="text" id="hMartes" placeholder="Martes">
@@ -548,11 +570,11 @@ const areaFotos = document.getElementById('areaAdminFotos');
 const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 const galeriaPublica = document.getElementById('galeriaPublica');
 const vistaPreviaAdmin = document.getElementById('vistaPreviaAdmin');
-const inputFoto = document.getElementById('seleccionarFoto');
-const btnSubirFoto = document.getElementById('btnSubirFoto');
+const btnAgregarFoto = document.getElementById('btnAgregarFoto');
+const inputNombreFoto = document.getElementById('nombreFoto');
 
-let fotos = JSON.parse(localStorage.getItem('fotosLaya') || '[]');
-let archivoSeleccionado = null;
+// GUARDAMOS SOLO EL NOMBRE DEL ARCHIVO (para que TODOS lo vean)
+let fotos = JSON.parse(localStorage.getItem('fotosLayaNombres') || '[]');
 
 // ==================== INICIAR SESIÓN ====================
 candado.addEventListener('click', () => {
@@ -575,8 +597,8 @@ btnEntrar.addEventListener('click', () => {
             ventana.classList.remove('mostrar');
             panelAdmin.classList.add('mostrar');
             areaFotos.style.display = 'block';
+            btnCerrarSesion.style.display = 'block'; // APARECE el botón arriba
             candado.textContent = '🔓';
-            // QUITAMOS EL MENSAJE FEOL / ALERTA QUE SE VEÍA FEO
         }, 800);
     } else {
         mensajeSesion.textContent = '❌ Correo o contraseña incorrectos';
@@ -584,49 +606,51 @@ btnEntrar.addEventListener('click', () => {
     }
 });
 
+// ==================== CERRAR SESIÓN ====================
 btnCerrarSesion.addEventListener('click', () => {
     panelAdmin.classList.remove('mostrar');
     areaFotos.style.display = 'none';
+    btnCerrarSesion.style.display = 'none'; // SE OCULTA al cerrar
     candado.textContent = '🔒';
 });
 
-// ==================== GALERÍA DE FOTOS ====================
+// ==================== GALERÍA DE FOTOS (PÚBLICA) ====================
 function dibujarFotos() {
-    // Limpiar
     galeriaPublica.innerHTML = '';
     vistaPreviaAdmin.innerHTML = '';
 
     if (fotos.length === 0) {
         galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
-        vistaPreviaAdmin.innerHTML = '<p class="sin-fotos">No hay fotos aún. ¡Agrega la primera arriba! ✨</p>';
+        vistaPreviaAdmin.innerHTML = '<p class="sin-fotos">No hay fotos aún. Sube tus fotos a la carpeta "imagenes" de GitHub y agrégalas aquí ✨</p>';
         return;
     }
 
-    // Dibujar para CLIENTES
-    fotos.forEach((foto, indice) => {
+    // FOTOS QUE VEN TODOS LOS CLIENTES
+    fotos.forEach((nombreArchivo, indice) => {
         const img = document.createElement('img');
-        img.src = foto;
+        img.src = 'imagenes/' + nombreArchivo;
         img.className = 'foto-publica';
-        img.loading = 'lazy';
+        img.alt = nombreArchivo;
+        img.onerror = function() { this.style.display='none'; };
         galeriaPublica.appendChild(img);
     });
 
-    // Dibujar para LAIZA (con botón de borrar)
-    fotos.forEach((foto, indice) => {
+    // FOTOS EN PANEL ADMIN (con botón de borrar)
+    fotos.forEach((nombreArchivo, indice) => {
         const caja = document.createElement('div');
         caja.className = 'foto-miniatura';
         caja.innerHTML = `
-            <img src="${foto}" alt="Foto">
+            <img src="imagenes/${nombreArchivo}" alt="${nombreArchivo}" onerror="this.style.display='none'">
             <button class="btn-borrar-foto" data-id="${indice}">×</button>
         `;
         vistaPreviaAdmin.appendChild(caja);
     });
 
-    // Botones borrar funcionando
+    // BOTONES BORRAR
     document.querySelectorAll('.btn-borrar-foto').forEach(boton => {
         boton.addEventListener('click', function () {
             const id = parseInt(this.dataset.id);
-            if (confirm('¿Eliminar esta foto?')) {
+            if (confirm('¿Eliminar esta foto de la lista?')) {
                 fotos.splice(id, 1);
                 guardarFotos();
                 dibujarFotos();
@@ -636,29 +660,18 @@ function dibujarFotos() {
 }
 
 function guardarFotos() {
-    localStorage.setItem('fotosLaya', JSON.stringify(fotos));
+    localStorage.setItem('fotosLayaNombres', JSON.stringify(fotos));
 }
 
-// Seleccionar foto
-inputFoto.addEventListener('change', e => {
-    archivoSeleccionado = e.target.files[0];
-});
-
-// Subir foto
-btnSubirFoto.addEventListener('click', () => {
-    if (!archivoSeleccionado) {
-        alert('⚠️ Primero selecciona una foto de tu dispositivo');
-        return;
-    }
-    const lector = new FileReader();
-    lector.onload = function (evento) {
-        fotos.push(evento.target.result);
-        guardarFotos();
-        dibujarFotos();
-        inputFoto.value = '';
-        archivoSeleccionado = null;
-    };
-    lector.readAsDataURL(archivoSeleccionado);
+// AGREGAR FOTO ESCRIBIENDO EL NOMBRE
+btnAgregarFoto.addEventListener('click', () => {
+    const nombre = inputNombreFoto.value.trim();
+    if (!nombre) return alert('⚠️ Escribe el nombre del archivo. Ejemplo: foto1.jpg');
+    fotos.push(nombre);
+    guardarFotos();
+    dibujarFotos();
+    inputNombreFoto.value = '';
+    alert('✅ Foto agregada. Ahora todos pueden verla. 📸');
 });
 
 // ==================== HORARIOS ====================
@@ -802,13 +815,14 @@ function mostrarSeccion(id) {
     document.getElementById(id).classList.add('mostrar');
 }
 
-// ==================== AL CARGAR LA PÁGINA ====================
+// ==================== AL CARGAR ====================
 document.addEventListener('DOMContentLoaded', () => {
     dibujarFotos();
     cargarHorarios();
     pintarClientes();
     pintarCitas();
     areaFotos.style.display = 'none';
+    btnCerrarSesion.style.display = 'none'; // OCULTA el botón hasta que entre
 });
 </script>
 </body>
