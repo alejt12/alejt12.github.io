@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Fotos - Protegida</title>
+    <title>Galería de Fotos - Completa</title>
     <style>
         * {
             box-sizing: border-box;
@@ -16,7 +16,7 @@
             padding: 25px;
         }
 
-        /* --- PANTALLA DE CONTRASEÑA --- */
+        /* PANTALLA DE CONTRASEÑA */
         #pantalla-login {
             position: fixed;
             top: 0;
@@ -69,7 +69,7 @@
             display: none;
         }
 
-        /* --- RECUADRO PRINCIPAL DE FOTOS --- */
+        /* RECUADRO PRINCIPAL */
         #contenedor-fotos {
             border: 6px solid #7b2cbf;
             background-color: #ffffff;
@@ -88,7 +88,7 @@
             font-weight: bold;
         }
 
-        /* --- BOTÓN AGREGAR --- */
+        /* BOTÓN AGREGAR */
         #boton-agregar {
             display: block;
             width: 100%;
@@ -110,7 +110,7 @@
         }
         #entrada-archivos { display: none; }
 
-        /* --- GALERÍA --- */
+        /* GALERÍA */
         #galeria {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -131,7 +131,7 @@
             display: block;
         }
 
-        /* --- BOTÓN ELIMINAR GRANDE --- */
+        /* BOTÓN ELIMINAR GRANDE */
         .btn-eliminar {
             position: absolute;
             top: 12px;
@@ -154,7 +154,7 @@
             background-color: #b91c1c;
         }
 
-        /* --- Modo cliente: solo ven, sin botones --- */
+        /* CLIENTES SOLO VEN, SIN BOTONES */
         .solo-ver .btn-eliminar,
         .solo-ver #boton-agregar {
             display: none !important;
@@ -163,7 +163,7 @@
 </head>
 <body>
 
-<!-- 🔐 PANTALLA DE CONTRASEÑA -->
+<!-- PANTALLA DE CONTRASEÑA -->
 <div id="pantalla-login">
     <div id="caja-login">
         <h3>🔐 Ingrese su contraseña</h3>
@@ -173,7 +173,7 @@
     </div>
 </div>
 
-<!-- 📸 GALERÍA -->
+<!-- GALERÍA DE FOTOS -->
 <div id="contenedor-fotos" class="solo-ver">
     <h2>📸 MIS FOTOS</h2>
     <button id="boton-agregar">➕ AGREGAR FOTO</button>
@@ -182,7 +182,7 @@
 </div>
 
 <script>
-    // ✏️ CAMBIA AQUÍ TU CONTRASEÑA SI QUIERES
+    // TU CONTRASEÑA: cámbiala aquí si quieres
     const CONTRASEÑA_PERSONAL = "1234";
     const CLAVE_ALMACENAMIENTO = "miGaleriaPermanente_2026";
 
@@ -195,7 +195,7 @@
     const entradaArchivos = document.getElementById("entrada-archivos");
     const contenedorFotos = document.getElementById("contenedor-fotos");
 
-    // 🔑 Verificar contraseña
+    // VERIFICAR CONTRASEÑA
     function verificarContraseña() {
         const escrita = inputClave.value.trim();
         if (escrita === CONTRASEÑA_PERSONAL) {
@@ -214,7 +214,7 @@
         if (e.key === "Enter") verificarContraseña();
     });
 
-    // 📂 Cargar fotos guardadas
+    // CARGAR FOTOS GUARDADAS
     function cargarFotosGuardadas() {
         const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
         if (!datosGuardados) return;
@@ -226,7 +226,7 @@
         }
     }
 
-    // 🖼️ Crear tarjeta de foto
+    // CREAR TARJETA DE FOTO
     function crearBloqueFoto(direccionImagen, guardar = true) {
         const tarjeta = document.createElement("div");
         tarjeta.className = "foto-item";
@@ -249,7 +249,7 @@
         if (guardar) guardarTodoElContenido();
     }
 
-    // 💾 Guardar todo
+    // GUARDAR TODO
     function guardarTodoElContenido() {
         const listaUrls = [];
         contenedorGaleria.querySelectorAll(".foto-item img").forEach(img => {
@@ -258,7 +258,7 @@
         localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(listaUrls));
     }
 
-    // ➕ Agregar nuevas fotos
+    // AGREGAR FOTOS NUEVAS
     botonAgregar.addEventListener("click", () => {
         entradaArchivos.click();
     });
@@ -276,7 +276,7 @@
         entradaArchivos.value = "";
     });
 
-    // Iniciar: cargar fotos visibles para todos
+    // INICIAR GALERÍA
     cargarFotosGuardadas();
 </script>
 
