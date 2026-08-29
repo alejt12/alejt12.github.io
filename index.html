@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cosmiatría Laya | Belleza y Cuidado Facial</title>
+    <!-- ICONOS DESDE CDN GRATIS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -82,23 +84,25 @@
             text-align: center;
             font-size: 17px;
         }
-        .info-lic p { margin: 8px 0; }
+        .info-lic p { margin: 10px 0; }
         .info-lic a {
-            color: #a86f9b;
             font-weight: 500;
             text-decoration: none;
-            transition: color 0.2s;
+            transition: all 0.3s ease;
         }
-        .info-lic a:hover { color: #7c4d6f; text-decoration: underline; }
+        .info-lic a:hover { transform: scale(1.05); }
 
+        /* ======================================
+           BOTONES CON COLORES VIVOS Y BRILLANTES
+           ====================================== */
         .fila-botones {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 14px;
             justify-content: center;
         }
         .boton {
-            padding: 12px 22px;
+            padding: 13px 24px;
             border: none;
             border-radius: 30px;
             font-size: 15px;
@@ -106,18 +110,32 @@
             cursor: pointer;
             transition: all 0.3s ease;
             text-decoration: none;
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .boton:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.12); }
-        .boton-violeta { background: linear-gradient(90deg, #7c4d6f, #a86f9b); color: white; }
-        .boton-rosa { background: linear-gradient(90deg, #d67eb5, #c468a8); color: white; }
-        .boton-rojo { background: linear-gradient(90deg, #e05263, #c83c4d); color: white; }
-        .boton-azul { background: linear-gradient(90deg, #6b7fd7, #8696e8); color: white; }
-        .boton-verde { background: linear-gradient(90deg, #42b883, #34a074); color: white; }
+        .boton:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+        .boton i { font-size: 18px; }
+
+        /* COLORES INDIVIDUALES POR BOTÓN — VIVOS Y BRILLANTES */
+        .boton-limpieza { background: linear-gradient(90deg, #9b59b6, #8e44ad); color: white; }
+        .boton-hidratacion { background: linear-gradient(90deg, #3498db, #2980b9); color: white; }
+        .boton-exfoliacion { background: linear-gradient(90deg, #f39c12, #e67e22); color: white; }
+        .boton-piel { background: linear-gradient(90deg, #e91e63, #c0392b); color: white; }
+        .boton-asesoria { background: linear-gradient(90deg, #1abc9c, #16a085); color: white; }
+        .boton-whatsapp { background: linear-gradient(90deg, #25D366, #128C7E); color: white; font-size: 16px; padding: 14px 28px; }
+        .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; font-size: 16px; padding: 14px 28px; }
+        .boton-verde { background: linear-gradient(90deg, #2ecc71, #27ae60); color: white; width: 100%; justify-content: center; font-size: 17px; padding: 15px; }
+        .boton-azul { background: linear-gradient(90deg, #3498db, #2980b9); color: white; width: 100%; justify-content: center; }
+        .boton-rosa { background: linear-gradient(90deg, #e84393, #fd79a8); color: white; }
 
         .caja-info-serv {
-            margin-top: 18px;
-            padding: 18px;
+            margin-top: 20px;
+            padding: 20px;
             background: #faf2f7;
             border-radius: 14px;
             border-left: 4px solid #a86f9b;
@@ -176,7 +194,7 @@
             font-size: 13px;
             border-radius: 20px;
             border: none;
-            background: #e05263;
+            background: linear-gradient(90deg, #e74c3c, #c0392b);
             color: white;
             cursor: pointer;
             font-weight: 600;
@@ -266,14 +284,20 @@
             color: #887f86;
             font-size: 14px;
         }
+        .botones-redes {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
     </style>
 </head>
 <body>
 
 <header>
     <div class="barra-superior">
-        <button class="btn-admin btn-salir" id="btnSalirAdmin">🚪 Cerrar Sesión</button>
-        <button class="btn-admin" id="btnEntrarAdmin">🔐 Acceso Administradora</button>
+        <button class="btn-admin btn-salir" id="btnSalirAdmin"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</button>
+        <button class="btn-admin" id="btnEntrarAdmin"><i class="fas fa-lock"></i> Acceso Administradora</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
     <p class="subtitulo">El tiempo no vuelve, tu belleza sí 💖</p>
@@ -286,19 +310,37 @@
     <div class="info-lic">
         <p><strong>Especialista en cuidado facial y estética</strong></p>
         <p>📍 <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver ubicación en Google Maps</a></p>
-        <p>📞 <a href="https://wa.me/5217296336318" target="_blank">+52 1 729 633 6318 — WhatsApp</a></p>
-        <p><a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-rosa" style="margin-top:10px;">📸 Síguenos en Instagram</a></p>
+        
+        <!-- BOTONES CON ICONOS DE WHATSAPP E INSTAGRAM -->
+        <div class="botones-redes">
+            <a href="https://wa.me/5217296336318" target="_blank" class="boton boton-whatsapp">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+            <a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">
+                <i class="fab fa-instagram"></i> Instagram
+            </a>
+        </div>
     </div>
 </section>
 
 <section>
     <h2>💆‍♀️ Nuestros Servicios</h2>
     <div class="fila-botones">
-        <button class="boton boton-violeta" onclick="mostrarServicio('limpieza')">🧼 Limpieza Facial</button>
-        <button class="boton boton-violeta" onclick="mostrarServicio('hidratacion')">💧 Hidratación</button>
-        <button class="boton boton-violeta" onclick="mostrarServicio('exfoliacion')">✨ Exfoliación</button>
-        <button class="boton boton-violeta" onclick="mostrarServicio('piel')">🌸 Piel Sensible</button>
-        <button class="boton boton-violeta" onclick="mostrarServicio('asesoria')">💎 Asesoría</button>
+        <button class="boton boton-limpieza" onclick="mostrarServicio('limpieza')">
+            <i class="fas fa-soap"></i> Limpieza Facial
+        </button>
+        <button class="boton boton-hidratacion" onclick="mostrarServicio('hidratacion')">
+            <i class="fas fa-tint"></i> Hidratación
+        </button>
+        <button class="boton boton-exfoliacion" onclick="mostrarServicio('exfoliacion')">
+            <i class="fas fa-sparkles"></i> Exfoliación
+        </button>
+        <button class="boton boton-piel" onclick="mostrarServicio('piel')">
+            <i class="fas fa-heart"></i> Piel Sensible
+        </button>
+        <button class="boton boton-asesoria" onclick="mostrarServicio('asesoria')">
+            <i class="fas fa-gem"></i> Asesoría
+        </button>
     </div>
 
     <div id="limpieza" class="caja-info-serv">
@@ -347,12 +389,14 @@
             <label>Servicio o comentario 💭</label>
             <textarea id="comentario" rows="3" placeholder="¿Qué servicio te interesa o tienes alguna observación?"></textarea>
         </div>
-        <button type="button" class="boton boton-verde" id="btnGuardarCita" style="width:100%; font-size:16px; padding:14px;">✅ AGENDAR CITA AHORA</button>
+        <button type="button" class="boton boton-verde" id="btnGuardarCita">
+            <i class="fas fa-calendar-check"></i> AGENDAR CITA AHORA
+        </button>
         <div class="mensaje-exito" id="mensajeCita"></div>
     </form>
 
     <div class="solo-admin">
-        <h3 style="color:#7c4d6f; margin-bottom:15px;">📋 Lista de Citas Registradas</h3>
+        <h3 style="color:#7c4d6f; margin-bottom:15px;"><i class="fas fa-clipboard-list"></i> Lista de Citas Registradas</h3>
         <div id="listaCitas"></div>
     </div>
 </section>
@@ -375,11 +419,13 @@
         <span class="estrella" data-v="5">★</span>
     </div>
     <p style="text-align:center; color:#777; margin-bottom:15px;">Toca una estrella para calificarnos ⭐</p>
-    <button type="button" class="boton boton-azul" id="btnEnviarOp" style="width:100%;">📤 Enviar mi Opinión</button>
+    <button type="button" class="boton boton-azul" id="btnEnviarOp">
+        <i class="fas fa-paper-plane"></i> Enviar mi Opinión
+    </button>
     <div class="mensaje-exito" id="mensajeOp"></div>
 
     <div class="historial">
-        <h3 style="color:#6b7fd7; margin-bottom:15px;">🔐 Historial Completo — Solo Administradora</h3>
+        <h3 style="color:#6b7fd7; margin-bottom:15px;"><i class="fas fa-lock"></i> Historial Completo — Solo Administradora</h3>
         <p style="font-size:14px; color:#666; margin-bottom:12px;">Todas las citas y opiniones ordenadas de la más reciente a la más antigua.</p>
         <div id="cajaHistorial"></div>
     </div>
@@ -388,14 +434,18 @@
 <section>
     <h2>📷 Galería de Tratamientos</h2>
     <div style="text-align:center; margin-bottom:15px;">
-        <button class="boton boton-rosa" id="btnVerGaleria">👁️ Ver / Ocultar Fotos</button>
+        <button class="boton boton-rosa" id="btnVerGaleria">
+            <i class="fas fa-images"></i> Ver / Ocultar Fotos
+        </button>
     </div>
     <div class="galeria" id="galeria"></div>
 
     <div class="caja-subir">
-        <h4 style="color:#8a7900; margin-bottom:10px;">➕ Agregar nueva foto a la galería</h4>
+        <h4 style="color:#8a7900; margin-bottom:10px;"><i class="fas fa-cloud-upload-alt"></i> Agregar nueva foto a la galería</h4>
         <input type="file" id="archivoFoto" accept="image/*" style="margin-bottom:10px;">
-        <button class="boton boton-verde" id="btnSubirFoto">✅ Subir Foto</button>
+        <button class="boton boton-verde" id="btnSubirFoto">
+            <i class="fas fa-plus-circle"></i> Subir Foto
+        </button>
     </div>
 </section>
 
@@ -429,7 +479,9 @@
             <input type="password" id="claveAdmin" placeholder="Escribe tu contraseña">
         </div>
         <div id="respuestaLogin" style="text-align:center; margin:10px 0;"></div>
-        <button class="boton boton-violeta" id="btnIngresar" style="width:100%;">✅ Ingresar</button>
+        <button class="boton boton-limpieza" id="btnIngresar" style="width:100%;">
+            <i class="fas fa-sign-in-alt"></i> Ingresar
+        </button>
     </div>
 </div>
 
@@ -705,7 +757,7 @@ document.getElementById('btnSubirFoto').addEventListener('click', () => {
         fotos.unshift(e.target.result); guardarTodo(); pintarGaleria();
         alert('✅ Foto agregada a la galería');
     };
-    lec.readAsDataURL(arch);
+    lec.readAsDataURL(archivoFoto.files[0]);
 });
 
 // ==================================================
