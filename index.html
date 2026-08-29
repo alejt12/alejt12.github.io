@@ -3,282 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Galería de Fotos - Completa</title>
+    <title>En Mantenimiento</title>
     <style>
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
         }
         body {
             font-family: Arial, sans-serif;
-            background-color: #fdf9ff;
-            padding: 25px;
-        }
-
-        /* PANTALLA DE CONTRASEÑA */
-        #pantalla-login {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(90, 24, 154, 0.95);
+            background: linear-gradient(135deg, #5a189a, #7b2cbf, #9d4edd);
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 9999;
+            color: #fff;
         }
-        #caja-login {
+        .caja-mantenimiento {
             background: #fff;
-            padding: 40px 30px;
-            border-radius: 16px;
+            color: #333;
+            padding: 50px 40px;
+            border-radius: 20px;
             text-align: center;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+            max-width: 500px;
             width: 90%;
-            max-width: 400px;
         }
-        #caja-login h3 {
-            color: #5a189a;
+        .icono {
+            font-size: 70px;
             margin-bottom: 20px;
-            font-size: 22px;
         }
-        #clave-acceso {
-            width: 100%;
-            padding: 14px;
-            font-size: 18px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        #boton-entrar {
-            width: 100%;
-            padding: 14px;
-            background: #22c55e;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        #mensaje-error {
-            color: red;
-            margin-top: 12px;
-            display: none;
-        }
-
-        /* RECUADRO PRINCIPAL */
-        #contenedor-fotos {
-            border: 6px solid #7b2cbf;
-            background-color: #ffffff;
-            border-radius: 18px;
-            padding: 30px;
-            min-height: 650px;
-            max-width: 1250px;
-            margin: 0 auto;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-        }
-        h2 {
-            text-align: center;
+        h1 {
             color: #5a189a;
-            font-size: 34px;
-            margin-bottom: 30px;
-            font-weight: bold;
+            font-size: 28px;
+            margin-bottom: 20px;
         }
-
-        /* BOTÓN AGREGAR */
-        #boton-agregar {
-            display: block;
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .mensaje-final {
+            font-weight: bold;
+            color: #7b2cbf;
+            margin-top: 15px;
+        }
+        .barra {
             width: 100%;
-            max-width: 450px;
-            margin: 0 auto 35px auto;
-            padding: 18px 30px;
-            background-color: #22c55e;
-            color: white;
-            font-size: 22px;
-            font-weight: bold;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        #boton-agregar:hover,
-        #boton-agregar:active {
-            background-color: #16a34a;
-        }
-        #entrada-archivos { display: none; }
-
-        /* GALERÍA */
-        #galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 28px;
-        }
-        .foto-item {
-            position: relative;
-            border: 4px solid #e0cffc;
-            border-radius: 16px;
+            height: 10px;
+            background: #e0cffc;
+            border-radius: 5px;
+            margin-top: 25px;
             overflow: hidden;
-            background-color: #fff;
-            box-shadow: 0 3px 12px rgba(0, 0, 0, 0.1);
         }
-        .foto-item img {
-            width: 100%;
-            height: 260px;
-            object-fit: cover;
-            display: block;
+        .llenado {
+            height: 100%;
+            width: 65%;
+            background: linear-gradient(90deg, #5a189a, #22c55e);
+            border-radius: 5px;
+            animation: cargando 2s ease-in-out infinite alternate;
         }
-
-        /* BOTÓN ELIMINAR GRANDE */
-        .btn-eliminar {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background-color: #dc2626;
-            border: 3px solid #fff;
-            color: white;
-            font-weight: bold;
-            font-size: 19px;
-            padding: 14px 22px;
-            border-radius: 12px;
-            cursor: pointer;
-            min-width: 110px;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            z-index: 99;
-        }
-        .btn-eliminar:hover,
-        .btn-eliminar:active {
-            background-color: #b91c1c;
-        }
-
-        /* CLIENTES SOLO VEN, SIN BOTONES */
-        .solo-ver .btn-eliminar,
-        .solo-ver #boton-agregar {
-            display: none !important;
+        @keyframes cargando {
+            from { width: 55%; }
+            to   { width: 85%; }
         }
     </style>
 </head>
 <body>
 
-<!-- PANTALLA DE CONTRASEÑA -->
-<div id="pantalla-login">
-    <div id="caja-login">
-        <h3>🔐 Ingrese su contraseña</h3>
-        <input type="password" id="clave-acceso" placeholder="Escriba aquí..." autocomplete="off">
-        <button id="boton-entrar">✅ Entrar</button>
-        <p id="mensaje-error">Contraseña incorrecta ⚠️</p>
+    <div class="caja-mantenimiento">
+        <div class="icono">🚧</div>
+        <h1>Sitio en Mantenimiento</h1>
+        <p>Estamos trabajando para mejorar tu experiencia.</p>
+        <p>Hacemos lo mejor posible para que todo vuelva a funcionar pronto.</p>
+        <p class="mensaje-final">¡Gracias por tu paciencia!</p>
+        <div class="barra">
+            <div class="llenado"></div>
+        </div>
     </div>
-</div>
-
-<!-- GALERÍA DE FOTOS -->
-<div id="contenedor-fotos" class="solo-ver">
-    <h2>📸 MIS FOTOS</h2>
-    <button id="boton-agregar">➕ AGREGAR FOTO</button>
-    <input type="file" id="entrada-archivos" accept="image/*" multiple>
-    <div id="galeria"></div>
-</div>
-
-<script>
-    // TU CONTRASEÑA: cámbiala aquí si quieres
-    const CONTRASEÑA_PERSONAL = "1234";
-    const CLAVE_ALMACENAMIENTO = "miGaleriaPermanente_2026";
-
-    const pantallaLogin = document.getElementById("pantalla-login");
-    const inputClave = document.getElementById("clave-acceso");
-    const botonEntrar = document.getElementById("boton-entrar");
-    const mensajeError = document.getElementById("mensaje-error");
-    const contenedorGaleria = document.getElementById("galeria");
-    const botonAgregar = document.getElementById("boton-agregar");
-    const entradaArchivos = document.getElementById("entrada-archivos");
-    const contenedorFotos = document.getElementById("contenedor-fotos");
-
-    // VERIFICAR CONTRASEÑA
-    function verificarContraseña() {
-        const escrita = inputClave.value.trim();
-        if (escrita === CONTRASEÑA_PERSONAL) {
-            pantallaLogin.style.display = "none";
-            contenedorFotos.classList.remove("solo-ver");
-            inputClave.value = "";
-        } else {
-            mensajeError.style.display = "block";
-            inputClave.value = "";
-            setTimeout(() => mensajeError.style.display = "none", 2500);
-        }
-    }
-
-    botonEntrar.addEventListener("click", verificarContraseña);
-    inputClave.addEventListener("keydown", e => {
-        if (e.key === "Enter") verificarContraseña();
-    });
-
-    // CARGAR FOTOS GUARDADAS
-    function cargarFotosGuardadas() {
-        const datosGuardados = localStorage.getItem(CLAVE_ALMACENAMIENTO);
-        if (!datosGuardados) return;
-        try {
-            const listaImagenes = JSON.parse(datosGuardados);
-            listaImagenes.forEach(url => crearBloqueFoto(url, false));
-        } catch (error) {
-            console.error("Error al recuperar fotos:", error);
-        }
-    }
-
-    // CREAR TARJETA DE FOTO
-    function crearBloqueFoto(direccionImagen, guardar = true) {
-        const tarjeta = document.createElement("div");
-        tarjeta.className = "foto-item";
-
-        const imagen = document.createElement("img");
-        imagen.src = direccionImagen;
-
-        const botonBorrar = document.createElement("button");
-        botonBorrar.className = "btn-eliminar";
-        botonBorrar.textContent = "🗑️ QUITAR";
-        botonBorrar.addEventListener("click", () => {
-            tarjeta.remove();
-            guardarTodoElContenido();
-        });
-
-        tarjeta.appendChild(imagen);
-        tarjeta.appendChild(botonBorrar);
-        contenedorGaleria.appendChild(tarjeta);
-
-        if (guardar) guardarTodoElContenido();
-    }
-
-    // GUARDAR TODO
-    function guardarTodoElContenido() {
-        const listaUrls = [];
-        contenedorGaleria.querySelectorAll(".foto-item img").forEach(img => {
-            listaUrls.push(img.src);
-        });
-        localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(listaUrls));
-    }
-
-    // AGREGAR FOTOS NUEVAS
-    botonAgregar.addEventListener("click", () => {
-        entradaArchivos.click();
-    });
-
-    entradaArchivos.addEventListener("change", evento => {
-        const archivos = Array.from(evento.target.files || []);
-        archivos.forEach(archivo => {
-            if (!archivo.type.startsWith("image/")) return;
-            const lector = new FileReader();
-            lector.onload = resultado => {
-                crearBloqueFoto(resultado.target.result);
-            };
-            lector.readAsDataURL(archivo);
-        });
-        entradaArchivos.value = "";
-    });
-
-    // INICIAR GALERÍA
-    cargarFotosGuardadas();
-</script>
 
 </body>
 </html>
