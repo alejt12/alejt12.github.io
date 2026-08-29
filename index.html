@@ -60,11 +60,7 @@
             transform: translateY(-2px); 
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .btn-salir { 
-            background: rgba(220, 80, 100, 0.9); 
-            display: none; 
-        }
-        .btn-entrar { display: inline-block; }
+        .btn-salir { display: none; }
         .admin-activo .btn-salir { display: inline-block; }
         .admin-activo .btn-entrar { display: none; }
         .btn-editar-header {
@@ -83,7 +79,6 @@
         }
         .subtitulo { 
             font-size: 19px; 
-            font-style: normal; 
             opacity: 0.95; 
             transition: all 0.3s ease; 
             font-weight: 300;
@@ -246,8 +241,6 @@
         .editar-seccion h4 { color: #b8860b; margin-bottom: 14px; font-size: 16px; }
         .grupo-edicion { border-bottom: 1px dashed #f0d890; padding-bottom: 16px; margin-bottom: 16px; }
         .grupo-edicion:last-child { border-bottom: none; padding-bottom: 0; margin-bottom: 0; }
-        .texto-editable { transition: all 0.3s ease; }
-        .texto-editable:hover { background: rgba(255,255,255,0.5); cursor: pointer; padding: 4px 8px; border-radius: 6px; }
     </style>
 </head>
 <body>
@@ -258,7 +251,7 @@
         <button class="btn-admin btn-entrar" id="btnEntrarAdmin"><i class="fas fa-lock"></i> Acceso Administradora</button>
     </div>
     <h1>✨ COSMIATRÍA LAYA ✨</h1>
-    <p class="subtitulo texto-editable" id="esloganPrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
+    <p class="subtitulo" id="esloganPrincipal">El tiempo no vuelve, tu belleza sí 💖</p>
     <button class="btn-admin btn-editar-header" id="btnEditarEslogan"><i class="fas fa-pen"></i> Cambiar frase principal</button>
 </header>
 
@@ -286,59 +279,59 @@
         <button class="boton-editar solo-admin" id="btnEditarServicios"><i class="fas fa-pen"></i> Editar</button>
     </h2>
     <div class="fila-botones">
-        <button class="boton boton-limpieza" id="btnTextoLimpieza" onclick="mostrarServicio('limpieza')">
+        <button class="boton boton-limpieza" id="btnLimpieza">
             <i class="fas fa-soap"></i> <span id="txtLimpieza">Limpieza Facial</span>
         </button>
-        <button class="boton boton-hidratacion" id="btnTextoHidratacion" onclick="mostrarServicio('hidratacion')">
+        <button class="boton boton-hidratacion" id="btnHidratacion">
             <i class="fas fa-tint"></i> <span id="txtHidratacion">Hidratación</span>
         </button>
-        <button class="boton boton-exfoliacion" id="btnTextoExfoliacion" onclick="mostrarServicio('exfoliacion')">
+        <button class="boton boton-exfoliacion" id="btnExfoliacion">
             <i class="fas fa-sparkles"></i> <span id="txtExfoliacion">Exfoliación</span>
         </button>
-        <button class="boton boton-piel" id="btnTextoPiel" onclick="mostrarServicio('piel')">
+        <button class="boton boton-piel" id="btnPiel">
             <i class="fas fa-heart"></i> <span id="txtPiel">Piel Sensible</span>
         </button>
-        <button class="boton boton-asesoria" id="btnTextoAsesoria" onclick="mostrarServicio('asesoria')">
+        <button class="boton boton-asesoria" id="btnAsesoria">
             <i class="fas fa-gem"></i> <span id="txtAsesoria">Asesoría</span>
         </button>
-        <button class="boton boton-promociones" id="btnTextoPromociones" onclick="mostrarServicio('promociones')">
+        <button class="boton boton-promociones" id="btnPromociones">
             <i class="fas fa-tags"></i> <span id="txtPromociones">Promociones</span>
         </button>
-        <button class="boton boton-fotos" id="btnTextoFotos" onclick="mostrarServicio('fotos')">
+        <button class="boton boton-fotos" id="btnGaleria">
             <i class="fas fa-images"></i> <span id="txtGaleria">Galería de Fotos</span>
         </button>
     </div>
 
-    <div id="limpieza" class="caja-info-serv">
-        <h3 id="titLimpieza">🧼 Limpieza Facial Profunda</h3>
-        <p id="descLimpieza">Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
+    <div id="cajaLimpieza" class="caja-info-serv">
+        <h3>🧼 Limpieza Facial Profunda</h3>
+        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. Tratamiento personalizado según tu tipo de piel.</p>
     </div>
-    <div id="hidratacion" class="caja-info-serv">
-        <h3 id="titHidratacion">💧 Hidratación y Nutrición</h3>
-        <p id="descHidratacion">Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural. Ideal para piel seca o deshidratada.</p>
+    <div id="cajaHidratacion" class="caja-info-serv">
+        <h3>💧 Hidratación y Nutrición</h3>
+        <p>Aportamos la humedad y nutrientes que tu piel necesita. Recupera su frescura, suavidad y brillo natural. Ideal para piel seca o deshidratada.</p>
     </div>
-    <div id="exfoliacion" class="caja-info-serv">
-        <h3 id="titExfoliacion">✨ Exfoliación Renovadora</h3>
-        <p id="descExfoliacion">Renovamos tu piel eliminando células muertas. Mejora la textura y el tono. Tu piel se ve más joven, suave y luminosa desde la primera sesión.</p>
+    <div id="cajaExfoliacion" class="caja-info-serv">
+        <h3>✨ Exfoliación Renovadora</h3>
+        <p>Renovamos tu piel eliminando células muertas. Mejora la textura y el tono. Tu piel se ve más joven, suave y luminosa desde la primera sesión.</p>
     </div>
-    <div id="piel" class="caja-info-serv">
-        <h3 id="titPiel">🌸 Cuidado para Piel Sensible</h3>
-        <p id="descPiel">Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
+    <div id="cajaPiel" class="caja-info-serv">
+        <h3>🌸 Cuidado para Piel Sensible</h3>
+        <p>Productos suaves y delicados, sin químicos agresivos. Calma, protege y regenera tu piel con mucho cuidado.</p>
     </div>
-    <div id="asesoria" class="caja-info-serv">
-        <h3 id="titAsesoria">💎 Asesoría Personalizada</h3>
-        <p id="descAsesoria">Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
+    <div id="cajaAsesoria" class="caja-info-serv">
+        <h3>💎 Asesoría Personalizada</h3>
+        <p>Te guiamos paso a paso. Evaluamos tu piel y te recomendamos la rutina ideal para casa. 💜</p>
     </div>
-    <div id="promociones" class="caja-promociones">
-        <h3 id="titPromociones">🔥 Promociones Especiales</h3>
-        <p id="promo1"><strong>✨ Paquete Completo:</strong> Limpieza + Hidratación con 15% de descuento 💜</p>
-        <p id="promo2"><strong>🌸 Primera Visita:</strong> 10% de descuento en tu primer tratamiento</p>
-        <p id="promo3"><strong>👭 Tratamiento en Pareja:</strong> 20% de descuento al venir acompañada</p>
+    <div id="cajaPromociones" class="caja-promociones">
+        <h3>🔥 Promociones Especiales</h3>
+        <p><strong>✨ Paquete Completo:</strong> Limpieza + Hidratación con 15% de descuento 💜</p>
+        <p><strong>🌸 Primera Visita:</strong> 10% de descuento en tu primer tratamiento</p>
+        <p><strong>👭 Tratamiento en Pareja:</strong> 20% de descuento al venir acompañada</p>
     </div>
-    <div id="fotos" class="caja-fotos">
-        <h3 id="titGaleria">📷 Galería de Fotos</h3>
+    <div id="cajaGaleria" class="caja-fotos">
+        <h3>📷 Galería de Fotos</h3>
         <div class="galeria" id="contenedorFotos">
-            <p class="sin-datos">Cargando fotos...</p>
+            <p class="sin-datos">Aquí aparecerán las fotos agregadas</p>
         </div>
         <div class="caja-subir-foto solo-admin">
             <h4><i class="fas fa-cloud-upload-alt"></i> Agregar Foto Nueva</h4>
@@ -349,7 +342,7 @@
         </div>
     </div>
 
-    <div class="editar-seccion" id="panelEditarServicios" style="display:none;">
+    <div class="editar-seccion" id="panelEditarServicios">
         <h4>✏️ Editar Servicios y Botones</h4>
         <div class="grupo-edicion">
             <label>Título de sección</label>
@@ -358,46 +351,30 @@
         <div class="grupo-edicion">
             <label>Botón 1 — Limpieza (texto)</label>
             <input type="text" id="editarTxtLimpieza" placeholder="Limpieza Facial">
-            <label>Título y descripción</label>
-            <input type="text" id="editarTitLimpieza" placeholder="Limpieza Facial Profunda">
-            <textarea id="editarDescLimpieza" rows="2" placeholder="Descripción del servicio..."></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 2 — Hidratación</label>
             <input type="text" id="editarTxtHidratacion" placeholder="Hidratación">
-            <input type="text" id="editarTitHidratacion" placeholder="Título">
-            <textarea id="editarDescHidratacion" rows="2"></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 3 — Exfoliación</label>
             <input type="text" id="editarTxtExfoliacion" placeholder="Exfoliación">
-            <input type="text" id="editarTitExfoliacion" placeholder="Título">
-            <textarea id="editarDescExfoliacion" rows="2"></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 4 — Piel Sensible</label>
             <input type="text" id="editarTxtPiel" placeholder="Piel Sensible">
-            <input type="text" id="editarTitPiel" placeholder="Título">
-            <textarea id="editarDescPiel" rows="2"></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 5 — Asesoría</label>
             <input type="text" id="editarTxtAsesoria" placeholder="Asesoría">
-            <input type="text" id="editarTitAsesoria" placeholder="Título">
-            <textarea id="editarDescAsesoria" rows="2"></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 6 — Promociones</label>
             <input type="text" id="editarTxtPromociones" placeholder="Promociones">
-            <input type="text" id="editarTitPromociones" placeholder="Título">
-            <textarea id="editarPromo1" rows="1" placeholder="Promoción 1"></textarea>
-            <textarea id="editarPromo2" rows="1" placeholder="Promoción 2"></textarea>
-            <textarea id="editarPromo3" rows="1" placeholder="Promoción 3"></textarea>
         </div>
         <div class="grupo-edicion">
             <label>Botón 7 — Galería</label>
             <input type="text" id="editarTxtGaleria" placeholder="Galería de Fotos">
-            <input type="text" id="editarTitGaleria" placeholder="Título de galería">
         </div>
         <button class="boton boton-guardar" id="btnGuardarServicios"><i class="fas fa-save"></i> Guardar Cambios</button>
     </div>
@@ -424,7 +401,7 @@
         <div class="mensaje-exito" id="mensajeCita"></div>
     </form>
 
-    <div class="editar-seccion" id="panelEditarAgendar" style="display:none;">
+    <div class="editar-seccion" id="panelEditarAgendar">
         <h4>✏️ Editar Sección Agendar Cita</h4>
         <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloAgendar"></div>
         <div class="grupo-edicion"><label>Etiqueta — Nombre</label><input type="text" id="editarLblNombre"></div>
@@ -439,9 +416,9 @@
     </div>
 
     <div class="solo-admin">
-        <p class="aviso-recarga">🔄 Las citas llegan en tiempo real desde cualquier lugar</p>
+        <p class="aviso-recarga">🔄 Las citas aparecen automáticamente aquí</p>
         <h3><i class="fas fa-clipboard-list"></i> Citas Recibidas</h3>
-        <div id="listaCitas" class="cargando">Cargando citas...</div>
+        <div id="listaCitas" class="sin-datos">📭 Sin citas todavía</div>
     </div>
 </section>
 
@@ -465,7 +442,7 @@
     </button>
     <div class="mensaje-exito" id="mensajeOp"></div>
 
-    <div class="editar-seccion" id="panelEditarOpiniones" style="display:none;">
+    <div class="editar-seccion" id="panelEditarOpiniones">
         <h4>✏️ Editar Sección Opiniones</h4>
         <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloOpiniones"></div>
         <div class="grupo-edicion"><label>Etiqueta — Correo</label><input type="text" id="editarLblCorreoOp"></div>
@@ -477,7 +454,7 @@
 
     <div class="historial">
         <h3 id="tituloHistorialOp"><i class="fas fa-comments"></i> Opiniones Recibidas</h3>
-        <div id="listaOpiniones" class="cargando">Cargando opiniones...</div>
+        <div id="listaOpiniones" class="sin-datos">📭 Sin opiniones todavía</div>
     </div>
 </section>
 
@@ -488,12 +465,12 @@
     </h2>
     <table id="tablaHorarios">
         <tr><th id="etiquetaDia">Día</th><th id="etiquetaHora">Horario</th></tr>
-        <tr id="filaLunes"><td id="nombreLunes">Lunes a Viernes</td><td id="horarioLunes">9:00 AM — 6:00 PM</td></tr>
-        <tr id="filaSabado"><td id="nombreSabado">Sábado</td><td id="horarioSabado">9:00 AM — 3:00 PM</td></tr>
-        <tr id="filaDomingo"><td id="nombreDomingo">Domingo</td><td id="horarioDomingo" style="color:#e05263;"><strong>Descanso</strong></td></tr>
+        <tr><td id="nombreLunes">Lunes a Viernes</td><td id="horarioLunes">9:00 AM — 6:00 PM</td></tr>
+        <tr><td id="nombreSabado">Sábado</td><td id="horarioSabado">9:00 AM — 3:00 PM</td></tr>
+        <tr><td id="nombreDomingo">Domingo</td><td id="horarioDomingo" style="color:#e05263;"><strong>Descanso</strong></td></tr>
     </table>
 
-    <div class="editar-seccion" id="panelEditarHorarios" style="display:none;">
+    <div class="editar-seccion" id="panelEditarHorarios">
         <h4>✏️ Editar Horarios y Días</h4>
         <div class="grupo-edicion"><label>Título de sección</label><input type="text" id="editarTituloHorarios"></div>
         <div class="grupo-edicion">
@@ -540,9 +517,6 @@
 
 <footer>© 2026 Cosmiatría Laya — Todos los derechos reservados 💜</footer>
 
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
 <script>
 // ==================================================
 // 🔐 DATOS DE ACCESO
@@ -551,28 +525,11 @@ const ADMIN_CORREO = "laya@gmail.com";
 const ADMIN_CLAVE = "Laya2026";
 
 // ==================================================
-// ☁️ CONEXIÓN A FIREBASE
-// ==================================================
-const firebaseConfig = {
-  apiKey: "AIzaSyB8LqfpFH3m0TcIV5a3PVuNk3mqOcB8a60",
-  authDomain: "cosmiatria-laya.firebaseapp.com",
-  projectId: "cosmiatria-laya",
-  storageBucket: "cosmiatria-laya.firebasestorage.app",
-  messagingSenderId: "129969103650",
-  appId: "1:129969103650:web:d7508b3d2c0daa21db3b7b",
-  measurementId: "G-5YF9ML88B7"
-};
-const app = firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-
-// ==================================================
 // 📱 VARIABLES
 // ==================================================
 let adminActivo = false;
 let calificacion = 0;
-let citasSuscripcion = null;
-let opinionesSuscripcion = null;
-let fotosSuscripcion = null;
+let fotosGuardadas = [];
 
 // ==================================================
 // 🔄 AL CARGAR LA PÁGINA
@@ -581,18 +538,57 @@ window.onload = function() {
     const sesion = localStorage.getItem('_adminSesion');
     if (sesion === 'activa') entrarComoAdmin();
     
+    configurarBotonesServicios();
     configurarEstrellas();
-    cargarConfiguracion();
-    cargarFotosGaleria();
-    configurarBotonesEdicion();
+    cargarDatosGuardados();
 };
 
 // ==================================================
-// 🧹 MOSTRAR SERVICIOS
+// ✅ FUNCION PRINCIPAL: BOTONES DE SERVICIOS
 // ==================================================
-function mostrarServicio(id) {
-    document.querySelectorAll('.caja-info-serv, .caja-promociones, .caja-fotos').forEach(c => c.classList.remove('mostrar'));
-    document.getElementById(id).classList.add('mostrar');
+function configurarBotonesServicios() {
+    // Botón Limpieza
+    document.getElementById('btnLimpieza').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaLimpieza').classList.add('mostrar');
+    });
+    // Botón Hidratación
+    document.getElementById('btnHidratacion').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaHidratacion').classList.add('mostrar');
+    });
+    // Botón Exfoliación
+    document.getElementById('btnExfoliacion').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaExfoliacion').classList.add('mostrar');
+    });
+    // Botón Piel Sensible
+    document.getElementById('btnPiel').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaPiel').classList.add('mostrar');
+    });
+    // Botón Asesoría
+    document.getElementById('btnAsesoria').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaAsesoria').classList.add('mostrar');
+    });
+    // Botón Promociones
+    document.getElementById('btnPromociones').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaPromociones').classList.add('mostrar');
+    });
+    // Botón Galería
+    document.getElementById('btnGaleria').addEventListener('click', function(){
+        ocultarTodasCajas();
+        document.getElementById('cajaGaleria').classList.add('mostrar');
+    });
+}
+
+// Oculta TODAS las cajas de información
+function ocultarTodasCajas() {
+    document.querySelectorAll('.caja-info-serv, .caja-promociones, .caja-fotos').forEach(function(caja){
+        caja.classList.remove('mostrar');
+    });
 }
 
 // ==================================================
@@ -616,79 +612,103 @@ function actualizarEstrellas() {
 }
 
 // ==================================================
-// ✅ INICIO Y CIERRE DE SESIÓN
+// 🔐 INICIO Y CIERRE DE SESIÓN
 // ==================================================
+document.getElementById('btnEntrarAdmin').addEventListener('click', function(){
+    document.getElementById('modalLogin').classList.add('mostrar');
+});
+document.getElementById('cerrarModal').addEventListener('click', function(){
+    document.getElementById('modalLogin').classList.remove('mostrar');
+});
+document.getElementById('btnIngresar').addEventListener('click', function(){
+    const correo = document.getElementById('correoAdmin').value.trim();
+    const clave = document.getElementById('claveAdmin').value.trim();
+    if(correo === ADMIN_CORREO && clave === ADMIN_CLAVE){
+        entrarComoAdmin();
+        document.getElementById('modalLogin').classList.remove('mostrar');
+        document.getElementById('respuestaLogin').innerHTML = '';
+    } else {
+        document.getElementById('respuestaLogin').innerHTML = '<span style="color:red;">❌ Correo o contraseña incorrectos</span>';
+    }
+});
+document.getElementById('btnSalirAdmin').addEventListener('click', salirAdmin);
+
 function entrarComoAdmin() {
     adminActivo = true;
     document.getElementById('raiz').classList.add('admin-activo');
     localStorage.setItem('_adminSesion', 'activa');
-    escucharCitas();
-    escucharOpiniones();
-    cargarFotosGaleria();
 }
 function salirAdmin() {
     adminActivo = false;
     localStorage.removeItem('_adminSesion');
     document.getElementById('raiz').classList.remove('admin-activo');
-    document.getElementById('modalLogin').classList.remove('mostrar');
-    if(citasSuscripcion) citasSuscripcion();
-    if(opinionesSuscripcion) opinionesSuscripcion();
 }
 
 // ==================================================
-// 📥 CITAS EN TIEMPO REAL
+// ✏️ EDITAR ESLOGAN / FRASE PRINCIPAL
 // ==================================================
-function escucharCitas() {
-    citasSuscripcion = db.collection('citas')
-        .orderBy('fecha', 'desc')
-        .onSnapshot(snapshot => {
-            const lista = document.getElementById('listaCitas');
-            lista.innerHTML = '';
-            if(snapshot.empty){ lista.innerHTML = "<p class='sin-datos'>📭 Sin citas todavía</p>"; return; }
-            snapshot.forEach(doc => {
-                const c = doc.data();
-                lista.innerHTML += `
-                    <div class='tarjeta-cita'>
-                        <h4>👤 ${c.nombre}</h4>
-                        <p>📱 ${c.telefono}</p>
-                        <p>📅 ${c.dia}/${c.mes}/${c.anio} — ⏰ ${c.hora}</p>
-                        <p>💭 ${c.comentario || 'Sin comentario'}</p>
-                        <button class='btn-eliminar-cita' onclick="borrarCita('${doc.id}')">🗑️ Eliminar</button>
-                    </div>`;
-            });
-        });
-}
-window.borrarCita = function(id) {
-    if(confirm('¿Eliminar esta cita?')) db.collection('citas').doc(id).delete();
-};
-
-document.getElementById('btnGuardarCita').addEventListener('click', async () => {
-    const datos = {
-        nombre: document.getElementById('nombre').value.trim(),
-        telefono: document.getElementById('telefono').value.trim(),
-        dia: document.getElementById('dia').value,
-        mes: document.getElementById('mes').value,
-        anio: document.getElementById('anio').value,
-        hora: document.getElementById('hora').value,
-        comentario: document.getElementById('comentario').value.trim(),
-        fecha: firebase.firestore.Timestamp.now()
-    };
-    if(!datos.nombre || !datos.telefono || !datos.dia) return alert('⚠️ Completa todos los campos');
-    await db.collection('citas').add(datos);
-    const msg = document.getElementById('mensajeCita');
-    msg.style.display = 'block';
-    msg.textContent = '✅ ¡CITA AGENDADA! Guardada en la nube ✅';
-    document.getElementById('formCita').reset();
-    setTimeout(()=>msg.style.display='none',5000);
+document.getElementById('btnEditarEslogan').addEventListener('click', function(){
+    document.getElementById('modalEslogan').classList.add('mostrar');
+    document.getElementById('nuevoEslogan').value = document.getElementById('esloganPrincipal').textContent;
+});
+document.getElementById('cerrarEslogan').addEventListener('click', function(){
+    document.getElementById('modalEslogan').classList.remove('mostrar');
+});
+document.getElementById('btnGuardarEslogan').addEventListener('click', function(){
+    const nuevoTexto = document.getElementById('nuevoEslogan').value.trim();
+    if(nuevoTexto){
+        document.getElementById('esloganPrincipal').textContent = nuevoTexto;
+        localStorage.setItem('eslogan', nuevoTexto);
+        document.getElementById('modalEslogan').classList.remove('mostrar');
+        alert('✅ Frase actualizada');
+    }
 });
 
 // ==================================================
-// 💬 OPINIONES EN TIEMPO REAL
+// ✏️ EDITAR SERVICIOS
 // ==================================================
-function escucharOpiniones() {
-    opinionesSuscripcion = db.collection('opiniones')
-        .orderBy('fecha', 'desc')
-        .onSnapshot(snapshot => {
-            const lista = document.getElementById('listaOpiniones');
-            lista.innerHTML = '';
-            if(snapshot.empty){ lista.innerHTML = "<p class='sin-datos'>📭 Sin opiniones todavía</p>"; return; }
+document.getElementById('btnEditarServicios').addEventListener('click', function(){
+    const panel = document.getElementById('panelEditarServicios');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    if(panel.style.display === 'block'){
+        document.getElementById('editarTituloServicios').value = document.getElementById('tituloServicios').textContent;
+        document.getElementById('editarTxtLimpieza').value = document.getElementById('txtLimpieza').textContent;
+        document.getElementById('editarTxtHidratacion').value = document.getElementById('txtHidratacion').textContent;
+        document.getElementById('editarTxtExfoliacion').value = document.getElementById('txtExfoliacion').textContent;
+        document.getElementById('editarTxtPiel').value = document.getElementById('txtPiel').textContent;
+        document.getElementById('editarTxtAsesoria').value = document.getElementById('txtAsesoria').textContent;
+        document.getElementById('editarTxtPromociones').value = document.getElementById('txtPromociones').textContent;
+        document.getElementById('editarTxtGaleria').value = document.getElementById('txtGaleria').textContent;
+    }
+});
+document.getElementById('btnGuardarServicios').addEventListener('click', function(){
+    document.getElementById('tituloServicios').textContent = document.getElementById('editarTituloServicios').value;
+    document.getElementById('txtLimpieza').textContent = document.getElementById('editarTxtLimpieza').value;
+    document.getElementById('txtHidratacion').textContent = document.getElementById('editarTxtHidratacion').value;
+    document.getElementById('txtExfoliacion').textContent = document.getElementById('editarTxtExfoliacion').value;
+    document.getElementById('txtPiel').textContent = document.getElementById('editarTxtPiel').value;
+    document.getElementById('txtAsesoria').textContent = document.getElementById('editarTxtAsesoria').value;
+    document.getElementById('txtPromociones').textContent = document.getElementById('editarTxtPromociones').value;
+    document.getElementById('txtGaleria').textContent = document.getElementById('editarTxtGaleria').value;
+    
+    guardarTodoEnLocal();
+    document.getElementById('panelEditarServicios').style.display = 'none';
+    alert('✅ Cambios guardados');
+});
+
+// ==================================================
+// ✏️ EDITAR AGENDAR CITA
+// ==================================================
+document.getElementById('btnEditarAgendar').addEventListener('click', function(){
+    const panel = document.getElementById('panelEditarAgendar');
+    panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    if(panel.style.display === 'block'){
+        document.getElementById('editarTituloAgendar').value = document.getElementById('tituloAgendar').textContent;
+        document.getElementById('editarLblNombre').value = document.getElementById('lblNombre').textContent;
+        document.getElementById('editarLblTelefono').value = document.getElementById('lblTelefono').textContent;
+        document.getElementById('editarLblDia').value = document.getElementById('lblDia').textContent;
+        document.getElementById('editarLblMes').value = document.getElementById('lblMes').textContent;
+        document.getElementById('editarLblAnio').value = document.getElementById('lblAnio').textContent;
+        document.getElementById('editarLblHora').value = document.getElementById('lblHora").textContent;
+        document.getElementById('editarLblComentario').value = document.getElementById('lblComentario').textContent;
+        document.getElementById('
