@@ -36,7 +36,10 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        .boton-candado:hover { transform: scale(1.1); }
+        .boton-candado:hover {
+            background: rgba(255,255,255,0.4);
+            transform: scale(1.1);
+        }
         .boton-cerrar {
             background: rgba(220,53,69,0.9);
             color: white;
@@ -47,81 +50,117 @@
             font-size: 14px;
             cursor: pointer;
             display: none;
+            transition: all 0.3s;
         }
-        h1 { margin: 0; font-size: 32px; }
-        .frase { font-size: 17px; font-style: italic; margin-top: 8px; }
+        .boton-cerrar:hover { background: rgba(200,35,47,1); }
+        h1 { margin: 0; font-size: 36px; padding-top: 10px; }
+        .frase { font-size: 18px; font-style: italic; margin-top: 10px; color: #f3e0ee; }
         section {
             max-width: 850px;
             margin: 20px auto;
-            padding: 20px;
+            padding: 25px;
             background: white;
-            border-radius: 18px;
-            box-shadow: 0 5px 12px rgba(156,107,140,0.1);
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(156, 107, 140, 0.12);
         }
-        h2 { text-align: center; color: #7b5b8c; }
+        h2 {
+            color: #7b5b8c;
+            border-bottom: 2px solid #e4d4de;
+            padding-bottom: 12px;
+            text-align: center;
+            font-size: 24px;
+        }
+        .contenedor-botones { text-align: center; margin: 20px 0; }
         .boton {
             display: inline-block;
             background: #9c88b8;
-            color: white;
-            padding: 11px 20px;
-            margin: 5px;
-            border-radius: 25px;
+            color: white !important;
+            padding: 12px 22px;
+            margin: 6px;
+            border-radius: 50px;
             border: none;
             cursor: pointer;
             font-weight: bold;
-            font-size: 15px;
+            font-size: 16px;
+            transition: transform 0.3s, background 0.3s;
             text-decoration: none;
         }
+        .boton:hover { transform: scale(1.05); background: #8c78a8; }
         .boton-verde { background: linear-gradient(90deg, #4CAF50, #45a049); }
         .boton-verde:hover { background: linear-gradient(90deg, #45a049, #3d8b40); }
         .boton-naranja { background: linear-gradient(90deg, #f0ad4e, #ec971f); }
         .boton-rojo { background: linear-gradient(90deg, #dc3545, #c82333); }
         .boton-instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .caja-informacion {
+            background: #f8f2fb;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #9c6b8c;
+            display: none;
+        }
+        .caja-informacion.mostrar { display: block; }
 
-        /* GALERÍA PÚBLICA - LO QUE VEN TODOS LOS CLIENTES */
+        /* GALERÍA - LO QUE VEN TODOS LOS CLIENTES */
         .galeria {
             display: flex;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 10px;
+            margin-top: 15px;
         }
         .foto-publica {
-            width: 150px;
-            height: 150px;
+            width: 160px;
+            height: 160px;
             border-radius: 12px;
             object-fit: cover;
             box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            transition: transform .3s;
         }
-        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align: center; }
+        .foto-publica:hover { transform: scale(1.05); }
+        .sin-fotos { color: #888; font-style: italic; padding: 30px; text-align:center; font-size:16px; }
 
         /* SOLO LO VE LAIZA AL ENTRAR */
         .caja-subir {
             background: #fffef0;
-            padding: 15px;
-            border-radius: 12px;
+            padding: 18px;
+            border-radius: 15px;
+            border-left: 4px solid #ffc107;
             margin: 20px 0;
             display: none;
         }
         .caja-subir.mostrar { display: block; }
         .caja-subir input {
-            width: 90%;
+            width: 80%;
             padding: 10px;
-            margin: 8px auto;
+            margin: 10px auto;
             display: block;
+            font-size: 15px;
             border: 2px solid #f0d8a0;
             border-radius: 8px;
+            text-align: center;
         }
-        .foto-con-quitar {
+        .foto-lista {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        .foto-mini {
             position: relative;
-            display: inline-block;
-            margin: 5px;
+        }
+        .foto-mini img {
+            width: 110px;
+            height: 110px;
+            border-radius: 10px;
+            object-fit: cover;
         }
         .btn-quitar {
             position: absolute;
-            top: -5px;
-            right: -5px;
-            background: red;
+            top: -6px;
+            right: -6px;
+            background: #dc3545;
             color: white;
             border: none;
             width: 26px;
@@ -130,7 +169,42 @@
             font-size: 16px;
             font-weight: bold;
             cursor: pointer;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .contacto { text-align: center; background: #f9f2f7; }
+        footer { text-align: center; padding: 15px; color: #7a6c7c; font-size: 14px; }
+        .sobre-mi {
+            background: linear-gradient(135deg, #fef7fa, #f3eaf8);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 5px solid #b888a8;
+        }
+        .tabla-horarios {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        .tabla-horarios td, .tabla-horarios th {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #e4d4de;
+        }
+        .dia-descanso { color: #dc2743; font-weight: bold; }
+        .whatsapp-flotante {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 55px;
+            height: 55px;
+            background: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 999;
+            text-decoration: none;
         }
 
         /* Ventana inicio sesión */
@@ -150,278 +224,30 @@
         .caja-sesion {
             background: white;
             padding: 25px;
-            border-radius: 15px;
-            width: 320px;
+            border-radius: 20px;
+            max-width: 340px;
+            width: 90%;
             text-align: center;
-            position: relative;
         }
+        .caja-sesion h3 { margin-top: 0; color: #7b5b8c; }
         .caja-sesion input {
             width: 90%;
-            padding: 10px;
+            padding: 11px;
             margin: 8px 0;
             font-size: 16px;
             border: 2px solid #e4d4de;
             border-radius: 10px;
+            text-align: center;
         }
         .cerrar-ventana {
+            background: none;
+            border: none;
+            font-size: 22px;
             position: absolute;
             top: 10px;
             right: 15px;
-            border: none;
-            background: none;
-            font-size: 22px;
             cursor: pointer;
         }
-        .mensaje { font-weight: bold; margin-top: 10px; }
-        .error { color: red; }
-        .exito { color: green; }
-
-        /* Servicios */
-        .caja-info {
-            background: #f8f2fb;
-            padding: 15px;
-            margin-top: 10px;
-            border-radius: 10px;
-            border-left: 4px solid #9c6b8c;
-            display: none;
-        }
-        .caja-info.mostrar { display: block; }
-        .tabla-horarios { width: 100%; border-collapse: collapse; margin-top: 10px; }
-        .tabla-horarios td, th { padding: 8px; text-align: center; border-bottom: 1px solid #ddd; }
-        textarea { width: 100%; padding: 10px; height: 100px; border-radius: 8px; border: 1px solid #ddd; margin-top: 10px; }
-    </style>
-</head>
-<body>
-
-<header>
-    <div class="barra-superior">
-        <button class="boton boton-cerrar" id="btnCerrarSesion">🚪 Cerrar</button>
-        <button class="boton boton-naranja" id="btnCandado">🔒</button>
-    </div>
-    <h1>✨ COSMIATRÍA LAYA ✨</h1>
-    <p class="frase">El tiempo no vuelve, tu belleza sí 💖</p>
-</header>
-
-<section>
-    <h2>💜 Lic. Laiza González Robles</h2>
-    <p style="text-align:center;">📍 Ubicación: <a href="https://maps.app.goo.gl/tuxv5Ecc22PuLtfw7" target="_blank">Ver en Google Maps</a></p>
-    <p style="text-align:center;">📞 Teléfono: <a href="tel:+5217296336318">+52 1 729 633 6318</a></p>
-    <p style="text-align:center;"><a href="https://www.instagram.com/skin_carelaya/?__pwa=1#" target="_blank" class="boton boton-instagram">📷 Instagram</a></p>
-</section>
-
-<section>
-    <h2>Nuestros Servicios</h2>
-    <div style="text-align:center;">
-        <button class="boton boton-verde" onclick="mostrarInfo('limpieza')">🧼 Limpieza Facial</button>
-        <button class="boton boton-verde" onclick="mostrarInfo('hidratacion')">💧 Hidratación</button>
-        <button class="boton boton-verde" onclick="mostrarInfo('exfoliacion')">✨ Exfoliación</button>
-        <button class="boton boton-verde" onclick="mostrarInfo('piel')">🌸 Piel Sensible</button>
-        <button class="boton boton-verde" onclick="mostrarInfo('asesoria')">💎 Asesoría</button>
-    </div>
-
-    <div id="limpieza" class="caja-info">
-        <h3>🧼 Limpieza Facial Profunda</h3>
-        <p>Eliminamos impurezas, puntos negros y células muertas. Tu piel queda limpia, suave y radiante. ✨</p>
-    </div>
-    <div id="hidratacion" class="caja-info">
-        <h3>💧 Hidratación y Nutrición</h3>
-        <p>Aportamos el agua y nutrientes que tu piel necesita. Recupera su frescura y brillo natural. 💧</p>
-    </div>
-    <div id="exfoliacion" class="caja-info">
-        <h3>✨ Exfoliación Renovadora</h3>
-        <p>Renovamos tu piel eliminando células muertas. Se ve más joven y luminosa. ✨</p>
-    </div>
-    <div id="piel" class="caja-info">
-        <h3>🌸 Cuidado para Piel Sensible</h3>
-        <p>Productos suaves y delicados. Cuida tu piel sin irritarla. Calma y protección. 🌷</p>
-    </div>
-    <div id="asesoria" class="caja-info">
-        <h3>💎 Asesoría Personalizada</h3>
-        <p>Te recomendamos lo ideal para tu tipo de piel. Cuídala todos los días con los pasos correctos. 💜</p>
-    </div>
-</section>
-
-<section>
-    <h2>📷 Galería de Fotos</h2>
-    <div class="galeria" id="galeriaPublica"></div>
-
-    <!-- SOLO LO VE LAIZA AL ENTRAR -->
-    <div class="caja-subir" id="cajaSubir">
-        <h3>📷 Agregar Nueva Foto</h3>
-        <input type="file" id="entradaFoto" accept="image/*">
-        <button class="boton boton-verde" id="btnAgregarFoto">✅ Agregar Foto</button>
-        <div class="galeria" id="vistaAdmin"></div>
-    </div>
-</section>
-
-<section>
-    <h2>📅 Horarios de Atención</h2>
-    <table class="tabla-horarios">
-        <tr><th>Día</th><th>Horario</th></tr>
-        <tr><td>Lunes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Martes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Miércoles</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Jueves</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Viernes</td><td>9:00 AM — 6:00 PM</td></tr>
-        <tr><td>Sábado</td><td>9:00 AM — 3:00 PM</td></tr>
-        <tr><td>Domingo</td><td style="color:red;">Descanso</td></tr>
-    </table>
-</section>
-
-<section>
-    <h2>💬 Opiniones de Clientes</h2>
-    <textarea placeholder="Escribe aquí tu opinión..."></textarea>
-    <button class="boton boton-verde" style="margin-top:10px;">📤 Enviar Opinión</button>
-</section>
-
-<!-- VENTANA INICIAR SESIÓN -->
-<div class="ventana-sesion" id="ventanaSesion">
-    <div class="caja-sesion">
-        <button class="cerrar-ventana" id="btnCerrarVentana">×</button>
-        <h3>🔐 Iniciar Sesión</h3>
-        <input type="email" id="correo" placeholder="Correo">
-        <input type="password" id="clave" placeholder="Contraseña">
-        <div class="mensaje" id="mensaje"></div>
-        <button class="boton boton-verde" id="btnEntrar">✅ Entrar</button>
-    </div>
-</div>
-
-<script>
-// === DATOS DE ACCESO ===
-const CORREO_ADMIN = "laya@gmail.com";
-const CLAVE_ADMIN = "Laya2026";
-
-// === VARIABLES ===
-let fotos = JSON.parse(localStorage.getItem('fotosGaleria') || '[]');
-let archivoSeleccionado = null;
-
-// === ELEMENTOS ===
-const btnCandado = document.getElementById('btnCandado');
-const ventanaSesion = document.getElementById('ventanaSesion');
-const btnCerrarVentana = document.getElementById('btnCerrarVentana');
-const correo = document.getElementById('correo');
-const clave = document.getElementById('clave');
-const mensaje = document.getElementById('mensaje');
-const btnEntrar = document.getElementById('btnEntrar');
-const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-const cajaSubir = document.getElementById('cajaSubir');
-const galeriaPublica = document.getElementById('galeriaPublica');
-const vistaAdmin = document.getElementById('vistaAdmin');
-const entradaFoto = document.getElementById('entradaFoto');
-const btnAgregarFoto = document.getElementById('btnAgregarFoto');
-
-// === MOSTRAR INFO DE SERVICIOS ===
-function mostrarInfo(id) {
-    document.querySelectorAll('.caja-info').forEach(c => c.classList.remove('mostrar'));
-    document.getElementById(id).classList.add('mostrar');
-}
-
-// === ABRIR VENTANA DE SESIÓN ===
-btnCandado.addEventListener('click', () => {
-    ventanaSesion.classList.add('mostrar');
-    correo.value = '';
-    clave.value = '';
-    mensaje.textContent = '';
-});
-
-// === CERRAR VENTANA ===
-btnCerrarVentana.addEventListener('click', () => {
-    ventanaSesion.classList.remove('mostrar');
-});
-
-// === ENTRAR COMO ADMINISTRADORA ===
-btnEntrar.addEventListener('click', () => {
-    if (correo.value.trim() === CORREO_ADMIN && clave.value === CLAVE_ADMIN) {
-        mensaje.textContent = '✅ ¡Bienvenida!';
-        mensaje.className = 'mensaje exito';
-        setTimeout(() => {
-            ventanaSesion.classList.remove('mostrar');
-            cajaSubir.classList.add('mostrar');
-            btnCerrarSesion.style.display = 'block';
-            btnCandado.style.display = 'none';
-        }, 800);
-    } else {
-        mensaje.textContent = '❌ Correo o clave incorrectos';
-        mensaje.className = 'mensaje error';
-    }
-});
-
-// === CERRAR SESIÓN ===
-btnCerrarSesion.addEventListener('click', () => {
-    cajaSubir.classList.remove('mostrar');
-    btnCerrarSesion.style.display = 'none';
-    btnCandado.style.display = 'block';
-});
-
-// === SELECCIONAR FOTO DESDE EL TELÉFONO ===
-entradaFoto.addEventListener('change', (e) => {
-    archivoSeleccionado = e.target.files[0];
-});
-
-// === AGREGAR FOTO Y QUE SE VEA AL INSTANTE ===
-btnAgregarFoto.addEventListener('click', () => {
-    if (!archivoSeleccionado) {
-        alert('⚠️ Primero selecciona una foto de tu celular');
-        return;
-    }
-    const lector = new FileReader();
-    lector.onload = function(e) {
-        fotos.push(e.target.result);
-        guardarFotos();
-        dibujarGaleria();
-        entradaFoto.value = '';
-        archivoSeleccionado = null;
-        alert('✅ ¡Foto agregada! Ya la ven todos los clientes');
-    };
-    lector.readAsDataURL(archivoSeleccionado);
-});
-
-// === QUITAR FOTO ===
-function quitarFoto(indice) {
-    if (confirm('¿Eliminar esta foto?')) {
-        fotos.splice(indice, 1);
-        guardarFotos();
-        dibujarGaleria();
-    }
-}
-
-// === GUARDAR LAS FOTOS ===
-function guardarFotos() {
-    localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
-}
-
-// === MOSTRAR LAS FOTOS EN PANTALLA ===
-function dibujarGaleria() {
-    galeriaPublica.innerHTML = '';
-    vistaAdmin.innerHTML = '';
-
-    if (fotos.length === 0) {
-        galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
-        return;
-    }
-
-    // Lo que ven LOS CLIENTES
-    fotos.forEach((foto) => {
-        const img = document.createElement('img');
-        img.src = foto;
-        img.className = 'foto-publica';
-        galeriaPublica.appendChild(img);
-    });
-
-    // Lo que ve LAIZA con botón QUITAR
-    fotos.forEach((foto, indice) => {
-        const div = document.createElement('div');
-        div.className = 'foto-con-quitar';
-        div.innerHTML = `
-            <img src="${foto}" class="foto-publica">
-            <button class="btn-quitar" onclick="quitarFoto(${indice})">×</button>
-        `;
-        vistaAdmin.appendChild(div);
-    });
-}
-
-// === CARGAR FOTOS AL ABRIR LA PÁGINA ===
-dibujarGaleria();
-</script>
-</body>
-</html>
+        .mensaje { margin-top: 10px; font-weight: bold; }
+        .error { color: #dc3545; }
+        .exito { color
