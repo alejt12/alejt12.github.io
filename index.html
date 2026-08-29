@@ -171,6 +171,21 @@
             background: #fdf2f9;
         }
 
+        .estrellas {
+            font-size: 36px;
+            color: #ccc;
+            cursor: pointer;
+            text-align: center;
+            margin: 10px 0;
+            user-select: none;
+        }
+        .estrella {
+            transition: color 0.2s;
+        }
+        .estrella.activa {
+            color: #ffc107;
+        }
+
         .galeria {
             display: none;
             flex-wrap: wrap;
@@ -286,33 +301,54 @@
         .caja-info.mostrar { display: block; }
         .tabla-horarios { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .tabla-horarios td, .tabla-horarios th { padding: 8px; text-align: center; border-bottom: 1px solid #ddd; }
-        textarea { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ddd; margin-top: 10px; box-sizing: border-box; }
+        input, textarea { 
+            width: 100%; 
+            padding: 10px; 
+            border-radius: 8px; 
+            border: 2px solid #e4d4de; 
+            margin-top: 8px; 
+            box-sizing: border-box; 
+            font-size: 15px; 
+        }
 
-        .estrellas { font-size: 28px; color: #ccc; cursor: pointer; text-align: center; margin: 10px 0; }
-        .estrella.activa { color: #ffc107; }
-        .comentarios { margin-top: 15px; }
-        .comentario { border-top: 1px dashed #ddd; padding: 10px; }
-        .calificacion { color: #ffc107; font-size: 18px; }
-
-        /* === CAJA PRIVADA DE OPINIONES (SOLO ADMIN) === */
-        .caja-opiniones-admin {
-            margin-top: 25px;
-            padding: 15px;
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 12px;
+        /* === CAJA DE HISTORIAL PRIVADO SOLO PARA LAIZA === */
+        .caja-historial {
+            margin-top: 30px;
+            padding: 18px;
+            background: #eef2ff;
+            border: 2px solid #6f42c1;
+            border-radius: 14px;
             display: none;
         }
-        .opinion-privada {
+        .caja-historial h3 {
+            color: #4a2c4a;
+            margin-top: 0;
+        }
+        .tarjeta-registro {
             background: white;
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            border-left: 4px solid #ffc107;
+            padding: 14px;
+            border-radius: 10px;
+            margin-bottom: 12px;
+            border-left: 5px solid #6f42c1;
+        }
+        .tipo-registro {
+            display: inline-block;
+            background: #6f42c1;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            margin-bottom: 8px;
         }
         .correo-cliente {
             font-weight: bold;
             color: #4a2c4a;
+        }
+        .sin-datos {
+            color: #888;
+            font-style: italic;
+            text-align: center;
+            padding: 15px;
         }
     </style>
 </head>
@@ -503,15 +539,14 @@ Ambas con 15% de descuento
 
 <section>
     <h2>💬 Opiniones de Nuestros Clientes</h2>
-    <p style="text-align:center; color:#6b4b6b; font-size:14px;">Escribe tu correo y tu opinión, nos ayuda mucho 💜</p>
+    <p style="text-align:center; color:#6b4b6b; font-size:14px;">Escribe tu correo, califica con estrellas y envía tu opinión 💜</p>
     
-    <!-- === FORMULARIO DE OPINIONES (PIDE CORREO) === -->
     <div style="max-width:500px; margin:0 auto;">
         <label style="font-weight:bold; color:#6b4b6b;">Tu Correo Electrónico 📧</label>
-        <input type="email" id="correoOpinion" placeholder="tu.correo@ejemplo.com" style="width:100%; padding:10px; margin:8px 0; border:2px solid #e4d4de; border-radius:8px; font-size:15px;" required>
+        <input type="email" id="correoOpinion" placeholder="tu.correo@ejemplo.com">
 
         <label style="font-weight:bold; color:#6b4b6b;">Tu Opinión ✍️</label>
-        <textarea id="textoOpinion" placeholder="Escribe aquí tu opinión sobre tu experiencia..." style="width:100%; padding:10px; margin:8px 0; border:2px solid #e4d4de; border-radius:8px; font-size:15px; min-height:100px;"></textarea>
+        <textarea id="textoOpinion" placeholder="Escribe aquí tu opinión sobre tu experiencia..." style="min-height:100px;"></textarea>
 
         <div class="estrellas" id="estrellasCalif">
             <span class="estrella" data-valor="1">★</span>
@@ -520,17 +555,18 @@ Ambas con 15% de descuento
             <span class="estrella" data-valor="4">★</span>
             <span class="estrella" data-valor="5">★</span>
         </div>
-        <p style="text-align:center; margin:-5px 0 10px 0; font-size:14px; color:#6b4b6b;">Selecciona estrellas para calificar</p>
+        <p style="text-align:center; margin:-5px 0 10px 0; font-size:14px; color:#6b4b6b;">👆 Toca una estrella para calificar</p>
 
         <div style="text-align:center; margin:10px 0;">
             <button class="boton boton-verde" id="btnEnviarOpinion">📤 Enviar Opinión</button>
         </div>
     </div>
 
-    <!-- === CAJA PRIVADA: SOLO LA VE LA ADMINISTRADORA === -->
-    <div class="caja-opiniones-admin" id="cajaOpinionesAdmin">
-        <h3>🔐 Opiniones Recibidas (solo tú las ves)</h3>
-        <div id="listaOpinionesAdmin"></div>
+    <!-- === SOLO LAIZA VE ESTA CAJA DE HISTORIAL === -->
+    <div class="caja-historial" id="cajaHistorial">
+        <h3>🔐 HISTORIAL COMPLETO (solo tú lo ves)</h3>
+        <p style="font-size:13px; color:#666; margin-top:-8px;">📋 Todas las citas y opiniones registradas, ordenadas desde la más reciente</p>
+        <div id="listaHistorial"></div>
     </div>
 </section>
 
@@ -538,10 +574,10 @@ Ambas con 15% de descuento
     <div class="caja-sesion">
         <button class="cerrar-ventana" id="btnCerrarVentana">×</button>
         <h3>🔐 Iniciar Sesión</h3>
-        <input type="email" id="correo" placeholder="Correo">
-        <input type="password" id="clave" placeholder="Contraseña">
-        <div class="mensaje" id="mensaje"></div>
-        <button class="boton boton-verde" id="btnEntrar">✅ Entrar</button>
+        <input type="email" id="correoAdmin" placeholder="Correo">
+        <input type="password" id="claveAdmin" placeholder="Contraseña">
+        <div class="mensaje" id="mensajeSesion"></div>
+        <button class="boton boton-verde" id="btnEntrarAdmin">✅ Entrar</button>
     </div>
 </div>
 
@@ -550,8 +586,8 @@ const CORREO_ADMIN = "laya@gmail.com";
 const CLAVE_ADMIN = "Laya2026";
 
 let fotos = [];
-let opinionesPrivadas = [];
 let citas = [];
+let opiniones = [];
 let calificacionActual = 0;
 let modoEdicionHorarios = false;
 let galeriaVisible = false;
@@ -559,19 +595,15 @@ let sesionIniciada = false;
 let textoOriginal = {};
 
 try { fotos = JSON.parse(localStorage.getItem('fotosGaleria') || '[]'); } catch(e) { fotos = []; }
-try { opinionesPrivadas = JSON.parse(localStorage.getItem('opinionesPrivadas') || '[]'); } catch(e) { opinionesPrivadas = []; }
-try { citas = JSON.parse(localStorage.getItem('citasAgendadas') || '[]'); } catch(e) { citas = []; }
+try { citas = JSON.parse(localStorage.getItem('citasRegistradas') || '[]'); } catch(e) { citas = []; }
+try { opiniones = JSON.parse(localStorage.getItem('opinionesRegistradas') || '[]'); } catch(e) { opiniones = []; }
 
 const horariosGuardados = JSON.parse(localStorage.getItem('horariosGuardados') || '{}');
-const textosGuardados = JSON.parse(localStorage.getItem('textosSecciones') || '{}');
+const textosGuardados = JSON.parse(localStorage.getItem('textosGuardados') || '{}');
 
+// ELEMENTOS
 const btnCandado = document.getElementById('btnCandado');
 const ventanaSesion = document.getElementById('ventanaSesion');
-const correo = document.getElementById('correo');
-const clave = document.getElementById('clave');
-const mensaje = document.getElementById('mensaje');
-const btnEntrar = document.getElementById('btnEntrar');
-const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 const cajaSubir = document.getElementById('cajaSubir');
 const galeriaPublica = document.getElementById('galeriaPublica');
 const entradaFoto = document.getElementById('entradaFoto');
@@ -587,13 +619,14 @@ const btnEditarPrecios = document.getElementById('btnEditarPrecios');
 const btnGuardarPrecios = document.getElementById('btnGuardarPrecios');
 const btnEditarPromos = document.getElementById('btnEditarPromos');
 const btnGuardarPromos = document.getElementById('btnGuardarPromos');
-const cajaOpinionesAdmin = document.getElementById('cajaOpinionesAdmin');
-const listaOpinionesAdmin = document.getElementById('listaOpinionesAdmin');
+const cajaHistorial = document.getElementById('cajaHistorial');
+const listaHistorial = document.getElementById('listaHistorial');
+const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
+// INICIO
 aplicarHorariosGuardados();
 aplicarTextosGuardados();
 dibujarCitas();
-dibujarOpinionesAdmin();
 
 // ---------------- FUNCIONES ----------------
 
@@ -605,7 +638,6 @@ function mostrarInfo(id) {
 function mostrarSeccion(id) {
     document.querySelectorAll('.contenido-seccion').forEach(c => c.classList.remove('mostrar'));
     document.getElementById(id).classList.add('mostrar');
-    
     if (sesionIniciada) {
         if (btnEditarPrecios) btnEditarPrecios.style.display = 'block';
         if (btnEditarPromos) btnEditarPromos.style.display = 'block';
@@ -638,7 +670,7 @@ function guardarTexto(idTexto, idSeccion) {
     caja.contentEditable = "false";
     caja.classList.remove('modo-edicion');
     textosGuardados[idSeccion] = caja.textContent;
-    localStorage.setItem('textosSecciones', JSON.stringify(textosGuardados));
+    localStorage.setItem('textosGuardados', JSON.stringify(textosGuardados));
     if (idSeccion === 'precios') {
         btnGuardarPrecios.style.display = 'none';
         btnEditarPrecios.style.display = 'block';
@@ -665,7 +697,50 @@ function cancelarEdicion(idTexto, idSeccion) {
     }
 }
 
-// ---------- AGENDAR CITA ----------
+// === FUNCION ESTRELLAS REPARADA ===
+document.querySelectorAll('#estrellasCalif .estrella').forEach(estrella => {
+    estrella.addEventListener('click', function () {
+        calificacionActual = parseInt(this.getAttribute('data-valor'));
+        document.querySelectorAll('#estrellasCalif .estrella').forEach((e, i) => {
+            e.classList.toggle('activa', i < calificacionActual);
+        });
+    });
+});
+
+// === ENVIAR OPINION Y GUARDAR EN HISTORIAL ===
+document.getElementById('btnEnviarOpinion').addEventListener('click', () => {
+    const correoCliente = document.getElementById('correoOpinion').value.trim();
+    const texto = document.getElementById('textoOpinion').value.trim();
+
+    if (!correoCliente) { alert('⚠️ Escribe tu correo antes de enviar'); return; }
+    if (!correoCliente.includes('@')) { alert('⚠️ Escribe un correo válido'); return; }
+    if (!texto) { alert('⚠️ Escribe tu opinión antes de enviar'); return; }
+    if (calificacionActual === 0) { alert('⚠️ Toca las estrellas para calificar'); return; }
+
+    const nuevaOpinion = {
+        tipo: "opinión",
+        correo: correoCliente,
+        texto: texto,
+        calificacion: calificacionActual,
+        fecha: new Date().toLocaleString(),
+        id: Date.now()
+    };
+
+    opiniones.unshift(nuevaOpinion);
+    localStorage.setItem('opinionesRegistradas', JSON.stringify(opiniones));
+
+    // Limpiar formulario
+    document.getElementById('correoOpinion').value = "";
+    document.getElementById('textoOpinion').value = "";
+    calificacionActual = 0;
+    document.querySelectorAll('#estrellasCalif .estrella').forEach(e => e.classList.remove('activa'));
+
+    alert('✅ ¡Gracias por tu opinión! Ha quedado registrada 💜');
+
+    if (sesionIniciada) dibujarHistorialCompleto();
+});
+
+// === AGENDAR CITA Y GUARDAR EN HISTORIAL ===
 btnGuardarCita.addEventListener('click', () => {
     const nombre = document.getElementById('nombreCliente').value.trim();
     const telefono = document.getElementById('telefonoCliente').value.trim();
@@ -676,25 +751,29 @@ btnGuardarCita.addEventListener('click', () => {
     const comentario = document.getElementById('comentarioCita').value.trim();
 
     if (!nombre || !telefono || !dia || !mes || !anio || !hora) {
-        alert('⚠️ Por favor llena TODOS los campos obligatorios');
+        alert('⚠️ Llena todos los campos obligatorios');
         return;
     }
 
     const nuevaCita = {
-        id: Date.now(),
+        tipo: "cita",
         nombre: nombre,
         telefono: telefono,
-        fecha: `${dia}/${mes}/${anio}`,
+        fechaCita: `${dia}/${mes}/${anio}`,
         hora: hora,
-        comentario: comentario || "Sin comentarios"
+        comentario: comentario || "Sin comentarios",
+        fechaRegistro: new Date().toLocaleString(),
+        id: Date.now()
     };
 
     citas.unshift(nuevaCita);
-    localStorage.setItem('citasAgendadas', JSON.stringify(citas));
-    dibujarCitas();
+    localStorage.setItem('citasRegistradas', JSON.stringify(citas));
 
     document.getElementById('formCita').reset();
-    alert('✅ ¡Cita agendada con éxito! La Licenciada se pondrá en contacto contigo.');
+    alert('✅ ¡Cita agendada y registrada correctamente!');
+
+    dibujarCitas();
+    if (sesionIniciada) dibujarHistorialCompleto();
 });
 
 function dibujarCitas() {
@@ -704,65 +783,95 @@ function dibujarCitas() {
     }
     listaCitas.style.display = "block";
     contenidoCitas.innerHTML = "";
-
     if (citas.length === 0) {
-        contenidoCitas.innerHTML = "<p style='color:#888; font-style:italic;'>No hay citas agendadas aún 📭</p>";
+        contenidoCitas.innerHTML = "<p class='sin-datos'>No hay citas registradas 📭</p>";
         return;
     }
-
-    citas.forEach(cita => {
+    citas.forEach((cita, index) => {
         const div = document.createElement('div');
         div.className = "cita-agendada";
         div.innerHTML = `
             <div class="cliente">👤 ${cita.nombre}</div>
             <div>📱 ${cita.telefono}</div>
-            <div class="fecha">📅 ${cita.fecha} — ⏰ ${cita.hora}</div>
-            <div>💆‍♀️ ${cita.comentario}</div>
-            <button class="btn-eliminar" onclick="eliminarCita(${cita.id})">🗑️ Eliminar</button>
+            <div>📅 ${cita.fechaCita} — ⏰ ${cita.hora}</div>
+            <div>💬 ${cita.comentario}</div>
+            <div style="font-size:12px; color:#777;">Registrada: ${cita.fechaRegistro}</div>
+            <button class="btn-eliminar" onclick="eliminarCita(${index})">🗑️ Eliminar</button>
         `;
         contenidoCitas.appendChild(div);
     });
 }
 
-window.eliminarCita = function(id) {
-    if (confirm('¿Segura que quieres ELIMINAR esta cita?')) {
-        citas = citas.filter(c => c.id !== id);
-        localStorage.setItem('citasAgendadas', JSON.stringify(citas));
-        dibujarCitas();
-    }
+window.eliminarCita = function(index) {
+    citas.splice(index, 1);
+    localStorage.setItem('citasRegistradas', JSON.stringify(citas));
+    dibujarCitas();
+    dibujarHistorialCompleto();
 };
 
-// ---------- GALERÍA DE FOTOS ----------
+// === HISTORIAL COMPLETO ORDENADO (SOLO LAIZA) ===
+function dibujarHistorialCompleto() {
+    listaHistorial.innerHTML = "";
+    let todos = [];
+
+    citas.forEach(c => todos.push({...c}));
+    opiniones.forEach(o => todos.push({...o}));
+
+    todos.sort((a, b) => b.id - a.id); // MÁS RECIENTE PRIMERO
+
+    if (todos.length === 0) {
+        listaHistorial.innerHTML = "<p class='sin-datos'>Aún no hay registros en el historial 📭</p>";
+        return;
+    }
+
+    todos.forEach(reg => {
+        const div = document.createElement('div');
+        div.className = "tarjeta-registro";
+
+        if (reg.tipo === "cita") {
+            div.innerHTML = `
+                <span class="tipo-registro">📅 CITA</span>
+                <div class="correo-cliente">👤 ${reg.nombre}</div>
+                <div>📱 Teléfono: ${reg.telefono}</div>
+                <div>📅 Fecha cita: ${reg.fechaCita} — ⏰ ${reg.hora}</div>
+                <div>💬 Comentario: ${reg.comentario}</div>
+                <div style="font-size:12px; color:#666;">📝 Registrada el: ${reg.fechaRegistro}</div>
+            `;
+        } else {
+            div.innerHTML = `
+                <span class="tipo-registro">💬 OPINIÓN</span>
+                <div class="correo-cliente">📧 ${reg.correo}</div>
+                <div class="calificacion">${'★'.repeat(reg.calificacion)}${'☆'.repeat(5-reg.calificacion)}</div>
+                <div>💬 ${reg.texto}</div>
+                <div style="font-size:12px; color:#666;">📝 Enviada el: ${reg.fecha}</div>
+            `;
+        }
+        listaHistorial.appendChild(div);
+    });
+}
+
+// === GALERÍA ===
 btnVerFotos.addEventListener('click', () => {
     galeriaVisible = !galeriaVisible;
-    
-    if (galeriaVisible) {
-        galeriaPublica.classList.add('mostrar');
-        btnVerFotos.textContent = '📷 Ocultar Fotos';
-        dibujarGaleria();
-    } else {
-        galeriaPublica.classList.remove('mostrar');
-        btnVerFotos.textContent = '📷 Ver Fotos';
-    }
+    galeriaPublica.classList.toggle('mostrar', galeriaVisible);
+    btnVerFotos.textContent = galeriaVisible ? "📷 Ocultar Fotos" : "📷 Ver Fotos";
+    if (galeriaVisible) dibujarGaleria();
 });
 
 function dibujarGaleria() {
     galeriaPublica.innerHTML = "";
     const vistaAdmin = document.getElementById('vistaAdmin');
     if (vistaAdmin) vistaAdmin.innerHTML = "";
-
     if (fotos.length === 0) {
-        galeriaPublica.innerHTML = '<p class="sin-fotos">📷 Pronto compartiré mis trabajos... 💜</p>';
+        galeriaPublica.innerHTML = "<p class='sin-datos'>📷 Aún no hay fotos</p>";
         return;
     }
-
     fotos.forEach(foto => {
         const img = document.createElement('img');
         img.src = foto;
         img.className = "foto-publica";
         galeriaPublica.appendChild(img);
     });
-
     if (sesionIniciada && vistaAdmin) {
         fotos.forEach((foto, i) => {
             const div = document.createElement('div');
@@ -773,157 +882,81 @@ function dibujarGaleria() {
     }
 }
 
-window.quitarFoto = function(indice) {
-    if (confirm('¿Eliminar esta foto?')) {
-        fotos.splice(indice, 1);
+window.quitarFoto = function(i) {
+    if (confirm('¿Eliminar foto?')) {
+        fotos.splice(i, 1);
         localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
-        if (galeriaVisible) dibujarGaleria();
+        dibujarGaleria();
     }
 };
 
-// ---------- SUBIR FOTO ----------
-entradaFoto.addEventListener('change', (e) => {
-    window.archivoSeleccionado = e.target.files[0];
-});
-
-btnAgregarFoto.addEventListener('click', () => {
-    if (!window.archivoSeleccionado) {
-        alert('⚠️ Primero selecciona una foto');
-        return;
-    }
+entradaFoto.addEventListener('change', e => {
+    const archivo = e.target.files[0];
+    if (!archivo) return;
     const lector = new FileReader();
-    lector.onload = function(e) {
-        fotos.push(e.target.result);
+    lector.onload = evt => {
+        fotos.unshift(evt.target.result);
         localStorage.setItem('fotosGaleria', JSON.stringify(fotos));
-        entradaFoto.value = "";
-        window.archivoSeleccionado = null;
-        alert('✅ ¡Foto agregada!');
+        alert('✅ Foto agregada');
         if (galeriaVisible) dibujarGaleria();
     };
-    lector.readAsDataURL(window.archivoSeleccionado);
+    lector.readAsDataURL(archivo);
 });
 
-// ---------- OPINIONES DE CLIENTES (CON CORREO) ----------
-document.querySelectorAll('.estrella').forEach(est => {
-    est.addEventListener('click', () => {
-        calificacionActual = parseInt(est.getAttribute('data-valor'));
-        document.querySelectorAll('.estrella').forEach(e => {
-            const val = parseInt(e.getAttribute('data-valor'));
-            e.classList.toggle('activa', val <= calificacionActual);
-        });
-    });
-});
-
-document.getElementById('btnEnviarOpinion').addEventListener('click', () => {
-    const correoCliente = document.getElementById('correoOpinion').value.trim();
-    const texto = document.getElementById('textoOpinion').value.trim();
-
-    if (!correoCliente) { alert('⚠️ Escribe tu correo antes de enviar'); return; }
-    if (!correoCliente.includes('@')) { alert('⚠️ Escribe un correo válido'); return; }
-    if (!texto) { alert('⚠️ Escribe tu opinión antes de enviar'); return; }
-    if (calificacionActual === 0) { alert('⚠️ Selecciona estrellas para calificar'); return; }
-
-    opinionesPrivadas.unshift({
-        correo: correoCliente,
-        texto: texto,
-        calificacion: calificacionActual,
-        fecha: new Date().toLocaleString()
-    });
-
-    localStorage.setItem('opinionesPrivadas', JSON.stringify(opinionesPrivadas));
-    
-    // Limpiar formulario
-    document.getElementById('correoOpinion').value = "";
-    document.getElementById('textoOpinion').value = "";
-    calificacionActual = 0;
-    document.querySelectorAll('.estrella').forEach(e => e.classList.remove('activa'));
-
-    alert('✅ ¡Gracias por tu opinión! Ha sido enviada correctamente 💜');
-    
-    // Si la admin ya tiene sesión abierta, actualizar su caja
-    if (sesionIniciada) dibujarOpinionesAdmin();
-});
-
-// ---------- CAJA PRIVADA DE OPINIONES (SOLO ADMIN) ----------
-function dibujarOpinionesAdmin() {
-    listaOpinionesAdmin.innerHTML = "";
-
-    if (opinionesPrivadas.length === 0) {
-        listaOpinionesAdmin.innerHTML = "<p style='color:#888; font-style:italic;'>Aún no hay opiniones recibidas 📭</p>";
-        return;
-    }
-
-    opinionesPrivadas.forEach((op, index) => {
-        const div = document.createElement('div');
-        div.className = "opinion-privada";
-        div.innerHTML = `
-            <div class="correo-cliente">📧 ${op.correo}</div>
-            <div class="calificacion">${'★'.repeat(op.calificacion)}${'☆'.repeat(5-op.calificacion)}</div>
-            <p style="margin:8px 0;">${op.texto}</p>
-            <div style="font-size:13px; color:#666;">📅 ${op.fecha}</div>
-            <button class="btn-eliminar" onclick="eliminarOpinion(${index})" style="margin-top:5px;">🗑️ Eliminar</button>
-        `;
-        listaOpinionesAdmin.appendChild(div);
-    });
-}
-
-window.eliminarOpinion = function(indice) {
-    if (confirm('¿Eliminar esta opinión?')) {
-        opinionesPrivadas.splice(indice, 1);
-        localStorage.setItem('opinionesPrivadas', JSON.stringify(opinionesPrivadas));
-        dibujarOpinionesAdmin();
-    }
-};
-
-// ---------- INICIAR SESIÓN ----------
+// === INICIAR SESIÓN ===
 btnCandado.addEventListener('click', () => {
     ventanaSesion.classList.add('mostrar');
-    correo.value = "";
-    clave.value = "";
-    mensaje.textContent = "";
+    document.getElementById('correoAdmin').value = "";
+    document.getElementById('claveAdmin').value = "";
+    document.getElementById('mensajeSesion').textContent = "";
 });
 
 document.getElementById('btnCerrarVentana').addEventListener('click', () => {
     ventanaSesion.classList.remove('mostrar');
 });
 
-btnEntrar.addEventListener('click', () => {
-    if (correo.value.trim() === CORREO_ADMIN && clave.value === CLAVE_ADMIN) {
-        mensaje.textContent = '✅ ¡Bienvenida, Licenciada!';
-        mensaje.className = 'mensaje exito';
+document.getElementById('btnEntrarAdmin').addEventListener('click', () => {
+    const correoIngresado = document.getElementById('correoAdmin').value.trim();
+    const claveIngresada = document.getElementById('claveAdmin').value;
+    if (correoIngresado === CORREO_ADMIN && claveIngresada === CLAVE_ADMIN) {
+        document.getElementById('mensajeSesion').textContent = "✅ ¡Bienvenida, Laiza!";
+        document.getElementById('mensajeSesion').className = "mensaje exito";
         sesionIniciada = true;
         setTimeout(() => {
             ventanaSesion.classList.remove('mostrar');
-            cajaSubir.style.display = 'block';
-            cajaEditarHorarios.style.display = 'block';
-            cajaOpinionesAdmin.style.display = 'block'; // ✅ APARECE LA CAJA DE OPINIONES
-            dibujarOpinionesAdmin(); // ✅ CARGA LAS OPINIONES
-            btnCerrarSesion.style.display = 'block';
-            btnCandado.style.display = 'none';
+            cajaSubir.style.display = "block";
+            cajaEditarHorarios.style.display = "block";
+            cajaHistorial.style.display = "block"; // ✅ APARECE EL HISTORIAL
+            btnCerrarSesion.style.display = "block";
+            btnCandado.style.display = "none";
+            if (btnEditarPrecios) btnEditarPrecios.style.display = "block";
+            if (btnEditarPromos) btnEditarPromos.style.display = "block";
+            dibujarCitas();
+            dibujarHistorialCompleto(); // ✅ CARGA TODO ORDENADO
         }, 800);
     } else {
-        mensaje.textContent = '❌ Correo o clave incorrectos';
-        mensaje.className = 'mensaje error';
+        document.getElementById('mensajeSesion').textContent = "❌ Correo o clave incorrectos";
+        document.getElementById('mensajeSesion').className = "mensaje error";
     }
 });
 
-// ---------- CERRAR SESIÓN ----------
+// === CERRAR SESIÓN ===
 btnCerrarSesion.addEventListener('click', () => {
     sesionIniciada = false;
-    cajaSubir.style.display = 'none';
-    cajaEditarHorarios.style.display = 'none';
+    cajaSubir.style.display = "none";
+    cajaEditarHorarios.style.display = "none";
     listaCitas.style.display = "none";
-    cajaOpinionesAdmin.style.display = 'none'; // ✅ SE OCULTA LA CAJA DE OPINIONES
-    btnEditarPrecios.style.display = 'none';
-    btnEditarPromos.style.display = 'none';
-    btnGuardarPrecios.style.display = 'none';
-    btnGuardarPromos.style.display = 'none';
-    btnCerrarSesion.style.display = 'none';
-    btnCandado.style.display = 'block';
-    alert('✅ Sesión cerrada correctamente');
+    cajaHistorial.style.display = "none"; // ✅ SE OCULTA TODO
+    btnEditarPrecios.style.display = "none";
+    btnEditarPromos.style.display = "none";
+    btnGuardarPrecios.style.display = "none";
+    btnGuardarPromos.style.display = "none";
+    btnCerrarSesion.style.display = "none";
+    btnCandado.style.display = "block";
+    alert('✅ Sesión cerrada');
 });
 
-// ---------- EDITAR HORARIOS ----------
+// === EDITAR HORARIOS ===
 btnEditarHorarios.addEventListener('click', () => {
     modoEdicionHorarios = true;
     ['lunes','martes','miercoles','jueves','viernes','sabado'].forEach(d => {
@@ -939,7 +972,7 @@ btnGuardarHorarios.addEventListener('click', () => {
         nuevos[d] = document.getElementById('horario-'+d).innerText.trim();
         document.getElementById('horario-'+d).contentEditable = "false";
     });
-    localStorage.setItem('horariosGuardados", JSON.stringify(nuevos));
+    localStorage.setItem('horariosGuardados', JSON.stringify(nuevos));
     modoEdicionHorarios = false;
     btnEditarHorarios.classList.remove('boton-oculto');
     btnGuardarHorarios.classList.add('boton-oculto');
