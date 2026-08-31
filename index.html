@@ -7,51 +7,29 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
         :root {
-            --dorado: #D4AF37;
-            --rosa: #E91E8C;
-            --lila: #9C27B0;
-            --azul: #2196F3;
-            --verde: #4CAF50;
-            --whatsapp: #25D366;
-            --gris: #F5F5F5;
-            --texto: #333;
-            --sombra: 0 4px 15px rgba(0,0,0,0.1);
+            --dorado: #D4AF37; --rosa: #E91E8C; --lila: #9C27B0;
+            --azul: #2196F3; --verde: #4CAF50; --whatsapp: #25D366;
+            --gris: #F5F5F5; --texto: #333; --sombra: 0 4px 15px rgba(0,0,0,0.1);
         }
         body { background: #FFF; color: var(--texto); line-height: 1.6; }
 
         header {
             background: linear-gradient(135deg, var(--rosa), var(--lila));
-            color: white;
-            padding: 2rem 1rem;
-            text-align: center;
+            color: white; padding: 2rem 1rem; text-align: center;
         }
         header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
         header p { font-size: 1.1rem; opacity: 0.95; }
 
         .nav-botones {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            padding: 1.2rem;
-            background: white;
-            box-shadow: var(--sombra);
-            position: sticky;
-            top: 0;
-            z-index: 99;
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            padding: 1.2rem; background: white; box-shadow: var(--sombra);
+            position: sticky; top: 0; z-index: 99;
         }
         .btn {
-            padding: 11px 18px;
-            border: none;
-            border-radius: 30px;
-            color: white;
-            font-weight: 600;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            text-align: center;
+            padding: 11px 18px; border: none; border-radius: 30px;
+            color: white; font-weight: 600; cursor: pointer;
+            font-size: 0.9rem; transition: all 0.3s ease;
+            text-decoration: none; display: inline-block; text-align: center;
         }
         .btn:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.2); }
         .btn-dorado { background: linear-gradient(135deg, #D4AF37, #F4D03F); color: #2C2000; }
@@ -64,66 +42,39 @@
 
         section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
         section h2 {
-            text-align: center;
-            color: var(--lila);
-            margin-bottom: 1.8rem;
-            font-size: 1.7rem;
-            border-bottom: 3px solid var(--dorado);
-            padding-bottom: 0.5rem;
-            display: inline-block;
-            width: 100%;
+            text-align: center; color: var(--lila); margin-bottom: 1.8rem;
+            font-size: 1.7rem; border-bottom: 3px solid var(--dorado);
+            padding-bottom: 0.5rem; display: inline-block; width: 100%;
         }
         .tarjeta {
-            background: white;
-            border-radius: 16px;
-            padding: 1.8rem;
-            box-shadow: var(--sombra);
-            margin-bottom: 1.5rem;
+            background: white; border-radius: 16px; padding: 1.8rem;
+            box-shadow: var(--sombra); margin-bottom: 1.5rem;
         }
         .lista-servicios { list-style: none; padding: 0; }
         .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
 
-        .galeria {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 18px;
-        }
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
         .foto-item {
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: var(--sombra);
-            position: relative;
-            background: var(--gris);
-            min-height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border-radius: 12px; overflow: hidden; box-shadow: var(--sombra);
+            position: relative; background: var(--gris); min-height: 200px;
+            display: flex; align-items: center; justify-content: center;
         }
         .foto-item img { width: 100%; height: 100%; object-fit: cover; }
 
         .cita {
             background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
-            border-left: 5px solid var(--azul);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
+            border-left: 5px solid var(--azul); padding: 1rem;
+            border-radius: 10px; margin-bottom: 0.8rem;
         }
         .cita .estado {
-            display: inline-block;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin-top: 5px;
+            display: inline-block; padding: 3px 10px; border-radius: 12px;
+            font-size: 0.85rem; font-weight: 600; margin-top: 5px;
         }
         .estado-pendiente { background: #FFF3CD; color: #856404; }
         .estado-confirmada { background: #D4EDDA; color: #155724; }
 
         .formulario-cita, .formulario-opinion {
-            background: #F8F0FC;
-            padding: 1.5rem;
-            border-radius: 14px;
-            margin-top: 1rem;
+            background: #F8F0FC; padding: 1.5rem; border-radius: 14px; margin-top: 1rem;
         }
         .formulario-opinion { background: #FFF8E1; }
         .formulario-cita h3, .formulario-opinion h3 { text-align: center; color: var(--lila); margin-bottom: 1rem; }
@@ -131,11 +82,8 @@
         .campo { flex: 1; min-width: 140px; }
         label { display: block; font-weight: 600; margin-bottom: 4px; color: #444; font-size: 0.9rem; }
         input, select, textarea {
-            width: 100%;
-            padding: 10px;
-            border-radius: 8px;
-            border: 1px solid #CCC;
-            font-size: 0.95rem;
+            width: 100%; padding: 10px; border-radius: 8px;
+            border: 1px solid #CCC; font-size: 0.95rem;
         }
         textarea { resize: vertical; min-height: 90px; }
 
@@ -144,96 +92,54 @@
         .estrella.activa { color: #FFD700; }
 
         .opinion {
-            background: #FFF8E1;
-            border-left: 5px solid var(--dorado);
-            padding: 1rem;
-            border-radius: 10px;
-            margin-bottom: 0.8rem;
+            background: #FFF8E1; border-left: 5px solid var(--dorado);
+            padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem;
         }
         .opinion .estrellitas { font-size: 18px; color: #FFD700; }
 
         .bandeja { background: #F3E5F5; border-radius: 12px; padding: 1rem; margin-top: 1rem; }
 
         footer {
-            background: #2C2C2C;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
+            background: #2C2C2C; color: white; text-align: center;
+            padding: 2rem; margin-top: 2rem;
         }
         footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
 
+        /* ==== CANDADO MEJORADO ==== */
         .candado-btn {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #222;
-            color: white;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-            z-index: 9999;
-            pointer-events: auto;
+            position: fixed; bottom: 20px; right: 20px;
+            background: #222; color: white; border-radius: 50%;
+            width: 70px; height: 70px; font-size: 30px;
+            display: flex; align-items: center; justify-content: center;
+            border: 4px solid #D4AF37;
+            box-shadow: 0 0 20px rgba(212,175,55,0.6);
+            cursor: pointer; z-index: 99999;
         }
-        .candado-btn:hover { background: var(--lila); }
+        .candado-btn:hover { background: var(--lila); transform: scale(1.1); }
 
         .modal-fondo {
-            display: none;
-            position: fixed;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6);
-            z-index: 10000;
-            align-items: center;
-            justify-content: center;
+            display: none; position: fixed; top: 0; left: 0;
+            width: 100%; height: 100%; background: rgba(0,0,0,0.7);
+            z-index: 99999; align-items: center; justify-content: center;
         }
         .modal-caja {
-            background: white;
-            padding: 2rem;
-            border-radius: 16px;
-            width: 92%;
-            max-width: 520px;
-            max-height: 90vh;
-            overflow-y: auto;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+            background: white; padding: 2rem; border-radius: 16px;
+            width: 92%; max-width: 420px; box-shadow: 0 8px 30px rgba(0,0,0,0.3);
         }
         .modal-caja h3 { text-align: center; margin-bottom: 1.2rem; color: var(--lila); }
+        .modal-caja input { margin-bottom: 12px; }
         .boton-cerrar {
-            background: #E53935;
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 8px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-size: 0.95rem;
+            background: #E53935; color: white; border: none;
+            padding: 10px 16px; border-radius: 8px;
+            margin-top: 10px; cursor: pointer; width: 100%; font-size: 1rem;
         }
         .eliminar-elemento {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: rgba(0,0,0,0.65);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-            font-weight: bold;
-            display: none;
+            position: absolute; top: 6px; right: 6px;
+            background: rgba(0,0,0,0.65); color: white; border: none;
+            border-radius: 50%; width: 30px; height: 30px;
+            cursor: pointer; font-weight: bold; display: none;
         }
-        .modo-admin .eliminar-elemento {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+        .modo-admin .eliminar-elemento { display: flex; align-items: center; justify-content: center; }
         .contenedor-relativo { position: relative; }
         .solo-admin { display: none; }
         .modo-admin .solo-admin { display: block; }
@@ -241,45 +147,48 @@
 </head>
 <body>
 
-<div class="candado-btn" id="botonCandado">🔒</div>
+<!-- ==== CANDADO SIMPLIFICADO ==== -->
+<button class="candado-btn" onclick="abrirLogin()">🔒</button>
 
-<div class="modal-fondo" id="modalLogin">
+<!-- ==== VENTANA DE ACCESO ==== -->
+<div class="modal-fondo" id="ventanaLogin">
     <div class="modal-caja">
         <h3>🔐 Acceso de Administración</h3>
-        <p style="text-align:center; color:#666; font-size:0.9rem;">Solo la Lic. Laiza puede entrar</p>
-        <input type="password" id="clave" placeholder="Escribe la contraseña" style="margin-bottom:10px;">
-        <button class="btn btn-lila" style="width:100%; margin-top:8px;" id="botonEntrar">Entrar al Panel</button>
-        <button class="boton-cerrar" id="botonCerrarLogin">Cerrar</button>
+        <p style="text-align:center; color:#666; font-size:0.9rem; margin-bottom:10px;">Solo la Lic. Laiza puede entrar</p>
+        <input type="password" id="claveAcceso" placeholder="Escribe la contraseña">
+        <button class="btn btn-lila" style="width:100%; font-size:1rem;" onclick="entrarAlSistema()">✅ Entrar al Panel</button>
+        <button class="boton-cerrar" onclick="cerrarLogin()">❌ Cerrar</button>
     </div>
 </div>
 
-<div class="modal-fondo" id="panelAdmin">
+<!-- ==== PANEL DE CONTROL ==== -->
+<div class="modal-fondo" id="panelControl">
     <div class="modal-caja">
         <h3>⚙️ Panel de Control</h3>
-        <div>
+        <div style="margin-bottom:10px;">
             <label>✏️ Editar Presentación:</label>
-            <textarea id="editarBienvenida" rows="3"></textarea>
+            <textarea id="editarBienvenida" rows="3" style="width:100%;"></textarea>
         </div>
-        <div>
+        <div style="margin-bottom:10px;">
             <label>💆‍♀️ Editar Servicios:</label>
-            <textarea id="editarServicios" rows="6"></textarea>
+            <textarea id="editarServicios" rows="5" style="width:100%;"></textarea>
         </div>
-        <div>
+        <div style="margin-bottom:10px;">
             <label>📸 Subir Foto:</label>
-            <input type="file" id="subirFoto" accept="image/*">
-            <button class="btn btn-verde" style="width:100%; margin-top:4px;" id="botonAgregarFoto">📤 Agregar</button>
+            <input type="file" id="subirFoto" accept="image/*" style="width:100%;">
+            <button class="btn btn-verde" style="width:100%; margin-top:5px;" onclick="agregarFoto()">📤 Agregar Foto</button>
         </div>
-        <div>
-            <label>🔗 Número de WhatsApp (solo números):</label>
-            <input type="text" id="numeroWhatsApp" placeholder="521234567890">
-            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" id="botonGuardarWhatsApp">💾 Guardar</button>
+        <div style="margin-bottom:10px;">
+            <label>🔗 Número de WhatsApp:</label>
+            <input type="text" id="numeroWhatsApp" placeholder="521234567890" style="width:100%;">
+            <button class="btn btn-whatsapp" style="width:100%; margin-top:5px;" onclick="guardarWhatsApp()">💾 Guardar WhatsApp</button>
         </div>
-        <div>
-            <label>📍 Editar Contacto y Ubicación:</label>
-            <textarea id="editarContacto" rows="4"></textarea>
+        <div style="margin-bottom:10px;">
+            <label>📍 Editar Contacto:</label>
+            <textarea id="editarContacto" rows="3" style="width:100%;"></textarea>
         </div>
-        <button class="btn btn-verde" style="width:100%; margin-top:14px;" id="botonGuardarTodo">💾 GUARDAR TODO</button>
-        <button class="boton-cerrar" id="botonCerrarPanel">🚪 Cerrar Sesión</button>
+        <button class="btn btn-verde" style="width:100%; margin-top:15px; font-size:1rem;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
+        <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
     </div>
 </div>
 
@@ -336,46 +245,26 @@
             </div>
             <div class="campo">
                 <label>Mes</label>
-                <select id="clienteMes">
-                    <option value="0">Enero</option>
-                    <option value="1">Febrero</option>
-                    <option value="2">Marzo</option>
-                    <option value="3">Abril</option>
-                    <option value="4">Mayo</option>
-                    <option value="5">Junio</option>
-                    <option value="6">Julio</option>
-                    <option value="7">Agosto</option>
-                    <option value="8">Septiembre</option>
-                    <option value="9">Octubre</option>
-                    <option value="10">Noviembre</option>
-                    <option value="11">Diciembre</option>
+                <select id="clienteMes" onchange="actualizarDias()">
+                    <option value="0">Enero</option><option value="1">Febrero</option><option value="2">Marzo</option>
+                    <option value="3">Abril</option><option value="4">Mayo</option><option value="5">Junio</option>
+                    <option value="6">Julio</option><option value="7">Agosto</option><option value="8">Septiembre</option>
+                    <option value="9">Octubre</option><option value="10">Noviembre</option><option value="11">Diciembre</option>
                 </select>
             </div>
             <div class="campo">
                 <label>Año</label>
-                <select id="clienteAnio"></select>
+                <select id="clienteAnio" onchange="actualizarDias()"></select>
             </div>
         </div>
         <div class="fila">
             <div class="campo">
                 <label>Hora</label>
                 <select id="clienteHora">
-                    <option value="09:00">09:00 AM</option>
-                    <option value="09:30">09:30 AM</option>
-                    <option value="10:00">10:00 AM</option>
-                    <option value="10:30">10:30 AM</option>
-                    <option value="11:00">11:00 AM</option>
-                    <option value="11:30">11:30 AM</option>
-                    <option value="12:00">12:00 PM</option>
-                    <option value="12:30">12:30 PM</option>
-                    <option value="13:00">01:00 PM</option>
-                    <option value="13:30">01:30 PM</option>
-                    <option value="14:00">02:00 PM</option>
-                    <option value="14:30">02:30 PM</option>
-                    <option value="15:00">03:00 PM</option>
-                    <option value="15:30">03:30 PM</option>
-                    <option value="16:00">04:00 PM</option>
-                    <option value="16:30">04:30 PM</option>
+                    <option value="09:00">09:00 AM</option><option value="10:00">10:00 AM</option>
+                    <option value="11:00">11:00 AM</option><option value="12:00">12:00 PM</option>
+                    <option value="13:00">01:00 PM</option><option value="14:00">02:00 PM</option>
+                    <option value="15:00">03:00 PM</option><option value="16:00">04:00 PM</option>
                     <option value="17:00">05:00 PM</option>
                 </select>
             </div>
@@ -384,7 +273,7 @@
                 <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
             </div>
         </div>
-        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" id="botonAgendar">✅ Enviar Cita</button>
+        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="agendarCita()">✅ Enviar Cita</button>
     </div>
     <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
     <div id="contenedorCitas">
@@ -402,32 +291,31 @@
                 <input type="text" id="opinionNombre" placeholder="Escribe tu nombre">
             </div>
             <div class="campo">
-                <label>Tu Correo Electrónico</label>
+                <label>Tu Correo</label>
                 <input type="email" id="opinionCorreo" placeholder="correo@ejemplo.com">
             </div>
         </div>
         <label style="text-align:center; display:block; margin-top:8px;">Calificación</label>
-        <div class="estrellas" id="contenedorEstrellas">
-            <span class="estrella" data-valor="1">★</span>
-            <span class="estrella" data-valor="2">★</span>
-            <span class="estrella" data-valor="3">★</span>
-            <span class="estrella" data-valor="4">★</span>
-            <span class="estrella" data-valor="5">★</span>
+        <div class="estrellas" id="cajaEstrellas">
+            <span class="estrella" onclick="ponerEstrellas(1)">★</span>
+            <span class="estrella" onclick="ponerEstrellas(2)">★</span>
+            <span class="estrella" onclick="ponerEstrellas(3)">★</span>
+            <span class="estrella" onclick="ponerEstrellas(4)">★</span>
+            <span class="estrella" onclick="ponerEstrellas(5)">★</span>
         </div>
-        <input type="hidden" id="calificacion" value="0">
         <div style="margin-top:10px;">
             <label>Tu Comentario</label>
-            <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
+            <textarea id="opinionTexto" placeholder="Escribe aquí lo que opinas..."></textarea>
         </div>
-        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" id="botonOpinion">⭐ Enviar Opinión</button>
+        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarComentario()">⭐ Enviar Opinión</button>
     </div>
     <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
-    <div id="contenedorOpiniones">
+    <div id="cajaOpiniones">
         <p style="color:#777; text-align:center;">Todavía no hay opiniones. ¡Sé el primero en opinar!</p>
     </div>
     <div class="bandeja solo-admin">
         <h3 style="text-align:center; color:var(--lila); margin-bottom:1rem;">📩 Bandeja de Opiniones — Solo Laiza</h3>
-        <div id="bandejaOpiniones">
+        <div id="cajaPrivada">
             <p style="color:#777; text-align:center;">Aquí aparecen todas las opiniones con correo</p>
         </div>
     </div>
@@ -453,55 +341,49 @@
 <script>
 const CLAVE_CORRECTA = "laya2026";
 const ID_NUBE = "cosmiatria_laya_001";
-const NOMBRES_MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
+const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"];
 let modoAdmin = false;
 let calificacionActual = 0;
 
+// === AL CARGAR LA PÁGINA ===
 window.onload = function() {
-    inicializarFechas();
-    inicializarEstrellas();
-    cargarDesdeNube();
-    conectarBotones();
+    cargarFechas();
+    cargarDatosGuardados();
 };
 
-function conectarBotones() {
-    document.getElementById('botonCandado').onclick = abrirModal;
-    document.getElementById('botonEntrar').onclick = verificar;
-    document.getElementById('botonCerrarLogin').onclick = cerrarModal;
-    document.getElementById('botonCerrarPanel').onclick = cerrarPanel;
-    document.getElementById('botonAgendar').onclick = clienteAgendar;
-    document.getElementById('botonOpinion').onclick = enviarOpinion;
-    document.getElementById('botonAgregarFoto').onclick = agregarFoto;
-    document.getElementById('botonGuardarWhatsApp').onclick = guardarNumeroWhatsApp;
-    document.getElementById('botonGuardarTodo').onclick = guardarTodo;
-    document.getElementById('clienteMes').onchange = actualizarDias;
-    document.getElementById('clienteAnio').onchange = actualizarDias;
+// === CANDADO Y VENTANAS ===
+function abrirLogin() {
+    document.getElementById('ventanaLogin').style.display = 'flex';
+}
+function cerrarLogin() {
+    document.getElementById('ventanaLogin').style.display = 'none';
+    document.getElementById('claveAcceso').value = '';
+}
+function entrarAlSistema() {
+    const claveIngresada = document.getElementById('claveAcceso').value;
+    if (claveIngresada === CLAVE_CORRECTA) {
+        cerrarLogin();
+        modoAdmin = true;
+        document.body.classList.add('modo-admin');
+        abrirPanel();
+    } else {
+        alert("❌ Contraseña incorrecta. Intenta de nuevo.");
+        document.getElementById('claveAcceso').value = '';
+    }
+}
+function abrirPanel() {
+    document.getElementById('panelControl').style.display = 'flex';
+    document.getElementById('editarBienvenida').value = document.getElementById('textoBienvenida').innerText;
+    document.getElementById('editarServicios').value = document.getElementById('listaServicios').innerText.replace(/✅/g,'').trim();
+    document.getElementById('editarContacto').value = document.getElementById('textoContacto').innerText;
+    document.getElementById('numeroWhatsApp').value = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
+}
+function cerrarPanel() {
+    document.getElementById('panelControl').style.display = 'none';
 }
 
-// === ESTRELLAS ===
-function inicializarEstrellas() {
-    document.querySelectorAll('.estrella').forEach(estrella => {
-        estrella.addEventListener('click', function() {
-            calificacionActual = parseInt(this.dataset.valor);
-            document.querySelectorAll('.estrella').forEach((e, i) => {
-                e.classList.toggle('activa', i < calificacionActual);
-            });
-        });
-        estrella.addEventListener('mouseover', function() {
-            const v = parseInt(this.dataset.valor);
-            document.querySelectorAll('.estrella').forEach((e, i) => {
-                e.style.color = i < v ? '#FFD700' : '#CCC';
-            });
-        });
-        estrella.addEventListener('mouseout', function() {
-            document.querySelectorAll('.estrella').forEach((e, i) => {
-                e.style.color = i < calificacionActual ? '#FFD700' : '#CCC';
-            });
-        });
-    });
-}
-
-function inicializarFechas() {
+// === FECHAS PARA CITAS ===
+function cargarFechas() {
     const anio = new Date().getFullYear();
     document.getElementById('clienteAnio').innerHTML = `<option value="${anio}">${anio}</option><option value="${anio+1}">${anio+1}</option>`;
     actualizarDias();
@@ -509,164 +391,201 @@ function inicializarFechas() {
 function actualizarDias() {
     const m = parseInt(document.getElementById('clienteMes').value);
     const a = parseInt(document.getElementById('clienteAnio').value);
-    const total = new Date(a, m + 1, 0).getDate();
-    const sel = document.getElementById('clienteDia');
-    sel.innerHTML = '';
-    for (let d = 1; d <= total; d++) {
-        sel.innerHTML += `<option value="${d}">${d}</option>`;
+    const totalDias = new Date(a, m + 1, 0).getDate();
+    const cajaDias = document.getElementById('clienteDia');
+    cajaDias.innerHTML = '';
+    for (let d = 1; d <= totalDias; d++) {
+        cajaDias.innerHTML += `<option value="${d}">${d}</option>`;
     }
 }
 
-function abrirModal() { 
-    document.getElementById('modalLogin').style.display = 'flex'; 
-    return false;
-}
-function cerrarModal() { document.getElementById('modalLogin').style.display = 'none'; }
-function verificar() {
-    if (document.getElementById('clave').value === CLAVE_CORRECTA) {
-        cerrarModal();
-        modoAdmin = true;
-        document.body.classList.add('modo-admin');
-        abrirPanelAdmin();
-    } else {
-        alert("❌ Contraseña incorrecta");
-        document.getElementById('clave').value = '';
-    }
-}
-function abrirPanelAdmin() {
-    document.getElementById('panelAdmin').style.display = 'flex';
-    document.getElementById('editarBienvenida').value = document.getElementById('textoBienvenida').innerText;
-    document.getElementById('editarServicios').value = document.getElementById('listaServicios').innerText.replace(/<li>/gi,'').replace(/<\/li>/gi,'').trim();
-    document.getElementById('editarContacto').value = document.getElementById('textoContacto').innerText;
-    document.getElementById('numeroWhatsApp').value = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
-}
-function cerrarPanel() { document.getElementById('panelAdmin').style.display = 'none'; }
-
-function guardarNumeroWhatsApp() {
-    const num = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
-    localStorage.setItem(ID_NUBE + "_whatsapp", num);
-    actualizarBotonWhatsApp();
-    alert("✅ Número guardado");
-}
-function actualizarBotonWhatsApp() {
-    const num = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
-    const enlace = document.getElementById('enlaceWhatsApp');
-    if (num.length >= 10) {
-        enlace.href = "https://wa.me/" + num;
-        enlace.classList.remove('sin-numero');
-        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/"+num+"' target='_blank'>"+num+"</a>";
+// === ESTRELLAS ===
+function ponerEstrellas(cantidad) {
+    calificacionActual = cantidad;
+    const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
+    for (let i = 0; i < estrellas.length; i++) {
+        estrellas[i].style.color = (i < cantidad) ? '#FFD700' : '#CCC';
     }
 }
 
-function clienteAgendar() {
+// === AGENDAR CITA ===
+function agendarCita() {
     const nombre = document.getElementById('clienteNombre').value.trim();
     const dia = document.getElementById('clienteDia').value;
-    const mes = NOMBRES_MESES[parseInt(document.getElementById('clienteMes').value)];
+    const mes = MESES[parseInt(document.getElementById('clienteMes').value)];
     const anio = document.getElementById('clienteAnio').value;
     const hora = document.getElementById('clienteHora').value;
     const servicio = document.getElementById('clienteServicio').value.trim() || "Consulta general";
-    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
+    
+    if (!nombre) { alert("⚠️ Escribe tu nombre primero"); return; }
 
-    const cont = document.getElementById('contenedorCitas');
-    const vacio = cont.querySelector('p'); if (vacio) vacio.remove();
-    const div = document.createElement('div');
-    div.className = 'cita contenedor-relativo';
-    div.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong><br>📅 ${dia} de ${mes} del ${anio}<br>⏰ ${hora}<br>💆‍♀️ ${servicio}<br><span class="estado estado-pendiente">⏳ Pendiente</span>`;
-    cont.prepend(div);
+    const caja = document.getElementById('contenedorCitas');
+    const avisoVacio = caja.querySelector('p');
+    if (avisoVacio) avisoVacio.remove();
+
+    const nuevaCita = document.createElement('div');
+    nuevaCita.className = 'cita contenedor-relativo';
+    nuevaCita.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar esta cita?')){this.parentElement.remove(); guardarTodoEnNube();}">×</button>
+        <strong>👤 ${nombre}</strong><br>
+        📅 ${dia} de ${mes} del ${anio}<br>
+        ⏰ ${hora}<br>
+        💆‍♀️ ${servicio}<br>
+        <span class="estado estado-pendiente">⏳ Pendiente</span>
+    `;
+    caja.prepend(nuevaCita);
+    
     document.getElementById('clienteNombre').value = '';
     document.getElementById('clienteServicio').value = '';
-    sincronizarNube();
-    alert("✅ Cita agendada");
+    guardarTodoEnNube();
+    alert("✅ ¡Cita agendada con éxito!");
 }
 
-function enviarOpinion() {
+// === ENVIAR OPINIÓN ===
+function enviarComentario() {
     const nombre = document.getElementById('opinionNombre').value.trim();
     const correo = document.getElementById('opinionCorreo').value.trim();
     const estrellas = calificacionActual;
-    const comentario = document.getElementById('opinionComentario').value.trim();
+    const comentario = document.getElementById('opinionTexto').value.trim();
+    
     if (!nombre || !correo.includes('@') || estrellas === 0 || !comentario) {
-        alert("⚠️ Completa todos los campos y califica con estrellas"); return;
+        alert("⚠️ Completa todos los campos y califica con estrellas");
+        return;
     }
-    const est = '★'.repeat(estrellas) + '☆'.repeat(5-estrellas);
+    
+    const dibujoEstrellas = '★'.repeat(estrellas) + '☆'.repeat(5 - estrellas);
     const fecha = new Date().toLocaleDateString('es-MX');
 
-    const cont = document.getElementById('contenedorOpiniones');
-    const vacio = cont.querySelector('p'); if (vacio) vacio.remove();
-    const tarjeta = document.createElement('div');
-    tarjeta.className = 'opinion contenedor-relativo';
-    tarjeta.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — ${fecha}<br><span class="estrellitas">${est}</span><br>💬 ${comentario}`;
-    cont.prepend(tarjeta);
+    // Opinión pública
+    const cajaPublica = document.getElementById('cajaOpiniones');
+    const avisoPublico = cajaPublica.querySelector('p');
+    if (avisoPublico) avisoPublico.remove();
+    
+    const tarjetaPublica = document.createElement('div');
+    tarjetaPublica.className = 'opinion contenedor-relativo';
+    tarjetaPublica.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar opinión?')){this.parentElement.remove(); guardarTodoEnNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — ${fecha}<br>
+        <span class="estrellitas">${dibujoEstrellas}</span><br>
+        💬 ${comentario}
+    `;
+    cajaPublica.prepend(tarjetaPublica);
 
-    const bandeja = document.getElementById('bandejaOpiniones');
-    const aviso = bandeja.querySelector('p'); if (aviso) aviso.remove();
-    const correoCompleto = document.createElement('div');
-    correoCompleto.className = 'opinion contenedor-relativo';
-    correoCompleto.style.background = '#F3E5F5';
-    correoCompleto.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br><span class="estrellitas">${est}</span> — ${fecha}<br>💬 ${comentario}`;
-    bandeja.prepend(correoCompleto);
+    // Bandeja privada (con correo)
+    const cajaPrivada = document.getElementById('cajaPrivada');
+    const avisoPrivado = cajaPrivada.querySelector('p');
+    if (avisoPrivado) avisoPrivado.remove();
+    
+    const tarjetaPrivada = document.createElement('div');
+    tarjetaPrivada.className = 'opinion contenedor-relativo';
+    tarjetaPrivada.style.background = '#F3E5F5';
+    tarjetaPrivada.innerHTML = `
+        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar opinión?')){this.parentElement.remove(); guardarTodoEnNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br>
+        <span class="estrellitas">${dibujoEstrellas}</span> — ${fecha}<br>
+        💬 ${comentario}
+    `;
+    cajaPrivada.prepend(tarjetaPrivada);
 
+    // Limpiar formulario
     document.getElementById('opinionNombre').value = '';
     document.getElementById('opinionCorreo').value = '';
-    document.getElementById('opinionComentario').value = '';
+    document.getElementById('opinionTexto').value = '';
     calificacionActual = 0;
-    document.querySelectorAll('.estrella').forEach(e => e.classList.remove('activa'));
-    sincronizarNube();
+    document.querySelectorAll('#cajaEstrellas .estrella').forEach(e => e.style.color = '#CCC');
+    
+    guardarTodoEnNube();
     alert("✅ ¡Gracias por tu opinión!");
 }
 
+// === FOTOS ===
 function agregarFoto() {
     const archivo = document.getElementById('subirFoto').files[0];
-    if (!archivo) { alert("⚠️ Selecciona una imagen"); return; }
-    new FileReader().onload = e => {
-        const div = document.createElement('div');
-        div.className = 'foto-item contenedor-relativo';
-        div.innerHTML = `<img src="${e.target.result}" alt="Trabajo"><button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>`;
-        document.getElementById('contenedorFotos').prepend(div);
-        sincronizarNube();
-    }.readAsDataURL(archivo);
+    if (!archivo) { alert("⚠️ Primero selecciona una imagen"); return; }
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const cajaFotos = document.getElementById('contenedorFotos');
+        const aviso = cajaFotos.querySelector('span');
+        if (aviso && cajaFotos.children.length === 1) aviso.parentElement.remove();
+        
+        const nuevaFoto = document.createElement('div');
+        nuevaFoto.className = 'foto-item contenedor-relativo';
+        nuevaFoto.innerHTML = `
+            <img src="${e.target.result}" alt="Trabajo realizado">
+            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+        `;
+        cajaFotos.prepend(nuevaFoto);
+        guardarTodoEnNube();
+    };
+    lector.readAsDataURL(archivo);
 }
-function quitarFoto(boton) { if(confirm("¿Eliminar foto?")) { boton.parentElement.remove(); sincronizarNube(); } }
+function quitarFoto(boton) {
+    if (confirm("¿Eliminar esta foto?")) {
+        boton.parentElement.remove();
+        guardarTodoEnNube();
+    }
+}
 
+// === WHATSAPP ===
+function guardarWhatsApp() {
+    let numero = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
+    localStorage.setItem(ID_NUBE + "_whatsapp", numero);
+    actualizarEnlaceWhatsApp();
+    alert("✅ Número de WhatsApp guardado");
+}
+function actualizarEnlaceWhatsApp() {
+    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
+    const enlace = document.getElementById('enlaceWhatsApp');
+    if (numero.length >= 10) {
+        enlace.href = "https://wa.me/" + numero;
+        enlace.classList.remove('sin-numero');
+        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/"+numero+"' target='_blank'>"+numero+"</a>";
+    }
+}
+
+// === GUARDAR TODO ===
 function guardarTodo() {
     document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
-    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l=>l.trim());
-    document.getElementById('listaServicios').innerHTML = lineas.map(l=>`<li>${l.trim()}</li>`).join('');
+    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l => l.trim());
+    document.getElementById('listaServicios').innerHTML = lineas.map(l => `<li>✅ ${l.trim()}</li>`).join('');
     document.getElementById('textoContacto').innerHTML = document.getElementById('editarContacto').value;
-    sincronizarNube();
-    alert("✅ ¡Todo guardado!");
+    guardarTodoEnNube();
+    alert("✅ ¡Todo guardado correctamente!");
 }
 
-function sincronizarNube() {
+// === GUARDAR EN ALMACENAMIENTO ===
+function guardarTodoEnNube() {
     const datos = {
         bienvenida: document.getElementById('textoBienvenida').innerText,
         servicios: document.getElementById('listaServicios').innerHTML,
-        galeria: document.getElementById('contenedorFotos').innerHTML,
+        fotos: document.getElementById('contenedorFotos').innerHTML,
         citas: document.getElementById('contenedorCitas').innerHTML,
-        opinionesPublicas: document.getElementById('contenedorOpiniones').innerHTML,
-        bandejaPrivada: document.getElementById('bandejaOpiniones').innerHTML,
+        opinionesPublicas: document.getElementById('cajaOpiniones').innerHTML,
+        bandejaPrivada: document.getElementById('cajaPrivada').innerHTML,
         contacto: document.getElementById('textoContacto').innerHTML
     };
     localStorage.setItem(ID_NUBE, JSON.stringify(datos));
 }
 
-function cargarDesdeNube() {
-    const guardado = localStorage.getItem(ID_NUBE);
+// === CARGAR LO GUARDADO AL INICIAR ===
+function cargarDatosGuardados() {
     const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
-    if (numero) actualizarBotonWhatsApp();
-    if (guardado) {
-        try {
-            const d = JSON.parse(guardado);
-            if (d.bienvenida) document.getElementById('textoBienvenida').innerText = d.bienvenida;
-            if (d.servicios) document.getElementById('listaServicios').innerHTML = d.servicios;
-            if (d.galeria) document.getElementById('contenedorFotos').innerHTML = d.galeria;
-            if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
-            if (d.opinionesPublicas) document.getElementById('contenedorOpiniones').innerHTML = d.opinionesPublicas;
-            if (d.bandejaPrivada) document.getElementById('bandejaOpiniones').innerHTML = d.bandejaPrivada;
-            if (d.contacto) document.getElementById('textoContacto').innerHTML = d.contacto;
-        } catch(e) {}
+    if (numero) actualizarEnlaceWhatsApp();
+    
+    const guardado = localStorage.getItem(ID_NUBE);
+    if (!guardado) return;
+    
+    try {
+        const d = JSON.parse(guardado);
+        if (d.bienvenida) document.getElementById('textoBienvenida').innerText = d.bienvenida;
+        if (d.servicios) document.getElementById('listaServicios').innerHTML = d.servicios;
+        if (d.fotos) document.getElementById('contenedorFotos').innerHTML = d.fotos;
+        if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
+        if (d.opinionesPublicas) document.getElementById('cajaOpiniones').innerHTML = d.opinionesPublicas;
+        if (d.bandejaPrivada) document.getElementById('cajaPrivada').innerHTML = d.bandejaPrivada;
+        if (d.contacto) document.getElementById('textoContacto').innerHTML = d.contacto;
+    } catch (error) {
+        console.log("Error al cargar datos:", error);
     }
 }
 </script>
