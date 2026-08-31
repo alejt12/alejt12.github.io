@@ -178,15 +178,18 @@
             font-size: 26px;
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0,0,0,0.35);
-            z-index: 1000;
+            z-index: 9999;
+            pointer-events: auto;
         }
+        .candado-btn:hover { background: var(--lila); }
+
         .modal-fondo {
             display: none;
             position: fixed;
             top: 0; left: 0;
             width: 100%; height: 100%;
             background: rgba(0,0,0,0.6);
-            z-index: 2000;
+            z-index: 10000;
             align-items: center;
             justify-content: center;
         }
@@ -238,15 +241,15 @@
 </head>
 <body>
 
-<div class="candado-btn" onclick="abrirModal()">🔒</div>
+<div class="candado-btn" id="botonCandado">🔒</div>
 
 <div class="modal-fondo" id="modalLogin">
     <div class="modal-caja">
         <h3>🔐 Acceso de Administración</h3>
         <p style="text-align:center; color:#666; font-size:0.9rem;">Solo la Lic. Laiza puede entrar</p>
-        <input type="password" id="clave" placeholder="Escribe la contraseña">
-        <button class="btn btn-lila" style="width:100%; margin-top:8px;" onclick="verificar()">Entrar al Panel</button>
-        <button class="boton-cerrar" onclick="cerrarModal()">Cerrar</button>
+        <input type="password" id="clave" placeholder="Escribe la contraseña" style="margin-bottom:10px;">
+        <button class="btn btn-lila" style="width:100%; margin-top:8px;" id="botonEntrar">Entrar al Panel</button>
+        <button class="boton-cerrar" id="botonCerrarLogin">Cerrar</button>
     </div>
 </div>
 
@@ -264,19 +267,19 @@
         <div>
             <label>📸 Subir Foto:</label>
             <input type="file" id="subirFoto" accept="image/*">
-            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar</button>
+            <button class="btn btn-verde" style="width:100%; margin-top:4px;" id="botonAgregarFoto">📤 Agregar</button>
         </div>
         <div>
             <label>🔗 Número de WhatsApp (solo números):</label>
             <input type="text" id="numeroWhatsApp" placeholder="521234567890">
-            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar</button>
+            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" id="botonGuardarWhatsApp">💾 Guardar</button>
         </div>
         <div>
             <label>📍 Editar Contacto y Ubicación:</label>
             <textarea id="editarContacto" rows="4"></textarea>
         </div>
-        <button class="btn btn-verde" style="width:100%; margin-top:14px;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
-        <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
+        <button class="btn btn-verde" style="width:100%; margin-top:14px;" id="botonGuardarTodo">💾 GUARDAR TODO</button>
+        <button class="boton-cerrar" id="botonCerrarPanel">🚪 Cerrar Sesión</button>
     </div>
 </div>
 
@@ -333,7 +336,7 @@
             </div>
             <div class="campo">
                 <label>Mes</label>
-                <select id="clienteMes" onchange="actualizarDias()">
+                <select id="clienteMes">
                     <option value="0">Enero</option>
                     <option value="1">Febrero</option>
                     <option value="2">Marzo</option>
@@ -350,7 +353,7 @@
             </div>
             <div class="campo">
                 <label>Año</label>
-                <select id="clienteAnio" onchange="actualizarDias()"></select>
+                <select id="clienteAnio"></select>
             </div>
         </div>
         <div class="fila">
@@ -381,7 +384,7 @@
                 <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
             </div>
         </div>
-        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="clienteAgendar()">✅ Enviar Cita</button>
+        <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" id="botonAgendar">✅ Enviar Cita</button>
     </div>
     <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
     <div id="contenedorCitas">
@@ -416,7 +419,7 @@
             <label>Tu Comentario</label>
             <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
         </div>
-        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarOpinion()">⭐ Enviar Opinión</button>
+        <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" id="botonOpinion">⭐ Enviar Opinión</button>
     </div>
     <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
     <div id="contenedorOpiniones">
@@ -458,7 +461,22 @@ window.onload = function() {
     inicializarFechas();
     inicializarEstrellas();
     cargarDesdeNube();
+    conectarBotones();
 };
+
+function conectarBotones() {
+    document.getElementById('botonCandado').onclick = abrirModal;
+    document.getElementById('botonEntrar').onclick = verificar;
+    document.getElementById('botonCerrarLogin').onclick = cerrarModal;
+    document.getElementById('botonCerrarPanel').onclick = cerrarPanel;
+    document.getElementById('botonAgendar').onclick = clienteAgendar;
+    document.getElementById('botonOpinion').onclick = enviarOpinion;
+    document.getElementById('botonAgregarFoto').onclick = agregarFoto;
+    document.getElementById('botonGuardarWhatsApp').onclick = guardarNumeroWhatsApp;
+    document.getElementById('botonGuardarTodo').onclick = guardarTodo;
+    document.getElementById('clienteMes').onchange = actualizarDias;
+    document.getElementById('clienteAnio').onchange = actualizarDias;
+}
 
 // === ESTRELLAS ===
 function inicializarEstrellas() {
@@ -499,7 +517,10 @@ function actualizarDias() {
     }
 }
 
-function abrirModal() { document.getElementById('modalLogin').style.display = 'flex'; }
+function abrirModal() { 
+    document.getElementById('modalLogin').style.display = 'flex'; 
+    return false;
+}
 function cerrarModal() { document.getElementById('modalLogin').style.display = 'none'; }
 function verificar() {
     if (document.getElementById('clave').value === CLAVE_CORRECTA) {
@@ -507,7 +528,10 @@ function verificar() {
         modoAdmin = true;
         document.body.classList.add('modo-admin');
         abrirPanelAdmin();
-    } else alert("❌ Contraseña incorrecta");
+    } else {
+        alert("❌ Contraseña incorrecta");
+        document.getElementById('clave').value = '';
+    }
 }
 function abrirPanelAdmin() {
     document.getElementById('panelAdmin').style.display = 'flex';
@@ -610,7 +634,7 @@ function guardarTodo() {
     document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
     const lineas = document.getElementById('editarServicios').value.split('\n').filter(l=>l.trim());
     document.getElementById('listaServicios').innerHTML = lineas.map(l=>`<li>${l.trim()}</li>`).join('');
-    document.getElementById('textoContacto').innerText = document.getElementById('editarContacto').value;
+    document.getElementById('textoContacto').innerHTML = document.getElementById('editarContacto').value;
     sincronizarNube();
     alert("✅ ¡Todo guardado!");
 }
@@ -641,7 +665,7 @@ function cargarDesdeNube() {
             if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
             if (d.opinionesPublicas) document.getElementById('contenedorOpiniones').innerHTML = d.opinionesPublicas;
             if (d.bandejaPrivada) document.getElementById('bandejaOpiniones').innerHTML = d.bandejaPrivada;
-            if (d.contacto) document.getElementById('textoContacto').innerText = d.contacto;
+            if (d.contacto) document.getElementById('textoContacto').innerHTML = d.contacto;
         } catch(e) {}
     }
 }
