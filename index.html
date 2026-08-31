@@ -252,35 +252,29 @@
 
 <div class="modal-fondo" id="panelAdmin">
     <div class="modal-caja">
-        <h3>⚙️ Panel de Control — Cosmiatría Laya</h3>
-
+        <h3>⚙️ Panel de Control</h3>
         <div>
-            <label>✏️ Editar Presentación (encabezado):</label>
-            <textarea id="editarBienvenida" rows="3" placeholder="Escribe aquí tu presentación..."></textarea>
+            <label>✏️ Editar Presentación:</label>
+            <textarea id="editarBienvenida" rows="3"></textarea>
         </div>
-
         <div>
-            <label>💆‍♀️ Editar Servicios (uno por línea):</label>
-            <textarea id="editarServicios" rows="6" placeholder="Limpieza facial profesional&#10;Hidratación y nutrición de piel..."></textarea>
+            <label>💆‍♀️ Editar Servicios:</label>
+            <textarea id="editarServicios" rows="6"></textarea>
         </div>
-
         <div>
-            <label>📸 Subir Foto de Trabajo:</label>
+            <label>📸 Subir Foto:</label>
             <input type="file" id="subirFoto" accept="image/*">
-            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar a Galería</button>
+            <button class="btn btn-verde" style="width:100%; margin-top:4px;" onclick="agregarFoto()">📤 Agregar</button>
         </div>
-
         <div>
             <label>🔗 Número de WhatsApp (solo números):</label>
-            <input type="text" id="numeroWhatsApp" placeholder="Ej: 521234567890">
-            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar Número</button>
+            <input type="text" id="numeroWhatsApp" placeholder="521234567890">
+            <button class="btn btn-whatsapp" style="width:100%; margin-top:4px;" onclick="guardarNumeroWhatsApp()">💾 Guardar</button>
         </div>
-
         <div>
             <label>📍 Editar Contacto y Ubicación:</label>
-            <textarea id="editarContacto" rows="4" placeholder="Tu nombre y dirección..."></textarea>
+            <textarea id="editarContacto" rows="4"></textarea>
         </div>
-
         <button class="btn btn-verde" style="width:100%; margin-top:14px;" onclick="guardarTodo()">💾 GUARDAR TODO</button>
         <button class="boton-cerrar" onclick="cerrarPanel()">🚪 Cerrar Sesión</button>
     </div>
@@ -298,7 +292,7 @@
     <a href="#agendar" class="btn btn-azul">📅 Agendar Cita</a>
     <a href="#opiniones" class="btn btn-dorado">⭐ Opiniones</a>
     <a href="#contacto" class="btn btn-verde">📍 Contacto</a>
-    <a id="enlaceWhatsApp" href="#" target="_blank" class="btn btn-whatsapp sin-numero">💬 WhatsApp</a>
+    <a id="enlaceWhatsApp" href="https://wa.me/" target="_blank" class="btn btn-whatsapp sin-numero">💬 WhatsApp</a>
 </nav>
 
 <section id="servicios" class="tarjeta">
@@ -324,7 +318,6 @@
 
 <section id="agendar" class="tarjeta">
     <h2>📅 Agendar tu Cita</h2>
-
     <div class="formulario-cita">
         <h3>📝 Llena tus datos y elige tu fecha</h3>
         <div class="fila">
@@ -333,7 +326,6 @@
                 <input type="text" id="clienteNombre" placeholder="Escribe tu nombre">
             </div>
         </div>
-
         <div class="fila">
             <div class="campo">
                 <label>Día</label>
@@ -361,7 +353,6 @@
                 <select id="clienteAnio" onchange="actualizarDias()"></select>
             </div>
         </div>
-
         <div class="fila">
             <div class="campo">
                 <label>Hora</label>
@@ -390,10 +381,8 @@
                 <input type="text" id="clienteServicio" placeholder="Ej: Limpieza facial">
             </div>
         </div>
-
         <button class="btn btn-azul" style="width:100%; margin-top:12px; font-size:1rem;" onclick="clienteAgendar()">✅ Enviar Cita</button>
     </div>
-
     <h3 style="margin-top:2rem; color:var(--lila); text-align:center;">📋 Citas Agendadas</h3>
     <div id="contenedorCitas">
         <p style="color:#777; text-align:center;">Todavía no hay citas. ¡Sé el primero en agendar!</p>
@@ -402,7 +391,6 @@
 
 <section id="opiniones" class="tarjeta">
     <h2>⭐ Opiniones de Clientes</h2>
-
     <div class="formulario-opinion">
         <h3>💬 Deja tu opinión</h3>
         <div class="fila">
@@ -415,7 +403,6 @@
                 <input type="email" id="opinionCorreo" placeholder="correo@ejemplo.com">
             </div>
         </div>
-
         <label style="text-align:center; display:block; margin-top:8px;">Calificación</label>
         <div class="estrellas" id="contenedorEstrellas">
             <span class="estrella" data-valor="1">★</span>
@@ -425,20 +412,16 @@
             <span class="estrella" data-valor="5">★</span>
         </div>
         <input type="hidden" id="calificacion" value="0">
-
         <div style="margin-top:10px;">
             <label>Tu Comentario</label>
             <textarea id="opinionComentario" placeholder="Escribe aquí lo que opinas..."></textarea>
         </div>
-
         <button class="btn btn-dorado" style="width:100%; margin-top:12px; font-size:1rem;" onclick="enviarOpinion()">⭐ Enviar Opinión</button>
     </div>
-
     <h3 style="margin-top:2rem; color:var(--dorado); text-align:center;">📋 Lo que dicen nuestros clientes</h3>
     <div id="contenedorOpiniones">
         <p style="color:#777; text-align:center;">Todavía no hay opiniones. ¡Sé el primero en opinar!</p>
     </div>
-
     <div class="bandeja solo-admin">
         <h3 style="text-align:center; color:var(--lila); margin-bottom:1rem;">📩 Bandeja de Opiniones — Solo Laiza</h3>
         <div id="bandejaOpiniones">
@@ -451,7 +434,7 @@
     <h2>📍 Ubicación y Contacto</h2>
     <div id="textoContacto">
         <p><strong>Lic. Laiza González Robles</strong></p>
-        <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a></p>
+        <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
         <p id="lineaWhatsApp">💬 WhatsApp: <em>Pendiente de configurar</em></p>
         <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
         <p>✉️ Escríbeme o agenda tu cita — ¡Te espero!</p>
@@ -460,7 +443,7 @@
 
 <footer>
     <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
-    <p><a href="https://www.instagram.com/skin_carelaya?utm_source=ig_web_button_share_sheet&igsi=ZDNlZDc0MzIxNw==" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
+    <p><a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
     <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
 </footer>
 
@@ -477,25 +460,23 @@ window.onload = function() {
     cargarDesdeNube();
 };
 
-// === ESTRELLAS PARA CALIFICAR ===
+// === ESTRELLAS ===
 function inicializarEstrellas() {
-    const estrellas = document.querySelectorAll('.estrella');
-    estrellas.forEach(estrella => {
+    document.querySelectorAll('.estrella').forEach(estrella => {
         estrella.addEventListener('click', function() {
             calificacionActual = parseInt(this.dataset.valor);
-            document.getElementById('calificacion').value = calificacionActual;
-            estrellas.forEach((e, i) => {
+            document.querySelectorAll('.estrella').forEach((e, i) => {
                 e.classList.toggle('activa', i < calificacionActual);
             });
         });
         estrella.addEventListener('mouseover', function() {
-            const valor = parseInt(this.dataset.valor);
-            estrellas.forEach((e, i) => {
-                e.style.color = i < valor ? '#FFD700' : '#CCC';
+            const v = parseInt(this.dataset.valor);
+            document.querySelectorAll('.estrella').forEach((e, i) => {
+                e.style.color = i < v ? '#FFD700' : '#CCC';
             });
         });
         estrella.addEventListener('mouseout', function() {
-            estrellas.forEach((e, i) => {
+            document.querySelectorAll('.estrella').forEach((e, i) => {
                 e.style.color = i < calificacionActual ? '#FFD700' : '#CCC';
             });
         });
@@ -503,189 +484,135 @@ function inicializarEstrellas() {
 }
 
 function inicializarFechas() {
-    const anioActual = new Date().getFullYear();
-    const selectAnio = document.getElementById('clienteAnio');
-    selectAnio.innerHTML = `<option value="${anioActual}">${anioActual}</option><option value="${anioActual+1}">${anioActual+1}</option>`;
+    const anio = new Date().getFullYear();
+    document.getElementById('clienteAnio').innerHTML = `<option value="${anio}">${anio}</option><option value="${anio+1}">${anio+1}</option>`;
     actualizarDias();
 }
-
 function actualizarDias() {
-    const mes = parseInt(document.getElementById('clienteMes').value);
-    const anio = parseInt(document.getElementById('clienteAnio').value);
-    const diasEnMes = new Date(anio, mes + 1, 0).getDate();
-    const selectDia = document.getElementById('clienteDia');
-    selectDia.innerHTML = '';
-    for (let d = 1; d <= diasEnMes; d++) {
-        const opt = document.createElement('option');
-        opt.value = d;
-        opt.textContent = d;
-        selectDia.appendChild(opt);
+    const m = parseInt(document.getElementById('clienteMes').value);
+    const a = parseInt(document.getElementById('clienteAnio').value);
+    const total = new Date(a, m + 1, 0).getDate();
+    const sel = document.getElementById('clienteDia');
+    sel.innerHTML = '';
+    for (let d = 1; d <= total; d++) {
+        sel.innerHTML += `<option value="${d}">${d}</option>`;
     }
 }
 
-function abrirModal() { document.getElementById('modalLogin').style.display = 'flex'; document.getElementById('clave').value = ''; }
+function abrirModal() { document.getElementById('modalLogin').style.display = 'flex'; }
 function cerrarModal() { document.getElementById('modalLogin').style.display = 'none'; }
 function verificar() {
-    const clave = document.getElementById('clave').value;
-    if (clave === CLAVE_CORRECTA) {
+    if (document.getElementById('clave').value === CLAVE_CORRECTA) {
         cerrarModal();
         modoAdmin = true;
         document.body.classList.add('modo-admin');
         abrirPanelAdmin();
-    } else { alert("❌ Contraseña incorrecta"); }
+    } else alert("❌ Contraseña incorrecta");
 }
-
 function abrirPanelAdmin() {
     document.getElementById('panelAdmin').style.display = 'flex';
     document.getElementById('editarBienvenida').value = document.getElementById('textoBienvenida').innerText;
-    let serviciosHTML = document.getElementById('listaServicios').innerHTML;
-    serviciosHTML = serviciosHTML.replace(/<li>/gi, '').replace(/<\/li>/gi, '\n').trim();
-    document.getElementById('editarServicios').value = serviciosHTML;
+    document.getElementById('editarServicios').value = document.getElementById('listaServicios').innerText.replace(/<li>/gi,'').replace(/<\/li>/gi,'').trim();
     document.getElementById('editarContacto').value = document.getElementById('textoContacto').innerText;
-    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
-    document.getElementById('numeroWhatsApp').value = numero;
+    document.getElementById('numeroWhatsApp').value = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
 }
-function cerrarPanel() { document.getElementById('panelAdmin').style.display = 'none'; modoAdmin = false; document.body.classList.remove('modo-admin'); }
+function cerrarPanel() { document.getElementById('panelAdmin').style.display = 'none'; }
 
 function guardarNumeroWhatsApp() {
-    let numero = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
-    localStorage.setItem(ID_NUBE + "_whatsapp", numero);
-    sincronizarNube();
+    const num = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
+    localStorage.setItem(ID_NUBE + "_whatsapp", num);
     actualizarBotonWhatsApp();
     alert("✅ Número guardado");
 }
 function actualizarBotonWhatsApp() {
-    const numero = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
+    const num = localStorage.getItem(ID_NUBE + "_whatsapp") || "";
     const enlace = document.getElementById('enlaceWhatsApp');
-    if (numero && numero.length >= 10) {
-        enlace.href = "https://wa.me/" + numero;
+    if (num.length >= 10) {
+        enlace.href = "https://wa.me/" + num;
         enlace.classList.remove('sin-numero');
-        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/" + numero + "' target='_blank'>" + numero + "</a>";
-    } else {
-        enlace.href = "#";
-        enlace.classList.add('sin-numero');
-        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <em>Pendiente de configurar</em>";
+        document.getElementById('lineaWhatsApp').innerHTML = "💬 WhatsApp: <a href='https://wa.me/"+num+"' target='_blank'>"+num+"</a>";
     }
 }
 
-// === EL CLIENTE AGENDA SU CITA ===
 function clienteAgendar() {
     const nombre = document.getElementById('clienteNombre').value.trim();
     const dia = document.getElementById('clienteDia').value;
-    const mes = document.getElementById('clienteMes').value;
-    const nombreMes = NOMBRES_MESES[mes];
+    const mes = NOMBRES_MESES[parseInt(document.getElementById('clienteMes').value)];
     const anio = document.getElementById('clienteAnio').value;
     const hora = document.getElementById('clienteHora').value;
     const servicio = document.getElementById('clienteServicio').value.trim() || "Consulta general";
-
     if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
 
-    const contenedor = document.getElementById('contenedorCitas');
-    const vacio = contenedor.querySelector('p');
-    if (vacio) vacio.remove();
-
+    const cont = document.getElementById('contenedorCitas');
+    const vacio = cont.querySelector('p'); if (vacio) vacio.remove();
     const div = document.createElement('div');
     div.className = 'cita contenedor-relativo';
-    div.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar cita?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong><br>
-        📅 ${dia} de ${nombreMes} del ${anio}<br>
-        ⏰ ${hora} horas<br>
-        💆‍♀️ ${servicio}<br>
-        <span class="estado estado-pendiente">⏳ Pendiente de confirmar</span>
-    `;
-    contenedor.prepend(div);
-
+    div.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong><br>📅 ${dia} de ${mes} del ${anio}<br>⏰ ${hora}<br>💆‍♀️ ${servicio}<br><span class="estado estado-pendiente">⏳ Pendiente</span>`;
+    cont.prepend(div);
     document.getElementById('clienteNombre').value = '';
     document.getElementById('clienteServicio').value = '';
-
     sincronizarNube();
-    alert("✅ ¡Tu cita ha sido agendada! Gracias.");
+    alert("✅ Cita agendada");
 }
 
-// === EL CLIENTE ENVÍA SU OPINIÓN CON ESTRELLAS Y CORREO ===
 function enviarOpinion() {
     const nombre = document.getElementById('opinionNombre').value.trim();
     const correo = document.getElementById('opinionCorreo').value.trim();
     const estrellas = calificacionActual;
     const comentario = document.getElementById('opinionComentario').value.trim();
-
-    if (!nombre) { alert("⚠️ Escribe tu nombre"); return; }
-    if (!correo.includes('@')) { alert("⚠️ Escribe un correo válido"); return; }
-    if (estrellas === 0) { alert("⚠️ Selecciona tu calificación con estrellas"); return; }
-    if (!comentario) { alert("⚠️ Escribe tu comentario"); return; }
-
-    const estrellitas = '★'.repeat(estrellas) + '☆'.repeat(5 - estrellas);
+    if (!nombre || !correo.includes('@') || estrellas === 0 || !comentario) {
+        alert("⚠️ Completa todos los campos y califica con estrellas"); return;
+    }
+    const est = '★'.repeat(estrellas) + '☆'.repeat(5-estrellas);
     const fecha = new Date().toLocaleDateString('es-MX');
 
-    // Se ve en la página para todos
-    const contenedor = document.getElementById('contenedorOpiniones');
-    const vacio = contenedor.querySelector('p');
-    if (vacio) vacio.remove();
-
+    const cont = document.getElementById('contenedorOpiniones');
+    const vacio = cont.querySelector('p'); if (vacio) vacio.remove();
     const tarjeta = document.createElement('div');
     tarjeta.className = 'opinion contenedor-relativo';
-    tarjeta.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar opinión?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — ${fecha}<br>
-        <span class="estrellitas">${estrellitas}</span><br>
-        💬 ${comentario}
-    `;
-    contenedor.prepend(tarjeta);
+    tarjeta.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — ${fecha}<br><span class="estrellitas">${est}</span><br>💬 ${comentario}`;
+    cont.prepend(tarjeta);
 
-    // Se ve en la BANDEJA de Laiza (con correo)
     const bandeja = document.getElementById('bandejaOpiniones');
-    const avisoVacio = bandeja.querySelector('p');
-    if (avisoVacio) avisoVacio.remove();
-
+    const aviso = bandeja.querySelector('p'); if (aviso) aviso.remove();
     const correoCompleto = document.createElement('div');
     correoCompleto.className = 'opinion contenedor-relativo';
     correoCompleto.style.background = '#F3E5F5';
-    correoCompleto.innerHTML = `
-        <button class="eliminar-elemento" onclick="if(confirm('¿Eliminar de bandeja?')){this.parentElement.remove(); sincronizarNube();}">×</button>
-        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br>
-        <span class="estrellitas">${estrellitas}</span> — ${fecha}<br>
-        💬 ${comentario}
-    `;
+    correoCompleto.innerHTML = `<button class="eliminar-elemento" onclick="if(confirm('¿Eliminar?')){this.parentElement.remove(); sincronizarNube();}">×</button>
+        <strong>👤 ${nombre}</strong> — 📧 ${correo}<br><span class="estrellitas">${est}</span> — ${fecha}<br>💬 ${comentario}`;
     bandeja.prepend(correoCompleto);
 
-    // Limpiar formulario
     document.getElementById('opinionNombre').value = '';
     document.getElementById('opinionCorreo').value = '';
     document.getElementById('opinionComentario').value = '';
     calificacionActual = 0;
     document.querySelectorAll('.estrella').forEach(e => e.classList.remove('activa'));
-
     sincronizarNube();
-    alert("✅ ¡Gracias por tu opinión! Se ha enviado correctamente.");
+    alert("✅ ¡Gracias por tu opinión!");
 }
 
 function agregarFoto() {
-    const entrada = document.getElementById('subirFoto');
-    if (!entrada.files.length) { alert("⚠️ Selecciona una imagen"); return; }
-    const archivo = entrada.files[0];
-    const lector = new FileReader();
-    lector.onload = function(e) {
+    const archivo = document.getElementById('subirFoto').files[0];
+    if (!archivo) { alert("⚠️ Selecciona una imagen"); return; }
+    new FileReader().onload = e => {
         const div = document.createElement('div');
         div.className = 'foto-item contenedor-relativo';
         div.innerHTML = `<img src="${e.target.result}" alt="Trabajo"><button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>`;
         document.getElementById('contenedorFotos').prepend(div);
-        entrada.value = '';
         sincronizarNube();
-    };
-    lector.readAsDataURL(archivo);
+    }.readAsDataURL(archivo);
 }
-function quitarFoto(boton) { if (confirm("¿Eliminar foto?")) { boton.parentElement.remove(); sincronizarNube(); } }
+function quitarFoto(boton) { if(confirm("¿Eliminar foto?")) { boton.parentElement.remove(); sincronizarNube(); } }
 
 function guardarTodo() {
     document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
-    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l => l.trim() !== '');
-    let html = '';
-    lineas.forEach(l => { html += `<li>${l.trim()}</li>`; });
-    document.getElementById('listaServicios').innerHTML = html;
+    const lineas = document.getElementById('editarServicios').value.split('\n').filter(l=>l.trim());
+    document.getElementById('listaServicios').innerHTML = lineas.map(l=>`<li>${l.trim()}</li>`).join('');
     document.getElementById('textoContacto').innerText = document.getElementById('editarContacto').value;
     sincronizarNube();
-    alert("✅ ¡Todo guardado correctamente!");
+    alert("✅ ¡Todo guardado!");
 }
 
 function sincronizarNube() {
@@ -696,8 +623,7 @@ function sincronizarNube() {
         citas: document.getElementById('contenedorCitas').innerHTML,
         opinionesPublicas: document.getElementById('contenedorOpiniones').innerHTML,
         bandejaPrivada: document.getElementById('bandejaOpiniones').innerHTML,
-        contacto: document.getElementById('textoContacto').innerHTML,
-        ultimaActualizacion: new Date().toISOString()
+        contacto: document.getElementById('textoContacto').innerHTML
     };
     localStorage.setItem(ID_NUBE, JSON.stringify(datos));
 }
@@ -705,7 +631,7 @@ function sincronizarNube() {
 function cargarDesdeNube() {
     const guardado = localStorage.getItem(ID_NUBE);
     const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
-    if (numero) { actualizarBotonWhatsApp(); }
+    if (numero) actualizarBotonWhatsApp();
     if (guardado) {
         try {
             const d = JSON.parse(guardado);
