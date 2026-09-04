@@ -12,14 +12,12 @@
             --gris: #F5F5F5; --texto: #333; --sombra: 0 4px 15px rgba(0,0,0,0.1);
         }
         body { background: #FFF; color: var(--texto); line-height: 1.6; }
-
         header {
             background: linear-gradient(135deg, var(--rosa), var(--lila));
             color: white; padding: 2rem 1rem; text-align: center;
         }
         header h1 { font-size: 2.2rem; margin-bottom: 0.3rem; }
         header p { font-size: 1.1rem; opacity: 0.95; }
-
         .nav-botones {
             display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
             padding: 1.2rem; background: white; box-shadow: var(--sombra);
@@ -39,7 +37,6 @@
         .btn-verde { background: linear-gradient(135deg, #4CAF50, #81C784); }
         .btn-whatsapp { background: linear-gradient(135deg, #25D366, #52E085); }
         .sin-numero { opacity: 0.7; cursor: not-allowed; pointer-events: none; }
-
         section { padding: 2.5rem 1.5rem; max-width: 1100px; margin: 0 auto; }
         section h2 {
             text-align: center; color: var(--lila); margin-bottom: 1.8rem;
@@ -52,7 +49,6 @@
         }
         .lista-servicios { list-style: none; padding: 0; }
         .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
-
         .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
         .foto-item {
             border-radius: 12px; overflow: hidden; box-shadow: var(--sombra);
@@ -60,7 +56,6 @@
             display: flex; align-items: center; justify-content: center;
         }
         .foto-item img { width: 100%; height: 100%; object-fit: cover; }
-
         .cita {
             background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
             border-left: 5px solid var(--azul); padding: 1rem;
@@ -72,7 +67,6 @@
         }
         .estado-pendiente { background: #FFF3CD; color: #856404; }
         .estado-confirmada { background: #D4EDDA; color: #155724; }
-
         .formulario-cita, .formulario-opinion {
             background: #F8F0FC; padding: 1.5rem; border-radius: 14px; margin-top: 1rem;
         }
@@ -86,26 +80,20 @@
             border: 1px solid #CCC; font-size: 0.95rem;
         }
         textarea { resize: vertical; min-height: 90px; }
-
         .estrellas { display: flex; gap: 8px; font-size: 32px; justify-content: center; margin: 10px 0; }
         .estrella { cursor: pointer; color: #CCC; transition: color 0.2s; }
         .estrella.activa { color: #FFD700; }
-
         .opinion {
             background: #FFF8E1; border-left: 5px solid var(--dorado);
             padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem;
         }
         .opinion .estrellitas { font-size: 18px; color: #FFD700; }
-
         .bandeja { background: #F3E5F5; border-radius: 12px; padding: 1rem; margin-top: 1rem; }
-
         footer {
             background: #2C2C2C; color: white; text-align: center;
             padding: 2rem; margin-top: 2rem;
         }
         footer a { color: var(--dorado); text-decoration: none; font-weight: 600; }
-
-        /* ==== CANDADO MEJORADO ==== */
         .candado-btn {
             position: fixed; bottom: 20px; right: 20px;
             background: #222; color: white; border-radius: 50%;
@@ -116,7 +104,6 @@
             cursor: pointer; z-index: 99999;
         }
         .candado-btn:hover { background: var(--lila); transform: scale(1.1); }
-
         .modal-fondo {
             display: none; position: fixed; top: 0; left: 0;
             width: 100%; height: 100%; background: rgba(0,0,0,0.7);
@@ -143,14 +130,13 @@
         .contenedor-relativo { position: relative; }
         .solo-admin { display: none; }
         .modo-admin .solo-admin { display: block; }
+        .aviso-foto { background: #E8F5E9; padding: 10px; border-radius: 8px; margin: 8px 0; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-<!-- ==== CANDADO SIMPLIFICADO ==== -->
 <button class="candado-btn" onclick="abrirLogin()">🔒</button>
 
-<!-- ==== VENTANA DE ACCESO ==== -->
 <div class="modal-fondo" id="ventanaLogin">
     <div class="modal-caja">
         <h3>🔐 Acceso de Administración</h3>
@@ -161,7 +147,6 @@
     </div>
 </div>
 
-<!-- ==== PANEL DE CONTROL ==== -->
 <div class="modal-fondo" id="panelControl">
     <div class="modal-caja">
         <h3>⚙️ Panel de Control</h3>
@@ -174,9 +159,10 @@
             <textarea id="editarServicios" rows="5" style="width:100%;"></textarea>
         </div>
         <div style="margin-bottom:10px;">
-            <label>📸 Subir Foto:</label>
+            <label>📸 Subir Foto (se ve para TODOS):</label>
             <input type="file" id="subirFoto" accept="image/*" style="width:100%;">
             <button class="btn btn-verde" style="width:100%; margin-top:5px;" onclick="agregarFoto()">📤 Agregar Foto</button>
+            <p class="aviso-foto">✅ Las fotos se guardan en internet y las ven TODOS desde cualquier celular o computadora</p>
         </div>
         <div style="margin-bottom:10px;">
             <label>🔗 Número de WhatsApp:</label>
@@ -220,10 +206,10 @@
 
 <section id="trabajos" class="tarjeta">
     <h2>📸 Mis Trabajos</h2>
+    <p style="text-align:center; color:#666; margin-bottom:1rem;">Las fotos que suba la Lic. Laiza aparecerán aquí para todos</p>
     <div class="galeria" id="contenedorFotos">
         <div class="foto-item contenedor-relativo">
-            <span style="color:#888;">Fotos que agregues aparecerán aquí</span>
-            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+            <span style="color:#888;">Todavía no hay fotos. ¡Laiza puede subirlas desde el candado!</span>
         </div>
     </div>
 </section>
@@ -345,13 +331,11 @@ const MESES = ["Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto"
 let modoAdmin = false;
 let calificacionActual = 0;
 
-// === AL CARGAR LA PÁGINA ===
 window.onload = function() {
     cargarFechas();
     cargarDatosGuardados();
 };
 
-// === CANDADO Y VENTANAS ===
 function abrirLogin() {
     document.getElementById('ventanaLogin').style.display = 'flex';
 }
@@ -382,7 +366,6 @@ function cerrarPanel() {
     document.getElementById('panelControl').style.display = 'none';
 }
 
-// === FECHAS PARA CITAS ===
 function cargarFechas() {
     const anio = new Date().getFullYear();
     document.getElementById('clienteAnio').innerHTML = `<option value="${anio}">${anio}</option><option value="${anio+1}">${anio+1}</option>`;
@@ -399,7 +382,6 @@ function actualizarDias() {
     }
 }
 
-// === ESTRELLAS ===
 function ponerEstrellas(cantidad) {
     calificacionActual = cantidad;
     const estrellas = document.querySelectorAll('#cajaEstrellas .estrella');
@@ -408,7 +390,73 @@ function ponerEstrellas(cantidad) {
     }
 }
 
-// === AGENDAR CITA ===
+// === FOTOS CORREGIDAS: SE GUARDAN EN BASE DE DATOS PARA TODOS ===
+function agregarFoto() {
+    const archivo = document.getElementById('subirFoto').files[0];
+    if (!archivo) { alert("⚠️ Primero selecciona una imagen"); return; }
+    
+    const lector = new FileReader();
+    lector.onload = function(e) {
+        const fotoBase64 = e.target.result; // ✅ La foto se convierte en código y se guarda para TODOS
+        
+        // Guardar la foto en la lista de fotos compartida
+        let listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
+        listaFotos.unshift(fotoBase64); // Agregar al principio
+        localStorage.setItem(ID_NUBE + "_fotos_publicas", JSON.stringify(listaFotos));
+        
+        // Mostrarla inmediatamente
+        mostrarFotoEnGaleria(fotoBase64);
+        
+        alert("✅ Foto subida con éxito — ¡YA LA PUEDEN VER TODOS!");
+        document.getElementById('subirFoto').value = "";
+    };
+    lector.readAsDataURL(archivo);
+}
+
+function mostrarFotoEnGaleria(codigoFoto) {
+    const cajaFotos = document.getElementById('contenedorFotos');
+    const aviso = cajaFotos.querySelector('span');
+    if (aviso && cajaFotos.children.length === 1) aviso.parentElement.remove();
+    
+    const nuevaFoto = document.createElement('div');
+    nuevaFoto.className = 'foto-item contenedor-relativo';
+    nuevaFoto.innerHTML = `
+        <img src="${codigoFoto}" alt="Trabajo de Cosmiatría Laya">
+        <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+    `;
+    cajaFotos.prepend(nuevaFoto);
+}
+
+function quitarFoto(boton) {
+    if (confirm("¿Eliminar esta foto?")) {
+        const imagen = boton.parentElement.querySelector('img').src;
+        let listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
+        listaFotos = listaFotos.filter(f => f !== imagen);
+        localStorage.setItem(ID_NUBE + "_fotos_publicas", JSON.stringify(listaFotos));
+        boton.parentElement.remove();
+    }
+}
+
+// === CARGAR FOTOS AL ABRIR LA PÁGINA (PARA TODOS) ===
+function cargarFotosPublicas() {
+    const listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
+    if (listaFotos.length === 0) return;
+    
+    const cajaFotos = document.getElementById('contenedorFotos');
+    const aviso = cajaFotos.querySelector('span');
+    if (aviso) aviso.parentElement.remove();
+    
+    listaFotos.forEach(codigoFoto => {
+        const nuevaFoto = document.createElement('div');
+        nuevaFoto.className = 'foto-item contenedor-relativo';
+        nuevaFoto.innerHTML = `
+            <img src="${codigoFoto}" alt="Trabajo de Cosmiatría Laya">
+            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
+        `;
+        cajaFotos.appendChild(nuevaFoto);
+    });
+}
+
 function agendarCita() {
     const nombre = document.getElementById('clienteNombre').value.trim();
     const dia = document.getElementById('clienteDia').value;
@@ -418,11 +466,9 @@ function agendarCita() {
     const servicio = document.getElementById('clienteServicio').value.trim() || "Consulta general";
     
     if (!nombre) { alert("⚠️ Escribe tu nombre primero"); return; }
-
     const caja = document.getElementById('contenedorCitas');
     const avisoVacio = caja.querySelector('p');
     if (avisoVacio) avisoVacio.remove();
-
     const nuevaCita = document.createElement('div');
     nuevaCita.className = 'cita contenedor-relativo';
     nuevaCita.innerHTML = `
@@ -441,7 +487,6 @@ function agendarCita() {
     alert("✅ ¡Cita agendada con éxito!");
 }
 
-// === ENVIAR OPINIÓN ===
 function enviarComentario() {
     const nombre = document.getElementById('opinionNombre').value.trim();
     const correo = document.getElementById('opinionCorreo').value.trim();
@@ -455,8 +500,7 @@ function enviarComentario() {
     
     const dibujoEstrellas = '★'.repeat(estrellas) + '☆'.repeat(5 - estrellas);
     const fecha = new Date().toLocaleDateString('es-MX');
-
-    // Opinión pública
+    
     const cajaPublica = document.getElementById('cajaOpiniones');
     const avisoPublico = cajaPublica.querySelector('p');
     if (avisoPublico) avisoPublico.remove();
@@ -470,8 +514,7 @@ function enviarComentario() {
         💬 ${comentario}
     `;
     cajaPublica.prepend(tarjetaPublica);
-
-    // Bandeja privada (con correo)
+    
     const cajaPrivada = document.getElementById('cajaPrivada');
     const avisoPrivado = cajaPrivada.querySelector('p');
     if (avisoPrivado) avisoPrivado.remove();
@@ -486,8 +529,7 @@ function enviarComentario() {
         💬 ${comentario}
     `;
     cajaPrivada.prepend(tarjetaPrivada);
-
-    // Limpiar formulario
+    
     document.getElementById('opinionNombre').value = '';
     document.getElementById('opinionCorreo').value = '';
     document.getElementById('opinionTexto').value = '';
@@ -498,35 +540,6 @@ function enviarComentario() {
     alert("✅ ¡Gracias por tu opinión!");
 }
 
-// === FOTOS ===
-function agregarFoto() {
-    const archivo = document.getElementById('subirFoto').files[0];
-    if (!archivo) { alert("⚠️ Primero selecciona una imagen"); return; }
-    const lector = new FileReader();
-    lector.onload = function(e) {
-        const cajaFotos = document.getElementById('contenedorFotos');
-        const aviso = cajaFotos.querySelector('span');
-        if (aviso && cajaFotos.children.length === 1) aviso.parentElement.remove();
-        
-        const nuevaFoto = document.createElement('div');
-        nuevaFoto.className = 'foto-item contenedor-relativo';
-        nuevaFoto.innerHTML = `
-            <img src="${e.target.result}" alt="Trabajo realizado">
-            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
-        `;
-        cajaFotos.prepend(nuevaFoto);
-        guardarTodoEnNube();
-    };
-    lector.readAsDataURL(archivo);
-}
-function quitarFoto(boton) {
-    if (confirm("¿Eliminar esta foto?")) {
-        boton.parentElement.remove();
-        guardarTodoEnNube();
-    }
-}
-
-// === WHATSAPP ===
 function guardarWhatsApp() {
     let numero = document.getElementById('numeroWhatsApp').value.replace(/\D/g, '');
     localStorage.setItem(ID_NUBE + "_whatsapp", numero);
@@ -543,7 +556,6 @@ function actualizarEnlaceWhatsApp() {
     }
 }
 
-// === GUARDAR TODO ===
 function guardarTodo() {
     document.getElementById('textoBienvenida').innerText = document.getElementById('editarBienvenida').value;
     const lineas = document.getElementById('editarServicios').value.split('\n').filter(l => l.trim());
@@ -553,12 +565,10 @@ function guardarTodo() {
     alert("✅ ¡Todo guardado correctamente!");
 }
 
-// === GUARDAR EN ALMACENAMIENTO ===
 function guardarTodoEnNube() {
     const datos = {
         bienvenida: document.getElementById('textoBienvenida').innerText,
         servicios: document.getElementById('listaServicios').innerHTML,
-        fotos: document.getElementById('contenedorFotos').innerHTML,
         citas: document.getElementById('contenedorCitas').innerHTML,
         opinionesPublicas: document.getElementById('cajaOpiniones').innerHTML,
         bandejaPrivada: document.getElementById('cajaPrivada').innerHTML,
@@ -567,10 +577,11 @@ function guardarTodoEnNube() {
     localStorage.setItem(ID_NUBE, JSON.stringify(datos));
 }
 
-// === CARGAR LO GUARDADO AL INICIAR ===
 function cargarDatosGuardados() {
     const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
     if (numero) actualizarEnlaceWhatsApp();
+    
+    cargarFotosPublicas(); // ✅ CARGAR FOTOS PARA TODOS
     
     const guardado = localStorage.getItem(ID_NUBE);
     if (!guardado) return;
@@ -579,7 +590,6 @@ function cargarDatosGuardados() {
         const d = JSON.parse(guardado);
         if (d.bienvenida) document.getElementById('textoBienvenida').innerText = d.bienvenida;
         if (d.servicios) document.getElementById('listaServicios').innerHTML = d.servicios;
-        if (d.fotos) document.getElementById('contenedorFotos').innerHTML = d.fotos;
         if (d.citas) document.getElementById('contenedorCitas').innerHTML = d.citas;
         if (d.opinionesPublicas) document.getElementById('cajaOpiniones').innerHTML = d.opinionesPublicas;
         if (d.bandejaPrivada) document.getElementById('cajaPrivada').innerHTML = d.bandejaPrivada;
