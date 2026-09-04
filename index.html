@@ -49,12 +49,14 @@
         }
         .lista-servicios { list-style: none; padding: 0; }
         .lista-servicios li { padding: 10px 0; border-bottom: 1px solid #EEE; }
-        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+        .galeria { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .foto-item {
-            border-radius: 12px; overflow: hidden; box-shadow: var(--sombra);
-            position: relative; background: var(--gris); min-height: 200px;
+            border-radius: 14px; overflow: hidden; box-shadow: var(--sombra);
+            background: var(--gris); min-height: 250px;
             display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s ease;
         }
+        .foto-item:hover { transform: scale(1.02); }
         .foto-item img { width: 100%; height: 100%; object-fit: cover; }
         .cita {
             background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
@@ -130,7 +132,7 @@
         .contenedor-relativo { position: relative; }
         .solo-admin { display: none; }
         .modo-admin .solo-admin { display: block; }
-        .aviso-foto { background: #E8F5E9; padding: 10px; border-radius: 8px; margin: 8px 0; font-size: 0.9rem; }
+        .logo-inicio { max-width: 180px; margin: 0 auto 1rem; display: block; border-radius: 50%; }
     </style>
 </head>
 <body>
@@ -159,12 +161,6 @@
             <textarea id="editarServicios" rows="5" style="width:100%;"></textarea>
         </div>
         <div style="margin-bottom:10px;">
-            <label>📸 Subir Foto (se ve para TODOS):</label>
-            <input type="file" id="subirFoto" accept="image/*" style="width:100%;">
-            <button class="btn btn-verde" style="width:100%; margin-top:5px;" onclick="agregarFoto()">📤 Agregar Foto</button>
-            <p class="aviso-foto">✅ Las fotos se guardan en internet y las ven TODOS desde cualquier celular o computadora</p>
-        </div>
-        <div style="margin-bottom:10px;">
             <label>🔗 Número de WhatsApp:</label>
             <input type="text" id="numeroWhatsApp" placeholder="521234567890" style="width:100%;">
             <button class="btn btn-whatsapp" style="width:100%; margin-top:5px;" onclick="guardarWhatsApp()">💾 Guardar WhatsApp</button>
@@ -179,9 +175,11 @@
 </div>
 
 <header id="seccionBienvenida">
+    <!-- Logo principal -->
+    <img src="https://i.imgur.com/placeholder1.png" alt="Logo Cosmiatría Laya" class="logo-inicio">
     <h1>✨ Cosmiatría Laya ✨</h1>
     <p>Lic. Laiza González Robles</p>
-    <p id="textoBienvenida"><em>Belleza, cuidado y bienestar para tu piel</em></p>
+    <p id="textoBienvenida"><em>Belleza, cuidado y bienestar para tu piel — El tiempo no vuelve, tu belleza sí 💖</em></p>
 </header>
 
 <nav class="nav-botones">
@@ -199,17 +197,36 @@
         <li>✅ Limpieza facial profesional</li>
         <li>✅ Hidratación y nutrición de piel</li>
         <li>✅ Tratamientos para pieles sensibles</li>
-        <li>✅ Asesoría personalizada de cuidado diario</li>
-        <li>✅ Y mucho más — ¡consúltame!</li>
+        <li>✅ Productos respetuosos — libres de crueldad animal</li>
+        <li>✅ Ficha clínica personalizada</li>
+        <li>✅ Rutina de cuidado facial adaptada a tu piel</li>
+        <li>✅ Masaje facial y espacio de relajación</li>
     </ul>
 </section>
 
 <section id="trabajos" class="tarjeta">
-    <h2>📸 Mis Trabajos</h2>
-    <p style="text-align:center; color:#666; margin-bottom:1rem;">Las fotos que suba la Lic. Laiza aparecerán aquí para todos</p>
-    <div class="galeria" id="contenedorFotos">
-        <div class="foto-item contenedor-relativo">
-            <span style="color:#888;">Todavía no hay fotos. ¡Laiza puede subirlas desde el candado!</span>
+    <h2>📸 Mis Trabajos e Información</h2>
+    <p style="text-align:center; color:#666; margin-bottom:1.5rem;">Conoce más sobre nosotros y el cuidado de tu piel 💖</p>
+    <div class="galeria">
+        <!-- Foto 1: Logo principal -->
+        <div class="foto-item">
+            <img src="https://i.imgur.com/9Z7XQ8Y.png" alt="Logo — El tiempo no vuelve, tu belleza sí">
+        </div>
+        <!-- Foto 2: Servicios de Laiza -->
+        <div class="foto-item">
+            <img src="https://i.imgur.com/K2pR9xL.png" alt="Servicios de Cosmiatría Laiza">
+        </div>
+        <!-- Foto 3: ¿Qué es la piel? -->
+        <div class="foto-item">
+            <img src="https://i.imgur.com/6tWXZ8A.png" alt="¿Qué es la piel? — Funciones y protección">
+        </div>
+        <!-- Foto 4: Las 3 capas de la piel -->
+        <div class="foto-item">
+            <img src="https://i.imgur.com/sT6D9Qw.png" alt="Las 3 capas de la piel y sus funciones">
+        </div>
+        <!-- Foto 5: Características de la piel -->
+        <div class="foto-item">
+            <img src="https://i.imgur.com/8qB7VxY.png" alt="Características y funciones principales de la piel">
         </div>
     </div>
 </section>
@@ -314,14 +331,14 @@
         <p>📸 Instagram: <a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a></p>
         <p id="lineaWhatsApp">💬 WhatsApp: <em>Pendiente de configurar</em></p>
         <p>📍 Ubicación: <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ver en Google Maps — Santa María Nativitas, Edo. de México</a></p>
-        <p>✉️ Escríbeme o agenda tu cita — ¡Te espero!</p>
+        <p>✉️ Escríbeme o agenda tu cita — ¡Te espero con mucho gusto! 💖</p>
     </div>
 </section>
 
 <footer>
     <p>✨ Cosmiatría Laya — Lic. Laiza González Robles ✨</p>
     <p><a href="https://www.instagram.com/skin_carelaya" target="_blank">@skin_carelaya</a> | <a href="https://maps.app.goo.gl/WJNu9vJagXiDUDyx9" target="_blank">Ubicación</a></p>
-    <p style="margin-top:8px; font-size:0.85rem;">© 2026</p>
+    <p style="margin-top:8px; font-size:0.85rem;">"El tiempo no vuelve, tu belleza sí" © 2026</p>
 </footer>
 
 <script>
@@ -388,73 +405,6 @@ function ponerEstrellas(cantidad) {
     for (let i = 0; i < estrellas.length; i++) {
         estrellas[i].style.color = (i < cantidad) ? '#FFD700' : '#CCC';
     }
-}
-
-// === FOTOS CORREGIDAS: SE GUARDAN EN BASE DE DATOS PARA TODOS ===
-function agregarFoto() {
-    const archivo = document.getElementById('subirFoto').files[0];
-    if (!archivo) { alert("⚠️ Primero selecciona una imagen"); return; }
-    
-    const lector = new FileReader();
-    lector.onload = function(e) {
-        const fotoBase64 = e.target.result; // ✅ La foto se convierte en código y se guarda para TODOS
-        
-        // Guardar la foto en la lista de fotos compartida
-        let listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
-        listaFotos.unshift(fotoBase64); // Agregar al principio
-        localStorage.setItem(ID_NUBE + "_fotos_publicas", JSON.stringify(listaFotos));
-        
-        // Mostrarla inmediatamente
-        mostrarFotoEnGaleria(fotoBase64);
-        
-        alert("✅ Foto subida con éxito — ¡YA LA PUEDEN VER TODOS!");
-        document.getElementById('subirFoto').value = "";
-    };
-    lector.readAsDataURL(archivo);
-}
-
-function mostrarFotoEnGaleria(codigoFoto) {
-    const cajaFotos = document.getElementById('contenedorFotos');
-    const aviso = cajaFotos.querySelector('span');
-    if (aviso && cajaFotos.children.length === 1) aviso.parentElement.remove();
-    
-    const nuevaFoto = document.createElement('div');
-    nuevaFoto.className = 'foto-item contenedor-relativo';
-    nuevaFoto.innerHTML = `
-        <img src="${codigoFoto}" alt="Trabajo de Cosmiatría Laya">
-        <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
-    `;
-    cajaFotos.prepend(nuevaFoto);
-}
-
-function quitarFoto(boton) {
-    if (confirm("¿Eliminar esta foto?")) {
-        const imagen = boton.parentElement.querySelector('img').src;
-        let listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
-        listaFotos = listaFotos.filter(f => f !== imagen);
-        localStorage.setItem(ID_NUBE + "_fotos_publicas", JSON.stringify(listaFotos));
-        boton.parentElement.remove();
-    }
-}
-
-// === CARGAR FOTOS AL ABRIR LA PÁGINA (PARA TODOS) ===
-function cargarFotosPublicas() {
-    const listaFotos = JSON.parse(localStorage.getItem(ID_NUBE + "_fotos_publicas") || "[]");
-    if (listaFotos.length === 0) return;
-    
-    const cajaFotos = document.getElementById('contenedorFotos');
-    const aviso = cajaFotos.querySelector('span');
-    if (aviso) aviso.parentElement.remove();
-    
-    listaFotos.forEach(codigoFoto => {
-        const nuevaFoto = document.createElement('div');
-        nuevaFoto.className = 'foto-item contenedor-relativo';
-        nuevaFoto.innerHTML = `
-            <img src="${codigoFoto}" alt="Trabajo de Cosmiatría Laya">
-            <button class="eliminar-elemento" onclick="quitarFoto(this)">×</button>
-        `;
-        cajaFotos.appendChild(nuevaFoto);
-    });
 }
 
 function agendarCita() {
@@ -580,8 +530,6 @@ function guardarTodoEnNube() {
 function cargarDatosGuardados() {
     const numero = localStorage.getItem(ID_NUBE + "_whatsapp");
     if (numero) actualizarEnlaceWhatsApp();
-    
-    cargarFotosPublicas(); // ✅ CARGAR FOTOS PARA TODOS
     
     const guardado = localStorage.getItem(ID_NUBE);
     if (!guardado) return;
